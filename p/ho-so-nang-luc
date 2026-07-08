@@ -1,0 +1,1137 @@
+
+<html lang="vi">
+<head>
+<meta charset="UTF-8"></meta>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"></meta>
+<title>Hồ Sơ Năng Lực – An Thái Phú Steel</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&amp;family=DM+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"></link>
+<style>
+  :root {
+    --green: #1A7A4A;
+    --green-light: #23A162;
+    --green-dark: #0F4D2E;
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --cream: #F8F5EE;
+    --dark: #121212;
+    --gray: #6B6B6B;
+    --border: rgba(201,168,76,0.25);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--dark);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(145deg, var(--green-dark) 0%, var(--green) 50%, #1d5c38 100%);
+    color: #fff;
+    padding: 60px 24px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(45deg, rgba(201,168,76,.04) 0, rgba(201,168,76,.04) 1px, transparent 0, transparent 50%);
+    background-size: 28px 28px;
+  }
+  .hero-inner {
+    max-width: 900px;
+    margin: auto;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+  }
+  .logo-badge {
+    width: 110px; height: 110px;
+    border-radius: 16px;
+    background: #fff;
+    border: 2px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+    box-shadow: 0 4px 24px rgba(0,0,0,.25);
+  }
+  .logo-badge img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .hero-tag {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    font-weight: 600;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 7vw, 52px);
+    font-weight: 900;
+    line-height: 1.12;
+    color: #fff;
+  }
+  .hero h1 span { color: var(--gold); }
+  .hero-sub {
+    font-size: 15px;
+    color: rgba(255,255,255,.75);
+    max-width: 560px;
+  }
+  .hero-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 8px;
+  }
+  .chip {
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.2);
+    padding: 5px 14px;
+    border-radius: 99px;
+    font-size: 12px;
+    color: #fff;
+    white-space: nowrap;
+  }
+  .hero-divider {
+    width: 60px; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 4px auto;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 60px 24px; }
+  .section-inner { max-width: 900px; margin: auto; }
+  .section-label {
+    font-size: 10.5px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--green);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 5vw, 34px);
+    font-weight: 700;
+    color: var(--green-dark);
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+  .section-title span { color: var(--gold); }
+  .gold-line {
+    width: 48px; height: 3px;
+    background: var(--gold);
+    border-radius: 2px;
+    margin-bottom: 28px;
+  }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 24px;
+  }
+  @media(max-width: 600px) { .about-grid { grid-template-columns: 1fr; } }
+  .about-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 12px rgba(0,0,0,.05);
+  }
+  .about-card h3 {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .about-card h3::before {
+    content: '';
+    display: inline-block;
+    width: 20px; height: 2px;
+    background: var(--gold);
+    border-radius: 1px;
+  }
+  .about-card p, .about-card li {
+    font-size: 14px;
+    color: #444;
+    line-height: 1.7;
+  }
+  .about-card ul { list-style: none; padding: 0; }
+  .about-card ul li {
+    padding-left: 18px;
+    position: relative;
+    margin-bottom: 5px;
+  }
+  .about-card ul li::before {
+    content: '▸';
+    position: absolute; left: 0;
+    color: var(--green);
+    font-size: 10px;
+    top: 3px;
+  }
+  .info-row {
+    display: flex; gap: 8px;
+    font-size: 13px; color: #444;
+    margin-bottom: 7px;
+    align-items: flex-start;
+  }
+  .info-row strong { color: var(--green-dark); min-width: 80px; font-weight: 600; flex-shrink: 0; }
+
+  /* ── STATS BANNER ── */
+  .stats-banner {
+    background: linear-gradient(135deg, var(--green-dark), var(--green));
+    color: #fff;
+    padding: 48px 24px;
+  }
+  .stats-grid {
+    max-width: 900px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    text-align: center;
+  }
+  @media(max-width: 600px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+  .stat-item {}
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 6vw, 42px);
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .stat-unit {
+    font-size: 14px;
+    color: rgba(255,255,255,.6);
+    margin-top: 4px;
+  }
+
+  /* ── PRODUCTS ── */
+  .products-bg { background: #fff; }
+  .prod-tabs {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-bottom: 24px;
+  }
+  .prod-tab {
+    padding: 7px 16px;
+    border-radius: 99px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: default;
+    border: 1.5px solid var(--border);
+    color: var(--gray);
+    transition: all .2s;
+    white-space: nowrap;
+  }
+  .prod-tab.active {
+    background: var(--green);
+    border-color: var(--green);
+    color: #fff;
+  }
+  .prod-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 14px;
+  }
+  .prod-card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    background: var(--cream);
+    transition: box-shadow .2s;
+  }
+  .prod-card:hover { box-shadow: 0 4px 16px rgba(26,122,74,.12); }
+  .prod-cat {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--green);
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .prod-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--green-dark);
+    margin-bottom: 4px;
+  }
+  .prod-hrc {
+    display: inline-block;
+    background: var(--green);
+    color: #fff;
+    font-size: 11px;
+    padding: 2px 9px;
+    border-radius: 99px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .prod-desc {
+    font-size: 12px;
+    color: var(--gray);
+    line-height: 1.55;
+  }
+
+  /* ── MACHINES ── */
+  .machines-bg { background: var(--cream); }
+  .mach-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  @media(max-width: 580px) { .mach-grid { grid-template-columns: 1fr; } }
+  .mach-group {
+    background: #fff;
+    border-radius: 12px;
+    padding: 22px;
+    border: 1px solid var(--border);
+  }
+  .mach-group h3 {
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--green);
+    font-weight: 700;
+    margin-bottom: 14px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .mach-group h3 .icon {
+    width: 28px; height: 28px;
+    border-radius: 6px;
+    background: var(--green);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .mach-list { list-style: none; }
+  .mach-list li {
+    font-size: 13px;
+    color: #444;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(0,0,0,.05);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .mach-list li::before {
+    content: '';
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+  .mach-list li:last-child { border-bottom: none; }
+
+  /* ── SERVICES ── */
+  .services-bg { background: #fff; }
+  .svc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 18px;
+  }
+  .svc-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 20px;
+    background: var(--cream);
+    position: relative;
+    overflow: hidden;
+  }
+  .svc-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: var(--green);
+    border-radius: 4px 0 0 4px;
+  }
+  .svc-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px;
+    font-weight: 900;
+    color: rgba(26,122,74,.1);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .svc-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--green-dark);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .svc-desc { font-size: 13px; color: var(--gray); line-height: 1.6; }
+
+  /* ── VISION ── */
+  .vision-bg {
+    background: linear-gradient(160deg, var(--green-dark) 0%, #1d5c38 100%);
+    color: #fff;
+    padding: 60px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .vision-bg::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      -45deg, rgba(201,168,76,.04) 0, rgba(201,168,76,.04) 1px, transparent 0, transparent 40px
+    );
+  }
+  .vision-grid {
+    max-width: 900px; margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+    position: relative; z-index: 1;
+  }
+  @media(max-width: 600px) { .vision-grid { grid-template-columns: 1fr; } }
+  .vision-item {
+    border: 1px solid rgba(201,168,76,.3);
+    border-radius: 12px;
+    padding: 24px;
+    background: rgba(255,255,255,.05);
+    backdrop-filter: blur(4px);
+  }
+  .vision-icon {
+    font-size: 26px;
+    margin-bottom: 10px;
+  }
+  .vision-item h4 {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .vision-item p {
+    font-size: 13.5px;
+    color: rgba(255,255,255,.8);
+    line-height: 1.65;
+  }
+  .vision-header {
+    max-width: 900px; margin: 0 auto 32px;
+    position: relative; z-index: 1;
+    text-align: center;
+  }
+  .vision-header .section-label { color: var(--gold-light); }
+  .vision-header .section-title { color: #fff; }
+
+  /* ── CONTACT ── */
+  .contact-bg {
+    background: var(--cream);
+  }
+  .contact-box {
+    background: #fff;
+    border-radius: 16px;
+    padding: 36px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 24px rgba(0,0,0,.06);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  @media(max-width: 600px) {
+    .contact-box { grid-template-columns: 1fr; padding: 24px; }
+  }
+  .contact-left h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--green-dark);
+    margin-bottom: 18px;
+  }
+  .contact-item {
+    display: flex; gap: 12px;
+    margin-bottom: 14px;
+    align-items: flex-start;
+  }
+  .contact-icon {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    background: var(--green);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 16px;
+    flex-shrink: 0;
+  }
+  .contact-info { font-size: 13px; color: #444; line-height: 1.55; }
+  .contact-info strong { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--gray); margin-bottom: 2px; }
+  .contact-info a { color: var(--green); text-decoration: none; font-weight: 600; }
+  .contact-right {
+    display: flex; flex-direction: column; justify-content: center;
+    align-items: center; text-align: center;
+    background: linear-gradient(135deg, var(--green-dark), var(--green));
+    border-radius: 12px;
+    padding: 28px;
+    color: #fff;
+  }
+  .contact-right .big-phone {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--gold);
+    margin: 12px 0;
+    word-break: break-all;
+  }
+  .contact-right p { font-size: 13px; color: rgba(255,255,255,.75); }
+  .cta-btn {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--green-dark);
+    font-weight: 700;
+    font-size: 13px;
+    padding: 10px 24px;
+    border-radius: 99px;
+    text-decoration: none;
+    margin-top: 16px;
+    letter-spacing: .5px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--green-dark);
+    color: rgba(255,255,255,.55);
+    text-align: center;
+    padding: 24px;
+    font-size: 12px;
+  }
+  footer strong { color: var(--gold); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-inner > * { animation: fadeUp .6s ease both; }
+  .hero-inner > *:nth-child(1) { animation-delay: .05s; }
+  .hero-inner > *:nth-child(2) { animation-delay: .12s; }
+  .hero-inner > *:nth-child(3) { animation-delay: .2s; }
+  .hero-inner > *:nth-child(4) { animation-delay: .28s; }
+  .hero-inner > *:nth-child(5) { animation-delay: .35s; }
+  .hero-inner > *:nth-child(6) { animation-delay: .42s; }
+
+  /* ── PHOTO GALLERY ── */
+  .gallery-section { background: #fff; }
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 12px;
+  }
+  @media(max-width:580px) { .photo-grid { grid-template-columns: repeat(2,1fr); } }
+  .photo-item {
+    border-radius: 10px;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    position: relative;
+    background: #111;
+  }
+  .photo-item.tall { aspect-ratio: 3/4; }
+  .photo-item.wide { grid-column: span 2; aspect-ratio: 16/9; }
+  .photo-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform .4s ease;
+  }
+  .photo-item:hover img { transform: scale(1.05); }
+  .photo-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 8px 12px;
+    background: linear-gradient(to top, rgba(0,0,0,.7), transparent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .5px;
+    opacity: 0;
+    transition: opacity .3s;
+  }
+  .photo-item:hover .photo-caption { opacity: 1; }
+
+  /* ── STEEL SHOWCASE ── */
+  .steel-grid {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 10px;
+    margin-top: 12px;
+  }
+  @media(max-width:700px) { .steel-grid { grid-template-columns: repeat(2,1fr); } }
+  .steel-photo {
+    border-radius: 10px;
+    overflow: hidden;
+    aspect-ratio: 1/1;
+    position: relative;
+  }
+  .steel-photo img {
+    width:100%; height:100%;
+    object-fit: cover;
+    display: block;
+    transition: transform .4s;
+  }
+  .steel-photo:hover img { transform: scale(1.06); }
+  .steel-label {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 10px 10px 8px;
+    background: linear-gradient(to top, rgba(15,77,46,.9), transparent);
+    color: #fff; font-size: 11px; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase;
+  }
+
+  /* ── EXPO ── */
+  .expo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 12px;
+  }
+  @media(max-width:500px) { .expo-grid { grid-template-columns: 1fr; } }
+  .expo-photo {
+    border-radius: 12px;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+  }
+  .expo-photo img { width:100%; height:100%; object-fit: cover; display: block; }
+
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════ HERO ══════════════════════ -->
+<header class="hero">
+  <div class="hero-inner">
+    <div class="logo-badge">
+      <img alt="An Thái Phú Steel Logo" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgASqFV90R47iyywl1ZTvS3NSylkW-uBdCtOPgLxe9cWuJtRreZUgeSwaKrV7UwrJfuF7J4dmwafNx1GQZV73VBw-xdHu0XPZ4HQsJig_b2AbzeM9kmAn5jaJ58Kx1BMO3yBFAsBrj7XY25s6v3Rq8O2-oenAOfETTRSU4B6usI4wmfcQMJtzcRI14UU4E/s1024/z7904141765524_b95653fb3801f95932238a43fc0a3762.jpg" />
+    </div>
+    <div class="hero-tag">Hồ Sơ Năng Lực · Công Ty TNHH MTV</div>
+    <h1>AN THÁI PHÚ<br /><span>STEEL</span></h1>
+    <div class="hero-divider"></div>
+    <p class="hero-sub">Chuyên cung cấp thép khuôn mẫu, thép công cụ, thép chế tạo máy – cùng dịch vụ gia công CNC &amp; nhiệt luyện chân không tiêu chuẩn quốc tế.</p>
+    <div class="hero-chips">
+      <span class="chip">Thành lập 2010</span>
+      <span class="chip">Thuận An – Bình Dương</span>
+      <span class="chip">Chi nhánh TP.HCM</span>
+      <span class="chip">60 nhân viên</span>
+      <span class="chip">www.anthaiphu.com</span>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════════════════ GIỚI THIỆU ══════════════════════ -->
+<section>
+  <div class="section-inner">
+    <div class="section-label">Giới thiệu</div>
+    <div class="section-title">Nhà cung cấp <span>thép đặc biệt</span><br />hàng đầu miền Nam</div>
+    <div class="gold-line"></div>
+
+    <div class="about-grid">
+      <div class="about-card">
+        <h3>Thông tin công ty</h3>
+        <div class="info-row"><strong>Tên công ty:</strong><span>Công ty TNHH MTV An Thái Phú</span></div>
+        <div class="info-row"><strong>Thành lập:</strong><span>16/08/2010</span></div>
+        <div class="info-row"><strong>MST:</strong><span>3701764834</span></div>
+        <div class="info-row"><strong>Vốn điều lệ:</strong><span>15 tỷ VNĐ</span></div>
+        <div class="info-row"><strong>Nhân sự:</strong><span>60 người</span></div>
+        <div class="info-row"><strong>Trụ sở:</strong><span>Kp. Bình Thuận 2, P. Thuận Giao, Tp. Thuận An, Bình Dương</span></div>
+        <div class="info-row"><strong>Chi nhánh:</strong><span>732 QL1A, P. Bình Hưng Hòa B, Q. Bình Tân, TP.HCM</span></div>
+      </div>
+      <div class="about-card">
+        <h3>Lĩnh vực kinh doanh</h3>
+        <ul>
+          <li>Thép khuôn mẫu, thép công cụ, thép chế tạo máy</li>
+          <li>Thép khuôn nhựa – khuôn dập nóng – khuôn dập nguội</li>
+          <li>Gia công phay 6 mặt, phay CNC theo bản vẽ</li>
+          <li>Nhiệt luyện chân không &amp; lò ram tiêu chuẩn</li>
+          <li>Vỏ khuôn phi tiêu chuẩn theo yêu cầu</li>
+          <li>Phân phối sỉ lẻ theo đơn đặt hàng</li>
+          <li>Nhập khẩu trực tiếp từ nhà máy nước ngoài</li>
+        </ul>
+      </div>
+      <div class="about-card">
+        <h3>Tầm nhìn &amp; Sứ mệnh</h3>
+        <p>Phát triển thành <strong>tổ hợp dịch vụ thép đặc biệt khép kín:</strong><br />
+        <em>Phôi thép → Gia công thô → Xử lý nhiệt → Giao khách hàng</em></p>
+        <br />
+        <ul>
+          <li>Cung cấp sản phẩm chất lượng cao, giá cả hợp lý</li>
+          <li>Giao hàng nhanh, đúng tiến độ</li>
+          <li>Kết nối &amp; hợp tác cùng phát triển</li>
+        </ul>
+      </div>
+      <div class="about-card">
+        <h3>Ưu thế cạnh tranh</h3>
+        <ul>
+          <li>Kho thép đa dạng – 2.500 m² tại Bình Dương</li>
+          <li>Chi nhánh 1.300 m² tại TP.HCM – giao hàng nhanh</li>
+          <li>Có sẵn Mill Certificate (chứng chỉ lò) cho mọi lô hàng</li>
+          <li>Hỗ trợ kỹ thuật chọn mác thép theo ứng dụng</li>
+          <li>Đối tác nhà máy uy tín tại Nhật, Châu Âu, Trung Quốc</li>
+          <li>Đội ngũ sale am hiểu kỹ thuật sâu</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ STATS ══════════════════════ -->
+<div class="stats-banner">
+  <div class="stats-grid">
+    <div class="stat-item">
+      <div class="stat-num">14+</div>
+      <div class="stat-unit">Năm kinh nghiệm</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">60</div>
+      <div class="stat-unit">Nhân viên</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">2,500</div>
+      <div class="stat-unit">m² kho chính</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">30+</div>
+      <div class="stat-unit">Máy CNC &amp; cắt</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ SẢN PHẨM ══════════════════════ -->
+<section class="products-bg">
+  <div class="section-inner">
+    <div class="section-label">Danh mục sản phẩm</div>
+    <div class="section-title">Thép <span>khuôn mẫu</span> &amp; thép đặc biệt</div>
+    <div class="gold-line"></div>
+
+    <div class="prod-grid">
+      <!-- CARBON -->
+      <div class="prod-card">
+        <div class="prod-cat">Thép Carbon</div>
+        <div class="prod-name">S45C / S50C / S55C</div>
+        <span class="prod-hrc">25–55 HRC</span>
+        <div class="prod-desc">Vỏ khuôn, trục, bánh răng, bulong chịu lực, chi tiết ô tô. Tấm 4–500mm, tròn 18–200mm.</div>
+      </div>
+      <!-- KHUÔN NHỰA -->
+      <div class="prod-card">
+        <div class="prod-cat">Khuôn Nhựa</div>
+        <div class="prod-name">P20 / 1.2311H</div>
+        <span class="prod-hrc">30–33 HRC sẵn</span>
+        <div class="prod-desc">Khuôn ép phun nhựa gia dụng, khuôn thổi nhựa, khuôn ép nén Melamine. Tấm 10–300mm.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-cat">Khuôn Nhựa</div>
+        <div class="prod-name">718H</div>
+        <span class="prod-hrc">32–36 HRC sẵn</span>
+        <div class="prod-desc">Khuôn nhựa kích thước lớn (PA, POM, ABS, PP). Bóng gương tốt. Tấm 50–400mm.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-cat">Khuôn Nhựa</div>
+        <div class="prod-name">1.2083H / S136H</div>
+        <span class="prod-hrc">28–50 HRC</span>
+        <div class="prod-desc">Thép không rỉ, khuôn nhựa ăn mòn (PVC, PMMA), quang học, y tế. Tấm 6–300mm, tròn 18–300mm.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-cat">Khuôn Nhựa</div>
+        <div class="prod-name">NAK80 / P80</div>
+        <span class="prod-hrc">36–43 HRC sẵn</span>
+        <div class="prod-desc">Bóng gương cực cao, khuôn đồ gia dụng cao cấp, thấm nitơ tốt. Tấm 20–300mm.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-cat">Khuôn Nhựa</div>
+        <div class="prod-name">1.2316H / 1.2738</div>
+        <span class="prod-hrc">32–36 HRC sẵn</span>
+        <div class="prod-desc">Chống ăn mòn tuyệt đối (pH&lt;5), khuôn CA, POM. Hiệu ứng gương quang học. Tấm 20–300mm.</div>
+      </div>
+      <!-- KHUÔN DẬP NGUỘI -->
+      <div class="prod-card">
+        <div class="prod-cat">Khuôn Dập Nguội</div>
+        <div class="prod-name">SKD11 / D2</div>
+        <span class="prod-hrc">60–64 HRC</span>
+        <div class="prod-desc">Khuôn dập, dao cắt tôn, khuôn đột lỗ, dao xả băng inox. Tròn ø10–400mm, tấm 6–200mm.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-cat">Khuôn Dập Nguội</div>
+        <div class="prod-name">Cr12MoV / DC53</div>
+        <span class="prod-hrc">58–64 HRC</span>
+        <div class="prod-desc">Khuôn dập liên hoàn, khuôn cắt dây, cán ren. DC53 ít vỡ khi cắt dây EDM. Tấm &amp; tròn.</div>
+      </div>
+      <!-- KHUÔN DẬP NÓNG -->
+      <div class="prod-card">
+        <div class="prod-cat">Khuôn Dập Nóng</div>
+        <div class="prod-name">SKD61 / 1.2344</div>
+        <span class="prod-hrc">45–54 HRC</span>
+        <div class="prod-desc">Khuôn đúc nhôm, khuôn đùn nhôm định hình, khuôn ép nhiệt linh kiện xe máy, ô tô. Tấm &amp; tròn.</div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-cat">Khuôn Dập Nóng</div>
+        <div class="prod-name">1.8418 / DK1S / FDAC</div>
+        <span class="prod-hrc">Cao cấp</span>
+        <div class="prod-desc">Khuôn đúc nhôm cao cấp cho linh kiện ô tô, xe máy, đèn LED. Độ bền nhiệt vượt trội.</div>
+      </div>
+      <!-- THÉP CÔNG CỤ -->
+      <div class="prod-card">
+        <div class="prod-cat">Thép Công Cụ</div>
+        <div class="prod-name">SCM440</div>
+        <span class="prod-hrc">25–55 HRC</span>
+        <div class="prod-desc">Bánh răng, trục, khuôn nhựa trung – lớn, chi tiết máy chịu lực. Tấm 20–100mm, tròn 20–200mm.</div>
+      </div>
+      <!-- SKH -->
+      <div class="prod-card">
+        <div class="prod-cat">Thép Cao Tốc</div>
+        <div class="prod-name">SKH9 / SKH51</div>
+        <span class="prod-hrc">60–65 HRC</span>
+        <div class="prod-desc">Dao phay, dao tiện, dao cắt thép, dụng cụ gia công CNC chịu nhiệt độ cao.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ DỊCH VỤ ══════════════════════ -->
+<section class="services-bg">
+  <div class="section-inner">
+    <div class="section-label">Dịch vụ gia công</div>
+    <div class="section-title">Giải pháp <span>khép kín</span> từ phôi đến thành phẩm</div>
+    <div class="gold-line"></div>
+    <div class="svc-grid">
+      <div class="svc-card">
+        <div class="svc-num">01</div>
+        <div class="svc-title">Cắt phôi &amp; xẻ tấm</div>
+        <div class="svc-desc">Cưa đứng, cưa ngang, cưa đĩa CNC, máy cắt phi – cắt chính xác theo kích thước yêu cầu.</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-num">02</div>
+        <div class="svc-title">Phay 6 mặt CNC</div>
+        <div class="svc-desc">Trung tâm gia công CNC từ 400×800mm đến 2200×3000mm, dung sai ±0.01mm. Phay mặt, phay cạnh, vát cạnh.</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-num">03</div>
+        <div class="svc-title">Gia công vỏ khuôn</div>
+        <div class="svc-desc">Máy gia công ngang, khoan đường nước, cắt dây, tiện CNC. Sản xuất vỏ khuôn phi tiêu chuẩn theo bản vẽ.</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-num">04</div>
+        <div class="svc-title">Nhiệt luyện chân không</div>
+        <div class="svc-desc">Lò chân không đạt chuẩn quốc tế, lò ram 4 cái. Xử lý SKD11, SKD61, DC53, 1.2083, 1.2344… đúng quy trình.</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-num">05</div>
+        <div class="svc-title">Mài phẳng</div>
+        <div class="svc-desc">6 máy mài phẳng độ chính xác cao, bề mặt Ra 0.4–0.8 µm. Xử lý thép đã tôi cứng.</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-num">06</div>
+        <div class="svc-title">Tư vấn kỹ thuật</div>
+        <div class="svc-desc">Đội ngũ kỹ thuật tư vấn chọn mác thép, quy trình nhiệt luyện, thông số gia công phù hợp từng ứng dụng.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ MÁY MÓC ══════════════════════ -->
+<section class="machines-bg">
+  <div class="section-inner">
+    <div class="section-label">Năng lực máy móc</div>
+    <div class="section-title">Thiết bị <span>hiện đại</span> – Năng lực sản xuất lớn</div>
+    <div class="gold-line"></div>
+    <div class="mach-grid">
+      <div class="mach-group">
+        <h3><span class="icon">⚙</span>Máy cắt phôi</h3>
+        <ul class="mach-list">
+          <li>Máy cưa đứng (2 máy – cắt dài 3m)</li>
+          <li>Máy cưa ngang dưới 1m (13 cái)</li>
+          <li>Máy cưa ngang 1300×1300mm (1 cái)</li>
+          <li>Máy cưa đĩa tấm CNC 1300mm (1 cái)</li>
+          <li>Máy cắt phi tròn (3 máy)</li>
+          <li>Máy cưa đĩa phi tròn CNC (1 máy)</li>
+          <li>Lò nhiệt luyện chân không (1 lò)</li>
+          <li>Lò ram (4 lò)</li>
+        </ul>
+      </div>
+      <div class="mach-group">
+        <h3><span class="icon">🔧</span>Máy phay mài</h3>
+        <ul class="mach-list">
+          <li>Máy phay cạnh CNC (3 máy)</li>
+          <li>Máy phay mặt CNC (2 máy)</li>
+          <li>Máy phay mặt NC (4 máy)</li>
+          <li>Máy mài phẳng (6 cái)</li>
+          <li>Máy vát cạnh (2 máy)</li>
+          <li>Máy khắc số (3 máy)</li>
+          <li>Máy taro điện (2 máy)</li>
+        </ul>
+      </div>
+      <div class="mach-group">
+        <h3><span class="icon">💎</span>Trung tâm gia công CNC</h3>
+        <ul class="mach-list">
+          <li>Trung tâm CNC 2200×3000mm (1 máy)</li>
+          <li>Trung tâm CNC 1600×2000mm (1 máy)</li>
+          <li>Trung tâm CNC 800×1600mm (1 máy)</li>
+          <li>Trung tâm CNC 600×1200mm (2 máy)</li>
+          <li>Trung tâm Mazak 500×800mm (1 máy)</li>
+          <li>Trung tâm CNC 400×800mm (2 máy)</li>
+          <li>Máy gia công ngang 800×1200mm (1 máy)</li>
+        </ul>
+      </div>
+      <div class="mach-group">
+        <h3><span class="icon">🔩</span>Thiết bị chuyên dụng</h3>
+        <ul class="mach-list">
+          <li>Máy CNC khoan đường nước 1000 (1 máy)</li>
+          <li>Máy khoan lỗ NC đứng (2 máy)</li>
+          <li>Máy quản lý dao cụ thông minh (3 máy)</li>
+          <li>Máy cắt dây EDM (2 cái)</li>
+          <li>Máy tiện CNC (2 cái)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════ HÌNH ẢNH MÁY MÓC ══════════════════════ -->
+<section class="gallery-section">
+  <div class="section-inner">
+    <div class="section-label">Hình ảnh thực tế</div>
+    <div class="section-title">Xưởng sản xuất <span>&amp; máy móc</span></div>
+    <div class="gold-line"></div>
+    <div class="photo-grid">
+      <div class="photo-item wide">
+        <img alt="Trung tâm gia công CNC lớn" src="https://blogger.googleusercontent.com/img/a/AVvXsEjhWJegregcG_T_PbcoJ7yGmAn9CITeiQTNy2eZfWZmPNyGtJYZkD8dUQblx3lmEDdq0XOfaK2kUxMrTMzqkydb3FmqiTw_yILiBEWx_kYibqv9GL0rTTBHIYweZuxVxWyBEBzzjidtzszcpd4uki9IZVX3SGcNUzm4WADgT5nMcO4DQjUKWE8GLdNPFko" />
+        <div class="photo-caption">Trung tâm CNC 2200×3000mm</div>
+      </div>
+      <div class="photo-item">
+        <img alt="Máy CNC cam" src="https://blogger.googleusercontent.com/img/a/AVvXsEhvSt9Zor2dE09oBi9Z3E3QDVlsJh8WqcsI-WRoABj3exOr5jNGfeqoxlLp3AErOizwVMaijciznMwBeKJjAgCRDQt7moMJ8DCpxzhPXc0_imTPODGA-IJwBJrivhMwtbJy35bzfY2qJWKC_Ge-1P7LkVRuv3CAajxbWSnMh8nVzXAgSZPkD38MYvqNv0s" />
+        <div class="photo-caption">Dây chuyền CNC – vỏ khuôn</div>
+      </div>
+      <div class="photo-item">
+        <img alt="TVM-1245" src="https://blogger.googleusercontent.com/img/a/AVvXsEghkOXJic_-TRApjy4zkYkN_Mue4WOQCpqgSbRbtJFm51hNCpIF6uJ2Kqjf3CQcIqgulyG4DWv3ZwDN5Bbzmk00VtTs5pYnNlkvww2BxAt4JCs-O_ZpDx89R4Bvmc2EH_H-OcxqMsZRRkBw5nHQj78kIfW9jO8okidMMcAY4jLemJsLVV-Ae5rkJYkcIfo" />
+        <div class="photo-caption">Máy CNC TVM-1245</div>
+      </div>
+      <div class="photo-item">
+        <img alt="JHQ1100" src="https://blogger.googleusercontent.com/img/a/AVvXsEg6mWRtd3PGj54d0mYYjqt0SVoQqIkexrpLgyNpD_MEk6yGuZVi-lALvI-n2iyvDLBMAbJb5HhoU3PFvhUd6BTy2g5XRAGYnVmerW1B9AkJCx4lWRd8kTR2sLoWjoBhdRR43RvAwnoEJmlVun4FUEJN1o4ZoJMRBOcQsOSZl56ciqwVpbszDt55W7z5M4M" />
+        <div class="photo-caption">Trung tâm CNC JHQ-1100</div>
+      </div>
+      <div class="photo-item wide">
+        <img alt="Phay mặt lớn" src="https://blogger.googleusercontent.com/img/a/AVvXsEhIzusg96BIa_qhu8FLEwOWVhXJW1hMKezOKcxzt502uXgmO6BinU1yMkCNJrupbw-UWPQ6W5TvIm1FxwfKQiUYzyHWP8uIicBxvX1o4Jt_p_P3Ozzfk1K5pgEYYBBhiuuG6Ypjc4I7AvmIUzQX1VUpZZ8K7Vu2VLVfpMp8YvDYV-xyuK_lJTNmvUbmnqo" />
+        <div class="photo-caption">Máy phay mặt khổ lớn</div>
+      </div>
+      <div class="photo-item">
+        <img alt="Công nhân – máy mài" src="https://blogger.googleusercontent.com/img/a/AVvXsEhxdqpe8c8WbRFogltcNR6qB_dwLm2UHe5A3sRa3NYapcIkWi-FUIziQCycgdtzc1gaBeo3Uf4sZ8vv-Ays5D_lrabPrNEZqss2fnQkOkSXysteJhM_oEWTtV0vk40h6bfagQyh-8QecY8RYVvGK-i2HTa-nT54_-48vQ0Cgs1AYK-FYc6E2VjAk6iNQkE" />
+        <div class="photo-caption">Máy mài phẳng KENT</div>
+      </div>
+      <div class="photo-item">
+        <img alt="Máy cưa H500" src="https://blogger.googleusercontent.com/img/a/AVvXsEhya6hLfQMtDG_vTbYVdVew2vhqeNeUeosnznvWN684XaXEWzxZBoqahn8qSmXvNMOStz-Hw98pheHzXzBFH3jIUNq3g8DAvHWALOa7AiJDCG2TtBlKjfM3XieIWdZvDtYUWt-8lcx5U6SodBVOcPGgK0mN9M0eIhud2yRIEwxc6t3XXMdFh99vTeZkK3s" />
+        <div class="photo-caption">Máy cưa ngang H500-900G</div>
+      </div>
+      <div class="photo-item">
+        <img alt="Máy cưa đứng lớn" src="https://blogger.googleusercontent.com/img/a/AVvXsEiMUQBYCjiymHgwfapE_RZR62_l3hCb8w2_UN0rhaQnDxh8YoJcUlcQNyV7JQyrqu6ZYsWsoXbueyGNnwZYwynl7yIwWmmb6a23RsrDOUt7bkM-4UOYosRb-rYPmwAE0Cx-4j195h41p0UK7nayIFMXrm97bIDB21uBnuW0MB_roRV-dX5qAT0MieazdKA" />
+        <div class="photo-caption">Máy cưa đứng khổ lớn</div>
+      </div>
+      <div class="photo-item">
+        <img alt="Máy phay CNC" src="https://blogger.googleusercontent.com/img/a/AVvXsEiOWIuRV6rCeYLrLbpi31I8OiLcM6iMsdFoqAM66zCnjaloTEIwz1jJETe0K7H1y64TK4e9Mz1IwSpX7_WBb348TKBWS2G1XhOAkK1mvLYEL0MXvxdujAXYyrQpeBaq_6_u-azSsnGrwHjhyEGSuxt5PcxN4B3T253KuA-JHNSeo1yKlcdXDzFo9Bqz03w" />
+        <div class="photo-caption">Máy phay cạnh CNC</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ KHO HÀNG THÉP ══════════════════════ -->
+<section style="background: var(--cream);">
+  <div class="section-inner">
+    <div class="section-label">Kho hàng</div>
+    <div class="section-title">Phôi thép <span>đa dạng</span> – sẵn kho</div>
+    <div class="gold-line"></div>
+    <div class="steel-grid">
+      <div class="steel-photo">
+        <img alt="Thép tấm phay bóng" src="https://blogger.googleusercontent.com/img/a/AVvXsEhbseXAQi-y4XWpa6VB8lmso1vahLsV2yGd_4OqDDiXVtIvwOr1OJRTAfXRG-LZsGE9r2xyU_VXOWasXgEaX56gOITkHr9cCiGxGXhELIJIKDaZdY2FW5P_Q8j3KGakbkcZMvnGcMym4uP2cBJR3p5XKLFLj_pNGH41eaJv3X3JQwjlNIXmE4wEh1a1VSU" />
+        <div class="steel-label">Thép tấm phay 6 mặt</div>
+      </div>
+      <div class="steel-photo">
+        <img alt="Thép khuôn nhựa" src="https://blogger.googleusercontent.com/img/a/AVvXsEiN5Ky0nQei6jmrItCv9BS2Mju-kqK5ABIt6VxNy7xskcUPF-L83pZ6GNfvYgm37yv8qHGns_FlNX41-2nB21PU2Rv6Wj30dITbdhnS-SqVV9ZivJVNbL9j9i6TQjCaQuzr-ZkGdb_oMsmPTqhqAvEeC-dx0G8Kqai_BqVe18XA5WXNX7QVEkm1kONw164" />
+        <div class="steel-label">Thép khuôn nhựa P20/718</div>
+      </div>
+      <div class="steel-photo">
+        <img alt="S136 tấm" src="https://blogger.googleusercontent.com/img/a/AVvXsEiF2Lkra8PMMolkEJhholBozDqMMe0cVgxIaMlwr6Oes0sICLcrFilRIlfS792qOGqi8uZNo8Z3NJ5PNp7qWU5OJUBw5fbu3muJRQvzv2XFRXA41t2z6JCln7nwmM_lOyQIxluICyjmqr51hSvFTVO2eLFx7Vja4hixtM20nIGZXwt1WjoRHi3pccvjMoE" />
+        <div class="steel-label">S136 / 1.2083 tấm</div>
+      </div>
+      <div class="steel-photo">
+        <img alt="Thép tròn H13" src="https://blogger.googleusercontent.com/img/a/AVvXsEhkpX_Da-v0qU2aj3cgyB17nt1wHQtIZUUdoxAmUJh3rHB0tkNHz4DJOigA1QMw7dp0FI7X69yXvBZHTbx3-dySVAqnwQRC1qX5lSywDjI8inH3SJ4eM0G38so2NgtQ003b3cAqFzo_Da8hCOdhCXMIBB_mV45AbO28Nc0CbWlopoVcY_I_F5KTVdxE2bI" />
+        <div class="steel-label">Thép tròn H13 ø540mm</div>
+      </div>
+      <div class="steel-photo">
+        <img alt="Kho thép tấm" src="https://blogger.googleusercontent.com/img/a/AVvXsEgELxbQ3EHwG8Ks5RsR35MYPtqU32ujMTy_EEKVrWpiFjurqiGI_AOc6Mqdoqpa6_Qi_QyavSSVyBP3DyqLK-n6UwStZtNYLAVAYNcKAv5gy9T4RfMf8oIIvEufX1A-TJJLi_ccf7zKCiH8-uko9CmMUujahqz9Dc0hQdHwrQ84AeN75G-OfRXJFwvCTyk" />
+        <div class="steel-label">Kho thép tấm sẵn hàng</div>
+      </div>
+      <div class="steel-photo">
+        <img alt="Thép tấm đen lớn" src="https://blogger.googleusercontent.com/img/a/AVvXsEggRRGhb88z0ZajP9HXDdRf7BL-T8n2y6J4GoZ1TyGkOogz71Q18uAcstShGx443PPqv9LlIrhX0iQABS9cK25zZ8povSe6F-pZMcxR4x5xlKJmVkEKCpqBy20rRODKPBK81OLgCDRDYm6_F-0TYSFpXGt19YHiBGpDZyvF_4z5n6hqmEmv_12I6gBMS1I" />
+        <div class="steel-label">Phôi thép cỡ lớn</div>
+      </div>
+      <div class="steel-photo">
+        <img alt="Thép đóng hộp" src="https://blogger.googleusercontent.com/img/a/AVvXsEhcZR94QKIs4zuEwNKegxc1YnAbLVC0kbmuPKKJGD4h3BaDXrtB-Ll44U1cSWPqRA2Ikq9ZucDt43r-3Iy3M4edvREMq9yF-Az0SfI_WQEo-TWqwa4umla3naLBX96qA7RDAy7wB2MbLFr71CoWhGofHDQpCgTeG2TJCVWuiRlr3cjLwnrbV4qhgq3qsg0" />
+        <div class="steel-label">Nhập khẩu đóng gói chuẩn</div>
+      </div>
+      <div class="steel-photo">
+        <img alt="Phôi tại nhà máy" src="https://blogger.googleusercontent.com/img/a/AVvXsEiNEFSb-EFa-i9IvYESgWouS-7jG_xXD_zbcrJDQtm8aOPbfAy1UvuTK4mTQLFpa4W2_FpSy6HA23XdbQvzyZIy3V8bcfPaR3tty24njoDfaU0rZoLrwuoKGxgfx4TSYzZR1s6pNIU9Py0SYiHRWpCIxMlTWpOsp_MRiZDg2FoGcuLGu9WJwlej4iRdutA" />
+        <div class="steel-label">Nhập thẳng từ nhà máy</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ TRIỂN LÃM ══════════════════════ -->
+<section style="background: #fff;">
+  <div class="section-inner">
+    <div class="section-label">Hoạt động</div>
+    <div class="section-title">Tham gia <span>triển lãm</span> quốc tế</div>
+    <div class="gold-line"></div>
+    <p style="color: var(--gray); font-size: 14px; line-height: 1.7; margin-bottom: 20px;">
+      An Thái Phú thường xuyên tham dự các hội chợ triển lãm công nghiệp lớn trong nước như <strong>METALEX Vietnam, ISME, Vietnam Supporting Industry Fair</strong> – nơi gặp gỡ hàng nghìn khách hàng, đối tác kỹ thuật và nhà phân phối trong ngành khuôn mẫu, cơ khí chính xác.
+    </p>
+    <div style="display: grid; gap: 10px; grid-template-columns: 1fr 1fr; margin-bottom: 10px;">
+      <div class="photo-item" style="aspect-ratio: 16/9; background: #111; border-radius: 12px; overflow: hidden; position: relative;">
+        <img alt="Gian hàng ATP toàn cảnh" src="https://blogger.googleusercontent.com/img/a/AVvXsEice8avnCWyXRsNjM1dIPxh76U_TimFg2TLKJ5pgFI6WrrnuB0JzVx_xXlAEvUixXvlF727sEbuhq_IgBenyDN-jDdttQoBUE5CqBWzbUja-EwLt66VI6S1gehUl7FktiXrZuOYDHZhXttbM7JJJj-XzItC9QnUEtJS6ySu0E8m49LqJ3QBbYC29QuGFlA" style="display: block; height: 100%; object-fit: cover; width: 100%;" />
+        <div class="photo-caption" style="font-size: 12px; opacity: 1;">Gian hàng 72,89 – Vietnam Supporting Industry Fair 2025</div>
+      </div>
+      <div class="photo-item" style="aspect-ratio: 16/9; background: #111; border-radius: 12px; overflow: hidden; position: relative;">
+        <img alt="Gian hàng ATP 021" src="https://blogger.googleusercontent.com/img/a/AVvXsEhiTSvKxLczFf2d2M5cSimhW-G1GnZouQCeaV4n44zyvA5o7LgiNhwu8JJYrrbLJChIIJHvmez2bOvHIxftB0aOlTs-VdXS3xx0yy8hfC0myQRv8SlpXDpyp3frsPhjgAe4hbzlGCuVy2NNb56eMkwe1GElk5NeaECiILkAL4QNFlDSjj1m-kWtFsuVlb8" style="display: block; height: 100%; object-fit: cover; width: 100%;" />
+        <div class="photo-caption" style="font-size: 12px; opacity: 1;">Gian hàng 021 – Triển lãm công nghiệp hỗ trợ</div>
+      </div>
+    </div>
+    <div style="display: grid; gap: 10px; grid-template-columns: 1fr 1fr 1fr; margin-bottom: 10px;">
+      <div class="photo-item" style="aspect-ratio: 4/3; background: #111; border-radius: 12px; overflow: hidden; position: relative;">
+        <img alt="ISME lần 18" src="https://blogger.googleusercontent.com/img/a/AVvXsEhEYVRX3dy92nT9pOFZNAwmC8GdLRD3sBxMCRb05WVBjU-HpiN5S7ucxAT7YavgEb-z__X3gfWVXrhx1Algaw0_9nmc9dXEFW1LrYGSiDjlawv4HZ6Gjpuu0w9S4HC7PU5fAsxNtAODoMuQs2cNgblOv80eOg3Ra34ZN-0X2Jhia-6aU49xniqoMlxgq8c" style="display: block; height: 100%; object-fit: cover; object-position: center top; width: 100%;" />
+        <div class="photo-caption" style="font-size: 12px; opacity: 1;">ISME – Gang thép &amp; Gia công kim loại lần 18</div>
+      </div>
+      <div class="photo-item" style="aspect-ratio: 4/3; background: #111; border-radius: 12px; overflow: hidden; position: relative;">
+        <img alt="Gian hàng ATP 021 chi tiết" src="https://blogger.googleusercontent.com/img/a/AVvXsEgDzF1j-OIB-_VTwvTkk_Mg_HpHtl77UWSAM56iB-OzQYb5HuJPFZFVT19faPM_RlG66ws7InZpN-X53OyqIsZQ5F5ac9fDgWoTBY1qbMwTJ4Ngd3BBKbsyItGwQNBYMoIY2eKV2PShnu4jYHIRy-FO-E7WdzbThcu5ZmRvo2KaCQHCBq9pF0y0Zf_ULvo" style="display: block; height: 100%; object-fit: cover; width: 100%;" />
+        <div class="photo-caption" style="font-size: 12px; opacity: 1;">Trưng bày đầy đủ danh mục sản phẩm</div>
+      </div>
+      <div class="photo-item" style="aspect-ratio: 4/3; background: #111; border-radius: 12px; overflow: hidden; position: relative;">
+        <img alt="Bộ mẫu thép ATP" src="https://blogger.googleusercontent.com/img/a/AVvXsEibtoaeidZoDWTEguNKLpiCe2CJHU2TkJy57Y7-iqofcen1RrlhQSKQqMVyNatdAYng0akRro-O5ICP-bQWvQ_HZqDL6B9ScbfoG0W9WATXgZBIROJBTE71sEdc0Bq-Aptc9lvraTIRHbhs-AiAsrfCRL0E6LA27y7wA0Nv8GIYYR6Gwuuox26kAHKL-JA" style="display: block; height: 100%; object-fit: cover; object-position: center top; width: 100%;" />
+        <div class="photo-caption" style="font-size: 12px; opacity: 1;">Bộ mẫu thép khuôn mẫu trực quan</div>
+      </div>
+    </div>
+    <div style="display: grid; gap: 10px; grid-template-columns: repeat(4,1fr);">
+      <div class="photo-item" style="aspect-ratio: 3/4; background: #111; border-radius: 12px; overflow: hidden; position: relative;">
+        <img alt="Tư vấn khách hàng" src="https://blogger.googleusercontent.com/img/a/AVvXsEgH00VKh_QGhXc22BKZ6hV53-QMzERZJVb0O3jn35tNIC4artwtmfA0cZ78KOILU_D9ektj3UCMCSgDG1S0sECZiUHrtNAD4UVuztvjvnIBxCS8wXah-E7ktmHSJ-88uOlzqwAPDZAGI_KwvuLMRUtGp5xtUBL3P241bmvFFd5NUpxsysvudQgthiDFZs0" style="display: block; height: 100%; object-fit: cover; object-position: center top; width: 100%;" />
+        <div class="photo-caption" style="font-size: 11px; opacity: 1;">Tiếp đón &amp; tư vấn khách hàng</div>
+      </div>
+      <div class="photo-item" style="aspect-ratio: 3/4; background: #111; border-radius: 12px; overflow: hidden; position: relative;">
+        <img alt="Nhân viên tư vấn ATP" src="https://blogger.googleusercontent.com/img/a/AVvXsEhq-wCOdXjR3GcqvJowvNqaBev1VmmtlvQmt7TN5l6J4Y0eKhaCQwDQp9x3fjOS1gv3zxCAuYFRtkVBt4btOncPih8g0UjQTF1qcwgWpb03DODvPrLHTuJ58Iy4Fb87h-83ar6m7RmXZvIzr-kFu78AdsjTSnKKJp9AZ3R2IvTEhnxsBEtCgxWEaGnAM5w" style="display: block; height: 100%; object-fit: cover; object-position: center top; width: 100%;" />
+        <div class="photo-caption" style="font-size: 11px; opacity: 1;">Đội sale kỹ thuật chuyên nghiệp</div>
+      </div>
+      <div class="photo-item" style="aspect-ratio: 3/4; background: #111; border-radius: 12px; overflow: hidden; position: relative;">
+        <img alt="Khách hàng xem mẫu thép dập nóng" src="https://blogger.googleusercontent.com/img/a/AVvXsEhFQvIYJX2rjwfY8DLvML71llvuwRYpD1nntPdiUu1YkcQ0JsEksVAHqI6LJmtKusAhjNoSU6jpJJLF9BAD9ZNfIMYpOOZ1F__hRRnt-SEfstiWK7gHOH8cKIi4v85RMyZ4e9bxE0_ccIgDqY20vO49scL19ron8QyThrG5dtp3-YXepZKgVDU3amY-FWc" style="display: block; height: 100%; object-fit: cover; object-position: center top; width: 100%;" />
+        <div class="photo-caption" style="font-size: 11px; opacity: 1;">Khách hàng tham khảo mẫu thép</div>
+      </div>
+      <div class="photo-item" style="aspect-ratio: 3/4; background: #111; border-radius: 12px; overflow: hidden; position: relative;">
+        <img alt="Kết nối đối tác" src="https://blogger.googleusercontent.com/img/a/AVvXsEj6gSI6mckjM3RW50S8AdYWn5u73cH4ShgGhO1R6M441Ae1MQYDG5jQlMJalEbt2fo6HCNi1B3vLXenzyJ02s_w8YU-cvLpoTVNBpk3o3CQLlNpDRXlAoe6IAq_qgyPfsOP_5GuhhoLzX2xG_TIWB7_rYNVisvQ-w7Ck6xvOUpBkAT_x92YsS50bUSswIk" style="display: block; height: 100%; object-fit: cover; object-position: center top; width: 100%;" />
+        <div class="photo-caption" style="font-size: 11px; opacity: 1;">Kết nối đối tác quốc tế</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ TẦM NHÌN ══════════════════════ -->
+<div class="vision-bg">
+  <div class="vision-header">
+    <div class="section-label">Giá trị cốt lõi</div>
+    <div class="section-title">Cam kết <span>chất lượng</span></div>
+  </div>
+  <div class="vision-grid">
+    <div class="vision-item">
+      <div class="vision-icon">🏆</div>
+      <h4>Chất lượng</h4>
+      <p>Nhập khẩu trực tiếp từ nhà máy uy tín. Có Mill Certificate cho mọi lô hàng. Kiểm tra độ cứng trước khi giao.</p>
+    </div>
+    <div class="vision-item">
+      <div class="vision-icon">⚡</div>
+      <h4>Tốc độ</h4>
+      <p>Kho hàng sẵn có, 2 cơ sở Bình Dương – TP.HCM. Cắt phôi &amp; giao hàng trong ngày cho đơn tiêu chuẩn.</p>
+    </div>
+    <div class="vision-item">
+      <div class="vision-icon">🤝</div>
+      <h4>Hợp tác</h4>
+      <p>Đồng hành cùng khách hàng từ khâu thiết kế khuôn đến chọn vật liệu, gia công và xử lý nhiệt.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ LIÊN HỆ ══════════════════════ -->
+<section class="contact-bg">
+  <div class="section-inner">
+    <div class="section-label">Liên hệ</div>
+    <div class="section-title">Sẵn sàng <span>hỗ trợ</span> bạn</div>
+    <div class="gold-line"></div>
+    <div class="contact-box">
+      <div class="contact-left">
+        <h3>An Thái Phú Steel</h3>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div class="contact-info">
+            <strong>Trụ sở</strong>
+            Kp. Bình Thuận 2, P. Thuận Giao, TP. Thuận An, Bình Dương
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🏭</div>
+          <div class="contact-info">
+            <strong>Chi nhánh TP.HCM</strong>
+            732 QL1A, P. Bình Hưng Hòa B, Q. Bình Tân, TP.HCM
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div class="contact-info">
+            <strong>Hotline</strong>
+            <a href="tel:0938184590">093 818 4590</a> – Mr. Thành
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">✉</div>
+          <div class="contact-info">
+            <strong>Email</strong>
+            <a href="mailto:info@thepkhuonmau.com">info@thepkhuonmau.com</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🌐</div>
+          <div class="contact-info">
+            <strong>Website</strong>
+            <a href="http://www.thepkhuonmau.com" target="_blank">thepkhuonmau.com</a>
+          </div>
+        </div>
+      </div>
+      <div class="contact-right">
+        <div style="color: rgba(255,255,255,.6); font-size: 13px; letter-spacing: 2px; text-transform: uppercase;">Hotline tư vấn</div>
+        <div class="big-phone">093 818 4590</div>
+        <p>Mr. Thành – Tư vấn kỹ thuật &amp; báo giá<br />sẵn sàng hỗ trợ 7 ngày / tuần</p>
+        <a class="cta-btn" href="mailto:info@thepkhuonmau.com">Gửi yêu cầu báo giá</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ FOOTER ══════════════════════ -->
+<footer>
+  <strong>CÔNG TY TNHH MTV AN THÁI PHÚ</strong> · MST: 3701764834<br />
+  © 2024 An Thái Phú Steel · <a href="http://www.thepkhuonmau.com" style="color: var(--gold); text-decoration: none;">thepkhuonmau.com</a>
+</footer>
+
+</body>
+</html>
