@@ -265,6 +265,109 @@ html,body{width:100%;background:var(--s50);min-height:100vh}
 .btn-pdf:hover{filter:brightness(1.12);transform:translateY(-1px)}
 .clear-btn{background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.22);border-radius:20px;padding:5px 10px;font-size:9px;font-family:'Comfortaa',sans-serif;cursor:pointer;transition:all .2s;white-space:nowrap}
 .clear-btn:hover{background:rgba(255,255,255,.2);color:#fff}
+.btn-gc{background:linear-gradient(135deg,#0d7d6b,#065f46);color:#fff;border:none;border-radius:20px;padding:6px 11px;font-size:9px;font-family:'Comfortaa',sans-serif;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.25);letter-spacing:.2px}
+.btn-gc:hover{filter:brightness(1.12);transform:translateY(-1px)}
+/* ── H-Edge selector in dim card ─────────────────────── */
+.hedge-btn{border:1.5px solid #d8e0ea;border-radius:99px;padding:3px 9px;font-size:9px;font-weight:700;font-family:'Comfortaa',sans-serif;color:#5a6a7e;background:#fff;cursor:pointer;transition:all .13s;white-space:nowrap}
+.hedge-btn:hover{border-color:#2d65b5;color:#133168}
+.hedge-btn.hedge-on{background:#0d1f3c;color:#fff;border-color:#0d1f3c}
+.hedge-hint{font-size:8px;color:#8899aa;font-style:italic}
+.hedgerow{grid-column:1/-1}
+
+/* ── GC MODAL ─────────────────────────────── */
+.gc-overlay{position:fixed;inset:0;z-index:9000;background:rgba(7,21,36,.72);display:none;align-items:flex-end;justify-content:center}
+.gc-overlay.open{display:flex}
+.gc-sheet{width:100%;max-width:780px;max-height:94vh;background:#fff;border-radius:18px 18px 0 0;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 -8px 40px rgba(7,21,36,.3)}
+.gc-drag{width:40px;height:4px;background:#ddd;border-radius:2px;margin:10px auto 0;flex-shrink:0}
+.gc-head{display:flex;align-items:center;gap:10px;padding:10px 16px 10px;border-bottom:2px solid #B5830A;background:linear-gradient(125deg,#071524,#133168);flex-shrink:0}
+.gc-head-title{flex:1;font-size:13px;font-weight:900;color:#fff;letter-spacing:-.2px}
+.gc-head-title span{color:#B5830A}
+.gc-head-sub{font-size:9px;color:rgba(255,255,255,.5);font-weight:500;display:block;margin-top:1px}
+.gc-close{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.8);width:30px;height:30px;border-radius:50%;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.gc-body{flex:1;overflow-y:auto;padding:14px 16px 20px;-webkit-overflow-scrolling:touch}
+.gc-toolbar{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid #e2e8f0}
+.gc-btn{border:none;border-radius:20px;padding:7px 15px;font-size:10px;font-family:'Comfortaa',sans-serif;font-weight:700;cursor:pointer;transition:all .15s;white-space:nowrap}
+.gc-btn-print{background:linear-gradient(135deg,#B5830A,#d4a017);color:#fff;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.gc-btn-close{background:#f1f5f9;color:#5a6a7e;border:1px solid #d8e0ea}
+.gc-btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.gc-btn-dice{background:#eef5fd;color:#1a3a6b;border:1px solid #a8c8ee}
+.gc-btn-dice.on{background:#1a3a6b;color:#fff;border-color:#1a3a6b}
+.gc-btn-copy{background:#f0fdf4;color:#15803d;border:1px solid #86efac}
+
+/* ── GC TOOLBAR meta fields (Phiếu số / Người YC) ───────── */
+.gc-meta-fields{display:flex;flex-wrap:wrap;gap:7px;width:100%;margin-top:9px}
+.gc-meta-field{flex:1;min-width:140px;display:flex;flex-direction:column;gap:2px}
+.gc-meta-field label{font-size:8px;font-weight:700;color:#8899aa;text-transform:uppercase;letter-spacing:.3px}
+.gc-meta-field input,.gc-meta-field textarea{padding:6px 8px;font-size:11px;font-family:'Comfortaa',sans-serif;border:1px solid var(--s200);border-radius:6px;background:#fff;color:var(--n800);outline:none;width:100%}
+.gc-meta-field input:focus,.gc-meta-field textarea:focus{border-color:var(--n400);box-shadow:0 0 0 3px rgba(30,77,140,.1)}
+.gc-meta-field textarea{resize:vertical;min-height:44px;font-family:'Comfortaa',sans-serif}
+.gc-summary-chip{font-size:9.5px;color:#5a6a7e;background:#f1f5f9;border-radius:99px;padding:4px 11px;display:flex;align-items:center;gap:4px;font-weight:700}
+
+/* ── Dice diagram toggle (ẩn mặc định, hiện khi cần in) ──── */
+.gcp-dice-wrap-outer.gcp-dice-hidden{display:none}
+
+/* ── H⊥ badge trong bảng in phiếu ─────────────────────────── */
+.gcp-hedge-badge{display:inline-block;font-size:7.5px;font-weight:900;padding:2px 6px;border-radius:4px;background:#0369a1;color:#fff;white-space:nowrap}
+.gcp-hedge-badge.hw{background:#5b21b6}
+.gcp-hedge-badge.hl{background:#9a3412}
+
+/* ── Per-row Dung sai / Ra trong GC panel (input nhỏ) ────── */
+.gc-tolra-row{display:flex;gap:5px;margin:6px 0 8px;flex-wrap:wrap}
+.gc-tolra-field{flex:1;min-width:100px;display:flex;align-items:center;gap:4px;background:#fff;border:1px solid var(--s200);border-radius:6px;padding:3px 7px}
+.gc-tolra-field label{font-size:8px;color:var(--s400);font-weight:700;white-space:nowrap}
+.gc-tolra-field input{border:none!important;padding:2px!important;font-size:10px!important;outline:none;width:100%}
+.gcp-tolra-cell{font-size:7px;color:#5a6a7e;margin-top:1px}
+
+/* ── GC PRINT PANEL ──────────────────────── */
+#gc-print-panel{font-family:'Roboto',sans-serif;font-size:10px;color:#111}
+.gcp-header{display:flex;align-items:stretch;border:2px solid #1a3a6b;border-radius:8px;overflow:hidden;margin-bottom:10px}
+.gcp-gold-bar{width:7px;background:#B5830A;flex-shrink:0}
+.gcp-co{flex:1;padding:9px 13px}
+.gcp-co-name{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:900;color:#1a3a6b;letter-spacing:.3px;text-transform:uppercase}
+.gcp-co-addr{font-size:8px;color:#5a6a7e;margin-top:2px;line-height:1.6}
+.gcp-div{width:1px;background:#e2e8f0;margin:8px 0}
+.gcp-doc{padding:9px 13px;min-width:200px;display:flex;flex-direction:column;justify-content:center}
+.gcp-doc-type{font-family:'Montserrat',sans-serif;font-size:15px;font-weight:900;color:#1a3a6b;line-height:1.2}
+.gcp-doc-no{font-size:9px;color:#B5830A;font-weight:700;margin-top:3px;font-family:'Roboto',sans-serif}
+.gcp-doc-date{font-size:8px;color:#5a6a7e;margin-top:1px;font-family:'Roboto',sans-serif}
+
+.gcp-meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;margin-bottom:10px;border:1px solid #e2e8f0;border-radius:8px;padding:9px 12px;background:#f8fafc}
+.gcp-meta-row{display:flex;flex-direction:column;gap:1px}
+.gcp-meta-label{font-size:7.5px;font-weight:700;color:#8899aa;text-transform:uppercase;letter-spacing:.3px}
+.gcp-meta-val{font-size:10px;font-weight:700;color:#0d1f3c}
+
+/* ── DICE diagram nhỏ trong print ── */
+.gcp-dice-wrap{display:flex;gap:12px;align-items:flex-start;margin-bottom:10px;padding:8px 10px;background:#eef5fd;border-radius:8px;border:1px solid #a8c8ee}
+.gcp-dice-tbl{font-size:8px;border-collapse:collapse;flex:1}
+.gcp-dice-tbl th{background:#1a3a6b;color:#fff;padding:3px 7px;font-weight:700;font-size:7.5px;text-align:left}
+.gcp-dice-tbl td{padding:2.5px 7px;border-bottom:1px solid #d6e8f9;color:#0d1f3c}
+.gcp-dice-tbl tr:last-child td{border:none}
+.gcp-orient{font-size:7.5px;color:#5a6a7e;margin-top:5px;line-height:1.6;font-style:italic}
+
+/* ── MAIN TABLE ── */
+.gcp-table{width:100%;border-collapse:collapse;margin-bottom:8px;font-size:8.5px}
+.gcp-table th{background:#1a3a6b;color:#fff;padding:4px 5px;font-size:8px;font-weight:700;text-align:center;border:1px solid #2d65b5}
+.gcp-table th.tl{text-align:left}
+.gcp-table td{padding:4px 5px;border:1px solid #d8e0ea;vertical-align:top}
+.gcp-table tr:nth-child(even) td{background:#f5f7fa}
+.gcp-table .num{text-align:center;font-weight:700;color:#133168}
+.gcp-table .op-cell{font-size:7.5px;line-height:1.7}
+.gcp-op-cut{color:#00695c;font-weight:700}
+.gcp-op-mill{color:#1565c0;font-weight:700}
+.gcp-op-grind{color:#6d4c41;font-weight:700}
+.gcp-op-ht{color:#b45309;font-weight:700}
+.gcp-grade{font-weight:900;color:#0d1f3c;font-size:9px}
+.gcp-shape{font-size:7.5px;color:#5a6a7e}
+.gcp-tol-note{font-size:7px;color:#8899aa}
+.gcp-dim{text-align:center;font-size:8px;color:#133168}
+.gcp-footer{display:flex;justify-content:space-between;align-items:flex-start;margin-top:14px;padding-top:10px;border-top:1px solid #e2e8f0}
+.gcp-bank{font-size:7.5px;color:#5a6a7e;line-height:1.8}
+.gcp-sigs{display:flex;gap:22px}
+.gcp-sig{text-align:center;font-size:8px;color:#374151}
+.gcp-sig-line{border-bottom:1px solid #aaa;width:100px;margin:30px auto 3px}
+.gcp-note-box{margin-top:8px;padding:6px 10px;background:#fffbf0;border:1px solid #fde68a;border-radius:6px;font-size:8px;color:#92400e}
+
+@media(max-width:500px){.gcp-meta-grid{grid-template-columns:1fr}.gcp-sigs{gap:12px}}
 
 /* ── SUB INFO BAR ─────────────────────────────────────────────── */
 .page-sub{font-size:clamp(9px,2vw,10px);color:var(--s500);line-height:1.75;padding:8px 14px 6px;background:#fff;border-bottom:1px solid var(--color-border-tertiary)}
@@ -646,50 +749,6 @@ select:focus{border-color:var(--n400);box-shadow:0 0 0 3px rgba(30,77,140,.1)}
 .cust-inp{padding:5px 7px;font-size:10px;font-family:'Comfortaa',sans-serif;border:1px solid var(--s200);border-radius:var(--r6);background:#fff;color:var(--n800);outline:none;transition:border-color .15s,box-shadow .15s;width:100%}
 .cust-inp:focus{border-color:var(--n400);box-shadow:0 0 0 3px rgba(30,77,140,.1)}
 .cust-inp:not(:placeholder-shown){border-color:var(--n300);background:var(--n50)}
-
-/* ── GC POPUP MODAL ──────────────────────────────────────────── */
-.gcp-overlay{
-  display:none;position:fixed;inset:0;z-index:300;
-  background:rgba(7,21,36,.52);backdrop-filter:blur(3px);
-  -webkit-backdrop-filter:blur(3px);
-  align-items:flex-end;justify-content:center;
-}
-.gcp-overlay.open{display:flex}
-.gcp-sheet{
-  background:#fff;width:100%;max-width:700px;
-  border-radius:18px 18px 0 0;
-  box-shadow:0 -8px 40px rgba(7,21,36,.25);
-  max-height:90vh;display:flex;flex-direction:column;
-  animation:gcp-up .26s cubic-bezier(.32,.72,0,1);
-}
-@keyframes gcp-up{from{transform:translateY(50px);opacity:.5}to{transform:translateY(0);opacity:1}}
-@media(min-width:720px){
-  .gcp-overlay{align-items:center}
-  .gcp-sheet{border-radius:16px;max-height:86vh;margin:20px}
-}
-.gcp-drag{width:38px;height:4px;background:var(--s200);border-radius:2px;margin:10px auto 0;flex-shrink:0}
-.gcp-head{
-  flex-shrink:0;display:flex;align-items:center;gap:10px;
-  padding:11px 16px 10px;
-  background:linear-gradient(125deg,var(--n900),var(--n600));
-  border-bottom:2px solid var(--gold);
-  border-radius:18px 18px 0 0;
-}
-@media(min-width:720px){.gcp-head{border-radius:16px 16px 0 0}}
-.gcp-title{flex:1;font-size:14px;font-weight:900;color:#fff;line-height:1.3}
-.gcp-subtitle{font-size:10px;font-weight:400;opacity:.7;display:block;margin-top:1px}
-.gcp-close{
-  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);
-  border-radius:10px;color:#fff;width:33px;height:33px;font-size:18px;
-  cursor:pointer;display:flex;align-items:center;justify-content:center;
-  transition:background .2s;flex-shrink:0;line-height:1;
-}
-.gcp-close:hover{background:rgba(255,255,255,.25)}
-.gcp-body{
-  overflow-y:auto;flex:1;padding:14px 14px 28px;
-}
-.gcp-body::-webkit-scrollbar{width:4px}
-.gcp-body::-webkit-scrollbar-thumb{background:var(--s200);border-radius:2px}
 
 /* ── MOBILE ──────────────────────────────────────────────────── */
 @media(max-width:580px){
@@ -1261,7 +1320,7 @@ select:focus{border-color:var(--n400);box-shadow:0 0 0 3px rgba(30,77,140,.1)}
   }
   .footer strong { color: var(--gold); }
   
-  /* ACCORDION */
+  /* ACCORDION SỔ TAY XỬ LÝ NHIỆT */
 		.sotayxln {
             background-color: #eee;
             color: #444;
@@ -1284,6 +1343,65 @@ select:focus{border-color:var(--n400);box-shadow:0 0 0 3px rgba(30,77,140,.1)}
             transition: max-height 0.2s ease-out;
         }
 		
+
+/* ── Diagram CSS from ATP-phieu-gia-cong ── */
+
+/* ── Dice diagram CSS vars (scoped inline) ── */
+.diag-box { --navy:#1B3A6B; --steel:#3D6B9E; --stl-lt:#E4EDF7; --accent:#C9570A; --mid:#4A5568; --light:#F5F7FA; --border:#C8D6E5; }
+/* Main diagram row: cube + dice table + process */
+    .diag-body {
+      display: grid;
+      grid-template-columns: 205px 1fr 88px;
+      gap: 8px;
+      padding: 7px 9px 5px;
+      align-items: start;
+    }
+    /* Profile legend row */
+    .profile-strip {
+      border-top: 1px solid #BDD0E0;
+      padding: 5px 9px 6px;
+      display: grid;
+      grid-template-columns: auto 1fr 1fr 1fr;
+      gap: 5px 10px;
+      align-items: start;
+      background: #EEF5FF;
+    }
+    .ps-label {
+      font-size: 8.5px; font-weight: 700; color: var(--navy);
+      text-transform: uppercase; letter-spacing: .4px;
+      white-space: nowrap; padding-top: 1px;
+    }
+    .ps-item {
+      font-size: 9px; color: var(--text); line-height: 1.6;
+    }
+    .ps-item .ph { font-size: 10px; } /* profile header icon+name */
+    .ps-item .dim { font-family: 'Courier New',monospace; color: var(--navy); font-size: 9px; }
+    .ps-item .faces { color: var(--mid); font-size: 8px; }
+
+    /* Dice table */
+    .dtbl { font-size: 9.5px; }
+    .dtbl table { border-collapse: collapse; width: 100%; }
+    .dtbl th { background: var(--navy); color: white; padding: 2px 5px; font-size: 8.5px; }
+    .dtbl td { padding: 2px 5px; border: 1px solid #BDD0E0; background: white; font-size: 9px; }
+    .dtbl tr:nth-child(even) td { background: #F0F5FA; }
+    .cd { font-family: 'Courier New', monospace; font-weight: 700; color: var(--navy); font-size: 10px; }
+    .dm { font-family: 'Courier New', monospace; color: var(--steel); font-size: 9px; }
+    .dnote { margin-top: 5px; font-size: 8.5px; color: var(--mid); line-height: 1.65; }
+
+    /* Process column */
+    .proc { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+    .proc .plbl { font-size: 8.5px; font-weight: 700; color: var(--navy); text-align: center; text-transform: uppercase; margin-bottom: 2px; }
+    .ps2 {
+      width: 100%; text-align: center; padding: 4px 4px;
+      border-radius: 3px; font-size: 9px; font-weight: 700; line-height: 1.3;
+    }
+    .par { font-size: 14px; color: var(--mid); line-height: 1; text-align: center; }
+    .ps2-c { background: #FFE5D0; color: #7A2200; border: 1.5px solid #CC4400; }
+    .ps2-m { background: #D0E8FF; color: #002A5C; border: 1.5px solid #0055AA; }
+    .ps2-g { background: #D0F5E4; color: #00451E; border: 1.5px solid #008844; }
+    .pnote { font-size: 7.5px; color: var(--mid); text-align: center; line-height: 1.6; margin-top: 4px; }
+
+    
 </style>
 <datalist id="mac-thep">
   <option value="S45C"><option value="S50C"><option value="S55C"><option value="Q235"><option value="SS400">
@@ -1299,6 +1417,7 @@ select:focus{border-color:var(--n400);box-shadow:0 0 0 3px rgba(30,77,140,.1)}
       <button class="btn-plist" onclick="openPriceModal()">💰 Price</button>
 	  <button class="btn-pdf" onclick="exportPDF()">🖨 PDF</button>
 	  <button class="btn-htg" onclick="openHTModal()">🔥 Heat Treat</button>
+	  <button class="btn-gc" onclick="openGCModal()">🔧 Phiếu GC</button>
 	  <button class="clear-btn" onclick="clearAll()">🗑 Reset</button>
 	  <button class="btn-xl" onclick="exportExcel()">📥 Excel</button>
     </div>
@@ -1598,7 +1717,7 @@ select:focus{border-color:var(--n400);box-shadow:0 0 0 3px rgba(30,77,140,.1)}
   <a href="#bi-quyet">Bí quyết</a>
 </nav>
 
-<div class="content">
+<div class="acc-wrap">
 
 <!-- PHẦN 1: CƠ BẢN -->
 <div id="co-ban" class="section">
@@ -2240,8 +2359,6 @@ select:focus{border-color:var(--n400);box-shadow:0 0 0 3px rgba(30,77,140,.1)}
      ═══════════════════════════════════════════════════════ -->
 <style>
 /* ── Per-row GC panel (inline, slide-down) ─────────────── */
-.gcp-overlay{display:none} /* ẩn modal toàn cục cũ nếu còn */
-
 .row-gc-panel{
   display:none;
   border-top:2px solid var(--gold);
@@ -2417,7 +2534,20 @@ const HT_OPS=[
   {key:'ht_cao',label:'XL nhiệt cao tần',    rate:0,    minKg:0,grp:'ht',quote:true},
   {key:'ht_nit',label:'Thấm Ni-tơ',          rate:45000,minKg:3,grp:'ni'},
 ];
-function gcArea(key,r){const D=r.l,R=r.w,T=r.t;if(!D||!R||!T)return 0;const full=2*D*R+2*D*T+2*R*T;return{p6:full,p2m:2*D*R,p1m:D*R,pcd:2*D*T,pcd1:D*T,pcn:2*R*T,pcn1:R*T,m6:full,m2:2*D*R,m1:D*R,mcd2:2*D*T,mcd1:D*T,mcn2:2*R*T,mcn1:R*T}[key]||0;}
+function gcArea(key,r){
+  // Remap T/W/L theo cạnh đứng H được chọn
+  // Dice Code luôn tính theo H=cạnh đứng, W=ngắn trên, L=dài trên
+  // 1T/6B = W×L (mặt ngang), 2F/5K = H×L (mặt dài), 3L/4R = H×W (mặt ngắn)
+  let H,W,L;
+  const he=r.hEdge||'t';
+  if(he==='t'){H=+r.t||0;W=+r.w||0;L=+r.l||0;}
+  else if(he==='w'){H=+r.w||0;W=+r.t||0;L=+r.l||0;}
+  else{H=+r.l||0;W=+r.t||0;L=+r.w||0;}
+  if(!H||!W||!L)return 0;
+  const full=2*W*L+2*H*L+2*H*W;
+  return{p6:full,p2m:2*W*L,p1m:W*L,pcd:2*H*L,pcd1:H*L,pcn:2*H*W,pcn1:H*W,
+         m6:full,m2:2*W*L,m1:W*L,mcd2:2*H*L,mcd1:H*L,mcn2:2*H*W,mcn1:H*W}[key]||0;
+}
 function calcGC(r){if(r.type!=='tam')return 0;return GC_OPS.reduce((s,op)=>(r.gc&&r.gc[op.key])?s+gcArea(op.key,r)*getGCRate(op.key):s,0);}
 function calcHT(r){const wR=calcReal(r),tot=wR*(r.qty||0),g=r.gc||{};let c=0;if(g.ht_vac)c+=Math.max(tot,getHTMinKg('ht_vac'))*getHTRate('ht_vac');if(g.ht_oil)c+=Math.max(tot,getHTMinKg('ht_oil'))*getHTRate('ht_oil');if(g.ht_cao)c+=parseFloat(g.ht_cao_cost)||0;if(g.ht_nit)c+=Math.max(tot,getHTMinKg('ht_nit'))*getHTRate('ht_nit');return c;}
 function getCutRule(r){if(r.type==='tam')return null;const D=Number(r.type==='tru'?r.d:r.s)||0,L=Number(r.l)||0;if(!D)return null;if(D>=300)return{rule:3,text:`Ø${D}≥300→📞`,cls:'rule-quote',sur:0};if(D<200){if(L>0&&L<=25)return{rule:1,text:`Ø${D}<200·L≤25→+3mm·min50k`,cls:'rule-ok',sur:3,minPce:50000};return{rule:0,text:`Ø${D}<200mm`,cls:'rule-ok',sur:0};}if(L>0&&L<=35)return{rule:2,text:`Ø${D}·200-299·L≤35→+4mm`,cls:'rule-ok',sur:4};return{rule:0,text:`Ø${D}(200-299mm)`,cls:'rule-ok',sur:0};}
@@ -2626,9 +2756,9 @@ function exportExcel(){
     ['BÁO GIÁ / QUOTATION','','','','','','','','','','',''],
     [`Ngày: ${now}`,'','','','','','','','','','',''],
     ['','','','','','','','','','','',''],
-    ['STT','MÃ HÀNG','QUY CÁCH TINH (mm)','','','S.L\n(cái)','ĐƠN GIÁ\n(đ/kg)','TRỌNG LƯỢNG\n(kg/cái)','TIỀN VẬT TƯ\n(đ)','TIỀN PHAY/MÀI\n(đ)','THÀNH TIỀN\n(đ)','GHI CHÚ'],
+    ['STT','MÃ HÀNG','QUY CÁCH TINH (mm)','','','S.L\n(cái)','ĐƠN GIÁ\n(đ/kg)','TRỌNG LƯỢNG\n(kg)','TIỀN VẬT TƯ\n(đ)','TIỀN PHAY/MÀI\n(đ)','THÀNH TIỀN\n(đ)','GHI CHÚ'],
     ['','','Dày T','Rộng W','Dài L','','','','','','',''],
-    ...rows.map(r=>[r.stt,r.grade,r.T,r.W,r.L,r.qty,r.price,r.weight,r.vlCost||'',r.gcCost||'',r.total||'',r.note]),
+    ...rows.map(r=>[r.stt,r.grade,r.T,r.W,r.L,r.qty,r.price,parseFloat(((r.weight||0)*r.qty).toFixed(1)),r.vlCost||'',r.gcCost||'',r.total||'',r.note]),
     ['','','','','','','','','','','',''],
     ['','CỘNG','','','','','','',totalVL,totalGC,totalAmt,''],
     ['',`VAT ${vatRate}%`,'','','','','','','','',vatAmt,''],
@@ -2679,7 +2809,7 @@ function exportPDF(){
       <td class="num">${r.L||''}</td>
       <td class="ctr">${r.qty}</td>
       <td class="num">${r.price?fmt(r.price):''}</td>
-      <td class="num">${r.weight?r.weight.toFixed(1):''}</td>
+      <td class="num">${r.weight?(r.weight*r.qty).toFixed(1):''}</td>
       <td class="num">${r.vlCost?fmt(r.vlCost):''}</td>
       <td class="num">${r.gcCost?fmt(r.gcCost):''}</td>
       <td class="num bold">${r.total?fmt(r.total):''}</td>
@@ -2792,7 +2922,7 @@ function exportPDF(){
       <th colspan="3">QUY CÁCH TINH (mm)</th>
       <th rowspan="2">S.L<br>(cái)</th>
       <th rowspan="2">ĐƠN GIÁ<br>(đ/kg)</th>
-      <th rowspan="2">KL PHÔI<br>/cái (kg)</th>
+      <th rowspan="2">KL PHÔI<br>(kg)</th>
       <th rowspan="2">TIỀN VẬT TƯ<br>(đ)</th>
       <th rowspan="2">TIỀN PHAY/MÀI/NHIỆT<br>(đ)</th>
       <th rowspan="2">THÀNH TIỀN<br>(đ)</th>
@@ -2920,6 +3050,24 @@ function buildGCPanel(r,k){
   let html=`<div class="rough-panel">
     <div class="rough-panel-title">📐 KT thô ${warnEl}<span class="rp-hint" style="${anyOvr?'display:none':''}">Để trống = auto</span></div>
     <div class="rough-grid">${dims.map(d=>riItem(...d)).join('')}${klChip}</div>
+	<div class="hedgerow" style="display:flex;align-items:center;gap:5px;margin-top:6px;flex-wrap:wrap">
+        <span style="font-size:9px;font-weight:700;color:#5a6a7e;flex-shrink:0">H⊥ bàn:</span>
+        ${['t','w','l'].map(v=>`<button class="hedge-btn${(r.hEdge||'t')===v?' hedge-on':''}"
+          onclick="onHEdge(${r.id},${r.kerf},'${v}',this)">
+          ${v==='t'?'T (Dày)':v==='w'?'W (Rộng)':'L (Dài)'}
+        </button>`).join('')}
+        <span class="hedge-hint" id="hh${r.id}"></span>
+    </div>
+    <div class="gc-tolra-row">
+      <div class="gc-tolra-field">
+        <label>📏 Dung sai:</label>
+        <input type="text" value="${r.gcTol||''}" placeholder="vd: ±0.05mm" oninput="onGCTolRa(${r.id},${k},'gcTol',this.value)">
+      </div>
+      <div class="gc-tolra-field">
+        <label>✨ Ra:</label>
+        <input type="text" value="${r.gcRa||''}" placeholder="vd: 0.8 µm" oninput="onGCTolRa(${r.id},${k},'gcRa',this.value)">
+      </div>
+    </div>
   </div>`;
 
   function gcItem(op){
@@ -3008,6 +3156,7 @@ function dimCardHTML(r){
         <div><div class="rc-lbl">Dài L</div><input type="number" value="${r.l||''}" placeholder="mm" min="0" step="1" inputmode="numeric" oninput="onInput(${r.id},${r.kerf},'l',this.value)"></div>
       </div>
       <div class="rough-box" id="rc${r.id}-rough" onclick="openGCPanel(${r.id},${r.kerf})" style="margin-top:5px"></div>
+      
     </div>`;
     if(!isC)return dimRow;
     return dimRow+`<div class="rc-cut-row">
@@ -3144,7 +3293,7 @@ function refreshCellsCard(r,k){
   else if(hint){hint.textContent='';}
 }
 
-function addRow(kerf,d={}){const id=++uid;getRows(kerf).push({id,kerf,type:d.type||'tam',note:d.note||'',t:d.t||'',w:d.w||'',l:d.l||'',d:d.d||'',s:d.s||'',qty:d.qty||1,price:d.price||'',gc:{},gcOpen:false,nDoc:0,nNgang:0,rough:{},userNote:d.userNote||''});renderSection(kerf);}
+function addRow(kerf,d={}){const id=++uid;getRows(kerf).push({id,kerf,type:d.type||'tam',note:d.note||'',t:d.t||'',w:d.w||'',l:d.l||'',d:d.d||'',s:d.s||'',qty:d.qty||1,price:d.price||'',gc:{},gcOpen:false,nDoc:0,nNgang:0,rough:{},userNote:d.userNote||'',hEdge:d.hEdge||'t',gcTol:d.gcTol||'',gcRa:d.gcRa||''});renderSection(kerf);}
 function delRow(id,k){const a=getRows(k);const i=a.findIndex(r=>r.id===id);if(i>-1)a.splice(i,1);renderSection(k);updateSummary();}
 function onType(id,k,val){const r=getRows(k).find(r=>r.id===id);if(!r)return;r.type=val;renderSection(k);}
 function onInput(id,k,field,val){const r=getRows(k).find(r=>r.id===id);if(!r)return;if(field==='note'||field==='userNote')r[field]=val;else if(field==='nDoc'||field==='nNgang')r[field]=Math.max(0,parseInt(val)||0);else r[field]=parseFloat(val)||0;refreshCells(r,k);updateSummary();// Rebuild GC panel nếu đang mở cho row này (cập nhật disabled state)
@@ -4110,16 +4259,566 @@ function updateAccPreview(){
   const el=document.getElementById('acc-preview');
   if(el)el.textContent=v||'— chưa nhập';
 }
-    var acc = document.getElementsByClassName("sotayxln")[0];
-    acc.addEventListener("click", function() {
+    var acc = document.getElementsByClassName("sotayxln")[0] || document.getElementById("sotayxln");
+    if(acc) acc.addEventListener("click", function() {
         this.classList.toggle("active");
         var panel = this.nextElementSibling;
-        if (panel.style.maxHeight) {
+        if (panel && panel.style.maxHeight) {
             panel.style.maxHeight = null;
-        } else {
+        } else if(panel) {
             panel.style.maxHeight = panel.scrollHeight + "px";
         }
     });
+
+/* ══════════════════════════════════════════════════════
+   PHIẾU YÊU CẦU GIA CÔNG — GC MODAL
+   ══════════════════════════════════════════════════════ */
+
+// ── State riêng cho phiếu GC (giữ trong phiên làm việc + auto-tăng số phiếu)
+let gcPhieuNo = null;
+let gcNguoiYC = '';
+let gcNoteXuong = '';
+let gcShowDice = false;
+
+function _genPhieuNo(){
+  const now = new Date();
+  const pad = n => String(n).padStart(2,'0');
+  const dateStr = `${now.getFullYear()}${pad(now.getMonth()+1)}${pad(now.getDate())}`;
+  const lsKey = `atp_gc_seq_${dateStr}`;
+  let seq = 1;
+  try{
+    seq = parseInt(localStorage.getItem(lsKey)||'0',10) + 1;
+    localStorage.setItem(lsKey, String(seq));
+  }catch(e){}
+  return `ATP-GC-${dateStr}-${String(seq).padStart(3,'0')}`;
+}
+function onGCMetaChange(field,val){
+  if(field==='phieuNo')gcPhieuNo=val;
+  else if(field==='nguoiYC')gcNguoiYC=val;
+  else if(field==='noteXuong')gcNoteXuong=val;
+  refreshGCPrint();
+}
+function toggleGCDice(){
+  gcShowDice=!gcShowDice;
+  const btn=document.getElementById('gc-dice-toggle');
+  if(btn)btn.classList.toggle('on',gcShowDice);
+  refreshGCPrint();
+}
+function refreshGCPrint(){
+  const panel=document.getElementById('gc-print-panel');
+  if(panel)panel.innerHTML=buildGCPanel_print();
+  updateGCSummary();
+}
+function updateGCSummary(){
+  const allR=[...rows3,...rows5,...rows0].filter(r=>r.note||r.t||r.d||r.s);
+  let opCount=0;
+  allR.forEach(r=>{const g=r.gc||{};opCount+=Object.keys(g).filter(k=>g[k]&&GC_FACE_MAP[k]).length;});
+  const el=document.getElementById('gc-summary-chip');
+  if(el)el.textContent=`📦 ${allR.length} vật tư · 🔧 ${opCount} công đoạn`;
+}
+function copyGCText(){
+  const allR=[...rows3,...rows5,...rows0].filter(r=>r.note||r.t||r.d||r.s);
+  if(!allR.length){alert('Chưa có dữ liệu vật tư.');return;}
+  let txt=`PHIẾU YÊU CẦU GIA CÔNG — ${gcPhieuNo||'(chưa có số)'}\n`;
+  txt+=`Khách hàng: ${($('ci-name')?.value||'—')}\n`;
+  txt+=`Người yêu cầu: ${gcNguoiYC||'—'}\n\n`;
+  allR.forEach((r,i)=>{
+    const g=r.gc||{};
+    const ops=Object.keys(g).filter(k=>g[k]&&GC_FACE_MAP[k]).map(k=>GC_FACE_MAP[k].label);
+    const dim=r.type==='tam'?`${r.t||'?'}×${r.w||'?'}×${r.l||'?'}mm`:`Ø/S${r.d||r.s||'?'}×${r.l||'?'}mm`;
+    txt+=`${i+1}. ${r.note||'—'} | ${dim} | SL:${r.qty||1} | ${ops.join(', ')||'chưa chọn GC'}`;
+    if(r.gcTol)txt+=` | Dung sai:${r.gcTol}`;
+    if(r.gcRa)txt+=` | Ra:${r.gcRa}`;
+    txt+='\n';
+  });
+  if(gcNoteXuong)txt+=`\nGhi chú xưởng: ${gcNoteXuong}\n`;
+  navigator.clipboard?.writeText(txt).then(()=>{
+    const btn=document.getElementById('gc-copy-btn');
+    if(btn){const old=btn.textContent;btn.textContent='✅ Đã copy!';setTimeout(()=>btn.textContent=old,1500);}
+  }).catch(()=>alert('Không thể copy — trình duyệt không hỗ trợ.'));
+}
+
+// ── GC_OPS label map: key → {faces, type}
+const GC_FACE_MAP = {
+  p6:   {label:'Phay 6 mặt',      faces:'1T+6B+2F+5K+3L+4R', type:'mill'},
+  p2m:  {label:'Phay 2 mặt',      faces:'1T + 6B',            type:'mill'},
+  p1m:  {label:'Phay 1 mặt',      faces:'1T',                 type:'mill'},
+  pcd:  {label:'Phay 2 cạnh dài', faces:'2F + 5K',            type:'mill'},
+  pcd1: {label:'Phay 1 cạnh dài', faces:'2F',                 type:'mill'},
+  pcn:  {label:'Phay 2 cạnh ngắn',faces:'3L + 4R',            type:'mill'},
+  pcn1: {label:'Phay 1 cạnh ngắn',faces:'3L',                 type:'mill'},
+  m6:   {label:'Mài 6 mặt',       faces:'1T+6B+2F+5K+3L+4R', type:'grind'},
+  m2:   {label:'Mài 2 mặt',       faces:'1T + 6B',            type:'grind'},
+  m1:   {label:'Mài 1 mặt',       faces:'1T',                 type:'grind'},
+  mcd2: {label:'Mài 2 cạnh dài',  faces:'2F + 5K',            type:'grind'},
+  mcd1: {label:'Mài 1 cạnh dài',  faces:'2F',                 type:'grind'},
+  mcn2: {label:'Mài 2 cạnh ngắn', faces:'3L + 4R',            type:'grind'},
+  mcn1: {label:'Mài 1 cạnh ngắn', faces:'3L',                 type:'grind'},
+  ht_vac:{label:'XL nhiệt chân không', faces:'—',              type:'ht'},
+  ht_oil:{label:'XL nhiệt dầu',        faces:'—',              type:'ht'},
+  ht_cao:{label:'XL nhiệt cao tần',    faces:'—',              type:'ht'},
+  ht_nit:{label:'Thấm Ni-tơ',          faces:'—',              type:'ht'},
+};
+
+// ── Helper: build cột "Mặt phay/mài" + "Chiều giảm" theo từng trục H/W/L
+// axisRed = {H: số mm giảm trên trục H, W: ..., L: ...} (null nếu không áp dụng — vd thanh tròn)
+function buildMillGrindInfo(gc, isP, axisRed, raDefault, tolOverride, raOverride) {
+  const allKey = isP ? 'p6' : 'm6';
+  const groups = isP
+    ? {H:['p2m','p1m'], W:['pcd','pcd1'], L:['pcn','pcn1']}
+    : {H:['m2','m1'],   W:['mcd2','mcd1'], L:['mcn2','mcn1']};
+  const faces = [];
+  const reduces = [];
+  const axisLbl = {H:'H⊥', W:'W', L:'L'};
+  function addAxis(axis, key){
+    faces.push(GC_FACE_MAP[key].faces);
+    const v = axisRed[axis];
+    if (v != null && !isNaN(v)) reduces.push(`${axisLbl[axis]} <b>-${fmtD(Math.abs(v))}mm</b>`);
+  }
+  if (gc[allKey]) {
+    faces.push(GC_FACE_MAP[allKey].faces);
+    ['H','W','L'].forEach(axis=>{
+      const v = axisRed[axis];
+      if (v != null && !isNaN(v)) reduces.push(`${axisLbl[axis]} <b>-${fmtD(Math.abs(v))}mm</b>`);
+    });
+  } else {
+    ['H','W','L'].forEach(axis=>{
+      const k = groups[axis].find(kk=>gc[kk]);
+      if (k) addAxis(axis,k);
+    });
+  }
+  if (!faces.length) return {mat:'<span style="color:#aaa">—</span>', giam:'<span style="color:#aaa">—</span>'};
+  const raTxt  = raOverride  || raDefault;
+  const tolTxt = tolOverride || (isP ? 'ISO-m' : 'ISO-f');
+  return {
+    mat:  faces.map(f=>`<div>${f}</div>`).join(''),
+    giam: reduces.map(rg=>`<div>${rg}</div>`).join('') + `<div class="gcp-tol-note">${raTxt}·${tolTxt}</div>`
+  };
+}
+
+function onGCTolRa(id,k,field,val){
+  const r=getRows(k).find(r=>r.id===id);
+  if(!r)return;
+  r[field]=val;
+}
+function onHEdge(id,k,val,btn){
+  const r=getRows(k).find(r=>r.id===id);
+  if(!r)return;
+  r.hEdge=val;
+  // Update button states
+  const card=document.getElementById('card'+id)||btn.closest('.rc-card,.row-card');
+  if(card){
+    card.querySelectorAll('.hedge-btn').forEach(b=>b.classList.remove('hedge-on'));
+    btn.classList.add('hedge-on');
+  }
+  // Update hint
+  const hint=document.getElementById('hh'+id);
+  if(hint){
+    const map={t:'1T/6B=W×L · 2F/5K=T×L · 3L/4R=T×W',
+               w:'1T/6B=T×L · 2F/5K=W×L · 3L/4R=W×T',
+               l:'1T/6B=T×W · 2F/5K=L×W · 3L/4R=L×T'};
+    hint.textContent=map[val]||'';
+  }
+  // Recalc prices
+  refreshCells(r,k);
+  updateSummary();
+}
+function openGCModal() {
+  const allR = [...rows3, ...rows5, ...rows0].filter(r => r.note || r.t || r.d || r.s);
+  if (!allR.length) { alert('Chưa có dữ liệu vật tư! Vui lòng nhập ít nhất 1 dòng ở tab Phôi cắt / Phay-mài / Nguyên khổ.'); return; }
+  if (!gcPhieuNo) gcPhieuNo = _genPhieuNo();
+  const phEl=$('gc-phieuno'); if(phEl)phEl.value=gcPhieuNo;
+  const ycEl=$('gc-nguoiyc'); if(ycEl)ycEl.value=gcNguoiYC;
+  const noteEl=$('gc-notexuong'); if(noteEl)noteEl.value=gcNoteXuong;
+  refreshGCPrint();
+  document.getElementById('gc-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeGCModal() {
+  document.getElementById('gc-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function buildGCPanel_print() {
+  // ── Đọc thông tin khách hàng
+  const ciName    = ($('ci-name')    ?.value || '').trim();
+  const ciAddr    = ($('ci-addr')    ?.value || '').trim();
+  const ciContact = ($('ci-contact') ?.value || '').trim();
+  const ciOfferNo = ($('ci-offerno') ?.value || '').trim();
+
+  // ── Số phiếu (giữ nguyên trong phiên, sinh 1 lần khi mở modal)
+  const now = new Date();
+  const phieuNo = gcPhieuNo || _genPhieuNo();
+  const dateDisplay = now.toLocaleDateString('vi-VN', {day:'2-digit',month:'2-digit',year:'numeric'});
+
+  // ── Thu thập tất cả rows thực tế (có gc data)
+  const allR = [...rows3, ...rows5, ...rows0];
+  const gcRows = allR.filter(r => r.note || r.t || r.d || r.s);
+
+  if (!gcRows.length) return '<p style="color:#888;padding:20px;text-align:center">Chưa có dữ liệu vật tư.</p>';
+
+  // ── Build mỗi dòng
+  let stt = 0;
+  const tableRows = gcRows.map(r => {
+    stt++;
+    const gc = r.gc || {};
+    const kerf = r.kerf; // 3 or 5 or 0
+
+    // Kích thước phôi vào — remap theo hEdge
+    const eff = getEffRough(r, kerf);
+    const he = r.hEdge || 't';
+    let phoi_T='', phoi_W='', phoi_L='', kt_T='', kt_W='', kt_L='';
+    let phoi_T_n=null, phoi_W_n=null, phoi_L_n=null, kt_T_n=null, kt_W_n=null, kt_L_n=null;
+    if (r.type === 'tam') {
+      const eTn=eff.t||0, eWn=eff.w||0, eLn=eff.l||0;
+      const eT=eTn?fmtD(eTn):(r.t||''), eW=eWn?fmtD(eWn):(r.w||''), eL=eLn?fmtD(eLn):(r.l||'');
+      const tTn=+r.t||0, tWn=+r.w||0, tLn=+r.l||0;
+      if(he==='t'){
+        phoi_T=eT;phoi_W=eW;phoi_L=eL;kt_T=r.t||'';kt_W=r.w||'';kt_L=r.l||'';
+        phoi_T_n=eTn;phoi_W_n=eWn;phoi_L_n=eLn;kt_T_n=tTn;kt_W_n=tWn;kt_L_n=tLn;
+      } else if(he==='w'){
+        phoi_T=eW;phoi_W=eT;phoi_L=eL;kt_T=r.w||'';kt_W=r.t||'';kt_L=r.l||'';
+        phoi_T_n=eWn;phoi_W_n=eTn;phoi_L_n=eLn;kt_T_n=tWn;kt_W_n=tTn;kt_L_n=tLn;
+      } else {
+        phoi_T=eL;phoi_W=eT;phoi_L=eW;kt_T=r.l||'';kt_W=r.t||'';kt_L=r.w||'';
+        phoi_T_n=eLn;phoi_W_n=eTn;phoi_L_n=eWn;kt_T_n=tLn;kt_W_n=tTn;kt_L_n=tWn;
+      }
+    } else if (r.type === 'tru') {
+      phoi_T=`Ø${eff.d||r.d||''}`;phoi_W='';phoi_L=eff.l?fmtD(eff.l):(r.l||'');
+      kt_T=r.d?`Ø${r.d}`:'';kt_W='';kt_L=r.l||'';
+    } else {
+      phoi_T=`S⊿${eff.s||r.s||''}`;phoi_W='';phoi_L=eff.l?fmtD(eff.l):(r.l||'');
+      kt_T=r.s?`S⊿${r.s}`:'';kt_W='';kt_L=r.l||'';
+    }
+    const hLbl=he==='t'?'T':he==='w'?'W':'L';
+    const hBadgeCls=he==='t'?'':he==='w'?' hw':' hl';
+    const hBadge=r.type==='tam'?`<div><span class="gcp-hedge-badge${hBadgeCls}">H⊥=${hLbl}</span></div>`:'';
+
+    // ── 🎯 KT tinh gộp: H⊥ riêng + W×L (kèm ghi chú kerf nếu có)
+    let ktWL = '—';
+    if (r.type === 'tam') {
+      const dW = (phoi_W_n!=null && kt_W_n!=null) ? phoi_W_n-kt_W_n : 0;
+      const dL = (phoi_L_n!=null && kt_L_n!=null) ? phoi_L_n-kt_L_n : 0;
+      const kerfNote = (dW>0.001||dL>0.001) ? `<div class="gcp-tol-note">phôi ${fmtD(phoi_W_n)}×${fmtD(phoi_L_n)} (+${fmtD(dW)}/+${fmtD(dL)})</div>` : '';
+      ktWL = `${kt_W||'—'} × ${kt_L||'—'}${kerfNote}`;
+    } else {
+      // Trụ/Lục/Bát: chỉ có L bị ảnh hưởng bởi kerf
+      const dL = (kerf===3||kerf===5) ? kerf : 0;
+      const kerfNote = dL>0 ? `<div class="gcp-tol-note">phôi L=${kt_L?fmtD((+kt_L||0)+dL):'—'} (+${dL})</div>` : '';
+      ktWL = `${kt_L||'—'}${kerfNote}`;
+    }
+
+    // ── Chiều giảm theo trục (chỉ áp dụng cho tấm — phôi vào trục đó trừ KT tinh trục đó)
+    const axisRed = r.type==='tam'
+      ? {H: (phoi_T_n!=null&&kt_T_n!=null)?phoi_T_n-kt_T_n:null,
+         W: (phoi_W_n!=null&&kt_W_n!=null)?phoi_W_n-kt_W_n:null,
+         L: (phoi_L_n!=null&&kt_L_n!=null)?phoi_L_n-kt_L_n:null}
+      : {H:null,W:null,L:null};
+
+    // ── Thông tin cắt + XLN (gộp 1 cột)
+    let cutHTML = '';
+    if (kerf === 3 || kerf === 5) {
+      const kerfMm = kerf === 3 ? 3 : 5;
+      const cutDir = r.type === 'tam' ? 'Cắt ngang + dọc' : 'Cắt theo L';
+      cutHTML = `<div class="gcp-op-cut">✂️ ${kerfMm}mm · ${cutDir}</div>`;
+      if (r.nNgang > 0) cutHTML += `<div class="gcp-tol-note">Ngang ×${r.nNgang} · Dọc ×${r.nDoc||0}</div>`;
+    } else if (kerf === 0) {
+      cutHTML = `<div class="gcp-tol-note">(Nguyên khổ)</div>`;
+    }
+    const htOps = ['ht_vac','ht_oil','ht_cao','ht_nit'].filter(k => gc[k]);
+    htOps.forEach(k => { cutHTML += `<div class="gcp-op-ht">🔥 ${GC_FACE_MAP[k].label}</div>`; });
+    const tolOverride = r.gcTol ? r.gcTol : null;
+    const raOverride  = r.gcRa  ? r.gcRa  : null;
+    if (tolOverride||raOverride) {
+      cutHTML += `<div class="gcp-tolra-cell">📏 ${tolOverride?`DS:<b>${tolOverride}</b>`:''}${tolOverride&&raOverride?' · ':''}${raOverride?`Ra:<b>${raOverride}</b>`:''}</div>`;
+    }
+    if (!cutHTML) cutHTML = '<span style="color:#aaa">—</span>';
+
+    // ── Phay / Mài — tách 2 cột lớn, mỗi cột có Mặt + Chiều giảm
+    const phayInfo = buildMillGrindInfo(gc, true,  axisRed, 'Ra1.6', tolOverride, raOverride);
+    const maiInfo  = buildMillGrindInfo(gc, false, axisRed, 'Ra0.8', tolOverride, raOverride);
+
+    const shapeLabel = r.type === 'tru' ? '<span class="gcp-shape">Trụ</span>' :
+                       r.type === 'luc' ? '<span class="gcp-shape">Lục</span>' :
+                       r.type === 'bat' ? '<span class="gcp-shape">Bát</span>' : '';
+
+    return `<tr>
+      <td class="num" style="width:24px">${stt}</td>
+      <td style="min-width:62px"><span class="gcp-grade">${r.note||'—'}</span>${shapeLabel}${hBadge}</td>
+      <td class="gcp-dim">${phoi_T}</td>
+      <td class="gcp-dim">${phoi_W}</td>
+      <td class="gcp-dim">${phoi_L}</td>
+      <td class="gcp-dim">${kt_T}</td>
+      <td class="gcp-dim">${ktWL}</td>
+      <td class="op-cell">${phayInfo.mat}</td>
+      <td class="op-cell">${phayInfo.giam}</td>
+      <td class="op-cell">${maiInfo.mat}</td>
+      <td class="op-cell">${maiInfo.giam}</td>
+      <td class="op-cell" style="min-width:80px">${cutHTML}</td>
+      <td class="num" style="width:28px">${r.qty||1}</td>
+      <td style="min-width:60px;font-size:7.5px;color:#5a6a7e">${r.userNote||''}</td>
+    </tr>`;
+  }).join('');
+
+  return `
+  <!-- ── Company Header ── -->
+  <div class="gcp-header">
+    <div class="gcp-gold-bar"></div>
+    <div class="gcp-co">
+      <div class="gcp-co-name">Công ty TNHH MTV An Thái Phú</div>
+      <div class="gcp-co-addr">732 Quốc lộ 1A, Bình Tân, TP. Hồ Chí Minh &nbsp;·&nbsp; ĐT: 0947 136 897 – 0949 532 168</div>
+    </div>
+    <div class="gcp-div"></div>
+    <div class="gcp-doc">
+      <div class="gcp-doc-type">PHIẾU YÊU CẦU<br>GIA CÔNG</div>
+      <div class="gcp-doc-no">${phieuNo}</div>
+      <div class="gcp-doc-date">Ngày: ${dateDisplay}</div>
+    </div>
+  </div>
+
+  <!-- ── Meta ── -->
+  <div class="gcp-meta-grid">
+    <div class="gcp-meta-row"><span class="gcp-meta-label">Khách hàng / Customer</span><span class="gcp-meta-val">${ciName||'—'}</span></div>
+    <div class="gcp-meta-row"><span class="gcp-meta-label">Người liên hệ / Contact</span><span class="gcp-meta-val">${ciContact||'—'}</span></div>
+    <div class="gcp-meta-row"><span class="gcp-meta-label">Địa chỉ / Address</span><span class="gcp-meta-val">${ciAddr||'—'}</span></div>
+    <div class="gcp-meta-row"><span class="gcp-meta-label">Ref. Báo giá / Quote Ref.</span><span class="gcp-meta-val">${ciOfferNo||'—'}</span></div>
+    <div class="gcp-meta-row"><span class="gcp-meta-label">Người lập phiếu / Requested by</span><span class="gcp-meta-val">${gcNguoiYC||'—'}</span></div>
+  </div>
+
+  <!-- ── Dice Code reference (ẩn mặc định — bấm 🎲 Hiện sơ đồ để in khi cần) ── -->
+  <div class="gcp-dice-wrap-outer${gcShowDice?'':' gcp-dice-hidden'}" style="margin-bottom:10px;border:1px solid #a8c8ee;border-radius:8px;overflow:hidden;background:#eef5fd">
+    <div style="display:flex;align-items:center;gap:7px;padding:5px 10px;background:linear-gradient(135deg,#0d1f3c,#1a3a6b);border-bottom:1px solid #a8c8ee">
+      <span style="font-size:14px">🎲</span>
+      <span style="font-size:10px;font-weight:900;color:#fff">Quy ước 6 mặt — Dice Code</span>
+      <span style="font-size:8.5px;color:rgba(255,255,255,.55);margin-left:4px">H×W×L · Tư thế chuẩn</span>
+    </div>
+    <div style="padding:8px 10px">
+      <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:flex-start">
+        <div style="flex-shrink:0">
+          <svg width="170" height="140" viewBox="0 0 170 140" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="gcgTop" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#e3f2fd"/><stop offset="100%" stop-color="#bbdefb"/></linearGradient>
+              <linearGradient id="gcgFront" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#e8eaf6"/><stop offset="100%" stop-color="#c5cae9"/></linearGradient>
+              <linearGradient id="gcgRight" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#f3e5f5"/><stop offset="100%" stop-color="#e1bee7"/></linearGradient>
+            </defs>
+            <polygon points="85,20 145,54 85,88 25,54" fill="url(#gcgTop)" stroke="#1565c0" stroke-width="1.2"/>
+            <polygon points="25,54 85,88 85,128 25,94" fill="url(#gcgFront)" stroke="#5b21b6" stroke-width="1.2"/>
+            <polygon points="85,88 145,54 145,94 85,128" fill="url(#gcgRight)" stroke="#9a3412" stroke-width="1.2"/>
+            <text x="85" y="56" text-anchor="middle" font-family="Arial" font-size="10" font-weight="900" fill="#0369a1">1T</text>
+            <text x="85" y="66" text-anchor="middle" font-family="Arial" font-size="7" fill="#1565c0">W × L</text>
+            <text x="52" y="95" text-anchor="middle" font-family="Arial" font-size="10" font-weight="900" fill="#5b21b6">2F</text>
+            <text x="52" y="104" text-anchor="middle" font-family="Arial" font-size="7" fill="#5b21b6">H × L</text>
+            <text x="118" y="95" text-anchor="middle" font-family="Arial" font-size="10" font-weight="900" fill="#9a3412">4R</text>
+            <text x="118" y="104" text-anchor="middle" font-family="Arial" font-size="7" fill="#9a3412">H × W</text>
+            <line x1="18" y1="54" x2="18" y2="94" stroke="#374151" stroke-width="1.2" marker-end="url(#gcArr)"/>
+            <line x1="18" y1="94" x2="18" y2="54" stroke="#374151" stroke-width="1.2" marker-end="url(#gcArrR)"/>
+            <defs><marker id="gcArr" markerWidth="5" markerHeight="5" refX="2.5" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5 Z" fill="#374151"/></marker>
+            <marker id="gcArrR" markerWidth="5" markerHeight="5" refX="2.5" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5 Z" fill="#374151"/></marker></defs>
+            <text x="9" y="76" text-anchor="middle" font-family="Arial" font-size="9" font-weight="900" fill="#C9570A">H</text>
+            <line x1="26" y1="50" x2="84" y2="20" stroke="#0060AA" stroke-width="1"/>
+            <text x="48" y="28" text-anchor="middle" font-family="Arial" font-size="9" font-weight="900" fill="#0060AA">W</text>
+            <line x1="86" y1="20" x2="144" y2="50" stroke="#007A40" stroke-width="1"/>
+            <text x="122" y="28" text-anchor="middle" font-family="Arial" font-size="9" font-weight="900" fill="#007A40">L</text>
+            <line x1="25" y1="54" x2="25" y2="94" stroke="#aaa" stroke-width=".8" stroke-dasharray="3,2"/>
+            <text x="103" y="15" font-family="Arial" font-size="6.5" fill="#C9570A" font-weight="bold">H = Thickness (⊥ bàn máy)</text>
+          </svg>
+        </div>
+        <div style="flex:1;min-width:200px">
+          <table style="width:100%;border-collapse:collapse;font-size:9px">
+            <thead><tr>
+              <th style="background:#1a3a6b;color:#fff;padding:3px 7px;font-size:8.5px;text-align:left">Code</th>
+              <th style="background:#1a3a6b;color:#fff;padding:3px 7px;font-size:8.5px;text-align:left">Tên mặt</th>
+              <th style="background:#1a3a6b;color:#fff;padding:3px 7px;font-size:8.5px;text-align:left">Kích thước</th>
+              <th style="background:#1a3a6b;color:#fff;padding:3px 7px;font-size:8.5px;text-align:left">Đối diện</th>
+            </tr></thead>
+            <tbody>
+              <tr><td style="padding:3px 7px;border-bottom:1px solid #d6e8f9"><b style="color:#0369a1;font-family:monospace">1T</b></td><td style="padding:3px 7px;border-bottom:1px solid #d6e8f9">Mặt Trên (Top)</td><td style="padding:3px 7px;border-bottom:1px solid #d6e8f9;font-family:monospace;color:#3D6B9E">W × L</td><td style="padding:3px 7px;border-bottom:1px solid #d6e8f9"><b style="color:#15803d;font-family:monospace">6B</b></td></tr>
+              <tr style="background:#f5f7fa"><td style="padding:3px 7px;border-bottom:1px solid #d6e8f9"><b style="color:#15803d;font-family:monospace">6B</b></td><td style="padding:3px 7px;border-bottom:1px solid #d6e8f9">Mặt Đáy (Bottom)</td><td style="padding:3px 7px;border-bottom:1px solid #d6e8f9;font-family:monospace;color:#3D6B9E">W × L</td><td style="padding:3px 7px;border-bottom:1px solid #d6e8f9"><b style="color:#0369a1;font-family:monospace">1T</b></td></tr>
+              <tr><td style="padding:3px 7px;border-bottom:1px solid #d6e8f9"><b style="color:#854d0e;font-family:monospace">2F</b></td><td style="padding:3px 7px;border-bottom:1px solid #d6e8f9">Mặt Trước (Front)</td><td style="padding:3px 7px;border-bottom:1px solid #d6e8f9;font-family:monospace;color:#3D6B9E">H × L</td><td style="padding:3px 7px;border-bottom:1px solid #d6e8f9"><b style="color:#9d174d;font-family:monospace">5K</b></td></tr>
+              <tr style="background:#f5f7fa"><td style="padding:3px 7px;border-bottom:1px solid #d6e8f9"><b style="color:#9d174d;font-family:monospace">5K</b></td><td style="padding:3px 7px;border-bottom:1px solid #d6e8f9">Mặt Sau (bacK)</td><td style="padding:3px 7px;border-bottom:1px solid #d6e8f9;font-family:monospace;color:#3D6B9E">H × L</td><td style="padding:3px 7px;border-bottom:1px solid #d6e8f9"><b style="color:#854d0e;font-family:monospace">2F</b></td></tr>
+              <tr><td style="padding:3px 7px;border-bottom:1px solid #d6e8f9"><b style="color:#5b21b6;font-family:monospace">3L</b></td><td style="padding:3px 7px;border-bottom:1px solid #d6e8f9">Đầu Trái (Left end)</td><td style="padding:3px 7px;border-bottom:1px solid #d6e8f9;font-family:monospace;color:#3D6B9E">H × W</td><td style="padding:3px 7px;border-bottom:1px solid #d6e8f9"><b style="color:#9a3412;font-family:monospace">4R</b></td></tr>
+              <tr style="background:#f5f7fa"><td style="padding:3px 7px"><b style="color:#9a3412;font-family:monospace">4R</b></td><td style="padding:3px 7px">Đầu Phải (Right end)</td><td style="padding:3px 7px;font-family:monospace;color:#3D6B9E">H × W</td><td style="padding:3px 7px"><b style="color:#5b21b6;font-family:monospace">3L</b></td></tr>
+            </tbody>
+          </table>
+          <div style="margin-top:6px;font-size:8px;color:#5a6a7e;line-height:1.65;padding:4px 7px;background:#fffbf0;border-radius:4px;border-left:2.5px solid #B5830A">
+            <b>Mẹo nhớ:</b> "1 đứng · 2 dài · 3 ngắn"<br>
+            1T/6B = mặt ⊥ H · 2F/5K = mặt dài (chứa L) · 3L/4R = mặt ngắn (chứa W)<br>
+            <span style="color:#C9570A;font-weight:700">H⊥ = cạnh đứng ⊥ bàn máy — xem badge H⊥=T/W/L từng dòng bên dưới</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Main table ── -->
+  <div class="gcp-table-wrap">
+  <table class="gcp-table">
+    <thead>
+      <tr>
+        <th rowspan="2" style="width:24px">STT</th>
+        <th rowspan="2" class="tl" style="min-width:62px">Mác thép</th>
+        <th colspan="3">📦 Phôi vào (thô)</th>
+        <th colspan="2">🎯 KT tinh</th>
+        <th colspan="2">⚒ Phay</th>
+        <th colspan="2">◼ Mài</th>
+        <th rowspan="2" class="tl" style="min-width:80px">✂️🔥 Cắt / XLN</th>
+        <th rowspan="2" style="width:28px">SL</th>
+        <th rowspan="2" class="tl" style="min-width:60px">Ghi chú</th>
+      </tr>
+      <tr>
+        <th>H⊥</th><th>W</th><th>L</th>
+        <th>H⊥</th><th>W × L (±kerf)</th>
+        <th>Mặt</th><th>Chiều giảm</th>
+        <th>Mặt</th><th>Chiều giảm</th>
+      </tr>
+    </thead>
+    <tbody>${tableRows}</tbody>
+  </table>
+  </div>
+
+  <!-- ── Tolerance notes ── -->
+  <div class="gcp-note-box">
+    <b>Dung sai mặc định:</b> &nbsp;
+    🔧 Phay → ISO 2768-m (±0.2mm @ 30–120mm) &nbsp;·&nbsp;
+    🔩 Mài → ISO 2768-f (±0.1mm @ 30–120mm) &nbsp;·&nbsp;
+    ✂️ Cắt → dung sai ghi trực tiếp (±0.5~2mm, không dùng ISO 2768) &nbsp;·&nbsp;
+    Ra mặc định: Phay Ra 1.6 · Mài Ra 0.8<br>
+    <b>Chiều giảm</b> = Phôi vào trừ KT tinh trên trục tương ứng (H⊥/W/L) — lượng vật tư cần phay/mài bỏ đi.
+  </div>
+  ${gcNoteXuong?`<div class="gcp-note-box" style="background:#eef5fd;border-color:#a8c8ee;color:#0d1f3c"><b>📝 Ghi chú xưởng:</b> ${gcNoteXuong}</div>`:''}
+
+  <!-- ── Footer ── -->
+  <div class="gcp-footer">
+    <div>
+      <div class="gcp-bank"><b>Thanh toán:</b> STK 0281001909286 – Vietcombank CN Bình Dương</div>
+      <div class="gcp-bank">CKT: CT TNHH MTV AN THAI PHU</div>
+    </div>
+    <div class="gcp-sigs">
+      <div class="gcp-sig"><div class="gcp-sig-line"></div>Người lập phiếu</div>
+      <div class="gcp-sig"><div class="gcp-sig-line"></div>Xưởng trưởng</div>
+      <div class="gcp-sig"><div class="gcp-sig-line"></div>Khách hàng</div>
+    </div>
+  </div>`;
+}
+
+function printGC() {
+  const panel = document.getElementById('gc-print-panel');
+  if (!panel || !panel.innerHTML.trim()) { alert('Chưa có dữ liệu phiếu GC.'); return; }
+
+  const html = `<!DOCTYPE html>
+<html lang="vi"><head>
+<meta charset="UTF-8">
+<title>Phiếu Yêu Cầu Gia Công — An Thái Phú</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Roboto',sans-serif;font-size:10px;color:#111;margin:.8cm 1cm}
+.gcp-header{display:flex;align-items:stretch;border:2px solid #1a3a6b;border-radius:6px;overflow:hidden;margin-bottom:9px}
+.gcp-gold-bar{width:7px;background:#B5830A;flex-shrink:0}
+.gcp-co{flex:1;padding:8px 12px}
+.gcp-co-name{font-family:'Montserrat',sans-serif;font-size:12px;font-weight:900;color:#1a3a6b;letter-spacing:.3px;text-transform:uppercase}
+.gcp-co-addr{font-size:8px;color:#5a6a7e;margin-top:2px;line-height:1.6}
+.gcp-div{width:1px;background:#e2e8f0;margin:6px 0}
+.gcp-doc{padding:8px 12px;min-width:190px;display:flex;flex-direction:column;justify-content:center}
+.gcp-doc-type{font-family:'Montserrat',sans-serif;font-size:14px;font-weight:900;color:#1a3a6b;line-height:1.2}
+.gcp-doc-no{font-size:9px;color:#B5830A;font-weight:700;margin-top:3px}
+.gcp-doc-date{font-size:8px;color:#5a6a7e;margin-top:1px}
+.gcp-meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px 14px;margin-bottom:9px;border:1px solid #e2e8f0;border-radius:6px;padding:8px 10px;background:#f8fafc}
+.gcp-meta-row{display:flex;flex-direction:column;gap:1px}
+.gcp-meta-label{font-size:7px;font-weight:700;color:#8899aa;text-transform:uppercase;letter-spacing:.3px}
+.gcp-meta-val{font-size:10px;font-weight:700;color:#0d1f3c}
+.gcp-dice-wrap{display:flex;gap:10px;align-items:flex-start;margin-bottom:9px;padding:7px 10px;background:#eef5fd;border-radius:6px;border:1px solid #a8c8ee}
+.gcp-dice-tbl{font-size:7.5px;border-collapse:collapse;flex:1}
+.gcp-dice-tbl th{background:#1a3a6b;color:#fff;padding:3px 6px;font-weight:700;font-size:7px;text-align:left}
+.gcp-dice-tbl td{padding:2px 6px;border-bottom:1px solid #d6e8f9;color:#0d1f3c}
+.gcp-dice-tbl tr:last-child td{border:none}
+.gcp-orient{font-size:7px;color:#5a6a7e;margin-top:4px;line-height:1.6;font-style:italic}
+.gcp-table{width:100%;border-collapse:collapse;margin-bottom:7px;font-size:8.5px}
+.gcp-table th{background:#1a3a6b;color:#fff;padding:3.5px 4px;font-size:7.5px;font-weight:700;text-align:center;border:1px solid #2d65b5}
+.gcp-table th.tl{text-align:left}
+.gcp-table td{padding:3.5px 4px;border:1px solid #d8e0ea;vertical-align:top}
+.gcp-table tr:nth-child(even) td{background:#f5f7fa}
+.num{text-align:center;font-weight:700;color:#133168}
+.gcp-dim{text-align:center;font-size:8px;color:#133168}
+.op-cell{font-size:7.5px;line-height:1.8}
+.gcp-op-cut{color:#00695c;font-weight:700}
+.gcp-op-mill{color:#1565c0;font-weight:700}
+.gcp-op-grind{color:#6d4c41;font-weight:700}
+.gcp-op-ht{color:#b45309;font-weight:700}
+.gcp-tol-note{color:#8899aa;font-size:7px}
+.gcp-grade{font-weight:900;color:#0d1f3c;font-size:9px}
+.gcp-shape{font-size:7px;color:#5a6a7e}
+.gcp-note-box{margin-top:6px;padding:5px 9px;background:#fffbf0;border:1px solid #fde68a;border-radius:5px;font-size:7.5px;color:#92400e}
+.gcp-hedge-badge{display:inline-block;font-size:7.5px;font-weight:900;padding:2px 6px;border-radius:4px;background:#0369a1;color:#fff;white-space:nowrap}
+.gcp-hedge-badge.hw{background:#5b21b6}
+.gcp-hedge-badge.hl{background:#9a3412}
+.gcp-tolra-cell{font-size:7px;color:#5a6a7e;margin-top:1px}
+.gcp-dice-wrap-outer.gcp-dice-hidden{display:none}
+.gcp-footer{display:flex;justify-content:space-between;align-items:flex-start;margin-top:12px;padding-top:9px;border-top:1px solid #e2e8f0}
+.gcp-bank{font-size:7.5px;color:#5a6a7e;line-height:1.8}
+.gcp-sigs{display:flex;gap:20px}
+.gcp-sig{text-align:center;font-size:8px;color:#374151}
+.gcp-sig-line{border-bottom:1px solid #aaa;width:95px;margin:28px auto 3px}
+@page{size:A4 portrait;margin:10mm 9mm 12mm}
+@media print{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+</style>
+</head><body>
+${panel.innerHTML}
+<script>window.onload=function(){setTimeout(()=>window.print(),400);}<\/script>
+</body></html>`;
+
+  const w = window.open('','_blank','width=900,height=700');
+  if (w) { w.document.write(html); w.document.close(); }
+  else {
+    const blob = new Blob([html], {type:'text/html'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.target = '_blank'; a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 3000);
+  }
+}
 </script>
+
+<!-- ══════════════════════════════════════════════════════
+     MODAL — Phiếu Yêu Cầu Gia Công
+     ══════════════════════════════════════════════════════ -->
+<div class="gc-overlay" id="gc-overlay" onclick="if(event.target===this)closeGCModal()">
+  <div class="gc-sheet">
+    <div class="gc-drag"></div>
+    <div class="gc-head">
+      <div>
+        <div class="gc-head-title">🔧 Phiếu Yêu Cầu <span>Gia Công</span></div>
+        <span class="gc-head-sub">An Thái Phú · ATP-GC · Từ dữ liệu báo giá hiện tại</span>
+      </div>
+      <button class="gc-close" onclick="closeGCModal()">✕</button>
+    </div>
+    <div class="gc-body">
+      <div class="gc-toolbar">
+        <button class="gc-btn gc-btn-print" onclick="printGC()">🖨 In / Lưu PDF</button>
+        <button class="gc-btn gc-btn-dice" id="gc-dice-toggle" onclick="toggleGCDice()">🎲 Hiện sơ đồ Dice</button>
+        <button class="gc-btn gc-btn-copy" id="gc-copy-btn" onclick="copyGCText()">📋 Copy nội dung</button>
+        <span class="gc-summary-chip" id="gc-summary-chip">📦 0 vật tư · 🔧 0 công đoạn</span>
+        <button class="gc-btn gc-btn-close" onclick="closeGCModal()">✕ Đóng</button>
+        <div class="gc-meta-fields">
+          <div class="gc-meta-field">
+            <label>Số phiếu</label>
+            <input type="text" id="gc-phieuno" placeholder="ATP-GC-..." oninput="onGCMetaChange('phieuNo',this.value)">
+          </div>
+          <div class="gc-meta-field">
+            <label>Người yêu cầu</label>
+            <input type="text" id="gc-nguoiyc" placeholder="Họ tên nhân viên..." oninput="onGCMetaChange('nguoiYC',this.value)">
+          </div>
+          <div class="gc-meta-field" style="flex-basis:100%">
+            <label>Ghi chú xưởng</label>
+            <textarea id="gc-notexuong" placeholder="Lưu ý cho xưởng gia công (vd: ưu tiên gấp, kiểm tra kỹ cạnh sắc...)" oninput="onGCMetaChange('noteXuong',this.value)"></textarea>
+          </div>
+        </div>
+      </div>
+      <div id="gc-print-panel"></div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
