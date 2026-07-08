@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bảng Tra Cứu Mác Thép — Thép Khuôn mẫu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cg:#1A7A4A;--cp:#6B48FF;
+  --bg:#f8f9fa;--card:#fff;--bd:#dee2e6;
+  --t1:#212529;--t2:#6c757d;--t3:#adb5bd;
+  --hover:#f1f3f5;--cnrow:#fffef5;
+  --gjis:#EDF5FB;--gcn:#FFF8ED;
+  --r:8px;
+}
+@media(prefers-color-scheme:dark){:root{
+  --bg:#1a1a2e;--card:#16213e;--bd:#2d3748;
+  --t1:#e2e8f0;--t2:#94a3b8;--t3:#475569;
+  --hover:#1e293b;--cnrow:#1e1a05;
+  --gjis:#0f1c2e;--gcn:#1e1600;
+}}
+body{font-family:"Comfortaa",sans-serif;background:var(--bg);color:var(--t1);font-size:13px}
+.page{max-width:1400px;margin:0 auto;padding:10px 12px}
+
+/* Header */
+.hcard{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:12px 16px;background:var(--card);border:1px solid var(--bd);border-radius:var(--r);margin-bottom:10px}
+.ht{font-size:15px;font-weight:700}
+.hs{font-size:11px;color:var(--t2);margin-top:3px}
+.hr{display:flex;flex-direction:column;align-items:flex-end;gap:5px}
+.cname{font-size:12px;font-weight:700}
+.cco a{font-size:11px;font-weight:700;color:var(--t2);text-decoration:none}
+.pbtn{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:99px;background:var(--cg);color:#fff;font-family:"Comfortaa",sans-serif;font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap}
+.pbtn svg{width:13px;height:13px;flex-shrink:0}
+
+/* Controls */
+.ctrl{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
+.ctrl input{flex:1 1 180px;padding:7px 12px;font-size:12px;font-family:"Comfortaa",sans-serif;border:1px solid var(--bd);border-radius:var(--r);background:var(--card);color:var(--t1)}
+.ctrl input:focus{outline:none;border-color:var(--cp);box-shadow:0 0 0 3px #6b48ff22}
+.tbtn{display:inline-flex;align-items:center;gap:5px;padding:6px 13px;border-radius:99px;border:1.5px solid var(--cp);background:var(--card);color:var(--cp);font-family:"Comfortaa",sans-serif;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .15s}
+.tbtn.green{border-color:var(--cg);color:var(--cg)}
+.tbtn.active{background:var(--cp);color:#fff;border-color:var(--cp)}
+.tbtn.green.active{background:var(--cg);color:#fff;border-color:var(--cg)}
+.tbtn svg{width:13px;height:13px;flex-shrink:0}
+
+/* Filter */
+.fbs-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:8px;padding-bottom:2px}
+.fbs{display:flex;gap:5px;flex-wrap:nowrap;min-width:max-content}
+.fbs button{flex-shrink:0;padding:3px 10px;border-radius:99px;border:1px solid var(--bd);background:var(--card);color:var(--t2);cursor:pointer;font-family:"Comfortaa",sans-serif;font-size:11px;white-space:nowrap;transition:all .12s}
+.fbs button.on{background:var(--cg);color:#fff;border-color:var(--cg);font-weight:700}
+
+/* Hint */
+.hint{font-size:10.5px;color:var(--t3);margin-bottom:6px;display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.dot-atp{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--cg);vertical-align:middle}
+
+/* Table */
+.sc{overflow-x:auto;background:var(--card);border:1px solid var(--bd);border-radius:var(--r)}
+table{width:100%;border-collapse:collapse;font-family:"Comfortaa",sans-serif;font-size:11.5px}
+thead th{position:sticky;top:0;z-index:2;padding:7px 8px;border-bottom:1px solid var(--bd);background:var(--card);color:var(--t2);font-size:10.5px;font-weight:700;text-align:left;white-space:nowrap}
+.grp td{font-weight:700;font-size:11px;color:var(--t2);padding:5px 8px;border-top:1px solid var(--bd)}
+.gjis{background:var(--gjis)}.gcn{background:var(--gcn)}
+tbody tr{border-bottom:1px solid var(--bd)}
+tbody tr:not(.grp):hover{background:var(--hover)}
+.cnrow{background:var(--cnrow)}
+tbody td{padding:5px 8px;vertical-align:top;line-height:1.5;font-size:11px}
+
+/* Tags & badges */
+.gn{font-weight:700;display:flex;align-items:center;gap:4px;flex-wrap:wrap;white-space:nowrap}
+mark.hl{background:#fff176;color:inherit;border-radius:2px;padding:0 1px;font-style:normal}
+.gn-sub{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:4px;padding-top:4px;border-top:1px solid var(--bd)}
+.gn-c{font-size:10px;color:var(--t2);white-space:nowrap}
+.tag{display:inline-block;font-size:9.5px;padding:2px 6px;border-radius:99px;font-weight:700;white-space:nowrap}
+.ts{background:#E6F1FB;color:#0C447C}.tc{background:#FAEEDA;color:#633806}
+.ta{background:#FAEEDA;color:#712B13}.ti{background:#EAF3E0;color:#27500A}
+.tt{background:#FAECE7;color:#712B13}.tm{background:#FBEAF0;color:#72243E}
+.tg{background:#E1F5EE;color:#085041}.tn{background:#F1EFE8;color:#444441}
+.th{background:#EEEDFE;color:#3C3489}
+.na{color:var(--t3);font-style:italic}
+.flag{font-size:9px;padding:1px 5px;border-radius:4px;font-weight:700}
+.fi{background:#E6F1FB;color:#0C447C}.fc{background:#FFF1CC;color:#7A5200}
+.cv{font-weight:700}
+.ap{font-size:10.5px;color:var(--t2);line-height:1.5}
+.hb{display:flex;align-items:center;gap:5px;white-space:nowrap}
+.hbar{height:5px;border-radius:3px;background:var(--cg);opacity:.65;min-width:2px;flex-shrink:0}
+.hv{font-size:10.5px;color:var(--t2)}
+
+/* Supplier */
+.supc{display:none;min-width:160px}.sc.show-sup .supc{display:table-cell}
+.slist{display:flex;flex-wrap:wrap;gap:3px}
+.sp{display:inline-block;font-size:9px;padding:2px 5px;border-radius:99px;white-space:nowrap;font-weight:700}
+.spjp{background:#FFF0F0;color:#8B0000}.spse{background:#FFF3E0;color:#7A4A00}
+.spat{background:#EDF5FB;color:#0C447C}.spde{background:#F0F4FF;color:#2C3E80}
+.spcn{background:#FFF8ED;color:#7A4A00}.spkr{background:#F0FFF4;color:#0A5C2A}
+.spus{background:#F5F0FF;color:#4A1F80}.spfi{background:#E8F5FF;color:#00457C}
+.sptw{background:#F0FFF8;color:#006644}
+
+/* Price — two columns */
+.prc-tam{display:none;min-width:148px}.sc.show-price .prc-tam{display:table-cell}
+.prc-tron{display:none;min-width:148px}.sc.show-price .prc-tron{display:table-cell}
+.px-wrap{font-size:10.5px}
+.px-ht{font-size:10px;color:var(--cg);font-weight:700;margin-bottom:3px}
+.px-hdr{font-size:10px;font-weight:700;color:var(--t2);margin-top:4px;margin-bottom:2px;border-bottom:1px solid var(--bd);padding-bottom:2px}
+.px-src{font-size:9.5px;font-weight:700;color:var(--cp);margin-top:3px;margin-bottom:1px}
+.px-row{display:flex;justify-content:space-between;align-items:center;gap:4px;padding:2px 0}
+.px-range{color:var(--t2);font-size:9.5px;flex:1}
+.px-price{font-weight:700;color:var(--cg);font-size:10.5px;white-space:nowrap}
+.px-bg{background:var(--hover);color:var(--t3);font-size:9px;padding:0 5px;border-radius:4px;font-style:italic}
+.px-note{font-size:9px;color:var(--cp);margin-top:3px;font-style:italic}
+.px-na{color:var(--t3);font-style:italic;font-size:10px}
+
+/* Hide-specs toggle */
+table.hide-specs .col-std{display:none}
+
+/* Service */
+.svc-card{display:none;margin-top:10px;padding:14px 16px;border:1px dashed var(--cg);border-radius:var(--r);background:var(--card)}
+.svc-card.show{display:block}
+.svc-title{font-size:13px;font-weight:700;color:var(--cg);margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.svc-box{background:var(--bg);border-radius:var(--r);border:1px solid var(--bd);padding:10px 12px}
+.svc-box h4{font-size:11.5px;font-weight:700;margin-bottom:7px}
+.svc-row{display:flex;justify-content:space-between;align-items:center;padding:3px 0;border-bottom:1px solid var(--bd);font-size:11px}
+.svc-row:last-child{border:none}
+.svc-label{color:var(--t2);flex:1}
+.svc-val{font-weight:700;color:var(--cg);white-space:nowrap}
+.svc-note{grid-column:1/-1;padding:10px 12px;font-size:10.5px;color:var(--t2);line-height:1.8;background:var(--bg);border-radius:var(--r);border:1px solid var(--bd)}
+
+/* Footer */
+.footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:10px 14px;margin-top:10px;border-radius:var(--r);border:1px solid var(--bd);background:var(--card);font-size:10.5px}
+.fnote{color:var(--t3);line-height:1.7}
+.fcredit{display:flex;align-items:center;gap:5px;flex-wrap:wrap;color:var(--t2);font-weight:500}
+.aibadge{display:inline-flex;align-items:center;gap:3px;padding:2px 9px;border-radius:99px;background:linear-gradient(135deg,var(--cp),var(--cg));color:#fff;font-size:9.5px;font-weight:700}
+
+/* ── RESPONSIVE ─────────────────────────────────────── */
+@media(max-width:700px){
+  .page{padding:8px}
+  .ht{font-size:13px}
+  .hcard{flex-direction:column;align-items:flex-start}
+  .hr{align-items:flex-start;width:100%;border-top:1px solid var(--bd);padding-top:8px}
+
+  /* Table → cards */
+  .sc{overflow-x:visible;background:transparent;border:none;border-radius:0}
+  thead{display:none}
+  table,tbody,tr,td{display:block}
+  .grp{position:sticky;top:0;z-index:5}
+  .grp td{padding:6px 10px;border-radius:6px;margin-bottom:4px}
+  tbody tr:not(.grp){
+    background:var(--card);border:1px solid var(--bd);
+    border-radius:var(--r);margin-bottom:10px;overflow:hidden;
+  }
+  .cnrow{background:var(--cnrow)!important}
+
+  /* Cell layout */
+  tbody td{
+    display:flex;justify-content:space-between;align-items:flex-start;
+    padding:6px 10px;border-bottom:1px solid var(--bd);font-size:11px;
+  }
+  tbody td:last-child{border-bottom:none}
+  tbody td::before{
+    content:attr(data-label);
+    font-weight:700;font-size:10px;color:var(--t2);
+    text-transform:uppercase;letter-spacing:.3px;
+    flex-shrink:0;min-width:68px;padding-right:8px;padding-top:2px;
+  }
+
+  /* Name row — full-width header */
+  td[data-label="Mác thép"]{
+    background:var(--gjis);flex-direction:column;
+    align-items:flex-start;gap:2px;padding:8px 10px;
+  }
+  .cnrow td[data-label="Mác thép"]{background:var(--gcn)}
+  td[data-label="Mác thép"]::before{display:none}
+  td[data-label="Mác thép"] .gn{font-size:13px}
+  td[data-label="Mác thép"] .gn-sub{width:100%;border-top-color:var(--bd)}
+
+  /* Force show sup/price as flex on mobile when toggled */
+  .sc.show-sup .supc{display:flex!important}
+  .sc.show-price .prc-tam{display:flex!important}
+  .sc.show-price .prc-tron{display:flex!important}
+  .supc,.prc-tam,.prc-tron{display:none!important}
+
+  /* hide-specs: hide col-std cells */
+  table.hide-specs td.col-std,
+  .hide-specs .col-std{display:none!important}
+
+  .footer{flex-direction:column;align-items:flex-start}
+  .fcredit{font-size:10px}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="hcard">
+  <div class="hl">
+    <div class="ht">📋 Bảng Tra Cứu Mác Thép Quốc Tế</div>
+    <div class="hs">JIS · AISI · DIN · EN · GOST · TCVN · GB &nbsp;|&nbsp; 💰 Bảng giá: Thép Khuôn mãu</div>
+  </div>
+  <div class="hr">
+    <div class="cname">Mr. Thành</div>
+    <div class="cco"><a href="https://www.thepkhuonmau.com/p/home.html" target="_blank">🏭 THÉP KHUÔN MẪU</a><br>
+    <a class="info-row" href="mailto:info@thepkhuonmau.com" style="text-decoration:none"><i class="ti ti-mail"></i>info@thepkhuonmau.com</a>
+    </div>
+    <a class="pbtn" href="tel:0938184590">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.01 2.18 2 2 0 012 0h3a2 2 0 012 1.72c.127 1.044.363 2.072.7 3.07a2 2 0 01-.45 2.11L6.09 8.09a16 16 0 006.82 6.82l1.27-1.27a2 2 0 012.11-.45c1 .337 2.026.573 3.07.7A2 2 0 0122 16.92z"/></svg>
+      093 818 4590
+    </a>
+  </div>
+</div>
+
+<div class="ctrl">
+  <input id="q" type="text" placeholder="🔍  Tìm mác thép... dùng dấu phẩy để tìm nhiều mác: skd11, p20, s45c" oninput="ren()">
+  
+ 
+</div>
+
+<div class="fbs-wrap"><div class="fbs" id="fbs"></div></div>
+
+<div class="hint">
+  Tìm theo Công dụng: <strong>khuôn, dao, </strong>&nbsp;|&nbsp; Tìm nhiều mác: <strong>skd, p20, cr40</strong> &nbsp;|&nbsp;
+  <span class="dot-atp"></span> có giá TKM &nbsp;|&nbsp;
+  <span class="flag fi">INT</span> Quốc tế &nbsp;
+  <span class="flag fc">TQ</span> GB Trung Quốc
+</div>
+
+<div class="sc" id="sc">
+<table id="tbl">
+<thead><tr>
+  <th style="min-width:140px">Mác thép</th>
+  <th class="col-std" style="min-width:90px">TCVN</th>
+  <th class="col-std" style="min-width:82px">GB (TQ)</th>
+  <th class="col-std" style="min-width:78px">AISI/SAE</th>
+  <th class="col-std" style="min-width:122px">DIN / W-Nr.</th>
+  <th class="col-std" style="min-width:78px">JIS</th>
+  <th class="col-std" style="min-width:108px">GOST (Nga)</th>
+  <th class="col-std" style="min-width:175px">Ứng dụng</th>
+  <th class="supc">🏭 Nhà sản xuất</th>
+  <th class="prc-tam">📦 Giá Tấm (₫/kg)</th>
+  <th class="prc-tron">🔵 Giá Tròn (₫/kg)</th>
+</tr></thead>
+<tbody id="tb"></tbody>
+</table>
+</div>
+
+<div class="svc-card" id="svcCard">
+  <div class="svc-title">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+    Bảng Giá Dịch Vụ — An Thái Phú Steel
+  </div>
+  <div class="svc-grid">
+    <div class="svc-box">
+      <h4>🔥 Xử Lý Nhiệt</h4>
+      <div class="svc-row"><span class="svc-label">Chân không</span><span class="svc-val">30.000 ₫/kg</span></div>
+      <div class="svc-row"><span class="svc-label">Nhiệt dầu</span><span class="svc-val">22.000 ₫/kg</span></div>
+      <div class="svc-row"><span class="svc-label">Cao tần</span><span class="svc-val">Báo giá theo đơn</span></div>
+      <div class="svc-row"><span class="svc-label">Thấm ni-tơ</span><span class="svc-val">45.000 ₫/kg</span></div>
+    </div>
+    <div class="svc-box">
+      <h4>⚙️ Gia Công Cơ</h4>
+      <div class="svc-row"><span class="svc-label">Phay 6 mặt</span><span class="svc-val">0,8 ₫/mm²</span></div>
+      <div class="svc-row"><span class="svc-label">Phay &lt; 6 mặt</span><span class="svc-val">1 ₫/mm²</span></div>
+      <div class="svc-row"><span class="svc-label">Phay cạnh</span><span class="svc-val">1 ₫/mm²</span></div>
+      <div class="svc-row"><span class="svc-label">Mài phẳng</span><span class="svc-val">1 ₫/mm²</span></div>
+    </div>
+    <div class="svc-note">
+      • Nhiệt chân không &amp; dầu: &lt;1kg tính 1kg &nbsp;|&nbsp; Thấm N₂: &lt;3kg tính 3kg<br>
+      • Cắt Ø ≤ 200mm / dày ≤ 25mm: +3mm tiền cắt &nbsp;|&nbsp; Ø 205–299mm / dày ≤ 35mm: +3mm tiền cắt<br>
+      • Cắt Ø ≥ 300mm: Báo giá theo đơn hàng<br>
+      • Đơn giá <strong>chưa bao gồm VAT</strong> &nbsp;|&nbsp; Thanh toán: Tiền mặt / Chuyển khoản
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="fnote">
+    <span class="sp spjp">🇯🇵 JP</span>
+    <span class="sp spse">🇸🇪 SE</span>
+    <span class="sp spat">🇦🇹 AT</span>
+    <span class="sp spde">🇩🇪 DE</span>
+    <span class="sp spkr">🇰🇷 KR</span>
+    <span class="sp spcn">🇨🇳 CN</span>
+    <span class="sp spfi">🇫🇮 FI</span>
+    <span class="sp spus">🇺🇸 US</span>
+  </div>
+  <div class="fcredit">
+    Người đề xuất:
+    <a href="tel:0938184590" style="font-weight:700;text-decoration:none">Mr. Thành · 093 818 4590</a>
+    &nbsp;·&nbsp;
+    <a href="https://www.thepkhuonmau.com/p/home.html" target="_blank" style="font-weight:700;text-decoration:none">Thép Khuôn mẫu</a>
+    &nbsp;|&nbsp;
+    <span class="aibadge">✦ Created by Claude AI</span>
+  </div>
+</div>
+</div>
+
+<script>
+const MH=66;
+function bar(h,t){if(!h)return`<span class="hv">${t}</span>`;return`<div class="hb"><div class="hbar" style="width:${Math.round(h/MH*100)}px"></div><span class="hv">${t}</span></div>`}
+const na='<span class="na">—</span>';
+function J(s){return`<span class="sp spjp">🇯🇵 ${s}</span>`}
+function S(s){return`<span class="sp spse">🇸🇪 ${s}</span>`}
+function A(s){return`<span class="sp spat">🇦🇹 ${s}</span>`}
+function Dw(s){return`<span class="sp spde">🇩🇪 ${s}</span>`}
+function C(s){return`<span class="sp spcn">🇨🏳️ ${s}</span>`}
+function Kr(s){return`<span class="sp spkr">🇰🇷 ${s}</span>`}
+function U(s){return`<span class="sp spus">🇺🇸 ${s}</span>`}
+function Fi(s){return`<span class="sp spfi">🇫🇮 ${s}</span>`}
+function Tw(s){return`<span class="sp sptw">🇹🇼 ${s}</span>`}
+function sup(...a){return`<div class="slist">${a.join('')}</div>`}
+const fmt=n=>n.toLocaleString('vi-VN')+'₫';
+
+const PX={
+  "SS400":       {ht:"0°C",      tam:[{r:"6–8mm",p:20000},{r:"10–85mm",p:22000},{r:"90–200mm",p:25000}]},
+  "SM490":       null,
+  "S20C":        null,
+  "S45C":        {ht:"18~19°C",tam:[{r:"6–8mm",p:35000},{r:"10–16mm",p:30000},{r:"20–80mm",p:26000},{r:"85–200mm",p:29000},{r:"205–250mm",p:32000},{r:"255–300mm",p:34000}],tron:[{r:"Ø16–200mm",p:27000},{r:"Ø210–300mm",p:30000},{r:"Ø305–350mm",p:34000},{r:"Ø<18 / >360mm",p:0}]},
+  "S50C":        {ht:"18~19°C",tam:[{r:"6–8mm",p:35000},{r:"10–16mm",p:30000},{r:"20–80mm",p:26000},{r:"85–200mm",p:29000},{r:"205–250mm",p:32000},{r:"255–300mm",p:34000}],tron:[{r:"Ø16–200mm",p:27000},{r:"Ø210–300mm",p:30000},{r:"Ø305–350mm",p:34000}]},
+  "S55C":        {ht:"18~19°C",tam:[{r:"6–8mm",p:38000},{r:"10–18mm",p:33000},{r:"20–80mm",p:30000},{r:"85–200mm",p:32000},{r:"205–250mm",p:35000},{r:"255–300mm",p:38000},{r:">310mm",p:0}]},
+  "S60C":        null,
+  "SCr440 / 40Cr":null,
+  "SCM440":      {ht:"0°C",   tam:[{r:"10–14mm",p:56000},{r:"16–200mm",p:43000},{r:">200mm",p:0}],tron:[{r:"Ø12–18mm",p:45000},{r:"Ø20–150mm",p:38000},{r:"Ø160–200mm",p:40000},{r:">Ø200mm",p:0}]},
+  "SNCM439":     null,
+  "SUS304":      null,
+  "SUS316":      null,
+  "SUS420J1":    null,
+  "SUS420J2":    null,
+  "SKS3":        null,
+  "SKD11 / D2":  {ht:"19°C",multi:true,sources:[
+    {lbl:"📦 Tấm D2",          rows:[{r:"6–10mm",p:110000},{r:"12–18mm",p:97000},{r:"20–75mm",p:95000},{r:"80–200mm",p:97000}]},
+    {lbl:"📦 Tấm SKD11 China", rows:[{r:"6–10mm",p:95000},{r:"12–18mm",p:82000},{r:"20–75mm",p:78000},{r:"80–140mm",p:85000},{r:"150–200mm",p:95000}]},
+    {lbl:"📦 Tấm SKD11 POSCO", rows:[{r:"10–12mm",p:110000},{r:"14–18mm",p:100000},{r:"20–75mm",p:95000},{r:"80–200mm",p:100000}]},
+    {lbl:"📦 Tấm SKD11 Japan", rows:[{r:"10–200mm",p:120000}]},
+    {lbl:"🔵 Tròn D2",         rows:[{r:"Ø10–45mm",p:100000},{r:"Ø50–240mm",p:95000},{r:"Ø245–285mm",p:100000},{r:"Ø290–320mm",p:105000}]},
+    {lbl:"🔵 Tròn SKD11 China",rows:[{r:"Ø10–16mm",p:95000},{r:"Ø18–45mm",p:85000},{r:"Ø50–200mm",p:78000},{r:"Ø205–285mm",p:82000},{r:"Ø290–320mm",p:87000}]},
+    {lbl:"🔵 Tròn SKD11 POSCO",rows:[{r:"Ø10–45mm",p:100000},{r:"Ø50–240mm",p:95000},{r:"Ø245–285mm",p:100000},{r:"Ø290–320mm",p:105000}]},
+    {lbl:"🔵 Tròn SKD11 Japan",rows:[{r:"10–200mm",p:120000}]},
+  ]},
+  "SKD61 / H13": {ht:"19°C",tam:[{r:"6–16mm",p:115000},{r:"18–85mm",p:95000},{r:"90–150mm",p:97000}],tron:[{r:"Ø10–45mm",p:100000},{r:"Ø50–200mm",p:95000},{r:"Ø210–230mm",p:0}],note:"KDA-1S Nhật (Nippon/Comasu): Ø150–200mm: 150.000₫/kg"},
+  "DC53":        {ht:"19°C",  tam:[{r:"10–14mm",p:160000},{r:"16–100mm",p:140000}],tron:[{r:"Ø25–130mm",p:160000},{r:"Ø160mm",p:160000}]},
+  "SUJ2":        null,
+  "P20 / 1.2311":{ht:"28~33°C",tam:[{r:"10–18mm",p:56000},{r:"20–80mm",p:43000},{r:"85–200mm",p:55000},{r:">200mm",p:0}]},
+  "H718 / 1.2738":{ht:"35~38°C",tam:[{r:"<20mm",p:105000},{r:"20–80mm",p:98000}]},
+  "NAK55":       {ht:"35~38°C",tam:[{r:"20–80mm",p:95000}]},
+  "NAK80":       {ht:"40~43°C",tam:[{r:"20–80mm",p:160000},{r:"<20 / >85mm",p:190000}]},
+  "FDAC":        {ht:"38°C",  tam:[{r:"10–18mm",p:0},{r:"20–150mm",p:200000}]},
+  "2083H / S136":{ht:"28~33°C",tam:[{r:"6–10mm",p:95000},{r:"12–18mm",p:90000},{r:"20–85mm",p:78000},{r:"90–250mm",p:100000}],tron:[{r:"Ø16–200mm (đen)",p:80000},{r:"Ø16–200mm (trắng)",p:88000}]},
+  "X38CrMo16 / 1.2316":{ht:"28~33°C",tam:[{r:"20–200mm",p:130000}],tron:[{r:"Ø40–130mm",p:140000}]},
+};
+
+function prow(r){
+  return r.p
+    ?`<div class="px-row"><span class="px-range">${r.r}</span><span class="px-price">${fmt(r.p)}</span></div>`
+    :`<div class="px-row"><span class="px-range">${r.r}</span><span class="px-bg">Báo giá</span></div>`;
+}
+
+// Trả về {tam: html, tron: html} — HT badge chung, tách Tấm / Tròn
+function priceCells(nm){
+  const px=PX[nm];
+  const na_='<span class="px-na">—</span>';
+  if(!px)return{tam:'<span class="px-na">Liên hệ ATP</span>',tron:na_};
+
+  const htBadge=(px.ht&&px.ht!=="—")
+    ?`<div style="font-size:9px;color:#856404;background:#FFF3CD;border:1px solid #ffc10766;border-radius:4px;padding:1px 5px;margin-bottom:4px;display:inline-block">🔥 HT: ${px.ht}</div>`
+    :'';
+
+  if(px.multi){
+    let tamH=htBadge,tronH=htBadge,hasTam=false,hasTron=false;
+    for(const src of px.sources){
+      const isTam=src.lbl.includes('Tấm')||src.lbl.includes('📦');
+      if(isTam){hasTam=true;tamH+=`<div class="px-src">${src.lbl}</div>`;for(const r of src.rows)tamH+=prow(r);}
+      else{hasTron=true;tronH+=`<div class="px-src">${src.lbl}</div>`;for(const r of src.rows)tronH+=prow(r);}
+    }
+    return{
+      tam:hasTam?`<div class="px-wrap">${tamH}</div>`:na_,
+      tron:hasTron?`<div class="px-wrap">${tronH}</div>`:na_
+    };
+  }
+
+  let tamH=htBadge,tronH=htBadge;
+  if(px.tam){for(const r of px.tam)tamH+=prow(r);} else tamH=na_;
+  if(px.tron){for(const r of px.tron)tronH+=prow(r);} else tronH=na_;
+  if(px.note)tamH+=`<div class="px-note">ℹ️ ${px.note}</div>`;
+  return{
+    tam:tamH===na_?na_:`<div class="px-wrap">${tamH}</div>`,
+    tron:tronH===na_?na_:`<div class="px-wrap">${tronH}</div>`
+  };
+}
+
+const GROUPS=[
+  {id:"jis-s",lbl:"🔵 Thép kết cấu / Carbon thông dụng",cls:"gjis"},
+  {id:"jis-a",lbl:"🟢 Thép hợp kim kết cấu",cls:"gjis"},
+  {id:"jis-i",lbl:"🔴 Thép không gỉ",cls:"gjis"},
+  {id:"jis-t",lbl:"🟠 Thép dụng cụ & khuôn mẫu",cls:"gjis"},
+  {id:"jis-g",lbl:"🟡 Thép bánh răng",cls:"gjis"},
+  {id:"cn-s",lbl:"🇨🇳 Thép kết cấu GB",cls:"gcn"},
+  {id:"cn-c",lbl:"🇨🇳 Thép carbon chất lượng GB",cls:"gcn"},
+  {id:"cn-sp",lbl:"🇨🇳 Thép lò xo GB",cls:"gcn"},
+  {id:"cn-a",lbl:"🇨🇳 Thép hợp kim kết cấu GB",cls:"gcn"},
+  {id:"cn-n",lbl:"🇨🇳 Thép thấm nitơ GB",cls:"gcn"},
+  {id:"cn-t",lbl:"🇨🇳 Thép dụng cụ GB",cls:"gcn"},
+  {id:"cn-h",lbl:"🇨🇳 Thép gió (HSS) GB",cls:"gcn"},
+  {id:"cn-i",lbl:"🇨🇳 Thép không gỉ GB",cls:"gcn"},
+];
+const D=[
+  {n:"SS400",     tg:"ts",g:"jis-s",fl:"fi",tcvn:"CT38/TCVN1765",gb:"Q235A",  aisi:"A36",       din:"St44-2/1.0044",     jis:"SS400",    gost:"Ст3сп/ГОСТ380",   c:"≤0.25",h:null,ht:"~120 HB",ap:"Khung kết cấu, vỏ máy, bu lông kết cấu",sup:sup(J("Nippon"),J("JFE"),Kr("POSCO"),C("Baowu"),C("HBIS"))},
+  {n:"SM490",     tg:"ts",g:"jis-s",fl:"fi",tcvn:na,               gb:"Q345A",  aisi:"A572 Gr50", din:"S355JR/1.0577",     jis:"SM490",    gost:"09Г2С/ГОСТ19281", c:"≤0.20",h:null,ht:"~160 HB",ap:"Dầm cầu, kết cấu hàn, tàu biển, bồn áp lực",sup:sup(J("Nippon"),J("JFE"),Kr("POSCO"),C("Baowu"),C("Ansteel"))},
+  {n:"S20C",      tg:"tc",g:"jis-s",fl:"fi",tcvn:"C20/TCVN1766",   gb:"20",     aisi:"1020",      din:"Ck20/1.1151",       jis:"S20C",     gost:"20/ГОСТ1050",     c:"0.18–0.23",h:null,ht:"~65 HRB",ap:"Trục nhỏ, chốt, then hoa, chi tiết thấm carbon",sup:sup(J("Nippon"),J("JFE"),Kr("POSCO"),C("Baowu"))},
+  {n:"S45C",      tg:"tc",g:"jis-s",fl:"fi",tcvn:"C45/TCVN1766",   gb:"45",     aisi:"1045",      din:"Ck45/1.1191",       jis:"S45C",     gost:"45/ГОСТ1050",     c:"0.42–0.48",h:55,ht:"~55 HRC",ap:"Trục truyền động, bánh răng nhỏ, đế máy CNC",sup:sup(J("Nippon"),J("JFE"),J("Kobe"),Kr("POSCO"),C("Baowu"),C("HBIS"))},
+  {n:"S50C",      tg:"tc",g:"jis-s",fl:"fi",tcvn:"C50/TCVN1766",   gb:"50",     aisi:"1050",      din:"Ck50/1.1210",       jis:"S50C",     gost:"50/ГОСТ1050",     c:"0.47–0.53",h:58,ht:"~58 HRC",ap:"Trục cam, lò xo lá, đĩa ma sát",sup:sup(J("Nippon"),J("JFE"),Kr("POSCO"),C("Baowu"))},
+  {n:"S55C",      tg:"tc",g:"jis-s",fl:"fi",tcvn:"C55/TCVN1766",   gb:"55",     aisi:"1055",      din:"Ck55/1.0535",       jis:"S55C",     gost:"55/ГОСТ1050",     c:"0.52–0.58",h:60,ht:"~60 HRC",ap:"Lò xo, dao/lưỡi cắt nhẹ, vít tải",sup:sup(J("Nippon"),J("JFE"),Kr("POSCO"),C("Baowu"))},
+  {n:"S60C",      tg:"tc",g:"jis-s",fl:"fi",tcvn:"C60/TCVN1766",   gb:"60",     aisi:"1060",      din:"Ck60/1.0601",       jis:"S60C",     gost:"60/ГОСТ1050",     c:"0.57–0.63",h:62,ht:"~62 HRC",ap:"Lò xo nhíp, dây lò xo, bánh xe tàu hỏa",sup:sup(J("Nippon"),J("JFE"),Kr("POSCO"),C("Baowu"))},
+  {n:"SCr440 / 40Cr",tg:"ta",g:"jis-a",fl:"fi",tcvn:na,            gb:"40Cr",   aisi:"5140",      din:"41Cr4/1.7035",      jis:"SCr440",   gost:"40Х/ГОСТ4543",    c:"0.38–0.43",h:58,ht:"~58 HRC",ap:"Bánh răng, trục, bạc đạn, bulông cường độ cao",sup:sup(J("Kobe"),J("Sanyo"),Dw("DEW"),C("Daye"),C("CITIC"))},
+  {n:"SCM440",    tg:"ta",g:"jis-a",fl:"fi",tcvn:na,               gb:"42CrMo", aisi:"4140",      din:"42CrMo4/1.7225",    jis:"SCM440",   gost:"38ХМ/ГОСТ4543",   c:"0.38–0.43",h:58,ht:"~58 HRC",ap:"Trục khuỷu, cam, bánh răng tải nặng, khuôn rèn",sup:sup(J("Kobe"),J("Sanyo"),Dw("DEW"),S("Ovako"),C("Daye"),C("CITIC"),C("Fushun"))},
+  {n:"SNCM439",   tg:"ta",g:"jis-a",fl:"fi",tcvn:na,               gb:"40CrNiMoA",aisi:"4340",   din:"40NiCrMo6/1.6565",  jis:"SNCM439",  gost:"40ХН2МА/ГОСТ4543",c:"0.36–0.43",h:57,ht:"~57 HRC",ap:"Trục cánh quạt, cần piston, khuôn rèn lớn, hàng không",sup:sup(J("Kobe"),J("Sanyo"),Dw("DEW"),U("Carpenter"),C("CITIC"))},
+  {n:"SUS304",    tg:"ti",g:"jis-i",fl:"fi",tcvn:na,               gb:"0Cr18Ni9",aisi:"304",      din:"X5CrNi18-10/1.4301",jis:"SUS304",   gost:"08Х18Н10/ГОСТ5632",c:"≤0.08",h:null,ht:"~80 HRB",ap:"Bồn thực phẩm, thiết bị y tế, ống hóa chất",sup:sup(J("Nippon"),Fi("Outokumpu"),Kr("POSCO"),C("Baosteel SS"),Tw("Yieh Utd"))},
+  {n:"SUS316",    tg:"ti",g:"jis-i",fl:"fi",tcvn:na,               gb:"0Cr17Ni12Mo2",aisi:"316",  din:"X5CrNiMo17-12/1.4401",jis:"SUS316", gost:"08Х17Н13М2",      c:"≤0.08",h:null,ht:"~80 HRB",ap:"Môi trường biển, hóa chất ăn mòn, y tế cấy ghép",sup:sup(J("Nippon"),Fi("Outokumpu"),Kr("POSCO"),C("Baosteel SS"),Tw("Yieh Utd"))},
+  {n:"SUS316L",   tg:"ti",g:"jis-i",fl:"fi",tcvn:na,               gb:"00Cr17Ni14Mo2",aisi:"316L",din:"X2CrNiMo17-12-2/1.4404",jis:"SUS316L",gost:"03Х17Н14М2/ГОСТ5632",c:"≤0.03",h:null,ht:"~80 HRB",ap:"Thiết bị y tế cấy ghép, xử lý thực phẩm acid mạnh, môi trường biển",sup:sup(J("Nippon"),Fi("Outokumpu"),Kr("POSCO"),C("Baosteel SS"))},
+  {n:"SUS321",    tg:"ti",g:"jis-i",fl:"fi",tcvn:na,               gb:"1Cr18Ni9Ti",aisi:"321",   din:"X6CrNiTi18-10/1.4541",jis:"SUS321",  gost:"12Х18Н10Т/ГОСТ5632",c:"≤0.12",h:null,ht:"~80 HRB",ap:"Bình chịu nhiệt, ống hơi nước, thiết bị hóa chất >425°C",sup:sup(J("Nippon"),Fi("Outokumpu"),Kr("POSCO"),C("Baosteel SS"),C("TISCO"))},
+  {n:"SUS420J1",  tg:"ti",g:"jis-i",fl:"fi",tcvn:na,               gb:"2Cr13",  aisi:"420",       din:"X20Cr13/1.4021",    jis:"SUS420J1", gost:"20Х13/ГОСТ5632",  c:"0.16–0.25",h:50,ht:"~50 HRC",ap:"Cánh tuabin, van, dao phẫu thuật, khuôn đúc nhẹ",sup:sup(J("Nippon"),J("Daido"),Fi("Outokumpu"),C("Baosteel SS"))},
+  {n:"SUS420J2",  tg:"ti",g:"jis-i",fl:"fi",tcvn:na,               gb:"3Cr13",  aisi:"420C",      din:"X30Cr13/1.4028",    jis:"SUS420J2", gost:"30Х13/ГОСТ5632",  c:"0.26–0.40",h:55,ht:"~55 HRC",ap:"Dao cắt, kéo y tế, dụng cụ phẫu thuật, vòng bi",sup:sup(J("Nippon"),J("Daido"),Fi("Outokumpu"),C("Baosteel SS"))},
+  {n:"SKS3",      tg:"tt",g:"jis-t",fl:"fi",tcvn:na,               gb:"9CrWMn", aisi:"O1",        din:"95MnWCr5/1.2510",   jis:"SKS3",     gost:"ХВГ/ГОСТ5950",    c:"0.90–1.00",h:62,ht:"~62 HRC",ap:"Dao cắt nguội, khuôn đột, dụng cụ đo",sup:sup(J("Hitachi/Proterial"),J("Daido"),A("Böhler K460"),S("Uddeholm Arne"),C("Daye"))},
+  {n:"SKD11 / D2",tg:"tt",g:"jis-t",fl:"fi",tcvn:na,               gb:"Cr12MoV",aisi:"D2",        din:"X155CrVMo12-1/1.2379",jis:"SKD11",  gost:"Х12МФ/ГОСТ5950",  c:"1.40–1.60",h:62,ht:"60–62 HRC",ap:"Khuôn dập nguội, dao/lưỡi cắt thép, khuôn ép bột",sup:sup(J("Daido DC11"),J("Hitachi SLD"),A("Böhler K110"),S("Uddeholm Sleipner"),Kr("POSCO"),C("Daye"),C("Fushun"))},
+  {n:"SKD61 / H13",tg:"tt",g:"jis-t",fl:"fi",tcvn:na,              gb:"4Cr5MoSiV1",aisi:"H13",   din:"X40CrMoV5-1/1.2344",jis:"SKD61",   gost:"4Х5МФ1С/ГОСТ5950",c:"0.32–0.42",h:54,ht:"50–54 HRC",ap:"Khuôn đúc áp lực nhôm, khuôn rèn nóng, đầu đùn nhôm",sup:sup(J("Daido DAC"),J("Hitachi DAC55"),A("Böhler W302/W400"),S("Uddeholm Orvar/Dievar"),U("Finkl"),C("Daye"),C("Fushun"))},
+  {n:"DC53",      tg:"tt",g:"jis-t",fl:"fi",tcvn:na,               gb:na,       aisi:na,          din:na,                  jis:"DC53",     gost:"—(thương mại)",   c:"0.95–1.00",h:62,ht:"~62 HRC",ap:"Khuôn dập nguội độ bền cao, khuôn dao/cắt tôn dày",sup:sup(J("Daido★"),J("Hitachi SLD-8"),A("Böhler K340"),S("Assab 88"),U("Finkl A8mod"))},
+  {n:"SUJ2",      tg:"tt",g:"jis-t",fl:"fi",tcvn:na,               gb:"GCr15",  aisi:"52100",     din:"100Cr6/1.3505",     jis:"SUJ2",     gost:"ШХ15/ГОСТ801",    c:"0.95–1.10",h:64,ht:"62–65 HRC",ap:"Vòng bi, con lăn, trục vít me bi, bơm piston",sup:sup(J("Sanyo SS"),J("Kobe"),S("SKF Steel"),S("Ovako"),C("Baosteel"),C("CITIC"))},
+  {n:"P20 / 1.2311",tg:"tm",g:"jis-t",fl:"fi",tcvn:na,             gb:"3Cr2Mo", aisi:"P20",       din:"3CrMo/1.2311",      jis:"PX5(≈)",   gost:"≈35ХМА/ГОСТ4543", c:"0.28–0.40",h:34,ht:"28–34 HRC(pre-hard)",ap:"Khuôn nhựa trung & lớn, khuôn đúc kẽm, đế khuôn",sup:sup(A("Böhler P20"),S("Uddeholm 618"),Dw("DEW 1.2311"),C("Daye"),C("Fushun"))},
+  {n:"H718 / 1.2738",tg:"tm",g:"jis-t",fl:"fi",tcvn:na,            gb:"3Cr2NiMo",aisi:"P20+Ni",  din:"1.2738",            jis:"HPM7(≈)",  gost:"≈40ХНМ",           c:"0.35–0.45",h:37,ht:"33–37 HRC(pre-hard)",ap:"Khuôn nhựa lớn >400mm, khuôn bumper ô tô",sup:sup(A("Böhler M238"),S("Uddeholm 718"),Dw("DEW 1.2738"),C("Daye"),C("Fushun"))},
+  {n:"NAK55",     tg:"tm",g:"jis-t",fl:"fi",tcvn:na,               gb:na,       aisi:na,          din:na,                  jis:"NAK55",    gost:"—(thương mại)",   c:"0.12–0.15",h:38,ht:"35–38 HRC(pre-hard)",ap:"Khuôn nhựa pre-hard tải nhẹ, khuôn trang trí",sup:sup(J("Daido★(độc quyền)"))},
+  {n:"NAK80",     tg:"tm",g:"jis-t",fl:"fi",tcvn:na,               gb:na,       aisi:na,          din:na,                  jis:"NAK80",    gost:"—(thương mại)",   c:"0.12–0.18",h:40,ht:"38–42 HRC(pre-hard)",ap:"Khuôn quang học, linh kiện điện tử, đánh bóng gương",sup:sup(J("Daido★(độc quyền)"))},
+  {n:"FDAC",      tg:"tm",g:"jis-t",fl:"fi",tcvn:na,               gb:na,       aisi:"≈H13",      din:"≈1.2344",           jis:"FDAC",     gost:"—(thương mại)",   c:"0.37–0.43",h:40,ht:"~40 HRC(pre-hard)",ap:"Khuôn đúc áp lực nhôm nhỏ, lõi khuôn nóng",sup:sup(J("Daido★(độc quyền)"))},
+  {n:"2083H / S136",tg:"tm",g:"jis-t",fl:"fi",tcvn:na,          gb:"4Cr13",  aisi:"≈420",      din:"X40Cr14/1.2083",    jis:"≈SUS420J2",gost:"≈40Х13/ГОСТ5632", c:"0.36–0.42",h:52,ht:"50–54 HRC(tôi)",ap:"Khuôn nhựa PVC/axit, khuôn CD, dụng cụ y tế",sup:sup(S("Uddeholm Stavax ESR"),A("Böhler M238 ESR"),S("Assab S136"),Dw("DEW 1.2083"),C("Daye"),C("Fushun"))},
+  {n:"X38CrMo16 / 1.2316",tg:"tm",g:"jis-t",fl:"fi",tcvn:na,       gb:na,       aisi:"≈422",      din:"X38CrMo16/1.2316",  jis:"≈SUS420J2",gost:na,                c:"0.33–0.43",h:49,ht:"27–33 HRC(pre-hard)",ap:"Khuôn ép PVC, PA+GF, khuôn thực phẩm, khuôn chứa nước",sup:sup(A("Böhler M314"),S("Uddeholm Ramax S"),Dw("DEW 1.2316"),C("Daye"),C("Fushun"))},
+  {n:"SKH51",     tg:"th",g:"jis-t",fl:"fi",tcvn:na,               gb:"W6Mo5Cr4V2",aisi:"M2",        din:"S6-5-2/1.3343",     jis:"SKH51",    gost:"Р6М5/ГОСТ19265",  c:"0.80–0.90",h:65,ht:"63–66 HRC",ap:"Mũi khoan, tarô, dao phay CNC, dao tiện — thép gió phổ biến nhất toàn cầu",sup:sup(J("Hitachi"),J("Daido"),A("Böhler S705"),S("Uddeholm"),U("Carpenter M2"),C("Daye"),C("Fushun"))},
+  {n:"SKH10",     tg:"th",g:"jis-t",fl:"fi",tcvn:na,               gb:"W12Cr4V5Co5",aisi:"T15",       din:"S12-1-4-5/1.3202",  jis:"SKH10",    gost:"≈Р12Ф5К5/ГОСТ19265",c:"1.45–1.60",h:67,ht:"64–67 HRC",ap:"Gia công thép hợp kim cứng, inox khó cắt, dao tiện chuyên dụng, phay gang gang cứng",sup:sup(J("Hitachi"),J("Daido"),J("Sanyo"),A("Böhler S600 Cobalt"),S("Uddeholm"),U("Carpenter T15"))},
+  {n:"20CrMnTi",  tg:"tg",g:"jis-g",fl:"fi",tcvn:na,               gb:"20CrMnTi",aisi:"≈5120",    din:"20MnCr5/1.7147",    jis:"SMnC420H", gost:"18ХГТ/ГОСТ4543",  c:"0.17–0.23",h:63,ht:"60–66 HRC(thấm C)",ap:"Bánh răng ô tô, hộp số, trục chính máy công cụ",sup:sup(C("Daye"),C("CITIC"),C("Fushun"),C("Baosteel"),J("Sanyo"))},
+  // CN structural
+  {n:"Q195",      tg:"ts",g:"cn-s",fl:"fc",tcvn:"≈CT31/TCVN1765",  gb:"Q195",   aisi:"A570 Gr36", din:"St33/1.0035",        jis:"—",        gost:"Ст1/ГОСТ380",     c:"≤0.12",h:null,ht:"~90 HB",ap:"Dây thép, đinh, ống nước dân dụng, tôn mỏng",sup:sup(C("Baowu"),C("HBIS"),C("Ansteel"),C("Shougang"))},
+  {n:"Q235B",     tg:"ts",g:"cn-s",fl:"fc",tcvn:"CT38/TCVN1765",   gb:"Q235B",  aisi:"A36",       din:"S235JR/1.0037",      jis:"SS400(≈)", gost:"Ст3сп/ГОСТ380",   c:"≤0.22",h:null,ht:"~120 HB",ap:"Kết cấu nhà xưởng, cầu, khung máy, bồn thép",sup:sup(C("Baowu"),C("HBIS"),C("Ansteel"),C("Maanshan"),Kr("POSCO"))},
+  {n:"Q275",      tg:"ts",g:"cn-s",fl:"fc",tcvn:"≈CT42/TCVN1765", gb:"Q275",   aisi:"A573 Gr65", din:"St50-2/1.0050",     jis:"SS490(≈)", gost:"Ст5/ГОСТ380",     c:"≤0.28",h:null,ht:"~140 HB",ap:"Bánh răng đơn giản, trục nhẹ, ray xe lửa hạng nhẹ",sup:sup(C("Baowu"),C("HBIS"),C("Ansteel"),C("Shougang"))},
+  {n:"Q345B",     tg:"ts",g:"cn-s",fl:"fc",tcvn:na,                 gb:"Q345B",  aisi:"A572 Gr50", din:"S355JR/1.0577",      jis:"SM490(≈)", gost:"09Г2С/ГОСТ19281", c:"≤0.20",h:null,ht:"~165 HB",ap:"Cầu đường, kết cấu cao tầng, cần cẩu, bình áp lực",sup:sup(C("Baowu"),C("HBIS"),C("Ansteel"),C("WISCO"),Kr("POSCO"))},
+  // CN carbon
+  {n:"Q390",      tg:"ts",g:"cn-s",fl:"fc",tcvn:na,               gb:"Q390",   aisi:"A572 Gr55", din:"S380MC/1.0980",     jis:"—",        gost:"10Г2С1/ГОСТ19281",c:"≤0.20",h:null,ht:"~180 HB",ap:"Cần trục tải nặng, cầu nhịp lớn, kết cấu ngoài khơi",sup:sup(C("Baowu"),C("HBIS"),C("Ansteel"),C("Shougang"))},
+  {n:"20",        tg:"tc",g:"cn-c",fl:"fc",tcvn:"C20/TCVN1766",    gb:"20",     aisi:"1020",      din:"Ck20/1.1151",        jis:"S20C",     gost:"20/ГОСТ1050",     c:"0.17–0.24",h:null,ht:"~65 HRB",ap:"Trục nhỏ, chốt, ống áp lực, chi tiết thấm carbon",sup:sup(C("Baowu"),C("HBIS"),C("Daye"))},
+  {n:"45",        tg:"tc",g:"cn-c",fl:"fc",tcvn:"C45/TCVN1766",    gb:"45",     aisi:"1045",      din:"Ck45/1.1191",        jis:"S45C",     gost:"45/ГОСТ1050",     c:"0.42–0.50",h:55,ht:"~55 HRC",ap:"Trục, bánh răng, pitton, đế máy CNC — phổ dụng nhất TQ",sup:sup(C("Baowu"),C("HBIS"),C("Daye"),C("CITIC"),C("Ansteel"))},
+  // CN spring
+  {n:"65Mn",      tg:"tn",g:"cn-sp",fl:"fc",tcvn:na,                gb:"65Mn",   aisi:"1066",      din:"66Mn4/1.1260",       jis:"SUP3(≈)",  gost:"65Г/ГОСТ14959",   c:"0.62–0.70",h:42,ht:"40–45 HRC",ap:"Lò xo cuộn, lò xo đĩa, nhíp xe nhỏ, bánh cào",sup:sup(C("Xingcheng"),C("Baosteel"),C("CITIC"),C("Daye"))},
+  {n:"60Si2Mn",   tg:"tn",g:"cn-sp",fl:"fc",tcvn:na,                gb:"60Si2Mn",aisi:"9262",      din:"60SiMn5/1.5026",     jis:"SUP6(≈)",  gost:"60С2А/ГОСТ14959", c:"0.56–0.64",h:48,ht:"46–52 HRC",ap:"Nhíp ô tô, lò xo chịu tải nặng, lò xo hộp số",sup:sup(C("Xingcheng"),C("Baosteel"),J("Kobe"))},
+  // CN alloy
+  {n:"20Cr",      tg:"ta",g:"cn-a",fl:"fc",tcvn:na,                 gb:"20Cr",   aisi:"5120",      din:"20Cr4/1.7027",       jis:"SCr420(≈)",gost:"20Х/ГОСТ4543",    c:"0.18–0.24",h:null,ht:"~55 HRB(thường hóa)",ap:"Bánh răng nhỏ, chốt, then hoa, bạc — thấm carbon",sup:sup(C("Daye"),C("CITIC"),C("Fushun"),C("Baosteel"))},
+  {n:"35CrMo",    tg:"ta",g:"cn-a",fl:"fc",tcvn:na,                 gb:"35CrMo", aisi:"4135",      din:"34CrMo4/1.7220",     jis:"SCM435",   gost:"35ХМ/ГОСТ4543",   c:"0.32–0.40",h:56,ht:"54–58 HRC",ap:"Trục khuỷu, cần piston, bánh răng tải trung",sup:sup(C("Daye"),C("CITIC"),C("Fushun"),Dw("DEW"))},
+  {n:"42CrMo",    tg:"ta",g:"cn-a",fl:"fc",tcvn:na,                 gb:"42CrMo", aisi:"4140",      din:"42CrMo4/1.7225",     jis:"SCM440",   gost:"40ХМ/ГОСТ4543",   c:"0.38–0.45",h:58,ht:"~58 HRC",ap:"Trục khuỷu lớn, bánh răng cầu xe, bulông 12.9",sup:sup(C("Daye"),C("CITIC/Xingcheng"),C("Fushun"),Dw("DEW"),S("Ovako"))},
+  {n:"20CrNiMo",  tg:"ta",g:"cn-a",fl:"fc",tcvn:na,                 gb:"20CrNiMo",aisi:"8620",     din:"21NiCrMo2/1.6523",  jis:"SNCM220(≈)",gost:"20ХНМ/ГОСТ4543",  c:"0.17–0.23",h:62,ht:"60–64 HRC(thấm C)",ap:"Bánh răng ô tô cao cấp, cần số, hộp số tự động",sup:sup(C("Daye"),C("CITIC"),C("Fushun"),J("Kobe"),J("Sanyo"))},
+  // CN nitride
+  {n:"38CrMoAl",  tg:"tn",g:"cn-n",fl:"fc",tcvn:na,                 gb:"38CrMoAl",aisi:"E7140(≈)", din:"41CrAlMo7/1.8509",  jis:"SACM645",  gost:"38Х2МЮА/ГОСТ4543",c:"0.35–0.42",h:null,ht:"65–72 HRC(thấm N)",ap:"Trục chính máy CNC, xi lanh bơm, bánh răng cần bề mặt cứng",sup:sup(C("Daye"),C("Fushun"),C("CITIC"),C("Baosteel"),Dw("DEW"))},
+  // CN tool
+  {n:"3Cr2W8V",   tg:"tt",g:"cn-t",fl:"fc",tcvn:na,               gb:"3Cr2W8V",aisi:"H21",       din:"X30WCrV9-3/1.2581", jis:"SKD5",     gost:"3Х2В8Ф/ГОСТ5950", c:"0.30–0.40",h:50,ht:"46–52 HRC",ap:"Khuôn đúc áp lực đồng, khuôn rèn nhiệt độ cao, đầu đùn đồng",sup:sup(C("Daye"),C("Fushun"),C("CITIC"),A("Böhler W321"),Dw("DEW"))},
+  {n:"9SiCr",     tg:"tt",g:"cn-t",fl:"fc",tcvn:na,                 gb:"9SiCr",  aisi:"≈O2",       din:"90CrSi5/1.2108",    jis:"SKS21(≈)", gost:"9ХС/ГОСТ5950",    c:"0.85–0.95",h:62,ht:"60–63 HRC",ap:"Dao cắt ren, tarô, mũi khoan, dao phay nhỏ, lưỡi cưa",sup:sup(C("Daye"),C("Fushun"),C("CITIC"),C("Changshu"))},
+  {n:"Cr12",      tg:"tt",g:"cn-t",fl:"fc",tcvn:na,               gb:"Cr12",   aisi:"D3",        din:"X210Cr12/1.2080",   jis:"SKD1",     gost:"Х12/ГОСТ5950",    c:"2.00–2.30",h:62,ht:"60–64 HRC",ap:"Khuôn dập chịu mài mòn cực cao, dao/lưỡi cắt tôn dày, khuôn ép bột kim loại",sup:sup(C("Daye"),C("Fushun"),C("CITIC"),A("Böhler K100"),S("Uddeholm"))},
+  {n:"Cr12MoV",   tg:"tt",g:"cn-t",fl:"fc",tcvn:na,                 gb:"Cr12MoV",aisi:"D2",        din:"X155CrVMo12-1/1.2379",jis:"SKD11",   gost:"Х12МФ/ГОСТ5950",  c:"1.45–1.70",h:62,ht:"60–62 HRC",ap:"Khuôn dập nguội chính xác, khuôn đột lỗ, dao cắt hợp kim",sup:sup(C("Daye"),C("Fushun"),C("CITIC"),A("Böhler K110"),S("Uddeholm Sleipner"))},
+  {n:"5CrNiMo",   tg:"tt",g:"cn-t",fl:"fc",tcvn:na,                 gb:"5CrNiMo",aisi:"L6(≈)",     din:"55NiCrMoV6/1.2714", jis:"SKT4(≈)",  gost:"5ХНМ/ГОСТ5950",   c:"0.50–0.60",h:45,ht:"42–48 HRC",ap:"Khuôn rèn nóng búa, khuôn dập nóng cỡ lớn",sup:sup(C("Daye"),C("Fushun"),A("Böhler W720"),Dw("DEW"))},
+  // CN HSS
+  {n:"W18Cr4V",   tg:"th",g:"cn-h",fl:"fc",tcvn:na,                 gb:"W18Cr4V",aisi:"T1",        din:"S18-0-1/1.3355",    jis:"SKH2",     gost:"Р18/ГОСТ19265",   c:"0.70–0.80",h:65,ht:"63–66 HRC",ap:"Dao tiện, mũi khoan, tarô — thép gió thế hệ 1",sup:sup(C("Daye"),C("Fushun"),A("Böhler S600"),S("Uddeholm"),J("Hitachi"))},
+  {n:"W6Mo5Cr4V2",tg:"th",g:"cn-h",fl:"fc",tcvn:na,                 gb:"W6Mo5Cr4V2",aisi:"M2",    din:"S6-5-2/1.3343",     jis:"SKH51",    gost:"Р6М5/ГОСТ19265",  c:"0.80–0.90",h:65,ht:"63–66 HRC",ap:"Mũi khoan, tarô, phay, dao cắt CNC — phổ biến nhất TG",sup:sup(C("Daye"),C("Fushun"),A("Böhler S705"),S("Uddeholm"),J("Hitachi"),U("Carpenter M2"))},
+  // CN stainless
+  {n:"W9Mo3Cr4V", tg:"th",g:"cn-h",fl:"fc",tcvn:na,               gb:"W9Mo3Cr4V",aisi:"M7(≈)",  din:"S9-1-2/1.3346(≈)",  jis:"SKH57(≈)", gost:"Р9М3/ГОСТ19265",  c:"0.77–0.87",h:65,ht:"63–66 HRC",ap:"Dao cắt tốc độ cao, mũi khoan inox, dao phay gang cứng",sup:sup(C("Daye"),C("Fushun"),C("CITIC"),C("Changshu"))},
+  {n:"0Cr18Ni9",  tg:"ti",g:"cn-i",fl:"fc",tcvn:na,                 gb:"0Cr18Ni9",aisi:"304",      din:"X5CrNi18-10/1.4301",jis:"SUS304",   gost:"08Х18Н10/ГОСТ5632",c:"≤0.08",h:null,ht:"~80 HRB",ap:"Inox 304 phiên bản GB — ứng dụng như SUS304",sup:sup(C("Baosteel SS"),C("TISCO"),Fi("Outokumpu"),Tw("Yieh Utd"),Kr("POSCO"))},
+  {n:"4Cr13",     tg:"ti",g:"cn-i",fl:"fc",tcvn:na,                 gb:"4Cr13",  aisi:"420",       din:"X40Cr13/1.4034",    jis:"SUS420J2(≈)",gost:"40Х13/ГОСТ5632", c:"0.36–0.45",h:52,ht:"50–54 HRC",ap:"Khuôn nhựa chịu ăn mòn, dao cắt thực phẩm",sup:sup(C("Baosteel SS"),C("TISCO"),J("Daido"),Fi("Outokumpu"))},
+  {n:"9Cr18",     tg:"ti",g:"cn-i",fl:"fc",tcvn:na,                 gb:"9Cr18",  aisi:"440C",      din:"X105CrMo17/1.4125", jis:"SUS440C",  gost:"95Х18/ГОСТ5632",  c:"0.90–1.00",h:60,ht:"58–62 HRC",ap:"Dao cắt cao cấp, vòng bi inox, dụng cụ y tế sắc bén",sup:sup(J("Sanyo SS"),U("Carpenter"),A("Böhler M390"),C("Baosteel"),C("TISCO"))},
+];
+
+const TGLBL={ts:"Kết cấu",tc:"Carbon",ta:"Hợp kim",ti:"Inox",tt:"Dụng cụ",tm:"Khuôn",tg:"Bánh răng",tn:"Lò xo/N₂",th:"Thép gió"};
+const CATS=["Tất cả","Kết cấu","Hợp kim","Inox","Dụng cụ","Bánh răng","Lò xo","Thép gió","🇨🇳 GB","💰 Có giá TKM"];
+let act="Tất cả",showSup=false,showPrice=false,hideSpecs=false;
+
+function buildF(){
+  document.getElementById("fbs").innerHTML=CATS.map(c=>`<button class="${c===act?'on':''}" onclick="sc('${c}')">${c}</button>`).join("");
+}
+function sc(c){act=c;buildF();ren();}
+
+const ICO_EYE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+const ICO_EYE_OFF='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>';
+const ICO_PRICE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>';
+const ICO_SRCH='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>';
+
+function toggleSup(){
+  showSup=!showSup;
+  const el=document.getElementById("sc"),btn=document.getElementById("supBtn");
+  if(showSup){el.classList.add("show-sup");btn.classList.add("active");btn.innerHTML=ICO_EYE_OFF+" Ẩn NCC";}
+  else{el.classList.remove("show-sup");btn.classList.remove("active");btn.innerHTML=ICO_EYE+" Nhà Cung Cấp";}
+}
+function togglePrice(){
+  showPrice=!showPrice;
+  const el=document.getElementById("sc"),btn=document.getElementById("priceBtn"),svc=document.getElementById("svcCard");
+  if(showPrice){el.classList.add("show-price");btn.classList.add("active");btn.innerHTML=ICO_EYE_OFF+" 🔒 Ẩn Giá";svc.classList.add("show");}
+  else{el.classList.remove("show-price");btn.classList.remove("active");btn.innerHTML=ICO_PRICE+" 💰 Bảng Giá ATP";svc.classList.remove("show");}
+}
+function toggleSpecs(){
+  hideSpecs=!hideSpecs;
+  const tbl=document.getElementById("tbl"),btn=document.getElementById("specBtn");
+  if(hideSpecs){tbl.classList.add("hide-specs");btn.classList.add("active");btn.innerHTML=ICO_SRCH+" Hiện Chuẩn";}
+  else{tbl.classList.remove("hide-specs");btn.classList.remove("active");btn.innerHTML=ICO_SRCH+" Ẩn Chuẩn";}
+}
+
+function matchCat(d){
+  if(act==="Tất cả")return true;
+  if(act==="🇨🇳 GB")return d.fl==="fc";
+  if(act==="💰 Có giá ATP")return !!PX[d.n];
+  if(act==="Lò xo")return d.g.includes("sp")||d.g.includes("cn-n");
+  if(act==="Thép gió")return d.tg==="th";
+  const m={"Kết cấu":["ts","tc"],"Hợp kim":["ta"],"Inox":["ti"],"Dụng cụ":["tt","tm"],"Bánh răng":["tg"]};
+  return(m[act]||[]).includes(d.tg);
+}
+
+function hlText(txt,terms){
+  if(!terms||!terms.length)return txt;
+  let out=txt;
+  terms.forEach(t=>{
+    if(!t)return;
+    const esc=t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+    out=out.replace(new RegExp('('+esc+')','gi'),'<mark class="hl">$1</mark>');
+  });
+  return out;
+}
+
+function ren(){
+  // Tách nhiều từ khóa bằng dấu phẩy, lọc OR
+  const raw=document.getElementById("q").value.toLowerCase();
+  const terms=raw.split(",").map(t=>t.trim()).filter(t=>t.length>0);
+  const rows=D.filter(d=>{
+    if(!matchCat(d))return false;
+    if(!terms.length)return true;
+    const txt=[d.n,d.gb,d.aisi,d.din,d.jis,d.gost,d.ap,d.tcvn,d.sup||"",PX[d.n]?JSON.stringify(PX[d.n]):""].join(" ").toLowerCase();
+    return terms.some(t=>txt.includes(t));
+  });
+  let lastG="",out="";
+  for(const d of rows){
+    if(d.g!==lastG){
+      const gr=GROUPS.find(x=>x.id===d.g);
+      if(gr)out+=`<tr class="grp ${gr.cls}"><td colspan="11">${gr.lbl}</td></tr>`;
+      lastG=d.g;
+    }
+    const rc=d.fl==="fc"?"cnrow":"";
+    const fl=`<span class="flag ${d.fl}">${d.fl==="fc"?"TQ":"INT"}</span>`;
+    const gbC=d.gb===na?na:(d.fl==="fc"?`<strong>${d.gb}</strong>`:d.gb);
+    const dot=PX[d.n]?'<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#1A7A4A;flex-shrink:0" title="Có bảng giá ATP"></span>':"";
+    const grpLbl=d.g.includes("cn-sp")?"Lò xo":d.g.includes("cn-n")?"Thấm N":TGLBL[d.tg]||"—";
+    const pc=priceCells(d.n);
+    out+=`<tr class="${rc}">
+      <td data-label="Mác thép">
+        <span class="gn">${fl}${hlText(d.n,terms)}${dot}</span>
+        <div class="gn-sub">
+          <span class="tag ${d.tg}">${grpLbl}</span>
+          <span class="gn-c">%C: ${d.c}</span>
+          ${bar(d.h,d.ht)}
+        </div>
+      </td>
+      <td data-label="TCVN" class="col-std" style="font-size:10.5px">${d.tcvn}</td>
+      <td data-label="GB" class="col-std" style="font-size:10.5px">${gbC}</td>
+      <td data-label="AISI" class="col-std" style="font-size:10.5px">${d.aisi}</td>
+      <td data-label="DIN" class="col-std" style="font-size:10.5px">${d.din}</td>
+      <td data-label="JIS" class="col-std" style="font-size:10.5px">${d.jis}</td>
+      <td data-label="GOST" class="col-std" style="font-size:10.5px">${d.gost}</td>
+      <td data-label="Ứng dụng" class="ap col-std">${d.ap}</td>
+      <td data-label="Nhà SX" class="supc">${d.sup||na}</td>
+      <td data-label="Giá Tấm" class="prc-tam">${pc.tam}</td>
+      <td data-label="Giá Tròn" class="prc-tron">${pc.tron}</td>
+    </tr>`;
+  }
+  document.getElementById("tb").innerHTML=out||'<tr><td colspan="11" style="text-align:center;padding:16px;color:var(--t3)">Không tìm thấy kết quả</td></tr>';
+}
+
+buildF();ren();
+</script>
+</body>
+</html>
