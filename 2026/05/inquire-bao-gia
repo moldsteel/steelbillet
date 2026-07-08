@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Form Hỏi Giá Thép – Thép Khuôn Mẫu</title>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --steel:#1a2332; --steel-mid:#2c3e55; --steel-light:#3d5166;
+  --accent:#c8960a; --accent-light:#e8b020;
+  --bg:#f4f2ee; --surface:#fff; --border:#d4cfc7;
+  --text:#1a2332; --muted:#6b7280;
+  --danger:#c0392b; --success:#1e7e34; --radius:4px;
+}
+body { font-family:'IBM Plex Sans',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; display:flex; align-items:flex-start; justify-content:center; padding:2rem 1rem; }
+.card { background:var(--surface); width:100%; max-width:700px; border:1px solid var(--border); border-top:4px solid var(--accent); box-shadow:0 2px 24px rgba(26,35,50,.10); }
+
+/* header */
+.card-header { background:var(--steel); padding:1.5rem 2rem 1.25rem; display:flex; align-items:flex-start; gap:1rem; }
+.logo-block  { display:flex; flex-direction:column; gap:2px; }
+.logo-name   { font-family:'IBM Plex Mono',monospace; font-size:18px; font-weight:500; color:var(--accent-light); letter-spacing:.02em; line-height:1; }
+.logo-sub    { font-size:11px; color:rgba(255,255,255,.5); letter-spacing:.08em; text-transform:uppercase; font-weight:500; }
+.hd          { width:1px; height:36px; background:rgba(255,255,255,.15); margin:0 .25rem; align-self:center; }
+.header-title { flex:1; }
+.header-title h1 { font-size:15px; font-weight:600; color:#fff; line-height:1.3; }
+.header-title p  { font-size:12px; color:rgba(255,255,255,.5); margin-top:3px; }
+.card-body { padding:1.75rem 2rem 2rem; }
+
+/* section label */
+.sec-label { font-size:10px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-bottom:.875rem; padding-bottom:.5rem; border-bottom:1px solid var(--border); }
+
+/* grid */
+.fg { display:grid; grid-template-columns:1fr 1fr; gap:.875rem 1rem; }
+.fg .full { grid-column:1/-1; }
+
+/* field */
+.f label { display:block; font-size:12px; font-weight:600; color:var(--steel-mid); margin-bottom:5px; }
+.f label .req { color:var(--accent); margin-left:2px; }
+.f input,.f select,.f textarea {
+  width:100%; font-family:'IBM Plex Sans',sans-serif; font-size:13.5px;
+  color:var(--text); background:#fafaf8; border:1px solid var(--border);
+  border-radius:var(--radius); padding:8px 11px; outline:none;
+  transition:border-color .15s,box-shadow .15s; appearance:none;
+}
+.f select {
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236b7280'/%3E%3C/svg%3E");
+  background-repeat:no-repeat; background-position:right 10px center; padding-right:28px; cursor:pointer;
+}
+.f input:focus,.f select:focus,.f textarea:focus { border-color:var(--accent); box-shadow:0 0 0 3px rgba(200,150,10,.12); background:#fff; }
+.f textarea { resize:vertical; min-height:80px; line-height:1.5; }
+.f input::placeholder,.f textarea::placeholder { color:#aaa; }
+.grade-hint { font-size:10.5px; color:var(--muted); margin-top:4px; line-height:1.4; }
+
+/* ═══ ITEM CARD (mỗi mặt hàng) ═══ */
+#itemList { display:flex; flex-direction:column; gap:12px; margin-bottom:10px; }
+
+.item-card {
+  border:1px solid var(--border); border-radius:var(--radius);
+  background:#fafaf8; overflow:hidden;
+}
+.item-card-head {
+  background:var(--steel-mid); padding:8px 12px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.item-card-title { font-size:11px; font-weight:600; color:#fff; letter-spacing:.06em; text-transform:uppercase; }
+.btn-del-item {
+  background:none; border:none; cursor:pointer; color:rgba(255,255,255,.55);
+  font-size:17px; line-height:1; padding:1px 4px; border-radius:3px;
+  transition:color .12s,background .12s;
+}
+.btn-del-item:hover { color:#fff; background:rgba(192,57,43,.7); }
+.item-card-body { padding:10px 12px 12px; display:flex; flex-direction:column; gap:10px; }
+
+/* row trong item: loại hàng + mác + xuất xứ */
+.item-meta { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.item-meta .full { grid-column:1/-1; }
+.item-meta .f label { font-size:11px; }
+.item-meta .f input,.item-meta .f select { font-size:13px; padding:6px 10px; }
+.item-meta .f select { padding-right:26px; }
+
+/* sub-label quy cách */
+.size-sec-label {
+  font-size:10px; font-weight:600; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--muted); padding-bottom:5px; border-bottom:1px dashed var(--border);
+}
+
+/* danh sách quy cách bên trong item */
+.size-rows { display:flex; flex-direction:column; gap:6px; }
+.size-row-wrap {
+  display:grid; gap:5px 6px; align-items:end;
+  background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:7px 9px;
+}
+.size-row-wrap.c2 { grid-template-columns:1fr 1fr auto auto auto; }
+.size-row-wrap.c3 { grid-template-columns:1fr 1fr 1fr auto auto auto; }
+.sr-f { display:flex; flex-direction:column; gap:2px; }
+.sr-f label { font-size:10.5px; font-weight:500; color:var(--muted); white-space:nowrap; }
+.sr-f input,.sr-f select {
+  font-family:'IBM Plex Sans',sans-serif; font-size:13px; padding:5px 7px;
+  border:1px solid var(--border); border-radius:var(--radius);
+  background:#fafaf8; color:var(--text); outline:none; appearance:none;
+  transition:border-color .15s;
+}
+.sr-f input:focus,.sr-f select:focus { border-color:var(--accent); background:#fff; }
+.sr-f.qty-wrap { display:flex; flex-direction:column; gap:2px; min-width:56px; }
+.sr-f.unit-wrap { display:flex; flex-direction:column; gap:2px; min-width:60px; }
+.sr-f.unit-wrap select {
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5' viewBox='0 0 8 5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='%236b7280'/%3E%3C/svg%3E");
+  background-repeat:no-repeat; background-position:right 6px center; padding-right:20px;
+}
+.btn-del-size {
+  align-self:flex-end; background:none; border:none; cursor:pointer;
+  color:var(--muted); font-size:15px; line-height:1; padding:4px 5px;
+  border-radius:3px; transition:color .12s,background .12s; margin-bottom:1px;
+}
+.btn-del-size:hover { color:var(--danger); background:#fdf0ef; }
+
+.btn-add-size {
+  background:none; border:1px dashed var(--border); border-radius:var(--radius);
+  color:var(--muted); font-family:'IBM Plex Sans',sans-serif;
+  font-size:11.5px; font-weight:600; padding:5px 10px; cursor:pointer;
+  letter-spacing:.03em; transition:border-color .15s,color .15s,background .15s;
+  display:flex; align-items:center; gap:4px; width:fit-content;
+}
+.btn-add-size:hover { border-color:var(--accent); color:var(--accent); background:#fdf8ec; }
+
+/* nút thêm mặt hàng */
+.btn-add-item {
+  width:100%; background:none;
+  border:1.5px dashed var(--accent); border-radius:var(--radius);
+  color:var(--accent); font-family:'IBM Plex Sans',sans-serif;
+  font-size:13px; font-weight:600; padding:10px 16px; cursor:pointer;
+  letter-spacing:.04em; transition:background .15s;
+  display:flex; align-items:center; justify-content:center; gap:6px;
+}
+.btn-add-item:hover { background:#fdf8ec; }
+
+/* submit */
+.submit-area { margin-top:1.75rem; display:flex; flex-direction:column; gap:.75rem; }
+.btn-submit {
+  width:100%; background:var(--steel); color:#fff; border:none;
+  border-radius:var(--radius); font-family:'IBM Plex Sans',sans-serif;
+  font-size:14px; font-weight:600; letter-spacing:.04em; padding:12px 20px;
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+  gap:8px; transition:background .15s,transform .08s;
+}
+.btn-submit:hover { background:var(--steel-light); }
+.btn-submit:active { transform:scale(.99); }
+.btn-submit:disabled { opacity:.55; cursor:not-allowed; transform:none; }
+.btn-submit .accent-bar { width:3px; height:16px; background:var(--accent); border-radius:2px; flex-shrink:0; }
+.note-text { font-size:11.5px; color:var(--muted); text-align:center; line-height:1.5; }
+.toast { display:none; padding:11px 14px; border-radius:var(--radius); font-size:13px; font-weight:500; line-height:1.4; }
+.toast.success { display:block; background:#eaf5ec; border:1px solid #b5deba; color:var(--success); }
+.toast.error   { display:block; background:#fdf0ef; border:1px solid #f0b8b5; color:var(--danger); }
+.spinner { width:16px; height:16px; border:2px solid rgba(255,255,255,.35); border-top-color:#fff; border-radius:50%; animation:spin .65s linear infinite; display:none; }
+@keyframes spin { to { transform:rotate(360deg); } }
+
+.mt10 { margin-top:10px; }
+
+@media(max-width:540px){
+  .card-header { padding:1.25rem 1.25rem 1rem; }
+  .card-body   { padding:1.25rem 1.25rem 1.5rem; }
+  .fg          { grid-template-columns:1fr; }
+  .fg .full    { grid-column:1; }
+  .item-meta   { grid-template-columns:1fr; }
+  .item-meta .full { grid-column:1; }
+  .size-row-wrap.c2,.size-row-wrap.c3 { grid-template-columns:1fr 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="card-header">
+    <div class="logo-block">
+      <span class="logo-name">TKM</span>
+      <span class="logo-sub">Khuôn Mẫu</span>
+    </div>
+    <div class="hd"></div>
+    <div class="header-title">
+      <h1>Thép Khuôn Mẫu – Yêu cầu báo giá</h1>
+      <p>Phản hồi trong vòng 2 giờ làm việc</p>
+    </div>
+  </div>
+
+  <div class="card-body">
+  <form id="quoteForm" novalidate>
+
+    <!-- LIÊN HỆ -->
+    <div class="sec-label">Thông tin liên hệ</div>
+    <div class="fg" style="margin-bottom:1.5rem">
+      <div class="f">
+        <label>Họ và tên <span class="req">*</span></label>
+        <input type="text" name="customer_name" placeholder="Nguyễn Văn A" required>
+      </div>
+      <div class="f">
+        <label>Số điện thoại <span class="req">*</span></label>
+        <input type="tel" name="phone" placeholder="0901 234 567" required>
+      </div>
+      <div class="f">
+        <label>Email</label>
+        <input type="email" name="email" placeholder="email@congty.vn">
+      </div>
+      <div class="f">
+        <label>Công ty / Xưởng</label>
+        <input type="text" name="company" placeholder="Tên công ty hoặc xưởng">
+      </div>
+      <div class="f full">
+        <label>Tỉnh / Thành phố <span class="req">*</span></label>
+        <select name="city" required>
+          <option value="">— Chọn tỉnh thành —</option>
+          <option>TP. Hồ Chí Minh</option><option>Bình Dương</option>
+          <option>Đồng Nai</option><option>Long An</option>
+          <option>Hà Nội</option><option>Hải Phòng</option>
+          <option>Đà Nẵng</option><option>Cần Thơ</option><option>Tỉnh khác</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- GIỎ HÀNG -->
+    <div class="sec-label">Danh sách hàng cần báo giá</div>
+    <div id="itemList"></div>
+    <button type="button" class="btn-add-item" id="btnAddItem">＋ Thêm mặt hàng</button>
+
+    <!-- GHI CHÚ -->
+    <div class="f full mt10" style="margin-top:1.25rem">
+      <label>Ghi chú chung</label>
+      <textarea name="note" placeholder="Mill Certificate, nhiệt luyện, thời gian cần hàng, độ cứng yêu cầu (HRC)..."></textarea>
+    </div>
+
+    <div class="submit-area">
+      <div id="toast" class="toast"></div>
+      <button type="submit" class="btn-submit" id="submitBtn">
+        <span class="accent-bar"></span>
+        <span id="btnText">Gửi yêu cầu báo giá</span>
+        <div class="spinner" id="spinner"></div>
+      </button>
+      <p class="note-text">Thông tin của bạn được bảo mật. Nhân viên Thép Khuôn Mẫu sẽ liên hệ sớm nhất có thể.</p>
+    </div>
+
+  </form>
+  </div>
+</div>
+
+<script>
+emailjs.init({ publicKey: "Hb2dfb5X3avz1qD7I" });
+const EMAILJS_SERVICE_ID  = "service_nbcocmb";
+const EMAILJS_TEMPLATE_ID = "template_6yo48pk";
+
+// ═══ CẤU HÌNH LOẠI HÀNG ═══════════════════════════════════════
+const CAT = {
+  steel_block:   {
+    label:"Thép tấm / khối (khuôn mẫu)",
+    fields:[{k:"thick",l:"Dày (mm)",p:"100"},{k:"width",l:"Rộng (mm)",p:"300"},{k:"len",l:"Dài (mm)",p:"600"}],
+    units:["kg","tấn","tấm"],
+    fmt:f=>`${f.thick||"?"}×${f.width||"?"}×${f.len||"?"} mm`,
+  },
+  billet_square: {
+    label:"Phôi vuông (billet)",
+    fields:[{k:"side",l:"Cạnh □ (mm)",p:"60"},{k:"len",l:"Dài (mm)",p:"6000"}],
+    units:["cây","tấn","kg"],
+    fmt:f=>`□${f.side||"?"}×${f.len||"?"} mm`,
+  },
+  billet_flat:   {
+    label:"Phôi dẹt (slab)",
+    fields:[{k:"thick",l:"Dày (mm)",p:"12"},{k:"width",l:"Rộng (mm)",p:"200"},{k:"len",l:"Dài (mm)",p:"500"}],
+    units:["tấm","tấn","kg"],
+    fmt:f=>`Dày ${f.thick||"?"}×Mặt ${f.width||"?"}×${f.len||"?"} mm`,
+  },
+  billet_round:  {
+    label:"Phôi tròn (bloom)",
+    fields:[{k:"dia",l:"Ø Đường kính (mm)",p:"20"},{k:"len",l:"Dài (mm)",p:"500"}],
+    units:["cây","tấn","kg"],
+    fmt:f=>`Ø${f.dia||"?"}×${f.len||"?"} mm`,
+  },
+};
+
+const GRADES_HTML = `
+  <option value="">— Chọn mác thép —</option>
+  <optgroup label="Khuôn nhựa">
+    <option>P20 / 1.2311</option><option>718 / 1.2738</option>
+    <option>718H (pre-hardened)</option><option>NAK80</option>
+    <option>S136 / 1.2316</option><option>420SS</option>
+  </optgroup>
+  <optgroup label="Khuôn nóng">
+    <option>H13 / SKD61 / 1.2344</option><option>H11 / 1.2343</option><option>8407</option>
+  </optgroup>
+  <optgroup label="Khuôn nguội">
+    <option>D2 / SKD11 / 1.2379</option><option>D3 / SKD1</option>
+    <option>Cr12MoV</option><option>O1 / SKS3</option><option>A2 / 1.2363</option>
+  </optgroup>
+  <optgroup label="Thép máy / kết cấu">
+    <option>S45C</option><option>S50C</option><option>42CrMo / 4140</option><option>40Cr</option>
+  </optgroup>
+  <optgroup label="Thép gió (HSS)">
+    <option>M2 / SKH51</option><option>M42 / SKH59</option><option>T15 / SKH57</option>
+  </optgroup>
+  <option value="__other__">Mác khác (tự nhập)…</option>`;
+
+// ═══ DOM refs ═══
+const itemList   = document.getElementById("itemList");
+const btnAddItem = document.getElementById("btnAddItem");
+const form       = document.getElementById("quoteForm");
+const submitBtn  = document.getElementById("submitBtn");
+const btnText    = document.getElementById("btnText");
+const spinner    = document.getElementById("spinner");
+const toast      = document.getElementById("toast");
+let itemIdx = 0, sizeIdx = 0;
+
+// ═══ Tạo 1 dòng quy cách ═══
+function makeSizeRow(cfg, sn) {
+  sizeIdx++;
+  const colClass = cfg.fields.length >= 3 ? "c3" : "c2";
+  const fieldsHTML = cfg.fields.map(fd =>
+    `<div class="sr-f">
+      <label>${fd.l}</label>
+      <input type="number" data-k="${fd.k}" placeholder="${fd.p}" min="0">
+    </div>`).join("");
+  const unitOpts = cfg.units.map(u=>`<option>${u}</option>`).join("");
+
+  const wrap = document.createElement("div");
+  wrap.className = `size-row-wrap ${colClass}`;
+  wrap.innerHTML = fieldsHTML +
+    `<div class="sr-f qty-wrap"><label>Số lượng</label><input type="number" data-k="qty" placeholder="0" min="0"></div>
+     <div class="sr-f unit-wrap"><label>Đơn vị</label><select data-k="unit">${unitOpts}</select></div>
+     <button type="button" class="btn-del-size" title="Xoá dòng">×</button>`;
+  wrap.querySelector(".btn-del-size").addEventListener("click", () => {
+    wrap.remove(); renumberSizes(wrap.closest(".item-card"));
+  });
+  return wrap;
+}
+
+function renumberSizes(card) {
+  // optional: nothing needed visually, rows are unlabeled
+}
+
+// ═══ Tạo 1 mặt hàng ═══
+function makeItemCard() {
+  itemIdx++;
+  const iid = itemIdx;
+
+  const card = document.createElement("div");
+  card.className = "item-card";
+  card.dataset.iid = iid;
+
+  card.innerHTML = `
+    <div class="item-card-head">
+      <span class="item-card-title">Mác thép #${iid}</span>
+      <button type="button" class="btn-del-item" title="Xoá mặt hàng">×</button>
+    </div>
+    <div class="item-card-body">
+      <div class="item-meta">
+        <div class="f full">
+          <label>Loại hàng</label>
+          <select class="js-cat">
+            <option value="">— Chọn loại hàng —</option>
+            <option value="steel_block">Thép tấm / khối (khuôn mẫu)</option>
+            <option value="billet_square">Phôi vuông (billet)</option>
+            <option value="billet_flat">Phôi dẹt (slab)</option>
+            <option value="billet_round">Phôi tròn (bloom)</option>
+          </select>
+        </div>
+        <div class="f full js-grade-row" style="display:none">
+          <label>Mác thép</label>
+          <select class="js-grade">${GRADES_HTML}</select>
+          <input class="js-grade-custom" type="text" placeholder="Nhập tên mác thép…" style="display:none;margin-top:5px">
+          <p class="grade-hint">Kho TKM: P20, 718, H13/SKD61, D2/SKD11, S136, NAK80, S45C, 42CrMo, M2/SKH51</p>
+        </div>
+        <div class="f">
+          <label>Xuất xứ</label>
+          <select class="js-origin">
+            <option value="">— Không yêu cầu —</option>
+            <option>Trung Quốc</option><option>Nhật Bản</option>
+            <option>Hàn Quốc</option><option>Châu Âu</option>
+            <option>Đài Loan</option><option>Việt Nam</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="js-size-section" style="display:none">
+        <div class="size-sec-label" style="margin-bottom:6px">Quy cách &amp; Số lượng</div>
+        <div class="size-rows js-size-rows"></div>
+        <button type="button" class="btn-add-size" style="margin-top:6px">＋ Thêm quy cách</button>
+      </div>
+    </div>`;
+
+  // xoá item
+  card.querySelector(".btn-del-item").addEventListener("click", () => {
+    card.remove(); renumberItems();
+  });
+
+  // đổi loại hàng
+  const catSel    = card.querySelector(".js-cat");
+  const gradeRow  = card.querySelector(".js-grade-row");
+  const sizeSection = card.querySelector(".js-size-section");
+  const sizeRows  = card.querySelector(".js-size-rows");
+  const addSizeBtn= card.querySelector(".btn-add-size");
+
+  catSel.addEventListener("change", () => {
+    const cat = catSel.value;
+    const cfg = CAT[cat];
+    const isBlock = cat === "steel_block";
+    gradeRow.style.display = isBlock ? "" : "none";
+    sizeRows.innerHTML = "";
+    if (cfg) {
+      sizeSection.style.display = "";
+      sizeRows.appendChild(makeSizeRow(cfg, 1));
+    } else {
+      sizeSection.style.display = "none";
+    }
+  });
+
+  // mác khác
+  const gradeSel    = card.querySelector(".js-grade");
+  const gradeCustom = card.querySelector(".js-grade-custom");
+  gradeSel.addEventListener("change", () => {
+    gradeCustom.style.display = gradeSel.value === "__other__" ? "" : "none";
+    if (gradeSel.value !== "__other__") gradeCustom.value = "";
+  });
+
+  // thêm quy cách
+  addSizeBtn.addEventListener("click", () => {
+    const cfg = CAT[catSel.value];
+    if (!cfg) return;
+    sizeRows.appendChild(makeSizeRow(cfg, sizeRows.querySelectorAll(".size-row-wrap").length + 1));
+  });
+
+  return card;
+}
+
+function renumberItems() {
+  itemList.querySelectorAll(".item-card-title").forEach((el, i) => {
+    el.textContent = "Mác thép #" + (i + 1);
+  });
+}
+
+// tạo 1 item mặc định
+itemList.appendChild(makeItemCard());
+
+btnAddItem.addEventListener("click", () => {
+  itemList.appendChild(makeItemCard());
+  itemList.lastElementChild.scrollIntoView({ behavior:"smooth", block:"nearest" });
+});
+
+// ═══ Toast / loading ═══
+function showToast(msg, type) {
+  toast.textContent = msg;
+  toast.className = "toast " + type;
+  toast.scrollIntoView({ behavior:"smooth", block:"nearest" });
+}
+function setLoading(on) {
+  submitBtn.disabled = on;
+  spinner.style.display = on ? "block" : "none";
+  btnText.textContent = on ? "Đang gửi..." : "Gửi yêu cầu báo giá";
+}
+
+// ═══ Collect giỏ hàng ═══
+function collectItems() {
+  return Array.from(itemList.querySelectorAll(".item-card")).map((card, ci) => {
+    const cat    = card.querySelector(".js-cat").value;
+    const cfg    = CAT[cat] || {};
+    const grade  = (() => {
+      const sel = card.querySelector(".js-grade");
+      if (!sel) return "";
+      if (sel.value === "__other__") return card.querySelector(".js-grade-custom").value || "(tự nhập)";
+      return sel.value || "";
+    })();
+    const origin = card.querySelector(".js-origin").value || "";
+    const rows   = Array.from(card.querySelectorAll(".size-row-wrap")).map((row, ri) => {
+      const g = k => (row.querySelector(`[data-k="${k}"]`) || {}).value || "";
+      const fv = {};
+      (cfg.fields||[]).forEach(fd => fv[fd.k] = g(fd.k));
+      const dim = cfg.fmt ? cfg.fmt(fv) : "(?)";
+      return `  • ${dim} – SL: ${g("qty")||"?"} ${g("unit")}`;
+    });
+    const header = `[${ci+1}] ${cfg.label||cat}${grade?" – "+grade:""}${origin?" ("+origin+")":""}`;
+    return rows.length ? header + "\n" + rows.join("\n") : header + "\n  • (chưa nhập quy cách)";
+  });
+}
+
+// ═══ Submit ═══
+form.addEventListener("submit", async e => {
+  e.preventDefault();
+  toast.className = "toast";
+
+  // validate required fields (liên hệ)
+  let valid = true;
+  form.querySelectorAll("[required]").forEach(el => {
+    el.style.borderColor = "";
+    if (!el.value.trim()) { el.style.borderColor = "#c0392b"; valid = false; }
+  });
+  if (itemList.querySelectorAll(".item-card").length === 0) {
+    showToast("⚠ Vui lòng thêm ít nhất một mặt hàng.", "error"); return;
+  }
+  if (!valid) { showToast("⚠ Vui lòng điền đầy đủ các trường bắt buộc (*).", "error"); return; }
+
+  setLoading(true);
+  const d = Object.fromEntries(new FormData(form));
+  const items = collectItems();
+
+  const params = {
+    customer_name: d.customer_name,
+    phone:         d.phone,
+    email:         d.email   || "(không cung cấp)",
+    company:       d.company || "(không cung cấp)",
+    city:          d.city,
+    items_list:    items.join("\n\n"),
+    note:          d.note    || "(không có)",
+    sent_at:       new Date().toLocaleString("vi-VN", { timeZone:"Asia/Ho_Chi_Minh" }),
+  };
+
+  try {
+    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, params);
+    showToast("✓ Gửi thành công! Nhân viên Thép Khuôn Mẫu sẽ liên hệ bạn sớm.", "success");
+    form.reset();
+    itemList.innerHTML = "";
+    itemIdx = 0;
+    itemList.appendChild(makeItemCard());
+  } catch(err) {
+    console.error(err);
+    showToast("✗ Gửi thất bại. Vui lòng gọi trực tiếp hoặc thử lại sau.", "error");
+  } finally {
+    setLoading(false);
+  }
+});
+
+form.querySelectorAll("input,select,textarea").forEach(el =>
+  el.addEventListener("input", () => el.style.borderColor = "")
+);
+</script>
+</body>
+</html>
