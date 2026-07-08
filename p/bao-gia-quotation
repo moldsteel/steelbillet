@@ -1,0 +1,1899 @@
+
+<html lang="vi">
+<head>
+    <meta charset="UTF-8"></meta>
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" name="viewport"></meta>
+	<meta content="yes" name="mobile-web-app-capable"></meta>
+	<meta content="yes" name="apple-mobile-web-app-capable"></meta>
+	<meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"></meta>
+  <title>Bảng Tính Giá Thép Khuôn Mẫu</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect"></link>
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet"></link>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <style>
+:root {
+  --bg:#F2F0EC; --surface:#fff; --dark:#1A1F2E; --dark2:#252C3E;
+  --accent:#B5830A; --accent-light:#FDF3DC;
+  --red:#C0392B; --red-light:#FDECEA;
+  --green:#1A7A4A; --green-light:#E6F4ED;
+  --blue:#1565C0; --blue-light:#EEF4FF;
+  --orange:#D97706; --orange-light:#FEF3C7;
+  --text:#1A1F2E; --muted:#6B7280; --hint:#9CA3AF;
+  --border:rgba(0,0,0,0.09); --border-s:rgba(0,0,0,0.16);
+  --r:8px; --font:'Comfortaa',sans-serif; --mono:'IBM Plex Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:13px;min-height:100vh}
+
+/* HEADER */
+.app-header{background:var(--dark);padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:54px;position:sticky;top:0;z-index:100;gap:12px}
+.app-logo{display:flex;align-items:center;gap:9px;flex-shrink:0}
+.app-logo-mark{width:29px;height:29px;background:var(--accent);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px}
+.app-logo-name{color:#fff;font-weight:700;font-size:13px}
+.app-logo-sub{color:#7A8099;font-size:10px}
+.header-actions{display:flex;gap:7px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:6px 13px;border-radius:var(--r);border:none;font-family:var(--font);font-size:11px;font-weight:600;cursor:pointer;transition:opacity .15s;white-space:nowrap}
+.btn:hover{opacity:.82}
+.btn-ghost{background:rgba(255,255,255,.09);color:#C8CDD9}
+.btn-accent{background:var(--accent);color:#fff}
+.btn-green{background:var(--green);color:#fff}
+.btn-blue{background:var(--blue);color:#fff}
+.btn-orange{background:var(--orange);color:#fff}
+
+/* DOC META */
+.doc-meta{background:var(--surface);border-bottom:1px solid var(--border);padding:12px 20px;display:flex;gap:20px;flex-wrap:wrap;align-items:flex-end}
+.meta-field{display:flex;flex-direction:column;gap:3px}
+.meta-label{font-size:10px;color:var(--hint);text-transform:uppercase;letter-spacing:.06em}
+.meta-input{font-family:var(--font);font-size:12px;color:var(--text);background:var(--bg);border:.5px solid var(--border-s);border-radius:6px;padding:5px 9px;outline:none;min-width:130px}
+.meta-input:focus{border-color:var(--accent)}
+
+/* SETTINGS PANEL */
+.settings-bar{background:#FFFBF2;border-bottom:1px solid rgba(181,131,10,.2);padding:10px 20px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.settings-bar.hidden{display:none}
+.sbar-title{font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.07em;white-space:nowrap}
+.sbar-group{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.sbar-label{font-size:11px;color:var(--muted);white-space:nowrap}
+.sbar-input{font-family:var(--mono);font-size:12px;width:72px;background:var(--surface);border:.5px solid var(--border-s);border-radius:6px;padding:4px 8px;outline:none;text-align:center}
+.sbar-input:focus{border-color:var(--accent)}
+.sbar-sep{width:1px;height:28px;background:var(--border-s)}
+
+/* TABLE */
+.table-wrap{padding:16px 20px 8px;overflow-x:auto}
+.calc-table{width:100%;border-collapse:collapse;background:var(--surface);border-radius:10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.07);min-width:1600px}
+.calc-table thead tr th{background:var(--dark);color:#fff;font-size:10px;font-weight:500;text-align:center;padding:0;border:.5px solid rgba(255,255,255,.08);white-space:nowrap}
+.th-main{padding:9px 10px !important;font-size:10px !important;font-weight:700 !important}
+.th-sub{padding:6px 8px !important;font-size:9px !important;color:#9AA5BB !important}
+.th-rough{background:#1E2940 !important}
+.th-rough-sub{background:#222B3C !important;color:#7A9ABB !important;padding:6px 8px !important;font-size:9px !important}
+.th-fine{background:#1A1F2E !important}
+.th-weight-fine{background:#163A24 !important;font-size:10px !important;font-weight:700 !important;padding:9px 10px !important}
+.th-weight-rough{background:#162438 !important;font-size:10px !important;font-weight:700 !important;padding:9px 10px !important}
+
+.calc-table tbody tr{border-bottom:.5px solid var(--border);transition:background .1s}
+.calc-table tbody tr:hover{background:#FAFAF8}
+.calc-table tbody tr:last-child{border-bottom:none}
+.calc-table td{padding:5px 10px;vertical-align:middle;border-right:.5px solid var(--border)}
+.calc-table td:last-child{border-right:none}
+
+/* Inputs */
+.ci{width:100%;font-family:var(--font);font-size:11px;color:var(--text);background:transparent;border:1.5px solid transparent;border-radius:5px;padding:3px 5px;outline:none;text-align:center;transition:border-color .15s}
+.ci:focus{border-color:var(--accent);background:#FFFBF2}
+.ci.tl{text-align:left}
+.ci-mono{font-family:var(--mono);font-size:11px}
+.ci-rough{background:rgba(21,101,192,.04)}
+.ci-rough:focus{border-color:var(--blue);background:#EEF4FF}
+
+/* Warning states on T-rough */
+.ci-rough.warn-yellow{border-color:var(--orange) !important;background:#FEF3C7 !important;color:#92400E}
+.ci-rough.warn-red{border-color:var(--red) !important;background:#FDECEA !important;color:#7F1D1D}
+
+/* Computed cells */
+.cc{font-family:var(--mono);font-size:11px;text-align:right;padding:3px 8px;white-space:nowrap}
+.cc-green{color:var(--green);font-weight:600}
+.cc-blue{color:var(--blue)}
+.cc-orange{color:var(--orange);font-weight:600}
+.cc-grand{color:var(--accent);font-weight:700}
+.cc-rough{color:#1565C0;background:rgba(21,101,192,.04)}
+.cell-stt{text-align:center;color:var(--hint);font-size:10px;font-family:var(--mono);width:32px}
+
+/* Unit sel */
+.unit-sel{font-family:var(--font);font-size:10px;background:var(--bg);border:.5px solid var(--border-s);border-radius:4px;padding:2px 4px;outline:none;color:var(--muted);cursor:pointer;display:block;margin:2px auto 0}
+
+/* Milling btn */
+.mill-btn{display:flex;align-items:center;justify-content:space-between;gap:3px;width:100%;font-family:var(--font);font-size:10px;font-weight:600;padding:4px 7px;border-radius:6px;cursor:pointer;border:.5px solid var(--border-s);background:var(--blue-light);color:var(--blue);transition:all .15s}
+.mill-btn:hover{background:#DBEAFE}
+.mill-btn.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.mill-btn-amt{font-family:var(--mono);font-size:9px;opacity:.85}
+
+/* T-kho badge */
+.t-kho-badge{font-size:9px;text-align:center;padding:1px 4px;border-radius:3px;margin-top:1px;display:block}
+.t-kho-ok{background:var(--green-light);color:var(--green)}
+.vat-row td{background:#FFFBF2 !important}
+.t-kho-warn{background:var(--orange-light);color:var(--orange)}
+.t-kho-na{background:var(--bg);color:var(--hint)}
+
+/* Shape selector */
+.shape-sel{font-family:var(--font);font-size:10px;background:var(--surface);border:.5px solid var(--border-s);border-radius:6px;padding:3px 4px;outline:none;color:var(--text);cursor:pointer;width:100%}
+.shape-sel:focus{border-color:var(--blue)}
+
+/* Row del */
+.row-del{background:none;border:none;color:var(--hint);cursor:pointer;font-size:14px;padding:3px 7px;border-radius:5px;transition:all .15s}
+.row-del:hover{color:var(--red);background:var(--red-light)}
+
+/* TFOOT */
+.tfoot-row td{background:#F7F5F0;font-size:10px}
+.tfoot-label{text-align:right;padding-right:10px !important;color:var(--muted);font-weight:600}
+
+/* TOTALS BAR */
+.totals-bar{margin:0 20px 16px;display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.tc{background:var(--surface);border:.5px solid var(--border);border-radius:10px;padding:12px 16px}
+.tc-label{font-size:9px;color:var(--hint);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.tc-val{font-family:var(--mono);font-size:16px;font-weight:600;color:var(--text)}
+.tc-sub{font-size:9px;color:var(--hint);margin-top:2px}
+.tc.accent{background:var(--accent-light);border-color:rgba(181,131,10,.25)}
+.tc.accent .tc-val{color:var(--accent)}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:500;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:var(--surface);border-radius:14px;width:580px;max-width:96vw;max-height:92vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.25);animation:min .2s ease}
+@keyframes min{from{transform:scale(.95);opacity:0}to{transform:scale(1);opacity:1}}
+.modal-header{padding:16px 20px 12px;border-bottom:.5px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between}
+.modal-title{font-size:14px;font-weight:700;color:var(--text)}
+.modal-sub{font-size:11px;color:var(--muted);margin-top:3px}
+.modal-close{background:none;border:none;color:var(--hint);cursor:pointer;font-size:18px;padding:2px 6px;border-radius:5px;transition:all .15s}
+.modal-close:hover{color:var(--red);background:var(--red-light)}
+.modal-body{padding:14px 20px}
+.msec{margin-bottom:14px}
+.msec-title{font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.msec-title::after{content:'';flex:1;height:1px;background:var(--border)}
+
+.area-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.ac{background:var(--bg);border-radius:8px;padding:9px 12px}
+.ac .al{font-size:10px;color:var(--hint);margin-bottom:3px}
+.ac .av{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--text)}
+.ac .as{font-size:9px;color:var(--muted);margin-top:1px}
+
+.mill-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.ht-row{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;border:.5px solid var(--border);background:var(--surface);transition:border-color .15s}
+.ht-row.selected{border-color:#E07B39;background:#FFF5EE}
+.ht-check{width:18px;height:18px;border-radius:5px;border:1.5px solid var(--border-s);cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;transition:all .15s;background:var(--bg)}
+.ht-row.selected .ht-check{background:#E07B39;border-color:#E07B39;color:#fff}
+.ht-check::after{content:''}
+.ht-row.selected .ht-check::after{content:'✓'}
+.ht-info{flex:1;display:flex;flex-direction:column;gap:2px}
+.ht-name{font-size:12px;font-weight:500;color:var(--text)}
+.ht-rate{font-size:10px;color:var(--muted)}
+.ht-result{font-family:var(--mono);font-size:12px;font-weight:500;color:#C45A10;min-width:80px;text-align:right}
+.mo{border:1.5px solid var(--border);border-radius:8px;padding:9px 11px;cursor:pointer;transition:all .15s;position:relative}
+.mo:hover{border-color:var(--blue);background:#F5F9FF}
+.mo.sel{border-color:var(--blue);background:var(--blue-light)}
+.mo.sel::before{content:'✓';position:absolute;top:5px;right:8px;font-size:10px;color:var(--blue);font-weight:800}
+.mo-label{font-size:11px;font-weight:600;color:var(--text);margin-bottom:2px}
+.mo-desc{font-size:10px;color:var(--muted);line-height:1.4}
+.mo-area{font-family:var(--mono);font-size:10px;color:var(--blue);margin-top:4px}
+
+.rate-row{display:flex;align-items:center;gap:10px;margin-top:8px}
+.rate-row label{font-size:12px;color:var(--muted);white-space:nowrap}
+.rate-input{font-family:var(--mono);font-size:13px;width:110px;border:.5px solid var(--border-s);border-radius:6px;padding:6px 10px;outline:none;background:var(--bg)}
+.rate-input:focus{border-color:var(--blue)}
+
+.modal-result{background:var(--blue-light);border-radius:8px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;margin-top:12px}
+.mr-label{font-size:12px;color:var(--blue);font-weight:600}
+.mr-val{font-family:var(--mono);font-size:18px;font-weight:700;color:var(--blue)}
+.mr-bd{font-size:10px;color:var(--muted);margin-top:2px;max-width:300px;line-height:1.4}
+.modal-footer{padding:12px 20px;border-top:.5px solid var(--border);display:flex;gap:8px;justify-content:flex-end}
+
+/* T-KHO MODAL */
+.kho-tab{font-family:var(--font);font-size:11px;font-weight:600;padding:6px 13px;border-radius:20px;border:.5px solid var(--border-s);background:transparent;color:var(--muted);cursor:pointer;transition:all .15s}
+.kho-tab:hover{background:var(--bg)}
+.kho-tab.active{background:var(--dark);color:#fff;border-color:var(--dark)}
+.tkho-list{display:flex;flex-wrap:wrap;gap:6px;padding:8px 0}
+.tkho-tag{display:flex;align-items:center;gap:5px;background:var(--bg);border:.5px solid var(--border-s);border-radius:6px;padding:4px 9px;font-family:var(--mono);font-size:12px}
+.tkho-del{background:none;border:none;color:var(--hint);cursor:pointer;font-size:13px;padding:0 2px}
+.tkho-del:hover{color:var(--red)}
+.tkho-add-row{display:flex;gap:8px;margin-top:8px;align-items:center}
+.tkho-add-input{font-family:var(--mono);font-size:13px;width:100px;border:.5px solid var(--border-s);border-radius:6px;padding:6px 10px;outline:none;background:var(--bg)}
+.tkho-add-input:focus{border-color:var(--green)}
+
+/* Print */
+@media print{
+  .app-header,.header-actions,.doc-meta,.row-del,.mill-btn .chevron,
+  .totals-bar,.settings-bar,.mobile-action-bar,.card-list,.btn-add-card{display:none !important}
+  .no-print{display:none !important}
+  body{background:#fff;font-size:9pt;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .table-wrap{display:block !important;padding:0;overflow:visible}
+  .calc-table{min-width:unset;box-shadow:none;border-radius:0}
+  .ci{border:none !important;background:transparent !important;padding:1px 3px}
+  .mill-btn{border:none !important;background:transparent !important;color:#000 !important}
+  .unit-sel,.shape-sel{border:none;background:transparent}
+  .t-kho-badge{display:none}
+  .print-header{display:block !important}
+  .print-signature{display:block !important}
+  .quote-footer{display:block !important;border:none !important;padding:10px 0 !important;margin:0 !important;box-shadow:none !important}
+  .vat-row{break-inside:avoid}
+  @page{margin:14mm;size:A3 landscape}
+}
+
+/* PRINT CLASSES */
+.print-header{display:none;margin-bottom:14px}
+.print-company{font-size:13pt;font-weight:700;color:#1A1F2E;margin-bottom:3px}
+.print-address{font-size:9pt;color:#444;line-height:1.7}
+.print-divider{border:none;border-top:2px solid #1A1F2E;margin:8px 0 10px}
+.print-title{font-size:15pt;font-weight:700;text-align:center;color:#1A1F2E;margin-bottom:4px}
+.print-meta-line{font-size:9pt;color:#555;text-align:center}
+.print-signature{display:none;margin-top:32px;padding-top:16px;border-top:1px solid #ccc}
+.print-sig-row{display:flex;justify-content:space-between}
+.print-sig-box{text-align:center;width:220px}
+.print-sig-title{font-size:10pt;font-weight:700;color:#1A1F2E;margin-bottom:4px}
+.print-sig-note{font-size:9pt;color:#666;margin-bottom:48px}
+.print-sig-line{border-top:1px solid #333;margin-top:4px;width:180px;margin-left:auto;margin-right:auto}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════ */
+
+/* Card list + mobile bar hidden on desktop */
+.card-list{display:none}
+.mobile-action-bar{display:none}
+
+/* TABLET 601–960px */
+@media(max-width:960px){
+  .app-header{padding:0 14px;gap:8px}
+  .app-logo-sub{display:none}
+  .header-actions{gap:5px}
+  .btn{padding:5px 9px;font-size:10px}
+  .doc-meta{padding:10px 14px;gap:12px}
+  .meta-input{min-width:100px}
+  .totals-bar{grid-template-columns:repeat(3,1fr);margin:0 14px 12px}
+  .table-wrap{padding:10px 14px 6px}
+  .quote-footer{margin:0 14px 20px !important;padding:14px 16px !important}
+}
+
+/* MOBILE ≤600px */
+@media(max-width:600px){
+  /* Header */
+  .app-header{height:auto;min-height:48px;padding:max(4px,env(safe-area-inset-top)) 12px 6px;flex-wrap:wrap;gap:6px}
+  .app-logo{min-width:130px}
+  .app-logo-name{font-size:11px}
+  .app-logo-mark{width:24px;height:24px;font-size:12px}
+  .app-logo-sub{display:none}
+  
+  /* Hide PDF/Excel from header */
+  .header-actions{gap:3px;flex-shrink:0}
+  .header-actions .btn-green,
+  .header-actions .btn-blue{display:none}
+  .header-actions .btn{padding:4px 8px;font-size:9px;white-space:nowrap}
+
+  /* Doc meta */
+  .doc-meta{padding:8px 12px;gap:6px;display:grid;grid-template-columns:1fr 1fr}
+  .meta-field:nth-child(n+3){grid-column:1/-1}
+  .meta-field{min-width:0}
+  .meta-input{width:100%;font-size:10px;padding:5px 8px}
+  .meta-label{font-size:8px}
+
+  /* Settings bar */
+  .settings-bar{padding:6px 12px;flex-direction:column;align-items:stretch;gap:6px}
+  .sbar-title{font-size:9px}
+  .sbar-group{width:100%;flex-wrap:wrap;gap:4px;font-size:10px}
+  .sbar-label{flex-shrink:0}
+  .sbar-input{width:48px;font-size:10px;padding:4px 5px}
+  .sbar-sep{display:none}
+
+  /* Hide table, show cards */
+  .table-wrap{display:none}
+  .card-list{display:flex;flex-direction:column;gap:8px;padding:8px 12px 110px;margin:0}
+
+  /* Totals bar */
+  .totals-bar{grid-template-columns:1fr 1fr;margin:0 12px 12px;gap:6px}
+  .tc{padding:8px 10px;border-radius:8px;font-size:12px}
+  .tc-label{font-size:8px}
+  .tc-val{font-size:12px}
+  .tc-sub{font-size:7px;margin-top:1px}
+
+  /* Quote footer */
+  .quote-footer{margin:0 12px 16px !important;padding:10px 12px !important}
+  .quote-footer>div:nth-child(2){grid-template-columns:1fr;gap:4px;font-size:10px}
+  .quote-footer>div:nth-child(3){font-size:10px;margin-top:6px}
+
+  /* Mobile action bar */
+  .mobile-action-bar{
+    display:flex;position:fixed;bottom:0;left:0;right:0;
+    background:var(--dark);border-top:1px solid rgba(255,255,255,.1);
+    padding:6px 12px;gap:4px;z-index:150;
+    padding-bottom:max(6px,env(safe-area-inset-bottom));
+  }
+  .mobile-action-bar .btn{flex:1;padding:8px;font-size:9px;justify-content:center;white-space:nowrap}
+
+  /* Modals as bottom sheets */
+  .modal-overlay.open{align-items:flex-end;justify-content:stretch}
+  .modal{
+    width:100% !important;max-width:100% !important;border-radius:16px 16px 0 0;
+    position:fixed !important;bottom:0;max-height:82vh;
+    left:0;right:0;top:auto;padding-bottom:env(safe-area-inset-bottom)
+  }
+  .modal-header{padding:12px 14px 10px}
+  .modal-title{font-size:12px}
+  .modal-sub{font-size:9px}
+  .modal-body{padding:10px 14px}
+  .modal-footer{padding:8px 14px;gap:4px;flex-wrap:wrap}
+  .modal-footer .btn{flex:1;min-width:120px;font-size:10px;padding:8px}
+  .msec{margin-bottom:10px}
+  .msec-title{font-size:8px;margin-bottom:8px}
+  .area-grid{grid-template-columns:1fr;gap:6px}
+  .ac{padding:8px 10px}
+  .ac .al{font-size:9px}
+  .ac .av{font-size:11px}
+  .mill-grid{grid-template-columns:1fr}
+  .ht-row{padding:7px 10px;gap:8px}
+  .ht-name{font-size:11px}
+  .ht-rate{font-size:9px}
+  .ht-result{font-size:10px;min-width:50px}
+  .modal-result{padding:10px 12px;margin-top:10px}
+  .mr-val{font-size:15px}
+}
+
+/* ROW CARD styles (mobile card layout) */
+.row-card{background:var(--surface);border-radius:12px;border:.5px solid var(--border);overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.row-card-header{display:flex;align-items:center;gap:8px;padding:10px 14px 8px;border-bottom:.5px solid var(--border);background:linear-gradient(135deg,#1A1F2E 0%,#252C3E 100%)}
+.row-card-stt{font-family:var(--mono);font-size:10px;color:#7A8099;background:rgba(255,255,255,.08);padding:2px 7px;border-radius:4px;flex-shrink:0}
+.row-card-grade{font-size:13px;font-weight:700;color:#fff;flex:1;font-family:var(--mono)}
+.row-card-del{background:rgba(192,57,43,.15);border:none;color:#F87171;cursor:pointer;font-size:16px;padding:4px 8px;border-radius:5px;line-height:1}
+.row-card-body{padding:12px 14px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.row-card-field{display:flex;flex-direction:column;gap:3px}
+.rcf-label{font-size:9px;color:var(--hint);text-transform:uppercase;letter-spacing:.04em;line-height:1.3}
+.rcf-input{font-family:var(--mono);font-size:13px;font-weight:500;background:var(--bg);border:.5px solid var(--border-s);border-radius:7px;padding:7px 9px;outline:none;width:100%;text-align:right;color:var(--text);transition:border-color .15s}
+.rcf-input:focus{border-color:var(--accent);background:#FFFBF2}
+.rcf-input.rough{background:rgba(21,101,192,.04);border-color:rgba(21,101,192,.2)}
+.rcf-input.rough:focus{border-color:var(--blue)}
+.rcf-sel{font-family:var(--font);font-size:11px;background:var(--bg);border:.5px solid var(--border-s);border-radius:7px;padding:6px 8px;outline:none;width:100%;color:var(--text)}
+.row-card-sep{grid-column:1/-1;height:.5px;background:var(--border);margin:2px 0}
+.row-card-kho-row{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:10px;color:var(--muted)}
+.row-card-results{padding:10px 14px;border-top:.5px solid var(--border);background:#FAFAF8;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.rcr-item{display:flex;flex-direction:column;gap:1px}
+.rcr-label{font-size:9px;color:var(--hint);text-transform:uppercase;letter-spacing:.04em}
+.rcr-val{font-family:var(--mono);font-size:12px;font-weight:700}
+.rcr-val.green{color:var(--green)}
+.rcr-val.blue{color:var(--blue)}
+.rcr-val.accent{color:var(--accent);font-size:13px}
+.row-card-foot{padding:8px 14px;border-top:.5px solid var(--border);display:flex;gap:7px;align-items:center}
+.btn-mill-card{flex:1;background:var(--blue-light);color:var(--blue);border:.5px solid rgba(21,101,192,.2);border-radius:8px;padding:9px 10px;font-family:var(--font);font-size:11px;font-weight:700;cursor:pointer;text-align:center;transition:all .15s;line-height:1.3}
+.btn-mill-card.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.btn-add-card{width:100%;background:var(--surface);border:2px dashed var(--border-s);border-radius:12px;padding:16px;font-family:var(--font);font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:4px}
+.btn-add-card:active{border-color:var(--accent);color:var(--accent);background:var(--accent-light)}
+
+</style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js" type="text/javascript"></script>
+  
+  
+  
+ </head>
+ <body>
+  <div class="app-header">
+   <div class="app-logo">
+    <div class="app-logo-mark">
+     ⚙
+    </div>
+    <div>
+     <div class="app-logo-name">
+      MoldSteel VN
+     </div>
+     <div class="app-logo-sub">
+      Bảng tính giá thép khuôn mẫu
+     </div>
+    </div>
+   </div>
+   <div class="header-actions"><button class="btn btn-ghost" onclick="toggleSettings()">⚙ Hao hụt</button> <button class="btn btn-ghost" onclick="openTkhoModal()">📦 Kho vật liệu</button> <button class="btn btn-ghost" onclick="openMatCoefModal()" title="Bảng hệ số khối lượng vật liệu">⚖ Hệ số KL</button> <button class="btn btn-ghost" onclick="addRow()">＋ Thêm dòng</button> <button class="btn btn-green" onclick="exportExcel()">↓ Excel</button> <button class="btn btn-blue" onclick="printPDF()">⎙ In / PDF</button>
+   </div>
+  </div><!-- DOC META -->
+  <div class="doc-meta">
+   <div class="meta-field">
+    <span class="meta-label">Khách hàng</span><input class="meta-input" id="mc" placeholder="Tên công ty / xưởng" />
+   </div>
+   <div class="meta-field">
+    <span class="meta-label">Số báo giá</span><input class="meta-input" id="mq" placeholder="BG-2026-001" style="min-width: 110px;" />
+   </div>
+   <div class="meta-field">
+    <span class="meta-label">Ngày</span><input class="meta-input" id="md" style="min-width: 130px;" type="date" />
+   </div>
+   <div class="meta-field">
+    <span class="meta-label">Người lập</span><input class="meta-input" id="mp" placeholder="Họ tên" />
+   </div>
+  </div><!-- SETTINGS (hao hụt) -->
+  <div class="settings-bar hidden" id="settings-bar"><span class="sbar-title">⚙ Cài đặt hao hụt mặc định</span>
+   <div class="sbar-group"><span class="sbar-label">Đường cưa T (mm):</span> <input class="sbar-input" id="s-saw-t" min="0" oninput="recalcAll()" step="0.5" type="number" value="3" /> <span class="sbar-label">Đường cưa W (mm):</span> <input class="sbar-input" id="s-saw-w" min="0" oninput="recalcAll()" step="0.5" type="number" value="3" /> <span class="sbar-label">Đường cưa L (mm):</span> <input class="sbar-input" id="s-saw-l" min="0" oninput="recalcAll()" step="0.5" type="number" value="3" />
+   </div>
+   <div class="sbar-sep"></div>
+   <div class="sbar-group"><span class="sbar-label">Phay/mài T (mm/mặt):</span> <input class="sbar-input" id="s-mill-t" min="0" oninput="recalcAll()" step="0.5" type="number" value="1" /> <span class="sbar-label">Phay/mài W (mm/cạnh):</span> <input class="sbar-input" id="s-mill-w" min="0" oninput="recalcAll()" step="0.5" type="number" value="1" /> <span class="sbar-label">Phay/mài L (mm/cạnh):</span> <input class="sbar-input" id="s-mill-l" min="0" oninput="recalcAll()" step="0.5" type="number" value="1" />
+   </div>
+   <div style="color: var(--muted); font-size: 10px; margin-left: auto;">
+    T_rough = T_tinh + cưa_T + phay_T×2 (2 mặt)
+   </div>
+  </div><!-- PRINT HEADER -->
+  <div class="print-header" id="ph">
+   <div class="print-company">
+    CÔNG TY THÉP KHUÔN MẪU
+   </div>
+   <div class="print-address">
+    📍 32 Quốc lộ 1A, Bình Tân, TP Hồ Chí Minh &nbsp;|&nbsp; D-U-N-S® Registered™: 011123456 &nbsp;|&nbsp; ✉ info@thepkhuonmau.com &nbsp;|&nbsp; 🌐 thepkhuonmau.com
+   </div>
+   <hr class="print-divider" />
+   <div class="print-title">
+    BẢNG TÍNH GIÁ THÉP KHUÔN MẪU
+   </div>
+   <p class="print-meta-line" id="pm"></p>
+  </div><!-- TABLE -->
+  <div class="table-wrap">
+   <table class="calc-table" id="calc-table">
+    <thead>
+     <tr>
+      <th class="th-main" rowspan="3" style="width: 30px;">STT</th>
+      <th class="th-main" rowspan="3" style="min-width: 100px;">MÃ HÀNG<br /><span style="font-size: 8px; font-weight: 400; opacity: .7;">Steel Grade</span></th>
+      <th class="th-fine th-main" colspan="3">QUY CÁCH TINH<br /><span style="font-size: 8px; font-weight: 400; opacity: .7;">Cus. Requested Size</span></th>
+      <th class="th-main no-print" rowspan="3" style="min-width: 86px;">HÌNH DẠNG KHO<br /><span style="font-size: 8px; font-weight: 400; opacity: .7;">Stock Shape</span></th>
+      <th class="th-rough th-main" colspan="3">QUY CÁCH THÔ<br /><span style="font-size: 8px; font-weight: 400; opacity: .7;">Raw Specifications</span></th>
+      <th class="th-main no-print" rowspan="3" style="min-width: 64px;">HAO HỤT<br /><span style="font-size: 8px; font-weight: 400; opacity: .7;">Loss (mm)</span></th>
+      <th class="th-main" rowspan="3" style="min-width: 110px;">S.L<br /><span style="font-size: 8px; font-weight: 400; opacity: .7;">Qty</span></th>
+      <th class="th-main" rowspan="3" style="min-width: 80px;">ĐƠN GIÁ<br /><span style="font-size: 8px; font-weight: 400; opacity: .7;">đ/kg</span></th>
+      <th class="th-weight-fine no-print" rowspan="3" style="cursor: pointer; min-width: 88px;" title="Bấm vào ô để ẩn/hiện TL tinh">TL TINH<br /><span style="font-size: 8px; font-weight: 400; opacity: .7;">Net Weight ↕</span></th>
+      <th class="th-weight-rough" rowspan="3" style="min-width: 88px;">TL THÔ<br /><span style="font-size: 8px; font-weight: 400; opacity: .7;">Gross Weight (kg)</span></th>
+      <th class="th-main" rowspan="3" style="min-width: 105px;">TIỀN VẬT TƯ<br /><span style="font-size: 8px; font-weight: 400; opacity: .7;">Material Cost (đ)</span></th>
+      <th class="th-main" rowspan="3" style="min-width: 105px;">TIỀN PHAY/MÀI<br /><span style="font-size: 8px; font-weight: 400; opacity: .7;">Milling Cost (đ)</span></th>
+      <th class="th-main" rowspan="3" style="min-width: 115px;">THÀNH TIỀN<br /><span style="font-size: 8px; font-weight: 400; opacity: .7;">Total (đ)</span></th>
+      <th class="th-main" rowspan="3" style="min-width: 115px;">GHI CHÚ<br /><span style="font-size: 8px; font-weight: 400; opacity: .7;">Notes</span></th>
+      <th class="th-main" rowspan="3" style="width: 30px;"></th>
+     </tr>
+     <tr>
+      <th class="th-sub th-fine" rowspan="2">Dày-T<br />
+        (mm)</th>
+      <th class="th-sub th-fine" rowspan="2">Rộng-W<br />
+        (mm)</th>
+      <th class="th-sub th-fine" rowspan="2">Dài-L<br />
+        (mm)</th>
+     </tr>
+     <tr>
+      <th class="th-rough-sub">Dim-1 (mm)<br /><span style="font-size: 8px; opacity: .7;">T / Ø / S ⚠kho</span></th>
+      <th class="th-rough-sub">Dim-2 (mm)<br /><span style="font-size: 8px; opacity: .7;">W / — </span></th>
+      <th class="th-rough-sub">L thô (mm)</th>
+     </tr>
+    </thead>
+    <tbody id="table-body"></tbody>
+    <tfoot id="calc-tfoot">
+     <tr class="tfoot-row" id="ft-row-total">
+      <td class="tfoot-label" colspan="12" id="ft-label-total">TỔNG CỘNG (Grand Total)</td>
+      <td class="cc cc-green no-print" id="ft-wfine">—</td>
+      <td class="cc cc-blue" id="ft-wrough">—</td>
+      <td class="cc cc-green" id="ft-mat">—</td>
+      <td class="cc cc-blue" id="ft-mill">—</td>
+      <td class="cc cc-grand" id="ft-total">—</td>
+      <td class="no-print"></td>
+      <td class="no-print"></td>
+     </tr>
+     <tr class="tfoot-row vat-row" id="ft-row-vat10">
+      <td class="tfoot-label" colspan="12" id="ft-label-vat10" style="font-size: 11px;">VAT 10%</td>
+      <td class="no-print"></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td class="cc cc-blue" id="ft-vat" style="font-family: var(--mono); font-size: 12px; padding: 4px 10px; text-align: right;">—</td>
+      <td class="no-print"></td>
+      <td class="no-print"></td>
+     </tr>
+     <tr class="tfoot-row vat-row" id="ft-row-grand" style="background: #FDF3DC;">
+      <td class="tfoot-label" colspan="12" id="ft-label-grand" style="color: var(--accent); font-size: 12px;">TỔNG THANH TOÁN</td>
+      <td class="no-print"></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td class="cc" id="ft-grand" style="color: var(--accent); font-family: var(--mono); font-size: 14px; font-weight: 700; padding: 6px 10px; text-align: right;">—</td>
+      <td class="no-print"></td>
+      <td class="no-print"></td>
+     </tr>
+    </tfoot>
+   </table>
+  </div><!-- MOBILE CARD LIST -->
+  <div class="card-list" id="card-list"></div><!-- MOBILE ACTION BAR -->
+  <div class="mobile-action-bar"><button class="btn btn-ghost" onclick="addRow()">＋ Thêm dòng</button> <button class="btn btn-green" onclick="exportExcel()">↓ Excel</button> <button class="btn btn-blue" onclick="printPDF()">⎙ In / PDF</button>
+  </div><!-- TOTALS BAR -->
+  <div class="totals-bar">
+   <div class="tc">
+    <div class="tc-label">
+     Số dòng
+    </div>
+    <div class="tc-val" id="s-rows">
+     0
+    </div>
+    <div class="tc-sub">
+     mặt hàng
+    </div>
+   </div>
+   <div class="tc">
+    <div class="tc-label">
+     TL tinh (Net)
+    </div>
+    <div class="tc-val" id="s-wfine">
+     0
+    </div>
+    <div class="tc-sub">
+     kg cus. requested
+    </div>
+   </div>
+   <div class="tc">
+    <div class="tc-label">
+     TL thô (Gross)
+    </div>
+    <div class="tc-val" id="s-wrough">
+     0
+    </div>
+    <div class="tc-sub">
+     kg trước gia công
+    </div>
+   </div>
+   <div class="tc">
+    <div class="tc-label">
+     Tiền vật tư
+    </div>
+    <div class="tc-val" id="s-mat">
+     0 đ
+    </div>
+    <div class="tc-sub">
+     chưa phay/mài
+    </div>
+   </div>
+   <div class="tc accent">
+    <div class="tc-label">
+     Tổng thanh toán
+    </div>
+    <div class="tc-val" id="s-grand">
+     0 đ
+    </div>
+    <div class="tc-sub">
+     đã bao gồm VAT 10%
+    </div>
+   </div>
+  </div><!-- QUOTE FOOTER -->
+  <div class="quote-footer" id="quote-footer" style="background: var(--surface); border-radius: 10px; border: .5px solid var(--border); display: none; margin: 0 20px 32px; padding: 18px 24px;">
+   <div style="color: var(--muted); font-size: 11px; font-weight: 600; letter-spacing: .06em; margin-bottom: 12px; text-transform: uppercase;">
+    Điều khoản chào giá
+   </div>
+   <div style="color: var(--text); display: grid; font-size: 12px; gap: 8px 32px; grid-template-columns: 1fr 1fr; line-height: 1.8;">
+    <div>
+     <span style="color: var(--muted);">Ghi chú:</span> Số "kg" trên chỉ mang tính chất tham khảo, giao hàng sẽ tính theo số "kg" thực tế.
+    </div>
+    <div>
+     <span style="color: var(--muted);">Thời gian giao hàng:</span> Theo thỏa thuận giữa 2 bên.
+    </div>
+    <div>
+     <span style="color: var(--muted);">Vận chuyển:</span> Theo thoả thuận giữa 2 bên.
+    </div>
+    <div>
+     <span style="color: var(--muted);">Phương thức thanh toán:</span> <input class="meta-input" id="meta-payment" placeholder="Nhập phương thức thanh toán…" style="font-size: 12px; min-width: 180px; padding: 3px 8px;" />
+    </div>
+   </div>
+   <div style="border-top: .5px solid var(--border); color: var(--text); font-size: 12px; line-height: 1.8; margin-top: 14px; padding-top: 12px; text-align: left;">
+    Rất mong nhận được sự hợp tác của Quý công ty.<br /><strong>Trân trọng cảm ơn !</strong>
+   </div>
+  </div><!-- PRINT SIGNATURE -->
+  <div class="print-signature" id="print-signature">
+   <div class="print-sig-row">
+    <div class="print-sig-box">
+     <div class="print-sig-title">
+      CTY THÉP KHUÔN MẪU
+     </div>
+     <div class="print-sig-note">
+      (Ký tên, đóng dấu)
+     </div>
+     <div class="print-sig-line"></div>
+    </div>
+    <div class="print-sig-box">
+     <div class="print-sig-title">
+      ĐẠI DIỆN KHÁCH HÀNG
+     </div>
+     <div class="print-sig-note">
+      (Ký tên, đóng dấu)
+     </div>
+     <div class="print-sig-line"></div>
+    </div>
+   </div>
+  </div><!-- MILLING MODAL -->
+  <div class="modal-overlay" id="mill-modal">
+   <div class="modal">
+    <div class="modal-header">
+     <div>
+      <div class="modal-title">
+       ⚙ Tính tiền phay / mài
+      </div>
+      <div class="modal-sub" id="mm-info">
+       —
+      </div>
+     </div><button class="modal-close" onclick="closeMill()">✕</button>
+    </div>
+    <div class="modal-body">
+     <div class="msec">
+      <div class="msec-title">
+       Diện tích các mặt/cạnh (từ QUY CÁCH TINH)
+      </div>
+      <div class="area-grid">
+       <div class="ac">
+        <div class="al">
+         Mặt (W×L)
+        </div>
+        <div class="av" id="mm-face">
+         —
+        </div>
+        <div class="as">
+         width × length
+        </div>
+       </div>
+       <div class="ac">
+        <div class="al">
+         Cạnh ngắn (T×W)
+        </div>
+        <div class="av" id="mm-short">
+         —
+        </div>
+        <div class="as">
+         thickness × width
+        </div>
+       </div>
+       <div class="ac">
+        <div class="al">
+         Cạnh dài (T×L)
+        </div>
+        <div class="av" id="mm-long">
+         —
+        </div>
+        <div class="as">
+         thickness × length
+        </div>
+       </div>
+       <div class="ac">
+        <div class="al">
+         Đơn giá gia công
+        </div>
+        <div class="rate-row" style="margin-top: 6px;"><input class="rate-input" id="mm-rate" min="0" step="0.5" type="number" value="1" /> <span style="color: var(--hint); font-size: 11px;">đ/mm²</span>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="msec">
+      <div class="msec-title">
+       Phay thô (Rough milling)
+      </div>
+      <div class="mill-grid">
+       <div class="mo" data-key="face1" onclick="toggleMO(this)">
+        <div class="mo-label">
+         Phay thô 1 mặt
+        </div>
+        <div class="mo-desc">
+         1 mặt W×L
+        </div>
+        <div class="mo-area" id="moa-face1">
+         —
+        </div>
+       </div>
+       <div class="mo" data-key="face2" onclick="toggleMO(this)">
+        <div class="mo-label">
+         Phay thô 2 mặt
+        </div>
+        <div class="mo-desc">
+         2 mặt (W×L)×2
+        </div>
+        <div class="mo-area" id="moa-face2">
+         —
+        </div>
+       </div>
+       <div class="mo" data-key="short1" onclick="toggleMO(this)">
+        <div class="mo-label">
+         Phay thô 1 cạnh ngắn
+        </div>
+        <div class="mo-desc">
+         1 cạnh T×W
+        </div>
+        <div class="mo-area" id="moa-short1">
+         —
+        </div>
+       </div>
+       <div class="mo" data-key="short2" onclick="toggleMO(this)">
+        <div class="mo-label">
+         Phay thô 2 cạnh ngắn
+        </div>
+        <div class="mo-desc">
+         2 cạnh (T×W)×2
+        </div>
+        <div class="mo-area" id="moa-short2">
+         —
+        </div>
+       </div>
+       <div class="mo" data-key="long1" onclick="toggleMO(this)">
+        <div class="mo-label">
+         Phay thô 1 cạnh dài
+        </div>
+        <div class="mo-desc">
+         1 cạnh T×L
+        </div>
+        <div class="mo-area" id="moa-long1">
+         —
+        </div>
+       </div>
+       <div class="mo" data-key="long2" onclick="toggleMO(this)">
+        <div class="mo-label">
+         Phay thô 2 cạnh dài
+        </div>
+        <div class="mo-desc">
+         2 cạnh (T×L)×2
+        </div>
+        <div class="mo-area" id="moa-long2">
+         —
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="msec">
+      <div class="msec-title">
+       Mài (Grinding / Mài)
+      </div>
+      <div class="mill-grid">
+       <div class="mo" data-key="fface1" onclick="toggleMO(this)">
+        <div class="mo-label">
+         Mài 1 mặt
+        </div>
+        <div class="mo-desc">
+         1 mặt tinh W×L
+        </div>
+        <div class="mo-area" id="moa-fface1">
+         —
+        </div>
+       </div>
+       <div class="mo" data-key="fface2" onclick="toggleMO(this)">
+        <div class="mo-label">
+         Mài 2 mặt
+        </div>
+        <div class="mo-desc">
+         2 mặt tinh (W×L)×2
+        </div>
+        <div class="mo-area" id="moa-fface2">
+         —
+        </div>
+       </div>
+       <div class="mo" data-key="fshort1" onclick="toggleMO(this)">
+        <div class="mo-label">
+         Mài 1 cạnh ngắn
+        </div>
+        <div class="mo-desc">
+         1 cạnh tinh T×W
+        </div>
+        <div class="mo-area" id="moa-fshort1">
+         —
+        </div>
+       </div>
+       <div class="mo" data-key="fshort2" onclick="toggleMO(this)">
+        <div class="mo-label">
+         Mài 2 cạnh ngắn
+        </div>
+        <div class="mo-desc">
+         2 cạnh tinh (T×W)×2
+        </div>
+        <div class="mo-area" id="moa-fshort2">
+         —
+        </div>
+       </div>
+       <div class="mo" data-key="flong1" onclick="toggleMO(this)">
+        <div class="mo-label">
+         Mài 1 cạnh dài
+        </div>
+        <div class="mo-desc">
+         1 cạnh tinh T×L
+        </div>
+        <div class="mo-area" id="moa-flong1">
+         —
+        </div>
+       </div>
+       <div class="mo" data-key="flong2" onclick="toggleMO(this)">
+        <div class="mo-label">
+         Mài 2 cạnh dài
+        </div>
+        <div class="mo-desc">
+         2 cạnh tinh (T×L)×2
+        </div>
+        <div class="mo-area" id="moa-flong2">
+         —
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="msec">
+      <div class="msec-title">
+       🔥 Xử lý nhiệt (Heat Treatment)
+      </div>
+      <div style="color: var(--muted); font-size: 10px; margin-bottom: 10px;">
+       TL xử lý = S.L × TL tinh/cái. Min: chân không &amp; dầu ≥ 1 kg/lần · thấm Ni-tơ ≥ 3 kg/lần
+      </div>
+      <div id="ht-options" style="display: flex; flex-direction: column; gap: 7px;"><!-- a -->
+       <div class="ht-row" data-key="ht_vacuum" data-min="1" data-rate="30000">
+        <div class="ht-check" onclick="toggleHT(this)"></div>
+        <div class="ht-info"><span class="ht-name">Xử lý nhiệt chân không</span> <span class="ht-rate">30,000 đ/kg · min 1 kg</span>
+        </div>
+        <div class="ht-result" id="ht-vacuum-result">
+         —
+        </div>
+       </div><!-- b -->
+       <div class="ht-row" data-key="ht_oil" data-min="1" data-rate="22000">
+        <div class="ht-check" onclick="toggleHT(this)"></div>
+        <div class="ht-info"><span class="ht-name">Xử lý nhiệt dầu</span> <span class="ht-rate">22,000 đ/kg · min 1 kg</span>
+        </div>
+        <div class="ht-result" id="ht-oil-result">
+         —
+        </div>
+       </div><!-- c -->
+       <div class="ht-row" data-key="ht_induction" data-min="0" data-rate="0" id="ht-row-induction">
+        <div class="ht-check" onclick="toggleHT(this)"></div>
+        <div class="ht-info"><span class="ht-name">Xử lý nhiệt cao tần</span> <span class="ht-rate">Nhập đơn giá riêng</span>
+        </div>
+        <div style="align-items: center; display: flex; gap: 4px;"><input id="ht-induction-price" min="0" onfocus="document.getElementById('ht-row-induction').classList.add('selected')" oninput="onInductionPrice(this)" placeholder="0" step="1000" style="background: var(--bg); border-radius: 6px; border: .5px solid var(--border-s); font-family: var(--mono); font-size: 12px; outline: none; padding: 4px 8px; text-align: right; width: 90px;" type="number" /> <span style="color: var(--hint); font-size: 10px;">đ/kg</span>
+        </div>
+        <div class="ht-result" id="ht-induction-result">
+         —
+        </div>
+       </div><!-- d -->
+       <div class="ht-row" data-key="ht_nitride" data-min="3" data-rate="45000">
+        <div class="ht-check" onclick="toggleHT(this)"></div>
+        <div class="ht-info"><span class="ht-name">Thấm Ni-tơ (Nitriding)</span> <span class="ht-rate">45,000 đ/kg · min 3 kg</span>
+        </div>
+        <div class="ht-result" id="ht-nitride-result">
+         —
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="modal-result">
+      <div>
+       <div class="mr-label">
+        Tổng tiền phay/mài + nhiệt luyện / cái
+       </div>
+       <div class="mr-bd" id="mm-bd">
+        Chưa chọn công đoạn
+       </div>
+      </div>
+      <div class="mr-val" id="mm-total">
+       0 đ
+      </div>
+     </div>
+    </div>
+    <div class="modal-footer"><button class="btn" onclick="clearMO()" style="background: var(--bg); color: var(--muted);">Xoá tất cả</button> <button class="btn btn-blue" onclick="applyMill()">✓ Xác nhận</button>
+    </div>
+   </div>
+  </div><!-- KHO VẬT LIỆU MODAL -->
+  <div class="modal-overlay" id="tkho-modal">
+   <div class="modal" style="max-width: 520px;">
+    <div class="modal-header">
+     <div>
+      <div class="modal-title">
+       📦 Kho vật liệu
+      </div>
+      <div class="modal-sub">
+       Quản lý kích thước tồn kho theo hình dạng — dùng để cảnh báo khi dim-1 thô không khớp
+      </div>
+     </div><button class="modal-close" onclick="closeTkho()">✕</button>
+    </div>
+    <div class="modal-body"><!-- Shape tabs -->
+     <div style="border-bottom: .5px solid var(--border); display: flex; gap: 6px; margin-bottom: 14px; padding-bottom: 10px;"><button class="kho-tab active" data-shape="plate" onclick="switchKhoTab('plate')">🟦 Tấm</button> <button class="kho-tab" data-shape="round" onclick="switchKhoTab('round')">🔵 Trụ tròn</button> <button class="kho-tab" data-shape="hex" onclick="switchKhoTab('hex')">🔷 Lục giác</button> <button class="kho-tab" data-shape="oct" onclick="switchKhoTab('oct')">🔸 Bát giác</button>
+     </div><!-- Formula info -->
+     <div id="kho-formula" style="background: var(--bg); border-radius: 8px; color: var(--muted); font-family: var(--mono); font-size: 11px; margin-bottom: 12px; padding: 8px 12px;"></div><!-- Stock list -->
+     <div class="msec">
+      <div class="msec-title" id="kho-tab-title">
+       Các giá trị T có sẵn trong kho (mm)
+      </div>
+      <div class="tkho-list" id="tkho-list"></div>
+      <div class="tkho-add-row"><input class="tkho-add-input" id="tkho-input" min="1" placeholder="VD: 20" step="0.5" type="number" /> <button class="btn btn-green" onclick="addTkho()">＋ Thêm</button>
+      </div>
+     </div>
+     <div style="background: var(--orange-light); border-radius: 8px; color: #92400e; font-size: 11px; line-height: 1.6; margin-top: 10px; padding: 10px 12px;"><strong>Quy tắc cảnh báo (Dim-1 thô):</strong><br />
+       🟢 Xanh: khớp chính xác với kho &nbsp;|&nbsp; 🟡 Vàng: gần nhất ±5mm &nbsp;|&nbsp; 🔴 Đỏ: không có trong kho
+     </div>
+    </div>
+    <div class="modal-footer"><button class="btn btn-blue" onclick="closeTkho()">Xong</button>
+    </div>
+   </div>
+  </div><!-- BẢNG HỆ SỐ KHỐI LƯỢNG MODAL -->
+  <div class="modal-overlay" id="matcoef-modal">
+   <div class="modal" style="max-width: 620px;">
+    <div class="modal-header">
+     <div>
+      <div class="modal-title">⚖ Bảng hệ số khối lượng</div>
+      <div class="modal-sub">Hệ số dùng trong công thức: KL (kg) = Hệ số × Dim1 × Dim2 × L / 1000 — có thể chỉnh sửa trực tiếp</div>
+     </div>
+     <button class="modal-close" onclick="closeMatCoef()">✕</button>
+    </div>
+    <div class="modal-body" style="padding: 12px 20px 8px;">
+     <table style="border-collapse: collapse; font-size: 12px; width: 100%;">
+      <thead>
+       <tr style="background: var(--dark); color: white;">
+        <th style="border-radius: 6px 0 0 0; font-size: 10px; font-weight: 700; letter-spacing: .06em; padding: 8px 12px; text-align: left;">VẬT LIỆU<br /><span style="font-size: 9px; font-weight: 400; opacity: .6;">Material</span></th>
+        <th style="font-size: 10px; font-weight: 700; letter-spacing: .06em; padding: 8px 12px; text-align: center;">HÌNH DẠNG<br /><span style="font-size: 9px; font-weight: 400; opacity: .6;">Shape</span></th>
+        <th style="font-size: 10px; font-weight: 700; letter-spacing: .06em; padding: 8px 12px; text-align: center;">HỆ SỐ<br /><span style="font-size: 9px; font-weight: 400; opacity: .6;">Weight Coeff.</span></th>
+        <th style="border-radius: 0 6px 0 0; font-size: 10px; font-weight: 700; letter-spacing: .06em; padding: 8px 12px; text-align: left;">CÔNG THỨC<br /><span style="font-size: 9px; font-weight: 400; opacity: .6;">Formula</span></th>
+       </tr>
+      </thead>
+      <tbody id="matcoef-tbody"></tbody>
+     </table>
+     <div style="background: var(--accent-light); border-radius: 8px; color: #7a5800; font-size: 10px; line-height: 1.7; margin-top: 10px; padding: 8px 12px;">
+      <strong>Ghi chú:</strong> Mặc định là <strong>Thép</strong>. Mỗi dòng trong bảng tính chọn vật liệu riêng bằng badge nhỏ dưới mã hàng.<br />
+      Hệ số làm tròn 1 chữ số thập phân trước khi tính tiền.
+     </div>
+    </div>
+    <div class="modal-footer">
+     <button class="btn" onclick="resetMatCoef()" style="background: var(--bg); color: var(--muted);">↺ Khôi phục mặc định</button>
+     <button class="btn btn-blue" onclick="closeMatCoef()">✓ Xong</button>
+    </div>
+   </div>
+  </div>
+  <script>
+// ── STATE ──
+let rows = [], rowCounter = 0, activeRowId = null;
+
+// ── BẢNG HỆ SỐ KHỐI LƯỢNG ──
+// Công thức chung: KL(kg) = coef * D1 * D2 * L / 1000
+// Tấm: D1=T, D2=W  |  Tròn/Lục/Bát: D1=D2=Ø(hoặc S), nhưng công thức = coef * D1^2 * L / 1000
+const MAT_COEF_DEFAULT = [
+  { mat:'Thép',  matKey:'steel',  shape:'plate', shapeLabel:'Tấm',      coef: 7.85,   formula:'7.85 × T × W × L / 1000' },
+  { mat:'Thép',  matKey:'steel',  shape:'round', shapeLabel:'Trụ tròn', coef: 6.17,   formula:'6.17 × Ø² × L / 1000' },
+  { mat:'Thép',  matKey:'steel',  shape:'hex',   shapeLabel:'Lục giác', coef: 6.80,   formula:'6.80 × S² × L / 1000' },
+  { mat:'Thép',  matKey:'steel',  shape:'oct',   shapeLabel:'Bát giác', coef: 7.36,   formula:'7.36 × S² × L / 1000' },
+  { mat:'Nhôm',  matKey:'alum',   shape:'plate', shapeLabel:'Tấm',      coef: 2.75,   formula:'2.75 × T × W × L / 1000' },
+  { mat:'Nhôm',  matKey:'alum',   shape:'round', shapeLabel:'Trụ tròn', coef: 2.70,   formula:'2.70 × Ø² × L / 1000' },
+  { mat:'Nhôm',  matKey:'alum',   shape:'hex',   shapeLabel:'Lục giác', coef: 2.70,   formula:'2.70 × S² × L / 1000' },
+  { mat:'Nhôm',  matKey:'alum',   shape:'oct',   shapeLabel:'Bát giác', coef: 2.70,   formula:'2.70 × S² × L / 1000' },
+  { mat:'Đồng đỏ', matKey:'copper', shape:'plate', shapeLabel:'Tấm',    coef: 8.90,   formula:'8.90 × T × W × L / 1000' },
+  { mat:'Đồng đỏ', matKey:'copper', shape:'round', shapeLabel:'Trụ tròn', coef: 7.00, formula:'7.00 × Ø² × L / 1000' },
+  { mat:'Đồng đỏ', matKey:'copper', shape:'hex',   shapeLabel:'Lục giác', coef: 7.00, formula:'7.00 × S² × L / 1000' },
+  { mat:'Đồng đỏ', matKey:'copper', shape:'oct',   shapeLabel:'Bát giác', coef: 7.00, formula:'7.00 × S² × L / 1000' },
+  { mat:'Inox',  matKey:'inox',   shape:'plate', shapeLabel:'Tấm',      coef: 7.93,   formula:'7.93 × T × W × L / 1000' },
+  { mat:'Inox',  matKey:'inox',   shape:'round', shapeLabel:'Trụ tròn', coef: 6.80,   formula:'6.80 × Ø² × L / 1000' },
+  { mat:'Inox',  matKey:'inox',   shape:'hex',   shapeLabel:'Lục giác', coef: 6.80,   formula:'6.80 × S² × L / 1000' },
+  { mat:'Inox',  matKey:'inox',   shape:'oct',   shapeLabel:'Bát giác', coef: 6.80,   formula:'6.80 × S² × L / 1000' },
+];
+// matCoef là bản làm việc — có thể chỉnh sửa
+let matCoef = JSON.parse(JSON.stringify(MAT_COEF_DEFAULT));
+
+// Tra hệ số từ bảng
+function getCoef(matKey, shape){
+  const row = matCoef.find(r => r.matKey===matKey && r.shape===shape);
+  return row ? row.coef : 7.85; // fallback thép tấm
+}
+
+// Màu badge theo vật liệu
+const MAT_BADGE_STYLE = {
+  steel:  'background:#E8EDF5;color:#1A1F2E',
+  alum:   'background:#E8F5E9;color:#1B5E20',
+  copper: 'background:#FFF3E0;color:#E65100',
+  inox:   'background:#F3E5F5;color:#4A148C',
+};
+const MAT_LABELS = { steel:'Thép', alum:'Nhôm', copper:'Đồng', inox:'Inox' };
+
+// ── MODAL HỆ SỐ ──
+function openMatCoefModal(){
+  renderMatCoefTable();
+  document.getElementById('matcoef-modal').classList.add('open');
+}
+function closeMatCoef(){ document.getElementById('matcoef-modal').classList.remove('open'); recalcAll(); }
+function resetMatCoef(){
+  matCoef = JSON.parse(JSON.stringify(MAT_COEF_DEFAULT));
+  renderMatCoefTable();
+  recalcAll();
+}
+
+// Màu nền nhóm vật liệu
+const MAT_ROW_BG = { steel:'#F7F8FA', alum:'#F2FBF3', copper:'#FFF8F2', inox:'#FAF2FF' };
+
+function renderMatCoefTable(){
+  const tbody = document.getElementById('matcoef-tbody');
+  if(!tbody) return;
+  let html = '';
+  let lastMat = '';
+  matCoef.forEach((row, idx) => {
+    const bg = MAT_ROW_BG[row.matKey] || '#fff';
+    const borderTop = row.matKey !== lastMat ? 'border-top:2px solid var(--border-s)' : '';
+    const matCell = row.matKey !== lastMat
+      ? `<td rowspan="4" style="padding:8px 12px;font-weight:700;font-size:13px;background:${bg};${borderTop};border-right:.5px solid var(--border)">${row.mat}</td>`
+      : '';
+    lastMat = row.matKey;
+    html += `<tr style="background:${bg}">
+      ${matCell}
+      <td style="padding:6px 12px;text-align:center;color:var(--muted);${borderTop};border-right:.5px solid var(--border)">${row.shapeLabel}</td>
+      <td style="padding:4px 8px;text-align:center;${borderTop};border-right:.5px solid var(--border)">
+        <input type="number" step="0.01" min="0.01" value="${row.coef}"
+          style="width:72px;font-family:var(--mono);font-size:13px;font-weight:600;color:var(--accent);text-align:center;border:.5px solid var(--border-s);border-radius:5px;padding:3px 6px;background:var(--surface);outline:none"
+          oninput="matCoef[${idx}].coef=parseFloat(this.value)||0; matCoef[${idx}].formula=buildFormula(${idx});"
+          onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border-s)'">
+      </td>
+      <td style="padding:6px 12px;font-family:var(--mono);font-size:10px;color:var(--muted);${borderTop}" id="mcf-fml-${idx}">${row.formula}</td>
+    </tr>`;
+  });
+  tbody.innerHTML = html;
+}
+
+function buildFormula(idx){
+  const r = matCoef[idx];
+  const c = r.coef;
+  if(r.shape==='plate') return `${c} × T × W × L / 1000`;
+  return `${c} × Ø² × L / 1000`;
+}
+
+// Warehouse stock: keyed by shape, each is array of sizes {d1, d2} where d2=null for round/hex/oct
+let tKho = {
+  plate: [6,8,10,12,14,16,18,20,22,25,28,30,32,35,38,40,45,50,55,60,65,70,75,80,90,100,110,120,130,140,150,160,180,200,220,250,280,300].map(v=>({d1:v,d2:null})),
+  round: [10,12,16,20,25,30,35,40,45,50,55,60,65,70,75,80,90,100,110,120,130,140,150,160,180,200,220,250].map(v=>({d1:v,d2:null})),
+  hex:   [10,12,14,16,17,19,20,22,24,25,27,30,32,35,36,38,40,45,50,55,60,65,70,75,80,85,90,95,100].map(v=>({d1:v,d2:null})),
+  oct:   [20,22,25,27,30,32,35,38,40,45,50,55,60,65,70,75,80,90,100].map(v=>({d1:v,d2:null})),
+};
+let activeKhoShape = 'plate';
+
+const SHAPE_META = {
+  plate: { icon:'🟦', name:'Tấm',      dimLabel:'T×W×L', d1Label:'T thô',  d2Label:'W thô', showD2:true  },
+  round: { icon:'🔵', name:'Trụ tròn', dimLabel:'Ø×L',   d1Label:'Ø thô',  d2Label:'—',     showD2:false },
+  hex:   { icon:'🔷', name:'Lục giác', dimLabel:'S×L',   d1Label:'S thô',  d2Label:'—',     showD2:false },
+  oct:   { icon:'🔸', name:'Bát giác', dimLabel:'S×L',   d1Label:'S thô',  d2Label:'—',     showD2:false },
+};
+
+const AREA_FNS = {
+  face1:(t,w,l)=>w*l, face2:(t,w,l)=>w*l*2,
+  short1:(t,w,l)=>t*w, short2:(t,w,l)=>t*w*2,
+  long1:(t,w,l)=>t*l, long2:(t,w,l)=>t*l*2,
+  fface1:(t,w,l)=>w*l, fface2:(t,w,l)=>w*l*2,
+  fshort1:(t,w,l)=>t*w, fshort2:(t,w,l)=>t*w*2,
+  flong1:(t,w,l)=>t*l, flong2:(t,w,l)=>t*l*2,
+};
+
+// ── HELPERS ──
+const vnd = n => (n && !isNaN(n) && n>0) ? Math.round(n).toLocaleString('vi-VN')+'đ' : '—';
+const fnum = (n,d=2) => (n && !isNaN(n)) ? parseFloat(n).toLocaleString('vi-VN',{maximumFractionDigits:d}) : '—';
+const fmtA = v => v>0 ? v.toLocaleString('vi-VN')+' mm²' : '—';
+
+function getSetting(id){ return parseFloat(document.getElementById(id)?.value)||0; }
+
+function calcWeightFine(t,w,l,matKey='steel'){
+  if(!t||!w||!l) return 0;
+  const c = getCoef(matKey,'plate');
+  return c*t*w*l/1000;
+}
+
+// Shape-aware rough weight — tra hệ số từ bảng matCoef
+function calcWeightRough(shape, d1, d2, l, matKey='steel'){
+  if(!d1||!l) return 0;
+  const c = getCoef(matKey, shape);
+  switch(shape){
+    case 'plate': return d2 ? c*d1*d2*l/1000 : 0;
+    case 'round': return c*d1*d1*l/1000;
+    case 'hex':   return c*d1*d1*l/1000;
+    case 'oct':   return c*d1*d1*l/1000;
+    default:      return 0;
+  }
+}
+
+// Làm tròn 1 chữ số thập phân (yêu cầu xưởng)
+function roundW1(w){ return Math.round(w*10)/10; }
+
+// Rough = Fine + saw kerf + milling allowance (both faces/sides)
+function calcRoughAuto(t,w,l, overrideT,overrideW,overrideL){
+  const sawT=getSetting('s-saw-t'), sawW=getSetting('s-saw-w'), sawL=getSetting('s-saw-l');
+  const millT=getSetting('s-mill-t'), millW=getSetting('s-mill-w'), millL=getSetting('s-mill-l');
+  const rT = overrideT || (t + sawT + millT*2);
+  const rW = overrideW || (w + sawW + millW*2);
+  const rL = overrideL || (l + sawL + millL*2);
+  return {rT, rW, rL};
+}
+
+// Shape-aware d1 (main dim) for rough kho check
+function getRoughD1(shape, rT, rW, rL){
+  return shape === 'plate' ? rT : rT;
+}
+
+// Show/hide W-rough cell based on shape
+function onShapeChange(id){
+  const shape = document.getElementById(`r${id}-shape`)?.value || 'plate';
+  const meta = SHAPE_META[shape];
+  const rwEl = document.getElementById(`r${id}-rw`);
+  const dimEl = document.getElementById(`r${id}-shapedim`);
+  if(rwEl){
+    rwEl.style.opacity = meta.showD2 ? '1' : '0.2';
+    rwEl.disabled = !meta.showD2;
+    if(!meta.showD2){ rwEl.value=''; }
+  }
+  if(dimEl) dimEl.textContent = meta.dimLabel;
+  const row = rows.find(r=>r.id===id);
+  if(row){ row.shape = shape; row.overrideRoughT=null; row.overrideRoughW=null; row.overrideRoughL=null; }
+  recalcRow(id);
+}
+
+// T-kho check (shape-aware)
+function checkTkho(shape, d1){
+  const stockList = tKho[shape] || [];
+  if(!d1 || stockList.length===0) return {status:'na', msg:'Kho trống'};
+  const exact = stockList.find(v=>v.d1===d1);
+  if(exact) return {status:'ok', msg:'✓ Có kho'};
+  const near = stockList.find(v=>Math.abs(v.d1-d1)<=5);
+  if(near) return {status:'warn', msg:`~${near.d1}mm`};
+  return {status:'err', msg:'Không có'};
+}
+
+// ── SETTINGS TOGGLE ──
+function toggleSettings(){
+  document.getElementById('settings-bar').classList.toggle('hidden');
+}
+
+// ── ADD / RENDER ROW ──
+function addRow(){
+  rowCounter++;
+  const id=rowCounter;
+  rows.push({id, shape:'plate', matKey:'steel', millingCost:0, millingData:null, overrideRoughT:null, overrideRoughW:null, overrideRoughL:null});
+  renderRow(id);
+  recalcTotals();
+}
+
+function renderRow(id){
+  const tbody=document.getElementById('table-body');
+  const tr=document.createElement('tr');
+  tr.id=`row-${id}`;
+  tr.innerHTML=`
+    <td class="cell-stt">${id}</td>
+    <td><input class="ci tl" placeholder="S45C…" id="r${id}-g" oninput="recalcRow(${id})">
+      <select id="r${id}-matkey" onchange="onRowMatChange(${id})" style="margin-top:2px;width:100%;font-family:var(--font);font-size:9px;padding:1px 3px;border:.5px solid var(--border-s);border-radius:4px;background:var(--bg);color:var(--muted);cursor:pointer;outline:none">
+        <option value="steel">🔩 Thép</option>
+        <option value="alum">⬜ Nhôm</option>
+        <option value="copper">🟧 Đồng đỏ</option>
+        <option value="inox">✳️ Inox</option>
+      </select>
+    </td>
+    <td><input class="ci ci-mono" type="number" min="0" id="r${id}-t" placeholder="0" oninput="recalcRow(${id})"></td>
+    <td><input class="ci ci-mono" type="number" min="0" id="r${id}-w" placeholder="0" oninput="recalcRow(${id})"></td>
+    <td><input class="ci ci-mono" type="number" min="0" id="r${id}-l" placeholder="0" oninput="recalcRow(${id})"></td>
+    <td class="no-print" style="padding:3px 5px;text-align:center">
+      <select class="shape-sel" id="r${id}-shape" onchange="onShapeChange(${id})" title="Hình dạng vật liệu trong kho">
+        <option value="plate">🟦 Tấm</option>
+        <option value="round">🔵 Trụ tròn</option>
+        <option value="hex">🔷 Lục giác</option>
+        <option value="oct">🔸 Bát giác</option>
+      </select>
+      <div style="font-size:9px;color:var(--muted);margin-top:2px;text-align:center" id="r${id}-shapedim">T×W×L</div>
+    </td>
+    <td style="background:rgba(21,101,192,.03)">
+      <input class="ci ci-mono ci-rough" type="number" min="0" id="r${id}-rt" placeholder="auto" oninput="onRoughInput(${id},'rt')" title="Dim-1 thô — tự động hoặc nhập tay">
+      <span class="t-kho-badge t-kho-na" id="r${id}-tkb">—</span>
+    </td>
+    <td style="background:rgba(21,101,192,.03)"><input class="ci ci-mono ci-rough" type="number" min="0" id="r${id}-rw" placeholder="auto" oninput="onRoughInput(${id},'rw')"></td>
+    <td style="background:rgba(21,101,192,.03)"><input class="ci ci-mono ci-rough" type="number" min="0" id="r${id}-rl" placeholder="auto" oninput="onRoughInput(${id},'rl')"></td>
+    <td class="no-print" style="background:rgba(21,101,192,.03);padding:4px 6px;min-width:70px">
+      <div style="font-size:9px;color:var(--muted);text-align:center;line-height:1.3" id="r${id}-loss">—</div>
+    </td>
+    <td>
+      <input class="ci ci-mono" type="number" min="0" id="r${id}-qty" value="1" oninput="recalcRow(${id})" style="width:72px">
+      <select class="unit-sel" id="r${id}-unit"><option value="Tờ">Tờ</option><option value="Cái">Cái</option></select>
+    </td>
+    <td><input class="ci ci-mono" type="number" min="0" id="r${id}-p" placeholder="0" oninput="recalcRow(${id})"></td>
+    <td class="no-print cc cc-green" id="r${id}-wf" style="font-size:11px">—</td>
+    <td class="cc cc-blue cc-rough" id="r${id}-wr">—</td>
+    <td class="cc cc-green" id="r${id}-mat">—</td>
+    <td style="padding:3px 6px"><button class="mill-btn" id="r${id}-mb" onclick="openMill(${id})"><span id="r${id}-mv"></span><span style="font-size:12px;opacity:.4">›</span></button></td>
+    <td class="cc cc-grand" id="r${id}-tot">—</td>
+    <td><input class="ci tl" placeholder="Ghi chú…" id="r${id}-note"></td>
+    <td><button class="row-del" onclick="deleteRow(${id})" title="Xoá dòng">✕</button></td>
+  `;
+  tbody.appendChild(tr);
+}
+
+function deleteRow(id){
+  rows=rows.filter(r=>r.id!==id);
+  document.getElementById(`row-${id}`)?.remove();
+  document.getElementById(`card-${id}`)?.remove();
+  recalcTotals();
+}
+
+function onRoughInput(id, field){
+  const row=rows.find(r=>r.id===id);
+  if(!row) return;
+  const val=parseFloat(document.getElementById(`r${id}-${field}`)?.value)||null;
+  if(field==='rt') row.overrideRoughT=val;
+  if(field==='rw') row.overrideRoughW=val;
+  if(field==='rl') row.overrideRoughL=val;
+  recalcRow(id);
+}
+
+function onRowMatChange(id){
+  const row=rows.find(r=>r.id===id); if(!row) return;
+  row.matKey = document.getElementById(`r${id}-matkey`)?.value || 'steel';
+  // Cập nhật màu badge cho select
+  const sel = document.getElementById(`r${id}-matkey`);
+  if(sel){
+    const st = MAT_BADGE_STYLE[row.matKey] || MAT_BADGE_STYLE.steel;
+    sel.style.cssText += ';'+st.replace('background:','background:').replace('color:','color:');
+    sel.style.background = (MAT_BADGE_STYLE[row.matKey]||'').split(';')[0]?.split(':')[1]||'';
+    sel.style.color = (MAT_BADGE_STYLE[row.matKey]||'').split(';')[1]?.split(':')[1]||'';
+  }
+  recalcRow(id);
+}
+
+function recalcRow(id){
+  const row=rows.find(r=>r.id===id); if(!row) return;
+  const t=parseFloat(document.getElementById(`r${id}-t`)?.value)||0;
+  const w=parseFloat(document.getElementById(`r${id}-w`)?.value)||0;
+  const l=parseFloat(document.getElementById(`r${id}-l`)?.value)||0;
+  const qty=parseInt(document.getElementById(`r${id}-qty`)?.value)||0;
+  const price=parseFloat(document.getElementById(`r${id}-p`)?.value)||0;
+
+  // Rough auto-calc
+  const {rT,rW,rL}=calcRoughAuto(t,w,l,row.overrideRoughT,row.overrideRoughW,row.overrideRoughL);
+
+  // Fill rough inputs if not overridden
+  const rtEl=document.getElementById(`r${id}-rt`);
+  const rwEl=document.getElementById(`r${id}-rw`);
+  const rlEl=document.getElementById(`r${id}-rl`);
+  if(t>0){
+    if(!row.overrideRoughT && rtEl && document.activeElement!==rtEl) rtEl.value=rT>0?rT:'';
+    if(!row.overrideRoughW && rwEl && document.activeElement!==rwEl) rwEl.value=rW>0?rW:'';
+    if(!row.overrideRoughL && rlEl && document.activeElement!==rlEl) rlEl.value=rL>0?rL:'';
+  }
+
+  // T-kho check (shape-aware on d1)
+  const actualRoughW=parseFloat(rwEl?.value)||rW;
+  const actualRoughL=parseFloat(rlEl?.value)||rL;
+  const shape = row.shape || 'plate';
+  const actualRoughT=parseFloat(rtEl?.value)||rT;
+  const tkbo=document.getElementById(`r${id}-tkb`);
+  if(actualRoughT>0){
+    const ck=checkTkho(shape, actualRoughT);
+    tkbo.textContent=ck.msg;
+    tkbo.className=`t-kho-badge ${ck.status==='ok'?'t-kho-ok':ck.status==='warn'?'t-kho-warn':'t-kho-na'}`;
+    rtEl.className=`ci ci-mono ci-rough${ck.status==='warn'?' warn-yellow':ck.status==='err'?' warn-red':''}`;
+  } else {
+    tkbo.textContent='—'; tkbo.className='t-kho-badge t-kho-na';
+    if(rtEl) rtEl.className='ci ci-mono ci-rough';
+  }
+
+  // Weights — fine always plate formula; rough uses shape formula
+  // Làm tròn 1 chữ số thập phân (theo yêu cầu xưởng) trước khi tính tiền
+  const matKey = row.matKey || 'steel';
+  const wFine  = roundW1(calcWeightFine(t,w,l,matKey));
+  const meta = SHAPE_META[shape];
+  const wRough = roundW1(meta.showD2
+    ? calcWeightRough(shape, actualRoughT, actualRoughW, actualRoughL, matKey)
+    : calcWeightRough(shape, actualRoughT, null, actualRoughL, matKey));
+  const wFineTot=wFine*qty;
+  const wRoughTot=wRough*qty;
+
+  // Loss info
+  const lossEl=document.getElementById(`r${id}-loss`);
+  if(t>0&&wRough>wFine){
+    const diff=wRough-wFine;
+    lossEl.innerHTML=`+${diff.toFixed(2)}kg/cái<br><span style="color:var(--orange)">hao hụt</span>`;
+  } else { lossEl.textContent='—'; }
+
+  const matPerPc = Math.round(wRough*price);
+  const material = matPerPc * qty;
+  const millingPerPc = row.millingCost||0;
+  const milling = millingPerPc * qty;
+  const total=material+milling;
+
+  document.getElementById(`r${id}-wf`).textContent=wFineTot>0?fnum(wFineTot)+'kg':'—';
+  document.getElementById(`r${id}-wr`).textContent=wRoughTot>0?fnum(wRoughTot)+'kg':'—';
+  const matEl=document.getElementById(`r${id}-mat`);
+  if(material>0){
+    matEl.innerHTML=`<span style="font-size:12px;font-weight:500">${Math.round(material).toLocaleString('vi-VN')}đ</span>`
+      +(qty>1?`<br><span style="font-size:9px;color:var(--hint)">${Math.round(matPerPc).toLocaleString('vi-VN')}đ/cái</span>`:'');
+  } else { matEl.textContent='—'; }
+  // milling cell — show total with per-piece sub
+  const millEl=document.getElementById(`r${id}-mb`);
+  const millValEl=document.getElementById(`r${id}-mv`);
+  if(milling>0){
+    millValEl.innerHTML=`${Math.round(milling).toLocaleString('vi-VN')}đ`
+      +(qty>1?`<br><span style="font-size:9px;opacity:.75">${Math.round(millingPerPc).toLocaleString('vi-VN')}đ/cái</span>`:'');
+    millEl.classList.add('active');
+  } else {
+    millValEl.textContent='Chọn phay';
+    millEl.classList.remove('active');
+  }
+  document.getElementById(`r${id}-tot`).textContent=vnd(total);
+
+  // Sync to card
+  syncTableToCard(id);
+  recalcTotals();
+}
+
+function recalcAll(){ rows.forEach(r=>recalcRow(r.id)); }
+
+function recalcTotals(){
+  let swf=0,swr=0,smat=0,smill=0,stot=0;
+  rows.forEach(row=>{
+    const id=row.id;
+    const t=parseFloat(document.getElementById(`r${id}-t`)?.value)||0;
+    const w=parseFloat(document.getElementById(`r${id}-w`)?.value)||0;
+    const l=parseFloat(document.getElementById(`r${id}-l`)?.value)||0;
+    const qty=parseInt(document.getElementById(`r${id}-qty`)?.value)||0;
+    const price=parseFloat(document.getElementById(`r${id}-p`)?.value)||0;
+    const rtEl=document.getElementById(`r${id}-rt`);
+    const rwEl=document.getElementById(`r${id}-rw`);
+    const rlEl=document.getElementById(`r${id}-rl`);
+    const {rT,rW,rL}=calcRoughAuto(t,w,l,row.overrideRoughT,row.overrideRoughW,row.overrideRoughL);
+    const aRT=parseFloat(rtEl?.value)||rT, aRW=parseFloat(rwEl?.value)||rW, aRL=parseFloat(rlEl?.value)||rL;
+    const shape = row.shape || 'plate';
+    const matKey = row.matKey || 'steel';
+    const meta = SHAPE_META[shape];
+    const wf=roundW1(calcWeightFine(t,w,l,matKey))*qty;
+    const wr=roundW1(meta.showD2 ? calcWeightRough(shape,aRT,aRW,aRL,matKey) : calcWeightRough(shape,aRT,null,aRL,matKey))*qty;
+    const mat=Math.round(wr*price);
+    const mill=(row.millingCost||0)*qty;
+    swf+=wf; swr+=wr; smat+=mat; smill+=mill; stot+=mat+mill;
+  });
+  document.getElementById('ft-wfine').textContent=swf>0?fnum(swf)+'kg':'—';
+  document.getElementById('ft-wrough').textContent=swr>0?fnum(swr)+'kg':'—';
+  document.getElementById('ft-mat').textContent=smat>0?Math.round(smat).toLocaleString('vi-VN')+'đ':'—';
+  document.getElementById('ft-mill').textContent=vnd(smill);
+  document.getElementById('ft-total').textContent=vnd(stot);
+  // VAT rows
+  const vat=Math.round(stot*0.1);
+  const grand=stot+vat;
+  document.getElementById('ft-vat').textContent=stot>0?vnd(vat):'—';
+  document.getElementById('ft-grand').textContent=stot>0?vnd(grand):'—';
+  const rowsWithPrice = rows.filter(r=>(parseFloat(document.getElementById(`r${r.id}-p`)?.value)||0)>0);
+  document.getElementById('s-rows').textContent=rowsWithPrice.length;
+  document.getElementById('s-wfine').textContent=fnum(swf)+'kg';
+  document.getElementById('s-wrough').textContent=fnum(swr)+'kg';
+  document.getElementById('s-mat').textContent=vnd(smat);
+  document.getElementById('s-grand').textContent=vnd(grand);
+  // show quote footer once there's data
+  document.getElementById('quote-footer').style.display=rows.length>0?'block':'none';
+}
+
+// ── MILLING MODAL ──
+function openMill(id){
+  activeRowId=id;
+  const t=parseFloat(document.getElementById(`r${id}-t`)?.value)||0;
+  const w=parseFloat(document.getElementById(`r${id}-w`)?.value)||0;
+  const l=parseFloat(document.getElementById(`r${id}-l`)?.value)||0;
+  const qty=parseInt(document.getElementById(`r${id}-qty`)?.value)||1;
+  const grade=document.getElementById(`r${id}-g`)?.value||`Dòng ${id}`;
+  const row=rows.find(r=>r.id===id);
+  document.getElementById('mm-info').textContent=`${grade} — T:${t} × W:${w} × L:${l} mm (Cus. Requested)`;
+  document.getElementById('mm-face').textContent=fmtA(w*l);
+  document.getElementById('mm-short').textContent=fmtA(t*w);
+  document.getElementById('mm-long').textContent=fmtA(t*l);
+  const areas={face1:w*l,face2:w*l*2,short1:t*w,short2:t*w*2,long1:t*l,long2:t*l*2,fface1:w*l,fface2:w*l*2,fshort1:t*w,fshort2:t*w*2,flong1:t*l,flong2:t*l*2};
+  Object.keys(areas).forEach(k=>{
+    const el=document.getElementById(`moa-${k}`); if(el) el.textContent=fmtA(areas[k]);
+  });
+  // restore milling selections
+  document.querySelectorAll('.mo').forEach(el=>el.classList.remove('sel'));
+  if(row.millingData){
+    row.millingData.selected.forEach(k=>{ document.querySelector(`.mo[data-key="${k}"]`)?.classList.add('sel'); });
+    document.getElementById('mm-rate').value=row.millingData.rate||1;
+  }
+  // restore HT selections
+  document.querySelectorAll('.ht-row').forEach(el=>el.classList.remove('selected'));
+  if(row.htData){
+    row.htData.forEach(k=>{ document.querySelector(`.ht-row[data-key="${k}"]`)?.classList.add('selected'); });
+  }
+  // restore induction custom price
+  if(row.inductionRate){
+    const inp=document.getElementById('ht-induction-price');
+    if(inp){ inp.value=row.inductionRate; document.getElementById('ht-row-induction').dataset.rate=row.inductionRate; }
+  }
+  updateMillResult();
+  document.getElementById('mill-modal').classList.add('open');
+}
+function closeMill(){ document.getElementById('mill-modal').classList.remove('open'); activeRowId=null; }
+function clearMO(){
+  document.querySelectorAll('.mo').forEach(el=>el.classList.remove('sel'));
+  document.querySelectorAll('.ht-row').forEach(el=>el.classList.remove('selected'));
+  updateMillResult();
+}
+function toggleMO(el){ el.classList.toggle('sel'); updateMillResult(); }
+function onInductionPrice(input){
+  const row=document.getElementById('ht-row-induction');
+  if(row) row.dataset.rate=parseFloat(input.value)||0;
+  updateMillResult();
+}
+function toggleHT(checkEl){
+  const row=checkEl.closest('.ht-row');
+  row.classList.toggle('selected');
+  updateMillResult();
+}
+
+function updateMillResult(){
+  const id=activeRowId; if(!id) return;
+  const t=parseFloat(document.getElementById(`r${id}-t`)?.value)||0;
+  const w=parseFloat(document.getElementById(`r${id}-w`)?.value)||0;
+  const l=parseFloat(document.getElementById(`r${id}-l`)?.value)||0;
+  const qty=parseInt(document.getElementById(`r${id}-qty`)?.value)||1;
+  const rate=parseFloat(document.getElementById('mm-rate')?.value)||1;
+  // Milling cost
+  const sel=[...document.querySelectorAll('.mo.sel')];
+  let millTotal=0; const parts=[];
+  sel.forEach(el=>{
+    const k=el.dataset.key, a=AREA_FNS[k]?AREA_FNS[k](t,w,l):0;
+    millTotal+=a*rate;
+    parts.push(el.querySelector('.mo-label').textContent+': '+a.toLocaleString('vi-VN')+'mm²');
+  });
+  // HT cost
+  const rowData=rows.find(r=>r.id===id);
+  const matKey=(rowData&&rowData.matKey)||'steel';
+  const wFinePerPc = calcWeightFine(t,w,l,matKey);
+  const wHT = wFinePerPc * qty;
+  let htTotal=0;
+  document.querySelectorAll('.ht-row').forEach(htRow=>{
+    const key=htRow.dataset.key;
+    const htRate=parseFloat(htRow.dataset.rate)||0;
+    const htMin=parseFloat(htRow.dataset.min)||0;
+    const resultEl=document.getElementById(`${key}-result`);
+    if(htRow.classList.contains('selected') && htRate>0){
+      const effectiveKg=Math.max(wHT, htMin);
+      const cost=Math.round(effectiveKg*htRate);
+      htTotal+=cost;
+      if(resultEl) resultEl.textContent=vnd(cost)+(wHT<htMin?` (min ${htMin}kg)`:'');
+      parts.push(`${htRow.querySelector('.ht-name').textContent}: ${vnd(cost)}`);
+    } else {
+      if(resultEl && htRate>0) resultEl.textContent='—';
+    }
+  });
+  const total=Math.round(millTotal)+htTotal;
+  document.getElementById('mm-total').textContent=vnd(total);
+  document.getElementById('mm-bd').textContent=parts.length>0?parts.join(' · '):'Chưa chọn công đoạn';
+}
+document.getElementById('mm-rate').addEventListener('input',updateMillResult);
+
+function applyMill(){
+  const id=activeRowId; if(!id) return;
+  const t=parseFloat(document.getElementById(`r${id}-t`)?.value)||0;
+  const w=parseFloat(document.getElementById(`r${id}-w`)?.value)||0;
+  const l=parseFloat(document.getElementById(`r${id}-l`)?.value)||0;
+  const qty=parseInt(document.getElementById(`r${id}-qty`)?.value)||1;
+  const rate=parseFloat(document.getElementById('mm-rate')?.value)||1;
+  const sel=[...document.querySelectorAll('.mo.sel')].map(el=>el.dataset.key);
+  let totalArea=0;
+  sel.forEach(k=>{ totalArea+=AREA_FNS[k]?AREA_FNS[k](t,w,l):0; });
+  const millCost=Math.round(totalArea*rate);
+  // HT
+  const rowObj=rows.find(r=>r.id===id);
+  const matKey=(rowObj&&rowObj.matKey)||'steel';
+  const wFinePerPc=calcWeightFine(t,w,l,matKey), wHT=wFinePerPc*qty;
+  let htCostPerItem=0; const htKeys=[];
+  document.querySelectorAll('.ht-row.selected').forEach(htRow=>{
+    const key=htRow.dataset.key, htRate=parseFloat(htRow.dataset.rate)||0, htMin=parseFloat(htRow.dataset.min)||0;
+    if(htRate>0){ htCostPerItem+=Math.round(Math.max(wHT,htMin)*htRate/qty); htKeys.push(key); }
+    else htKeys.push(key);
+  });
+  const totalCost=millCost+htCostPerItem;
+  const row=rows.find(r=>r.id===id);
+  if(row){
+    row.millingCost=totalCost; row.millingData={selected:sel,rate}; row.htData=htKeys;
+    row.inductionRate=parseFloat(document.getElementById('ht-induction-price')?.value)||0;
+  }
+  recalcRow(id); closeMill();
+}
+
+// ── KHO MODAL ──
+const KHO_FORMULAS = {
+  plate: 'W = 0.00785 × T × W × L / 1000  kg',
+  round: 'W = 0.00625 × Ø² × L / 1000  kg',
+  hex:   'W = 0.00680 × S² × L / 1000  kg   (S = cạnh AF)',
+  oct:   'W = 0.00736 × S² × L / 1000  kg   (S = cạnh AF)',
+};
+const KHO_DIM_LABELS = {
+  plate:'Độ dày T (mm)', round:'Đường kính Ø (mm)', hex:'Cạnh S (mm)', oct:'Cạnh S (mm)'
+};
+
+function openTkhoModal(){
+  renderTkhoList();
+  updateKhoFormula();
+  document.getElementById('tkho-modal').classList.add('open');
+}
+function closeTkho(){ document.getElementById('tkho-modal').classList.remove('open'); recalcAll(); }
+
+function switchKhoTab(shape){
+  activeKhoShape = shape;
+  document.querySelectorAll('.kho-tab').forEach(t=>t.classList.toggle('active', t.dataset.shape===shape));
+  renderTkhoList();
+  updateKhoFormula();
+}
+
+function updateKhoFormula(){
+  const meta = SHAPE_META[activeKhoShape];
+  document.getElementById('kho-formula').textContent = KHO_FORMULAS[activeKhoShape] || '';
+  document.getElementById('kho-tab-title').textContent =
+    `${meta.icon} ${meta.name} — ${KHO_DIM_LABELS[activeKhoShape]} có sẵn trong kho`;
+}
+
+function renderTkhoList(){
+  const list=document.getElementById('tkho-list');
+  const items = tKho[activeKhoShape] || [];
+  list.innerHTML = items.sort((a,b)=>a.d1-b.d1).map(v=>`
+    <div class="tkho-tag">
+      <span>${v.d1}</span>
+      <button class="tkho-del" onclick="removeTkho(${v.d1})">✕</button>
+    </div>`).join('') || '<span style="font-size:11px;color:var(--hint)">Chưa có dữ liệu</span>';
+}
+function addTkho(){
+  const v=parseFloat(document.getElementById('tkho-input').value);
+  if(!v||v<=0) return;
+  if(!tKho[activeKhoShape]) tKho[activeKhoShape]=[];
+  if(!tKho[activeKhoShape].find(x=>x.d1===v)) tKho[activeKhoShape].push({d1:v,d2:null});
+  document.getElementById('tkho-input').value='';
+  renderTkhoList();
+}
+function removeTkho(v){ tKho[activeKhoShape]=tKho[activeKhoShape].filter(x=>x.d1!==v); renderTkhoList(); }
+document.getElementById('tkho-input').addEventListener('keydown',e=>{if(e.key==='Enter')addTkho();});
+
+// ── EXPORT EXCEL ──
+function exportExcel(){
+  const customer=document.getElementById('mc').value||'Khách hàng';
+  const quoteNo=document.getElementById('mq').value||'BG-2026';
+  const dateVal=document.getElementById('md').value||'';
+  const wb=XLSX.utils.book_new();
+  const ws=[];
+  ws.push(['BẢNG TÍNH GIÁ THÉP KHUÔN MẪU — MOLDSTEEL VN']);
+  ws.push([`Khách hàng: ${customer}`,,'Số BG: '+quoteNo,,'Ngày: '+dateVal]);
+  ws.push([]);
+  ws.push(['STT','MÃ HÀNG','VẬT LIỆU',
+    'Dày T (mm)','Rộng W (mm)','Dài L (mm)',
+    'T thô (mm)','W thô (mm)','L thô (mm)','Hao hụt T (mm)',
+    'SL','Đơn vị','Đơn giá (đ/kg)',
+    'TL tinh/cái (kg)','TL thô/cái (kg)','TL thô tổng (kg)',
+    'Tiền vật tư (đ)','Tiền phay/mài (đ)','Thành tiền (đ)','Ghi chú']);
+  let swf=0,swr=0,smat=0,smill=0,stot=0;
+  rows.forEach((row,idx)=>{
+    const id=row.id;
+    const grade=document.getElementById(`r${id}-g`)?.value||'';
+    const matKey=row.matKey||'steel';
+    const matLabel=MAT_LABELS[matKey]||'Thép';
+    const shape=row.shape||'plate';
+    const meta=SHAPE_META[shape];
+    const t=parseFloat(document.getElementById(`r${id}-t`)?.value)||0;
+    const w=parseFloat(document.getElementById(`r${id}-w`)?.value)||0;
+    const l=parseFloat(document.getElementById(`r${id}-l`)?.value)||0;
+    const qty=parseInt(document.getElementById(`r${id}-qty`)?.value)||0;
+    const unit=document.getElementById(`r${id}-unit`)?.value||'Tờ';
+    const price=parseFloat(document.getElementById(`r${id}-p`)?.value)||0;
+    const note=document.getElementById(`r${id}-note`)?.value||'';
+    const {rT,rW,rL}=calcRoughAuto(t,w,l,row.overrideRoughT,row.overrideRoughW,row.overrideRoughL);
+    const aRT=parseFloat(document.getElementById(`r${id}-rt`)?.value)||rT;
+    const aRW=parseFloat(document.getElementById(`r${id}-rw`)?.value)||rW;
+    const aRL=parseFloat(document.getElementById(`r${id}-rl`)?.value)||rL;
+    const wf=roundW1(calcWeightFine(t,w,l,matKey));
+    const wr=roundW1(meta.showD2 ? calcWeightRough(shape,aRT,aRW,aRL,matKey) : calcWeightRough(shape,aRT,null,aRL,matKey));
+    const mat=Math.round(wr*qty*price);
+    const mill=(row.millingCost||0)*qty;
+    const tot=mat+mill;
+    swf+=wf*qty; swr+=wr*qty; smat+=mat; smill+=mill; stot+=tot;
+    ws.push([idx+1,grade,matLabel,t,w,l,aRT,aRW,aRL,Math.round((aRT-t)*10)/10,qty,unit,price,wf,wr,Math.round(wr*qty*100)/100,mat,mill,tot,note]);
+  });
+  ws.push([]);
+  ws.push(['','','','','','','','','','','','','TỔNG CỘNG','',Math.round(swf*100)/100,Math.round(swr*100)/100,smat,smill,stot,'']);
+  const sheet=XLSX.utils.aoa_to_sheet(ws);
+  sheet['!cols']=[{wch:5},{wch:12},{wch:10},{wch:9},{wch:9},{wch:9},{wch:9},{wch:9},{wch:9},{wch:9},{wch:6},{wch:6},{wch:12},{wch:12},{wch:12},{wch:12},{wch:14},{wch:14},{wch:14},{wch:18}];
+  sheet['!merges']=[{s:{r:0,c:0},e:{r:0,c:19}}];
+  XLSX.utils.book_append_sheet(wb,sheet,'Bang tinh gia');
+  XLSX.writeFile(wb,`BangTinhGia_${quoteNo}_${(new Date()).toLocaleDateString('vi-VN').replace(/\//g,'-')}.xlsx`);
+}
+
+// ── PRINT ──
+const PRINT_LABEL_COLSPAN = 10;
+const SCREEN_LABEL_COLSPAN = 12;
+function adjustColspanForPrint(forPrint){
+  const cs = forPrint ? PRINT_LABEL_COLSPAN : SCREEN_LABEL_COLSPAN;
+  ['ft-label-total','ft-label-vat10','ft-label-grand'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.setAttribute('colspan', cs);
+  });
+}
+window.addEventListener('beforeprint', ()=>adjustColspanForPrint(true));
+window.addEventListener('afterprint',  ()=>adjustColspanForPrint(false));
+
+function printPDF(){
+  const c=document.getElementById('mc').value, q=document.getElementById('mq').value, d=document.getElementById('md').value;
+  document.getElementById('pm').textContent=`Khách hàng: ${c||'___'}   |   Số BG: ${q||'___'}   |   Ngày: ${d||'___'}   |   Người lập: ${document.getElementById('mp').value||'___'}`;
+  window.print();
+}
+
+// ── MOBILE CARD RENDERING ──
+function renderCard(id){
+  const row = rows.find(r=>r.id===id);
+  if(!row) return;
+  const cl = document.getElementById('card-list');
+  if(!cl) return;
+  const card = document.createElement('div');
+  card.className = 'row-card';
+  card.id = `card-${id}`;
+  card.innerHTML = `
+    <div class="row-card-header">
+      <span class="row-card-stt">#${id}</span>
+      <span class="row-card-grade" id="ch${id}-grade">Mã hàng</span>
+      <button class="row-card-del" onclick="deleteRow(${id})">✕</button>
+    </div>
+    <div class="row-card-body">
+      <div class="row-card-field" style="grid-column:1/-1">
+        <span class="rcf-label">Mã hàng (Steel Grade)</span>
+        <input class="rcf-input" style="text-align:left" placeholder="S45C, SKD11…" id="cr${id}-g" oninput="syncCardToTable(${id},'g',this.value)">
+      </div>
+      <div class="row-card-field" style="grid-column:1/-1">
+        <span class="rcf-label">Vật liệu (Material)</span>
+        <select class="rcf-sel" id="cr${id}-matkey" onchange="syncCardToTable(${id},'matkey',this.value)">
+          <option value="steel">🔩 Thép (Steel)</option>
+          <option value="alum">⬜ Nhôm (Aluminium)</option>
+          <option value="copper">🟧 Đồng đỏ (Copper)</option>
+          <option value="inox">✳️ Inox (Stainless)</option>
+        </select>
+      </div>
+      <div class="row-card-field">
+        <span class="rcf-label">Dày T (mm)</span>
+        <input class="rcf-input" type="number" min="0" placeholder="0" id="cr${id}-t" oninput="syncCardToTable(${id},'t',this.value)">
+      </div>
+      <div class="row-card-field">
+        <span class="rcf-label">Rộng W (mm)</span>
+        <input class="rcf-input" type="number" min="0" placeholder="0" id="cr${id}-w" oninput="syncCardToTable(${id},'w',this.value)">
+      </div>
+      <div class="row-card-field">
+        <span class="rcf-label">Dài L (mm)</span>
+        <input class="rcf-input" type="number" min="0" placeholder="0" id="cr${id}-l" oninput="syncCardToTable(${id},'l',this.value)">
+      </div>
+      <div class="row-card-sep"></div>
+      <div class="row-card-field">
+        <span class="rcf-label">Hình dạng kho</span>
+        <select class="rcf-sel" id="cr${id}-shape" onchange="syncCardToTable(${id},'shape',this.value)">
+          <option value="plate">🟦 Tấm</option>
+          <option value="round">🔵 Trụ tròn</option>
+          <option value="hex">🔷 Lục giác</option>
+          <option value="oct">🔸 Bát giác</option>
+        </select>
+      </div>
+      <div class="row-card-field">
+        <span class="rcf-label">Dim-1 thô (mm)</span>
+        <input class="rcf-input rough" type="number" min="0" placeholder="auto" id="cr${id}-rt" oninput="syncCardToTable(${id},'rt',this.value)">
+        <span class="t-kho-badge t-kho-na" id="cr${id}-tkb" style="margin-top:2px">—</span>
+      </div>
+      <div class="row-card-field">
+        <span class="rcf-label">L thô (mm)</span>
+        <input class="rcf-input rough" type="number" min="0" placeholder="auto" id="cr${id}-rl" oninput="syncCardToTable(${id},'rl',this.value)">
+      </div>
+      <div class="row-card-field">
+        <span class="rcf-label">S.L (Qty)</span>
+        <input class="rcf-input" type="number" min="0" value="1" id="cr${id}-qty" oninput="syncCardToTable(${id},'qty',this.value)">
+      </div>
+      <div class="row-card-field">
+        <span class="rcf-label">Đơn vị</span>
+        <select class="rcf-sel" id="cr${id}-unit" onchange="syncCardToTable(${id},'unit',this.value)">
+          <option value="Tờ">Tờ</option>
+          <option value="Cái">Cái</option>
+        </select>
+      </div>
+      <div class="row-card-field">
+        <span class="rcf-label">Đơn giá (đ/kg)</span>
+        <input class="rcf-input" type="number" min="0" placeholder="0" id="cr${id}-p" oninput="syncCardToTable(${id},'p',this.value)">
+      </div>
+      <div class="row-card-field">
+        <span class="rcf-label">Ghi chú</span>
+        <input class="rcf-input" style="text-align:left;font-family:var(--font);font-size:11px" placeholder="…" id="cr${id}-note" oninput="syncCardToTable(${id},'note',this.value)">
+      </div>
+    </div>
+    <div class="row-card-results">
+      <div class="rcr-item"><span class="rcr-label">TL thô</span><span class="rcr-val blue" id="ch${id}-wr">—</span></div>
+      <div class="rcr-item"><span class="rcr-label">Tiền vật tư</span><span class="rcr-val green" id="ch${id}-mat">—</span></div>
+      <div class="rcr-item"><span class="rcr-label">Thành tiền</span><span class="rcr-val accent" id="ch${id}-tot">—</span></div>
+    </div>
+    <div class="row-card-foot">
+      <button class="btn-mill-card" id="ch${id}-mb" onclick="openMill(${id})" style="flex:1">
+        ⚙ <span id="ch${id}-mv">Chọn phay / nhiệt luyện</span>
+      </button>
+    </div>
+  `;
+  const addBtn = document.getElementById('btn-add-card');
+  if(addBtn) cl.insertBefore(card, addBtn);
+  else cl.appendChild(card);
+}
+
+function syncCardToTable(id, field, value){
+  const tableInput = document.getElementById(`r${id}-${field}`);
+  if(tableInput){ tableInput.value = value; }
+  if(field==='shape'){
+    const sel = document.getElementById(`r${id}-shape`);
+    if(sel){ sel.value = value; onShapeChange(id); }
+    return;
+  }
+  if(field==='matkey'){
+    const sel = document.getElementById(`r${id}-matkey`);
+    if(sel){ sel.value = value; onRowMatChange(id); }
+    return;
+  }
+  if(field==='unit'){
+    const sel = document.getElementById(`r${id}-unit`);
+    if(sel) sel.value = value;
+  }
+  recalcRow(id);
+  if(field==='g'){
+    const hdr = document.getElementById(`ch${id}-grade`);
+    if(hdr) hdr.textContent = value || 'Mã hàng';
+  }
+}
+
+function syncTableToCard(id){
+  const wrEl = document.getElementById(`r${id}-wr`);
+  const matEl = document.getElementById(`r${id}-mat`);
+  const totEl = document.getElementById(`r${id}-tot`);
+  const tkbEl = document.getElementById(`r${id}-tkb`);
+  const mbEl  = document.getElementById(`r${id}-mb`);
+  const mvEl  = document.getElementById(`r${id}-mv`);
+  if(document.getElementById(`ch${id}-wr`) && wrEl)
+    document.getElementById(`ch${id}-wr`).textContent = wrEl.textContent;
+  if(document.getElementById(`ch${id}-mat`) && matEl)
+    document.getElementById(`ch${id}-mat`).innerHTML = matEl.innerHTML;
+  if(document.getElementById(`ch${id}-tot`) && totEl)
+    document.getElementById(`ch${id}-tot`).textContent = totEl.textContent;
+  if(document.getElementById(`cr${id}-tkb`) && tkbEl){
+    const cb = document.getElementById(`cr${id}-tkb`);
+    cb.textContent = tkbEl.textContent;
+    cb.className = tkbEl.className;
+  }
+  if(document.getElementById(`ch${id}-mv`) && mvEl)
+    document.getElementById(`ch${id}-mv`).textContent = mvEl.textContent;
+  if(document.getElementById(`ch${id}-mb`) && mbEl)
+    document.getElementById(`ch${id}-mb`).className = 'btn-mill-card' + (mbEl.classList.contains('active')?' active':'');
+}
+
+// Store original addRow before override
+const _origAddRow = window.addRow;
+
+// Override to include card rendering on mobile
+window.addRow = function(){
+  _origAddRow();
+  const id = rowCounter;
+  renderCard(id);
+  const cl = document.getElementById('card-list');
+  let addBtn = document.getElementById('btn-add-card');
+  if(!addBtn){
+    addBtn = document.createElement('button');
+    addBtn.className = 'btn-add-card';
+    addBtn.id = 'btn-add-card';
+    addBtn.innerHTML = '＋ Thêm mặt hàng';
+    addBtn.type = 'button';
+    addBtn.onclick = function(){ window.addRow(); };
+  }
+  cl.appendChild(addBtn);
+};
+
+// ── INIT ──
+document.getElementById('md').value=new Date().toISOString().split('T')[0];
+addRow(); addRow(); addRow();
+  </script>
+<script>
+// ============================================
+// CODE CHỐNG COPY VÀ VÔ HIỆU HÓA CHUỘT PHẢI
+// ============================================
+
+// 1️⃣ Vô hiệu hóa chuột phải (contextmenu)
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+    return false;
+});
+
+// 2️⃣ Vô hiệu hóa phím tắt copy (Ctrl+C)
+document.addEventListener('copy', function(e) {
+    e.preventDefault();
+    alert('⚠️ Chức năng copy đã bị vô hiệu hóa trên trang này!');
+    return false;
+});
+
+// 3️⃣ Vô hiệu hóa phím tắt cắt (Ctrl+X)
+document.addEventListener('cut', function(e) {
+    e.preventDefault();
+    alert('⚠️ Chức năng cắt đã bị vô hiệu hóa!');
+    return false;
+});
+
+// 4️⃣ Vô hiệu hóa phím tắt paste (Ctrl+V)
+document.addEventListener('paste', function(e) {
+    e.preventDefault();
+    alert('⚠️ Chức năng paste đã bị vô hiệu hóa!');
+    return false;
+});
+
+// 5️⃣ Vô hiệu hóa kéo thả nội dung (drag & drop)
+document.addEventListener('dragstart', function(e) {
+    e.preventDefault();
+    return false;
+});
+
+// 6️⃣ Vô hiệu hóa phím tắt (F12, Ctrl+Shift+I, Ctrl+U, Ctrl+S, Ctrl+P)
+document.addEventListener('keydown', function(e) {
+    // Danh sách phím tắt cần chặn
+    const forbiddenKeys = {
+        123: true,    // F12
+        73: true,     // I (Ctrl+Shift+I)
+        85: true,     // U (Ctrl+U)
+        83: true,     // S (Ctrl+S)
+        80: true,     // P (Ctrl+P)
+        67: true,     // C (Ctrl+C)
+        86: true,     // V (Ctrl+V)
+        88: true      // X (Ctrl+X)
+    };
+    
+    // Kiểm tra Ctrl, Shift, Alt
+    const isCtrl = e.ctrlKey;
+    const isShift = e.shiftKey;
+    const isAlt = e.altKey;
+    
+    // Chặn F12
+    if (e.keyCode === 123) {
+        e.preventDefault();
+        return false;
+    }
+    
+    // Chặn Ctrl+Shift+I (DevTools)
+    if (isCtrl && isShift && e.keyCode === 73) {
+        e.preventDefault();
+        return false;
+    }
+    
+    // Chặn Ctrl+U (Xem nguồn trang)
+    if (isCtrl && e.keyCode === 85) {
+        e.preventDefault();
+        return false;
+    }
+    
+    // Chặn Ctrl+S (Lưu trang)
+    if (isCtrl && e.keyCode === 83) {
+        e.preventDefault();
+        alert('⚠️ Chức năng lưu trang đã bị vô hiệu hóa!');
+        return false;
+    }
+    
+    // Chặn Ctrl+P (In trang)
+    if (isCtrl && e.keyCode === 80) {
+        e.preventDefault();
+        alert('⚠️ Chức năng in trang đã bị vô hiệu hóa!');
+        return false;
+    }
+});
+
+// 7️⃣ Vô hiệu hóa chọn văn bản bằng CSS + JS
+document.querySelector('body').style.userSelect = 'none';
+document.querySelector('body').style.webkitUserSelect = 'none';
+document.querySelector('body').style.msUserSelect = 'none';
+
+// 8️⃣ Thêm CSS ẩn menu chuột phải ảo (cho mobile)
+const style = document.createElement('style');
+style.innerHTML = `
+    img {
+        pointer-events: none;
+        -webkit-touch-callout: none;
+    }
+`;
+document.head.appendChild(style);
+
+console.log('✅ Đã kích hoạt chế độ chống copy và chuột phải!');
+</script>
+
+<style>
+/* CSS hỗ trợ chống copy */
+body {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+/* Ngăn chọn ảnh trên mobile */
+img {
+    -webkit-touch-callout: none;
+    pointer-events: none;
+}
+
+/* Ẩn highlight khi chọn văn bản */
+::selection {
+    background: transparent;
+}
+
+::-moz-selection {
+    background: transparent;
+}
+</style>  
+</body>
+</html>
