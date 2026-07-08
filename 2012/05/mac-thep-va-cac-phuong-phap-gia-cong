@@ -1,0 +1,297 @@
+
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{font-family:'Open Sans',sans-serif;box-sizing:border-box}
+h2.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+.wrap{padding:12px 0}
+.filter-section{margin-bottom:10px}
+.filter-label{font-size:10px;font-weight:700;color:var(--color-text-secondary);letter-spacing:.07em;text-transform:uppercase;margin-bottom:5px}
+.filter-bar{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:4px}
+.fbtn{background:var(--color-background-secondary);border:1px solid var(--color-border-secondary);color:var(--color-text-secondary);border-radius:20px;padding:3px 11px;font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;font-family:'Open Sans',sans-serif;white-space:nowrap}
+.fbtn:hover{border-color:var(--color-border-primary)}
+.fbtn.active-src{background:var(--color-text-primary);color:var(--color-background-primary);border-color:var(--color-text-primary)}
+.fbtn.active-gc.gc-cnc {background:#E6F1FB;color:#0C447C;border-color:#378ADD}
+.fbtn.active-gc.gc-cut {background:#EAF3DE;color:#27500A;border-color:#639922}
+.fbtn.active-gc.gc-edm {background:#EEEDFE;color:#3C3489;border-color:#7F77DD}
+.fbtn.active-gc.gc-grnd{background:#FAEEDA;color:#633806;border-color:#BA7517}
+.fbtn.active-gc.gc-ht  {background:#FCEBEB;color:#791F1F;border-color:#E24B4A}
+.fbtn.active-gc.gc-weld{background:#E1F5EE;color:#085041;border-color:#1D9E75}
+.fbtn.active-gc.gc-prec{background:#FBEAF0;color:#72243E;border-color:#D4537E}
+@media(prefers-color-scheme:dark){
+  .fbtn.active-gc.gc-cnc {background:#0C447C;color:#B5D4F4;border-color:#378ADD}
+  .fbtn.active-gc.gc-cut {background:#27500A;color:#C0DD97;border-color:#639922}
+  .fbtn.active-gc.gc-edm {background:#3C3489;color:#CECBF6;border-color:#7F77DD}
+  .fbtn.active-gc.gc-grnd{background:#633806;color:#FAC775;border-color:#BA7517}
+  .fbtn.active-gc.gc-ht  {background:#791F1F;color:#F7C1C1;border-color:#E24B4A}
+  .fbtn.active-gc.gc-weld{background:#085041;color:#9FE1CB;border-color:#1D9E75}
+  .fbtn.active-gc.gc-prec{background:#72243E;color:#F4C0D1;border-color:#D4537E}
+}
+.divider{border:none;border-top:1px solid var(--color-border-tertiary);margin:8px 0}
+table{width:100%;border-collapse:collapse}
+thead th{font-size:11px;font-weight:600;color:var(--color-text-secondary);text-align:left;padding:6px 8px;border-bottom:1.5px solid var(--color-border-primary);white-space:nowrap}
+tbody tr{border-bottom:1px solid var(--color-border-tertiary)}
+tbody tr:last-child{border-bottom:none}
+td{padding:6px 8px;vertical-align:middle}
+.mac{font-weight:600;color:var(--color-text-primary);white-space:nowrap;font-size:13px}
+.shape{font-size:11px;color:var(--color-text-secondary)}
+.group-hdr{background:var(--color-background-secondary)}
+.group-hdr td{font-size:11px;font-weight:600;color:var(--color-text-secondary);padding:5px 8px;letter-spacing:.05em;text-transform:uppercase}
+.badge{display:inline-flex;align-items:center;border-radius:4px;padding:2px 6px;font-size:10px;font-weight:600;margin:2px 2px 2px 0;white-space:nowrap}
+.b-cnc {background:#E6F1FB;color:#0C447C}
+.b-cut {background:#EAF3DE;color:#27500A}
+.b-edm {background:#EEEDFE;color:#3C3489}
+.b-grnd{background:#FAEEDA;color:#633806}
+.b-ht  {background:#FCEBEB;color:#791F1F}
+.b-weld{background:#E1F5EE;color:#085041}
+.b-prec{background:#FBEAF0;color:#72243E}
+@media(prefers-color-scheme:dark){
+  .b-cnc {background:#0C447C;color:#B5D4F4}
+  .b-cut {background:#27500A;color:#C0DD97}
+  .b-edm {background:#3C3489;color:#CECBF6}
+  .b-grnd{background:#633806;color:#FAC775}
+  .b-ht  {background:#791F1F;color:#F7C1C1}
+  .b-weld{background:#085041;color:#9FE1CB}
+  .b-prec{background:#72243E;color:#F4C0D1}
+}
+.src-atp{background:#1D9E75;color:#fff;border-radius:6px;font-size:10px;padding:3px 8px;font-weight:600;white-space:nowrap}
+.src-vn {background:#378ADD;color:#fff;border-radius:6px;font-size:10px;padding:2px 7px;font-weight:600;white-space:nowrap}
+.src-cn {background:#E24B4A;color:#fff;border-radius:6px;font-size:10px;padding:2px 7px;font-weight:600;white-space:nowrap}
+.src-int{background:#888780;color:#fff;border-radius:6px;font-size:10px;padding:2px 7px;font-weight:600;white-space:nowrap}
+.note{font-size:11px;color:var(--color-text-secondary)}
+tr.hidden{display:none}
+.stat{margin-top:10px;font-size:11px;color:var(--color-text-secondary)}
+.stat strong{font-weight:600}
+.no-result{text-align:center;padding:24px;font-size:13px;color:var(--color-text-secondary);display:none}
+/* price card */
+.card{background:var(--color-background-primary);border:1px solid var(--color-border-tertiary);border-radius:12px;overflow:hidden;margin:18px 0 4px}
+.card-header{background:#1D9E75;padding:14px 20px}
+.card-header h2{margin:0;font-size:15px;font-weight:700;color:#fff}
+.card-header span{font-size:12px;color:rgba(255,255,255,.8)}
+.sections{display:grid;grid-template-columns:1fr 1fr;gap:0}
+@media(max-width:520px){.sections{grid-template-columns:1fr}}
+.section{padding:16px 20px;border-right:1px solid var(--color-border-tertiary)}
+.section:last-child{border-right:none}
+.sec-title{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:700;color:var(--color-text-secondary);letter-spacing:.06em;text-transform:uppercase;margin-bottom:12px}
+.price-row{display:flex;justify-content:space-between;align-items:baseline;padding:7px 0;border-bottom:1px solid var(--color-border-tertiary)}
+.price-row:last-child{border-bottom:none}
+.pr-label{font-size:13px;font-weight:500;color:var(--color-text-primary)}
+.pr-price{font-size:13px;font-weight:700;color:#1D9E75;white-space:nowrap;margin-left:12px}
+.pr-price.quote{color:var(--color-text-secondary);font-weight:500;font-style:italic;font-size:12px}
+.notes{background:var(--color-background-secondary);border-top:1px solid var(--color-border-tertiary);padding:12px 20px;display:flex;flex-direction:column;gap:5px}
+.note-row{display:flex;align-items:flex-start;gap:7px;font-size:11.5px;color:var(--color-text-secondary);line-height:1.5}
+.note-dot{color:#1D9E75;font-weight:700;flex-shrink:0}
+.footer-bar{background:var(--color-background-secondary);border-top:1px solid var(--color-border-tertiary);padding:8px 20px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.ftag{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--color-text-secondary)}
+.ftag strong{font-weight:600;color:var(--color-text-primary)}
+.sep{color:var(--color-border-primary);margin:0 4px}
+/* attribution footer */
+.attribution{margin-top:18px;padding:12px 16px;border-radius:10px;background:var(--color-background-secondary);border:1px solid var(--color-border-tertiary);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px}
+.attr-left{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:12px;color:var(--color-text-secondary)}
+.attr-left strong{font-weight:600;color:var(--color-text-primary);font-size:12px}
+.attr-left a{color:#1D9E75;font-weight:600;text-decoration:none}
+.attr-left a:hover{text-decoration:underline}
+.attr-phone{display:inline-flex;align-items:center;gap:4px;background:#1D9E75;color:#fff;border-radius:20px;padding:2px 10px;font-size:11px;font-weight:600;text-decoration:none;white-space:nowrap}
+.attr-phone:hover{background:#178a63}
+.attr-right{font-size:11px;color:var(--color-text-secondary);display:flex;align-items:center;gap:4px;white-space:nowrap}
+.attr-right .spark{color:#1D9E75;font-size:13px}
+</style>
+
+<div class="wrap">
+  <h2 class="sr-only">Bảng mác thép và bảng giá dịch vụ Thép khuôn mẫu</h2>
+
+  <div class="filter-section">
+    <div class="filter-label">🏷 Lọc theo nguồn phân phối</div>
+    <div class="filter-bar" id="src-bar">
+      <button class="fbtn active-src" data-src="all" onclick="setSrc('all',this)">Tất cả</button>
+      <button class="fbtn" data-src="atp" onclick="setSrc('atp',this)">✓ Thép khuôn mẫu</button>
+      <button class="fbtn" data-src="vn"  onclick="setSrc('vn',this)">▸ Thị trường VN</button>
+      <button class="fbtn" data-src="cn"  onclick="setSrc('cn',this)">▸ Trung Quốc</button>
+      <button class="fbtn" data-src="int" onclick="setSrc('int',this)">▸ Quốc tế</button>
+    </div>
+  </div>
+
+  <div class="filter-section">
+    <div class="filter-label">⚙️ Lọc theo phương pháp gia công</div>
+    <div class="filter-bar" id="gc-bar">
+      <button class="fbtn active-src" data-gc="all"  onclick="setGc('all',this)">Tất cả</button>
+      <button class="fbtn gc-cnc"     data-gc="cnc"  onclick="setGc('cnc',this)">Phay / Tiện</button>
+      <button class="fbtn gc-cut"     data-gc="cut"  onclick="setGc('cut',this)">Cắt laser / Plasma</button>
+      <button class="fbtn gc-edm"     data-gc="edm"  onclick="setGc('edm',this)">EDM</button>
+      <button class="fbtn gc-grnd"    data-gc="grnd" onclick="setGc('grnd',this)">Mài</button>
+      <button class="fbtn gc-ht"      data-gc="ht"   onclick="setGc('ht',this)">Nhiệt luyện</button>
+      <button class="fbtn gc-weld"    data-gc="weld" onclick="setGc('weld',this)">Hàn</button>
+      <button class="fbtn gc-prec"    data-gc="prec" onclick="setGc('prec',this)">Đánh bóng</button>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <table id="steel-table">
+    <thead>
+      <tr>
+        <th>Mác thép</th><th>Dạng</th><th>Phân phối</th><th>Gia công phù hợp</th><th>Ghi chú</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="group-hdr"><td colspan="5">THÉP KẾT CẤU PHỔ THÔNG</td></tr>
+      <tr data-src="atp" data-gc="cnc cut weld"><td class="mac">SS400</td><td class="shape">Tấm</td><td><span class="src-atp">✓ TKM</span></td><td><span class="badge b-cnc">Phay/Tiện</span><span class="badge b-cut">Cắt laser</span><span class="badge b-weld">Hàn</span></td><td class="note">Thép kết cấu JIS, dễ gia công</td></tr>
+      <tr data-src="atp" data-gc="cnc cut weld"><td class="mac">CT3</td><td class="shape">Tấm</td><td><span class="src-atp">✓ TKM</span></td><td><span class="badge b-cnc">Phay/Tiện</span><span class="badge b-cut">Cắt laser</span><span class="badge b-weld">Hàn</span></td><td class="note">Carbon thấp, dễ gia công</td></tr>
+      <tr data-src="vn"  data-gc="cnc cut weld"><td class="mac">A36</td><td class="shape">Tấm/Hình</td><td><span class="src-vn">▸ Thị trường VN</span></td><td><span class="badge b-cnc">Phay/Tiện</span><span class="badge b-cut">Cắt plasma</span><span class="badge b-weld">Hàn</span></td><td class="note">ASTM, tương đương SS400</td></tr>
+      <tr data-src="cn"  data-gc="cnc cut weld"><td class="mac">Q235 / Q345</td><td class="shape">Tấm/Hình</td><td><span class="src-cn">▸ Trung Quốc</span></td><td><span class="badge b-cnc">Phay/Tiện</span><span class="badge b-cut">Cắt plasma</span><span class="badge b-weld">Hàn</span></td><td class="note">GB standard, phổ biến từ TQ</td></tr>
+
+      <tr class="group-hdr"><td colspan="5">THÉP CARBON TRUNG BÌNH – CAO</td></tr>
+      <tr data-src="atp" data-gc="cnc cut ht grnd"><td class="mac">S45C</td><td class="shape">Tấm</td><td><span class="src-atp">✓ TKM</span></td><td><span class="badge b-cnc">Phay/Tiện</span><span class="badge b-cut">Cắt laser</span><span class="badge b-ht">Nhiệt luyện</span><span class="badge b-grnd">Mài</span></td><td class="note">JIS, HRC 45–55 sau tôi</td></tr>
+      <tr data-src="atp" data-gc="cnc cut ht grnd"><td class="mac">S50C</td><td class="shape">Tròn/Tấm</td><td><span class="src-atp">✓ TKM</span></td><td><span class="badge b-cnc">Phay/Tiện</span><span class="badge b-cut">Cắt laser</span><span class="badge b-ht">Nhiệt luyện</span><span class="badge b-grnd">Mài</span></td><td class="note">Vỏ khuôn, kết cấu chịu lực</td></tr>
+      <tr data-src="atp" data-gc="cnc cut ht grnd"><td class="mac">S55C</td><td class="shape">Tấm</td><td><span class="src-atp">✓ TKM</span></td><td><span class="badge b-cnc">Phay/Tiện</span><span class="badge b-cut">Cắt plasma</span><span class="badge b-ht">Nhiệt luyện</span><span class="badge b-grnd">Mài</span></td><td class="note">Carbon cao, độ bền cao</td></tr>
+      <tr data-src="atp" data-gc="cnc ht grnd"><td class="mac">SUJ2</td><td class="shape">Tròn</td><td><span class="src-atp">✓ TKM</span></td><td><span class="badge b-cnc">Tiện</span><span class="badge b-grnd">Mài tinh</span><span class="badge b-ht">Nhiệt luyện</span></td><td class="note">Thép vòng bi, mài chính xác cao</td></tr>
+      <tr data-src="vn"  data-gc="cnc ht grnd"><td class="mac">C45 / 1045</td><td class="shape">Tấm/Tròn</td><td><span class="src-vn">▸ Thị trường VN</span></td><td><span class="badge b-cnc">Phay/Tiện</span><span class="badge b-ht">Nhiệt luyện</span><span class="badge b-grnd">Mài</span></td><td class="note">DIN/AISI, tương đương S45C</td></tr>
+      <tr data-src="cn"  data-gc="cnc ht"><td class="mac">45# / 50# (GB)</td><td class="shape">Tấm/Tròn</td><td><span class="src-cn">▸ Trung Quốc</span></td><td><span class="badge b-cnc">Phay/Tiện</span><span class="badge b-ht">Nhiệt luyện</span></td><td class="note">GB standard, tương đương S45C/S50C</td></tr>
+
+      <tr class="group-hdr"><td colspan="5">THÉP HỢP KIM KẾT CẤU</td></tr>
+      <tr data-src="atp" data-gc="cnc ht grnd edm"><td class="mac">SCM440</td><td class="shape">Tròn/Tấm</td><td><span class="src-atp">✓ TKM</span></td><td><span class="badge b-cnc">Phay/Tiện</span><span class="badge b-ht">Nhiệt luyện</span><span class="badge b-grnd">Mài</span><span class="badge b-edm">EDM</span></td><td class="note">Cr-Mo, tôi sâu, HRC 28–34</td></tr>
+      <tr data-src="vn"  data-gc="cnc ht grnd"><td class="mac">4140 / 42CrMo4</td><td class="shape">Tròn/Tấm</td><td><span class="src-vn">▸ Thị trường VN</span></td><td><span class="badge b-cnc">Phay/Tiện</span><span class="badge b-ht">Nhiệt luyện</span><span class="badge b-grnd">Mài</span></td><td class="note">AISI/DIN, tương đương SCM440</td></tr>
+      <tr data-src="cn"  data-gc="cnc ht"><td class="mac">40Cr / 42CrMo (GB)</td><td class="shape">Tròn/Tấm</td><td><span class="src-cn">▸ Trung Quốc</span></td><td><span class="badge b-cnc">Phay/Tiện</span><span class="badge b-ht">Nhiệt luyện</span></td><td class="note">GB, tương đương SCM440/4140</td></tr>
+      <tr data-src="vn"  data-gc="cnc ht edm grnd"><td class="mac">SKS3</td><td class="shape">Tấm/Tròn</td><td><span class="src-vn">▸ Thị trường VN</span></td><td><span class="badge b-cnc">Phay/Tiện</span><span class="badge b-ht">Nhiệt luyện</span><span class="badge b-edm">EDM</span><span class="badge b-grnd">Mài</span></td><td class="note">JIS, khuôn dập nguội nhẹ, dao cắt</td></tr>
+
+      <tr class="group-hdr"><td colspan="5">THÉP KHUÔN – GIA CÔNG TRƯỚC KHI TÔI</td></tr>
+      <tr data-src="atp" data-gc="cnc ht edm grnd"><td class="mac">SKD11</td><td class="shape">Tấm</td><td><span class="src-atp">✓ TKM</span></td><td><span class="badge b-cnc">Phay CNC</span><span class="badge b-ht">Nhiệt luyện</span><span class="badge b-edm">EDM</span><span class="badge b-grnd">Mài</span></td><td class="note">JIS, khuôn dập nguội chuẩn</td></tr>
+      <tr data-src="atp" data-gc="cnc ht edm grnd"><td class="mac">SKD11HQ</td><td class="shape">Tấm</td><td><span class="src-atp">✓ TKM</span></td><td><span class="badge b-cnc">Phay CNC</span><span class="badge b-ht">Nhiệt luyện</span><span class="badge b-edm">EDM</span><span class="badge b-grnd">Mài</span></td><td class="note">Chất lượng cao hơn SKD11 tiêu chuẩn</td></tr>
+      <tr data-src="atp" data-gc="cnc ht edm grnd"><td class="mac">D2</td><td class="shape">Tấm</td><td><span class="src-atp">✓ TKM</span></td><td><span class="badge b-cnc">Phay CNC</span><span class="badge b-ht">Nhiệt luyện</span><span class="badge b-edm">EDM</span><span class="badge b-grnd">Mài</span></td><td class="note">AISI, tương đương SKD11</td></tr>
+      <tr data-src="atp" data-gc="cnc ht edm grnd"><td class="mac">DC53</td><td class="shape">Tấm</td><td><span class="src-atp">✓ TKM</span></td><td><span class="badge b-cnc">Phay CNC</span><span class="badge b-ht">Nhiệt luyện</span><span class="badge b-edm">EDM</span><span class="badge b-grnd">Mài</span></td><td class="note">Cải tiến D2, ít nứt sau tôi</td></tr>
+      <tr data-src="atp" data-gc="cnc ht edm grnd"><td class="mac">SKD61</td><td class="shape">Tấm</td><td><span class="src-atp">✓ TKM</span></td><td><span class="badge b-cnc">Phay CNC</span><span class="badge b-ht">Nhiệt luyện</span><span class="badge b-edm">EDM</span><span class="badge b-grnd">Mài</span></td><td class="note">JIS, khuôn nóng, đúc nhôm/kẽm</td></tr>
+      <tr data-src="cn"  data-gc="cnc ht edm grnd"><td class="mac">Cr12MoV (GB)</td><td class="shape">Tấm/Tròn</td><td><span class="src-cn">▸ Trung Quốc</span></td><td><span class="badge b-cnc">Phay CNC</span><span class="badge b-ht">Nhiệt luyện</span><span class="badge b-edm">EDM</span><span class="badge b-grnd">Mài</span></td><td class="note">GB, tương đương SKD11/D2, giá rẻ hơn</td></tr>
+      <tr data-src="int" data-gc="cnc ht edm grnd"><td class="mac">1.2379 (DIN)</td><td class="shape">Tấm</td><td><span class="src-int">▸ Quốc tế</span></td><td><span class="badge b-cnc">Phay CNC</span><span class="badge b-ht">Nhiệt luyện</span><span class="badge b-edm">EDM</span><span class="badge b-grnd">Mài</span></td><td class="note">DIN, tương đương SKD11/D2</td></tr>
+      <tr data-src="vn"  data-gc="cnc ht edm grnd"><td class="mac">H13 / 1.2344</td><td class="shape">Tấm</td><td><span class="src-vn">▸ Thị trường VN</span></td><td><span class="badge b-cnc">Phay CNC</span><span class="badge b-ht">Nhiệt luyện</span><span class="badge b-edm">EDM</span><span class="badge b-grnd">Mài</span></td><td class="note">AISI/DIN, tương đương SKD61</td></tr>
+      <tr data-src="cn"  data-gc="cnc ht edm"><td class="mac">4Cr5MoSiV1 (GB)</td><td class="shape">Tấm</td><td><span class="src-cn">▸ Trung Quốc</span></td><td><span class="badge b-cnc">Phay CNC</span><span class="badge b-ht">Nhiệt luyện</span><span class="badge b-edm">EDM</span></td><td class="note">GB, tương đương H13/SKD61</td></tr>
+      <tr data-src="vn"  data-gc="cnc ht edm"><td class="mac">DAC / FDAC-MAGIC</td><td class="shape">Tấm</td><td><span class="src-vn">▸ Thị trường VN</span></td><td><span class="badge b-cnc">Phay CNC</span><span class="badge b-ht">Nhiệt luyện</span><span class="badge b-edm">EDM</span></td><td class="note">Hitachi, nâng cấp SKD61, đúc nhôm</td></tr>
+      <tr data-src="atp" data-gc="cnc edm"><td class="mac">FDAC</td><td class="shape">Tấm</td><td><span class="src-atp">✓ TKM</span></td><td><span class="badge b-cnc">Phay CNC (nhanh)</span><span class="badge b-edm">EDM</span></td><td class="note">Free-cutting, gia công rất dễ</td></tr>
+      <tr data-src="cn"  data-gc="cnc ht edm"><td class="mac">3Cr2W8V (GB)</td><td class="shape">Tấm</td><td><span class="src-cn">▸ Trung Quốc</span></td><td><span class="badge b-cnc">Phay CNC</span><span class="badge b-ht">Nhiệt luyện</span><span class="badge b-edm">EDM</span></td><td class="note">GB, khuôn dập nóng chịu nhiệt</td></tr>
+
+      <tr class="group-hdr"><td colspan="5">THÉP KHUÔN TIỀN TÔI (PRE-HARDENED)</td></tr>
+      <tr data-src="atp" data-gc="cnc edm prec"><td class="mac">P20</td><td class="shape">Tấm</td><td><span class="src-atp">✓ TKM</span></td><td><span class="badge b-cnc">Phay CNC</span><span class="badge b-edm">EDM</span><span class="badge b-prec">Đánh bóng</span></td><td class="note">~HRC 28–32, khuôn nhựa phổ thông</td></tr>
+      <tr data-src="vn"  data-gc="cnc edm prec"><td class="mac">1.2311 / 2311</td><td class="shape">Tấm</td><td><span class="src-vn">▸ Thị trường VN</span></td><td><span class="badge b-cnc">Phay CNC</span><span class="badge b-edm">EDM</span><span class="badge b-prec">Đánh bóng</span></td><td class="note">DIN, tương đương P20, ~HRC 28–32</td></tr>
+      <tr data-src="atp" data-gc="cnc edm prec"><td class="mac">NAK80</td><td class="shape">Tấm</td><td><span class="src-atp">✓ TKM</span></td><td><span class="badge b-cnc">Phay CNC</span><span class="badge b-edm">EDM</span><span class="badge b-prec">Đánh bóng</span></td><td class="note">~HRC 38–42, bóng gương tốt</td></tr>
+      <tr data-src="vn"  data-gc="cnc edm prec"><td class="mac">NAK55</td><td class="shape">Tấm</td><td><span class="src-vn">▸ Thị trường VN</span></td><td><span class="badge b-cnc">Phay CNC</span><span class="badge b-edm">EDM</span><span class="badge b-prec">Đánh bóng</span></td><td class="note">~HRC 35–40, khuôn nhựa trung bình</td></tr>
+      <tr data-src="atp" data-gc="cnc edm prec"><td class="mac">H718 / 718H</td><td class="shape">Tấm</td><td><span class="src-atp">✓ TKM</span></td><td><span class="badge b-cnc">Phay CNC</span><span class="badge b-edm">EDM</span><span class="badge b-prec">Đánh bóng</span></td><td class="note">~HRC 33–38, tương đương P20+Ni</td></tr>
+      <tr data-src="vn"  data-gc="cnc edm prec"><td class="mac">738 / 738H</td><td class="shape">Tấm</td><td><span class="src-vn">▸ Thị trường VN</span></td><td><span class="badge b-cnc">Phay CNC</span><span class="badge b-edm">EDM</span><span class="badge b-prec">Đánh bóng</span></td><td class="note">1.2738, P20+Ni, ~HRC 33–38</td></tr>
+      <tr data-src="int" data-gc="cnc edm prec"><td class="mac">1.2738 (DIN)</td><td class="shape">Tấm</td><td><span class="src-int">▸ Quốc tế</span></td><td><span class="badge b-cnc">Phay CNC</span><span class="badge b-edm">EDM</span><span class="badge b-prec">Đánh bóng</span></td><td class="note">DIN, tương đương 718H/P20+Ni</td></tr>
+
+      <tr class="group-hdr"><td colspan="5">THÉP KHUÔN KHÔNG GỈ / ĐẶC BIỆT</td></tr>
+      <tr data-src="atp" data-gc="edm grnd prec"><td class="mac">2083H</td><td class="shape">Tấm</td><td><span class="src-atp">✓ TKM</span></td><td><span class="badge b-edm">EDM</span><span class="badge b-grnd">Mài</span><span class="badge b-prec">Đánh bóng</span></td><td class="note">Đã tôi ~HRC 52, không gỉ</td></tr>
+      <tr data-src="atp" data-gc="cnc edm prec"><td class="mac">2083M</td><td class="shape">Tấm</td><td><span class="src-atp">✓ TKM</span></td><td><span class="badge b-cnc">Phay CNC</span><span class="badge b-edm">EDM</span><span class="badge b-prec">Đánh bóng</span></td><td class="note">Medium ~HRC 30, không gỉ</td></tr>
+      <tr data-src="atp" data-gc="cnc edm prec"><td class="mac">2083P</td><td class="shape">Tấm</td><td><span class="src-atp">✓ TKM</span></td><td><span class="badge b-cnc">Phay CNC</span><span class="badge b-edm">EDM</span><span class="badge b-prec">Đánh bóng</span></td><td class="note">Pre-hardened ~HRC 28–34, không gỉ</td></tr>
+      <tr data-src="atp" data-gc="cnc edm prec"><td class="mac">2316T</td><td class="shape">Tấm</td><td><span class="src-atp">✓ TKM</span></td><td><span class="badge b-cnc">Phay CNC</span><span class="badge b-edm">EDM</span><span class="badge b-prec">Đánh bóng</span></td><td class="note">Không gỉ, khuôn thực phẩm/y tế</td></tr>
+      <tr data-src="atp" data-gc="cnc edm prec"><td class="mac">231P</td><td class="shape">Tấm</td><td><span class="src-atp">✓ TKM</span></td><td><span class="badge b-cnc">Phay CNC</span><span class="badge b-edm">EDM</span><span class="badge b-prec">Đánh bóng</span></td><td class="note">Khuôn nhựa không gỉ, tiền tôi</td></tr>
+      <tr data-src="vn"  data-gc="cnc ht edm prec"><td class="mac">SUS420J2 / 1.2083</td><td class="shape">Tấm</td><td><span class="src-vn">▸ Thị trường VN</span></td><td><span class="badge b-cnc">Phay CNC</span><span class="badge b-ht">Nhiệt luyện</span><span class="badge b-edm">EDM</span><span class="badge b-prec">Đánh bóng</span></td><td class="note">JIS/DIN, khuôn nhựa chống gỉ ~HRC 48–52</td></tr>
+      <tr data-src="vn"  data-gc="cnc edm prec"><td class="mac">Stavax / S136</td><td class="shape">Tấm</td><td><span class="src-vn">▸ Thị trường VN</span></td><td><span class="badge b-cnc">Phay CNC</span><span class="badge b-edm">EDM</span><span class="badge b-prec">Đánh bóng gương</span></td><td class="note">Uddeholm/Assab, không gỉ bóng gương cao</td></tr>
+      <tr data-src="cn"  data-gc="cnc ht edm prec"><td class="mac">4Cr13 / 4Cr13H (GB)</td><td class="shape">Tấm</td><td><span class="src-cn">▸ Trung Quốc</span></td><td><span class="badge b-cnc">Phay CNC</span><span class="badge b-ht">Nhiệt luyện</span><span class="badge b-edm">EDM</span><span class="badge b-prec">Đánh bóng</span></td><td class="note">GB, tương đương 2083/SUS420J2</td></tr>
+
+      <tr class="group-hdr"><td colspan="5">THÉP ĐÃ TÔI CỨNG (chỉ EDM + Mài)</td></tr>
+      <tr data-src="atp" data-gc="edm grnd prec"><td class="mac">SKD11Đ</td><td class="shape">Tấm</td><td><span class="src-atp">✓ TKM</span></td><td><span class="badge b-edm">EDM</span><span class="badge b-grnd">Mài</span><span class="badge b-prec">Đánh bóng</span></td><td class="note">~HRC 58–62, xuất xưởng đã tôi</td></tr>
+
+      <tr class="group-hdr"><td colspan="5">THÉP ĐẶC BIỆT KHÁC PHỔ BIẾN TẠI VN</td></tr>
+      <tr data-src="vn"  data-gc="cnc ht grnd"><td class="mac">SK3 / SK4</td><td class="shape">Tấm/Tròn</td><td><span class="src-vn">▸ Thị trường VN</span></td><td><span class="badge b-cnc">Tiện</span><span class="badge b-ht">Nhiệt luyện</span><span class="badge b-grnd">Mài</span></td><td class="note">JIS, thép carbon dụng cụ, dao cắt</td></tr>
+      <tr data-src="vn"  data-gc="cnc ht edm"><td class="mac">SKS93</td><td class="shape">Tấm</td><td><span class="src-vn">▸ Thị trường VN</span></td><td><span class="badge b-cnc">Phay CNC</span><span class="badge b-ht">Nhiệt luyện</span><span class="badge b-edm">EDM</span></td><td class="note">JIS, khuôn dập nguội nhẹ</td></tr>
+      <tr data-src="vn"  data-gc="cnc edm prec"><td class="mac">KP4M (SeAH)</td><td class="shape">Tấm/Tròn</td><td><span class="src-vn">▸ Thị trường VN</span></td><td><span class="badge b-cnc">Phay CNC</span><span class="badge b-edm">EDM</span><span class="badge b-prec">Đánh bóng</span></td><td class="note">Korea SeAH, khuôn nhựa ~HRC 40</td></tr>
+      <tr data-src="vn"  data-gc="cnc edm prec"><td class="mac">XPM / CENA1</td><td class="shape">Tấm</td><td><span class="src-vn">▸ Thị trường VN</span></td><td><span class="badge b-cnc">Phay CNC</span><span class="badge b-edm">EDM</span><span class="badge b-prec">Đánh bóng</span></td><td class="note">Tương đương NAK80, Daido/Korean</td></tr>
+    </tbody>
+  </table>
+
+  <div id="no-result" class="no-result">Không có mác thép nào khớp với bộ lọc đã chọn.</div>
+
+  <div class="stat">
+    Hiển thị: <strong id="visible-count">0</strong> / <strong id="total-count">0</strong> mác &nbsp;|&nbsp;
+    <span style="color:#1D9E75;font-weight:600">■</span> ATP: <strong id="atp-count">0</strong> &nbsp;|&nbsp;
+    <span style="color:#378ADD;font-weight:600">■</span> VN: <strong id="vn-count">0</strong> &nbsp;|&nbsp;
+    <span style="color:#E24B4A;font-weight:600">■</span> TQ: <strong id="cn-count">0</strong>
+  </div>
+</div>
+
+<!-- PRICE CARD -->
+<div class="card">
+  <div class="card-header">
+    <h2>Bảng Giá Dịch Vụ — Thép khuôn mẫu</h2>
+    <span>Đơn giá chưa bao gồm VAT &nbsp;·&nbsp; Áp dụng đến khi có thông báo mới</span>
+  </div>
+  <div class="sections">
+    <div class="section">
+      <div class="sec-title">🔥 Xử Lý Nhiệt</div>
+      <div class="price-row"><span class="pr-label">Chân không</span><span class="pr-price">30.000 ₫/kg</span></div>
+      <div class="price-row"><span class="pr-label">Nhiệt dầu</span><span class="pr-price">22.000 ₫/kg</span></div>
+      <div class="price-row"><span class="pr-label">Cao tần</span><span class="pr-price quote">Báo giá theo đơn</span></div>
+      <div class="price-row"><span class="pr-label">Thấm ni-tơ</span><span class="pr-price">45.000 ₫/kg</span></div>
+    </div>
+    <div class="section">
+      <div class="sec-title">⚙️ Gia Công Cơ</div>
+      <div class="price-row"><span class="pr-label">Phay 6 mặt</span><span class="pr-price">0,8 ₫/mm²</span></div>
+      <div class="price-row"><span class="pr-label">Phay &lt; 6 mặt</span><span class="pr-price">1 ₫/mm²</span></div>
+      <div class="price-row"><span class="pr-label">Phay cạnh</span><span class="pr-price">1 ₫/mm²</span></div>
+      <div class="price-row"><span class="pr-label">Mài phẳng</span><span class="pr-price">1 ₫/mm²</span></div>
+    </div>
+  </div>
+  <div class="notes">
+    <div class="note-row"><span class="note-dot">•</span><span>Nhiệt chân không &amp; dầu: &lt;1 kg tính 1 kg &nbsp;|&nbsp; Thấm N₂: &lt;3 kg tính 3 kg</span></div>
+    <div class="note-row"><span class="note-dot">•</span><span>Cắt Ø ≤ 200 mm / dày ≤ 25 mm: +3 mm tiền cắt &nbsp;|&nbsp; Ø 205–299 mm / dày ≤ 35 mm: +3 mm tiền cắt</span></div>
+    <div class="note-row"><span class="note-dot">•</span><span>Cắt Ø ≥ 300 mm: Báo giá theo đơn hàng</span></div>
+  </div>
+  <div class="footer-bar">
+    <span class="ftag">💳 Thanh toán: <strong>Tiền mặt / Chuyển khoản</strong></span>
+    <span class="sep">|</span>
+    <span class="ftag">🧾 Đơn giá <strong>chưa bao gồm VAT</strong></span>
+  </div>
+</div>
+
+<!-- ATTRIBUTION -->
+<div class="attribution">
+  <div class="attr-left">
+    <span>Người đề xuất:</span>
+    <strong>Mr. Thành</strong>
+    <a href="tel:0938184590" class="attr-phone">📞 0938 184 590</a>
+    <span class="sep" style="color:var(--color-border-primary)">·</span>
+    <a href="http://www.thepkhuonmau.com" target="_blank">Thép khuôn mẫu</a>
+  </div>
+  <div class="attr-right">
+    <span class="spark">✦</span>
+    <span>Created by <strong style="color:var(--color-text-primary)">Claude AI</strong></span>
+  </div>
+</div>
+
+<script>
+let activeSrc='all', activeGc='all';
+function setSrc(val,btn){
+  activeSrc=val;
+  document.querySelectorAll('#src-bar .fbtn').forEach(b=>b.classList.remove('active-src'));
+  btn.classList.add('active-src');
+  applyFilter();
+}
+function setGc(val,btn){
+  activeGc=val;
+  document.querySelectorAll('#gc-bar .fbtn').forEach(b=>b.classList.remove('active-gc','active-src'));
+  if(val==='all') btn.classList.add('active-src');
+  else btn.classList.add('active-gc');
+  applyFilter();
+}
+function applyFilter(){
+  const rows=document.querySelectorAll('#steel-table tbody tr[data-src]');
+  let visible=0,atp=0,vn=0,cn=0;
+  rows.forEach(r=>{
+    const srcOk=activeSrc==='all'||r.dataset.src===activeSrc;
+    const gcOk =activeGc==='all'||(r.dataset.gc||'').split(' ').includes(activeGc);
+    const show=srcOk&&gcOk;
+    r.classList.toggle('hidden',!show);
+    if(show){visible++;if(r.dataset.src==='atp')atp++;if(r.dataset.src==='vn')vn++;if(r.dataset.src==='cn')cn++;}
+  });
+  document.querySelectorAll('#steel-table tbody tr.group-hdr').forEach(g=>{
+    let next=g.nextElementSibling,has=false;
+    while(next&&!next.classList.contains('group-hdr')){if(!next.classList.contains('hidden')){has=true;break;}next=next.nextElementSibling;}
+    g.classList.toggle('hidden',!has);
+  });
+  document.getElementById('visible-count').textContent=visible;
+  document.getElementById('total-count').textContent=rows.length;
+  document.getElementById('atp-count').textContent=atp;
+  document.getElementById('vn-count').textContent=vn;
+  document.getElementById('cn-count').textContent=cn;
+  document.getElementById('no-result').style.display=visible===0?'block':'none';
+}
+applyFilter();
+</script>
