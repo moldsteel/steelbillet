@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sổ Tay Xử Lý Nhiệt Thép</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+
+  :root {
+    --fire: #E8450A;
+    --ember: #C23B00;
+    --steel: #1C2B3A;
+    --steel-mid: #2E4057;
+    --steel-light: #4A6580;
+    --forge: #FF6B35;
+    --gold: #F4A261;
+    --cream: #FDF8F2;
+    --white: #FFFFFF;
+    --text: #1A1A2E;
+    --text-soft: #4A5568;
+    --border: #E2E8F0;
+    --blue-steel: #5B8DB8;
+    --quench: #0A7E9B;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--steel) 0%, var(--ember) 60%, var(--forge) 100%);
+    color: white;
+    padding: 36px 20px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '🔥';
+    position: absolute;
+    font-size: 120px;
+    right: -10px;
+    top: -10px;
+    opacity: 0.12;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .hero h1 {
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .hero h1 span { color: var(--gold); }
+  .hero p {
+    font-size: 13px;
+    opacity: 0.85;
+    max-width: 320px;
+  }
+
+  /* NAV TOC */
+  .toc {
+    background: var(--steel);
+    padding: 0 16px;
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .toc::-webkit-scrollbar { display: none; }
+  .toc a {
+    color: rgba(255,255,255,0.65);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    padding: 10px 8px;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+  }
+  .toc a:hover { color: var(--gold); border-color: var(--gold); }
+
+  /* CONTENT */
+  .content { padding: 0 0 60px; }
+
+  /* SECTION */
+  .section {
+    margin: 0;
+    padding: 24px 16px 8px;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--fire);
+  }
+  .section-icon {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--fire), var(--forge));
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .section-header h2 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--steel);
+  }
+  .section-header .sub {
+    font-size: 11px;
+    color: var(--text-soft);
+    font-weight: 400;
+  }
+
+  /* CARDS */
+  .card {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    border-left: 3px solid var(--fire);
+  }
+  .card.blue { border-left-color: var(--quench); }
+  .card.gold { border-left-color: var(--gold); }
+  .card.green { border-left-color: #38A169; }
+  .card.red { border-left-color: #E53E3E; }
+
+  .card h3 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--steel);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .card p, .card li {
+    font-size: 13.5px;
+    color: var(--text-soft);
+    line-height: 1.6;
+  }
+  .card ul { padding-left: 16px; }
+  .card li { margin-bottom: 4px; }
+
+  /* PROCESS STEPS */
+  .steps { counter-reset: step; }
+  .step {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 14px;
+    align-items: flex-start;
+  }
+  .step-num {
+    width: 28px; height: 28px;
+    background: var(--fire);
+    color: white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .step-content h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--steel);
+    margin-bottom: 3px;
+  }
+  .step-content p {
+    font-size: 13px;
+    color: var(--text-soft);
+  }
+
+  /* COLOR CHART */
+  .color-chart { margin-bottom: 12px; }
+  .color-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    background: white;
+    margin-bottom: 4px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+  .color-dot {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.1);
+    flex-shrink: 0;
+  }
+  .color-info { flex: 1; }
+  .color-name { font-size: 13px; font-weight: 600; color: var(--steel); }
+  .color-temp { font-size: 11px; color: var(--text-soft); }
+  .color-use { font-size: 11px; color: var(--fire); font-weight: 500; margin-top: 1px; }
+  .color-hrc {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--steel-light);
+    text-align: right;
+  }
+
+  /* TABLE */
+  .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 12px; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    font-size: 12.5px;
+    min-width: 400px;
+  }
+  thead { background: var(--steel); color: white; }
+  th { padding: 10px 12px; font-weight: 600; text-align: left; }
+  td { padding: 9px 12px; border-bottom: 1px solid #F0F4F8; color: var(--text-soft); }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #F7FAFC; }
+  .td-highlight { color: var(--fire); font-weight: 600; }
+
+  /* TIPS BOX */
+  .tips-box {
+    background: linear-gradient(135deg, #FFF3E0, #FFF8F0);
+    border: 1px solid #F6AD55;
+    border-radius: 10px;
+    padding: 14px;
+    margin-bottom: 12px;
+  }
+  .tips-box .tip-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #C05621;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .tips-box ul { padding-left: 16px; }
+  .tips-box li {
+    font-size: 13px;
+    color: #744210;
+    margin-bottom: 5px;
+    line-height: 1.5;
+  }
+
+  /* WARNING */
+  .warning {
+    background: #FFF5F5;
+    border: 1px solid #FC8181;
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 12px;
+  }
+  .warning .w-title {
+    font-size: 13px; font-weight: 700; color: #C53030;
+    margin-bottom: 6px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .warning p, .warning li {
+    font-size: 13px; color: #742A2A; line-height: 1.5;
+  }
+  .warning ul { padding-left: 16px; }
+
+  /* FORMULA */
+  .formula {
+    background: var(--steel);
+    color: white;
+    border-radius: 10px;
+    padding: 14px;
+    margin-bottom: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+  }
+  .formula .f-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gold);
+    margin-bottom: 8px;
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-weight: 600;
+  }
+  .formula .f-eq {
+    color: #7FDBCA;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .formula .f-note {
+    font-size: 11.5px;
+    color: rgba(255,255,255,0.6);
+    margin-top: 6px;
+    font-family: 'Be Vietnam Pro', sans-serif;
+  }
+
+  /* DIVIDER */
+  .divider {
+    height: 6px;
+    background: linear-gradient(to right, var(--steel), var(--steel-mid), var(--steel-light));
+    margin: 8px 0;
+  }
+
+  /* BADGE */
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  .badge-red { background: #FED7D7; color: #C53030; }
+  .badge-green { background: #C6F6D5; color: #276749; }
+  .badge-blue { background: #BEE3F8; color: #2A69AC; }
+  .badge-orange { background: #FEEBC8; color: #C05621; }
+
+  /* FOOTER */
+  .footer {
+    background: var(--steel);
+    color: rgba(255,255,255,0.6);
+    text-align: center;
+    padding: 20px 16px;
+    font-size: 12px;
+  }
+  .footer strong { color: var(--gold); }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">⚙️ Kỹ thuật kim loại</div>
+  <h1>Sổ Tay<br><span>Xử Lý Nhiệt Thép</span></h1>
+  <p>Kinh nghiệm thực tế · Kỹ thuật chuyên sâu · Nguyên tắc nền tảng</p>
+</div>
+
+<!-- TOC -->
+<nav class="toc">
+  <a href="#co-ban">Cơ bản</a>
+  <a href="#quy-trinh">Quy trình</a>
+  <a href="#mau-sac">Màu sắc</a>
+  <a href="#moi-truong">Môi trường tôi</a>
+  <a href="#mac-thep">Mác thép</a>
+  <a href="#lo-thuong">Lỗi thường</a>
+  <a href="#bi-quyet">Bí quyết</a>
+</nav>
+
+<div class="content">
+
+<!-- PHẦN 1: CƠ BẢN -->
+<div id="co-ban" class="section">
+  <div class="section-header">
+    <div class="section-icon">📖</div>
+    <div>
+      <h2>Khái niệm cơ bản</h2>
+      <div class="sub">Nền tảng cần nắm vững</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🌡️ Xử lý nhiệt là gì?</h3>
+    <p>Nung nóng thép đến nhiệt độ xác định → giữ nhiệt trong thời gian cần thiết → làm nguội với tốc độ quy định → thay đổi tổ chức tế vi → thay đổi cơ tính theo ý muốn.</p>
+  </div>
+
+  <div class="card blue">
+    <h3>⚡ 3 yếu tố quyết định</h3>
+    <ul>
+      <li><strong>Nhiệt độ nung (t°n)</strong> — nhiệt độ cao nhất cần đạt</li>
+      <li><strong>Thời gian giữ nhiệt (τ)</strong> — giữ đủ lâu để thấu nhiệt đều</li>
+      <li><strong>Tốc độ làm nguội (v)</strong> — quyết định tổ chức tế vi cuối cùng</li>
+    </ul>
+  </div>
+
+  <div class="card gold">
+    <h3>🔬 Các tổ chức tế vi chính</h3>
+    <ul>
+      <li><strong>Austenite (γ)</strong> — pha ở nhiệt độ cao, FCC, mềm và dẻo</li>
+      <li><strong>Martensite</strong> — tôi nhanh → cứng nhất, giòn nhất (60+ HRC)</li>
+      <li><strong>Bainite</strong> — tôi đẳng nhiệt → cứng vừa, dai tốt</li>
+      <li><strong>Pearlite</strong> — làm nguội chậm → mềm, dễ gia công</li>
+      <li><strong>Ferrite + Cementite</strong> — ủ hoàn toàn, dẻo nhất</li>
+    </ul>
+  </div>
+
+  <div class="card green">
+    <h3>✅ Mục đích xử lý nhiệt</h3>
+    <ul>
+      <li>Tăng độ cứng, chống mài mòn (tôi)</li>
+      <li>Tăng độ dẻo dai, giảm giòn (ram)</li>
+      <li>Khử ứng suất nội (ủ khử ứng suất)</li>
+      <li>Cải thiện tính gia công cắt gọt (ủ)</li>
+      <li>Đồng đều tổ chức, hạt nhỏ mịn (thường hóa)</li>
+    </ul>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- PHẦN 2: CÁC QUY TRÌNH -->
+<div id="quy-trinh" class="section">
+  <div class="section-header">
+    <div class="section-icon">🔄</div>
+    <div>
+      <h2>Các quy trình nhiệt luyện</h2>
+      <div class="sub">5 phương pháp chính</div>
+    </div>
+  </div>
+
+  <!-- TÔI -->
+  <div class="card">
+    <h3>🔴 TÔI (Quenching / Hardening) <span class="badge badge-red">Tăng cứng</span></h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h4>Nung đến nhiệt độ tôi</h4>
+          <p>Thép carbon: Ac3 + (30~50°C) với thép trước cùng tích; Ac1 + (30~50°C) với thép sau cùng tích. Thường 820–900°C.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h4>Giữ nhiệt (Soaking)</h4>
+          <p>~1–1.5 phút/mm tiết diện. Phải đảm bảo thấu nhiệt hoàn toàn, austenite hóa đều.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h4>Làm nguội nhanh</h4>
+          <p>Nhúng vào môi trường tôi (nước/dầu/khí). Tốc độ nguội > tốc độ tới hạn → Martensite.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h4>Ram ngay sau tôi</h4>
+          <p>⚠️ Phải ram trong vòng 1–2 giờ sau tôi để tránh nứt do ứng suất dư.</p>
+        </div>
+      </div>
+    </div>
+    <div class="tips-box">
+      <div class="tip-title">💡 Kinh nghiệm thực tế</div>
+      <ul>
+        <li>Thép C45 cần nước, thép hợp kim (40Cr, SCM) dùng dầu — ít biến dạng và nứt hơn</li>
+        <li>Chi tiết phức tạp: nung sơ bộ 2 giai đoạn (400°C → 850°C) để tránh sốc nhiệt</li>
+        <li>Không đặt chi tiết sát đáy lò — phải dùng giá đỡ để nung đều 4 mặt</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- RAM -->
+  <div class="card blue">
+    <h3>🔵 RAM (Tempering) <span class="badge badge-blue">Giảm giòn</span></h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Loại ram</th><th>Nhiệt độ</th><th>Kết quả</th><th>Ứng dụng</th></tr></thead>
+        <tbody>
+          <tr><td class="td-highlight">Ram thấp</td><td>150–250°C</td><td>HRC 58–64, giảm ứng suất</td><td>Dao cắt, dụng cụ đo</td></tr>
+          <tr><td class="td-highlight">Ram trung</td><td>300–450°C</td><td>HRC 40–50, tăng đàn hồi</td><td>Lò xo, khuôn dập</td></tr>
+          <tr><td class="td-highlight">Ram cao</td><td>500–650°C</td><td>HRC 25–35, dai + bền</td><td>Trục, bánh răng</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="warning">
+      <div class="w-title">⚠️ Vùng nhiệt độ NGUY HIỂM cần tránh</div>
+      <ul>
+        <li><strong>250–350°C</strong> — "Ram giòn loại I": Martensite phân hóa không hoàn toàn → giòn xanh (blue brittleness)</li>
+        <li><strong>450–550°C</strong> — "Ram giòn loại II": Chỉ với thép Cr, Ni, Mn → làm nguội nhanh sau ram để tránh</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Ủ -->
+  <div class="card gold">
+    <h3>🟡 Ủ (Annealing) <span class="badge badge-orange">Làm mềm</span></h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Loại ủ</th><th>Nhiệt độ</th><th>Mục đích</th></tr></thead>
+        <tbody>
+          <tr><td class="td-highlight">Ủ hoàn toàn</td><td>Ac3 + 30~50°C</td><td>Hạt nhỏ, mềm hoàn toàn</td></tr>
+          <tr><td class="td-highlight">Ủ cầu hóa</td><td>Ac1 ± 20°C</td><td>Cementit hạt cầu → cắt gọt tốt</td></tr>
+          <tr><td class="td-highlight">Ủ đẳng nhiệt</td><td>680–700°C</td><td>Rút ngắn chu trình ủ</td></tr>
+          <tr><td class="td-highlight">Ủ khử ứng suất</td><td>500–650°C</td><td>Sau hàn, đúc, gia công nguội</td></tr>
+          <tr><td class="td-highlight">Ủ kết tinh lại</td><td>600–700°C</td><td>Sau biến dạng nguội (cán, rèn)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tips-box">
+      <div class="tip-title">💡 Quy tắc nguội chậm khi ủ</div>
+      <ul>
+        <li>Nguội cùng lò: ≤ 30°C/giờ với thép carbon, ≤ 20°C/giờ với thép hợp kim</li>
+        <li>Đến 600°C có thể lấy ra nguội trong không khí — đã qua vùng chuyển pha nguy hiểm</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- THƯỜNG HÓA -->
+  <div class="card green">
+    <h3>🟢 THƯỜNG HÓA (Normalizing) <span class="badge badge-green">Đồng đều</span></h3>
+    <ul>
+      <li>Nung đến Ac3 + (50~70°C) → giữ nhiệt → làm nguội trong <strong>không khí tĩnh</strong></li>
+      <li>Hạt nhỏ hơn ủ, độ bền cao hơn ủ, độ dẻo kém hơn ủ</li>
+      <li>Dùng sau đúc/rèn để đồng đều tổ chức trước khi gia công tiếp</li>
+      <li>Thép carbon thấp (C &lt; 0,25%): dùng thay thế ủ → kinh tế hơn</li>
+    </ul>
+  </div>
+
+  <!-- TÔI ĐẲI NHIỆT & MARTEMPERING -->
+  <div class="card">
+    <h3>⚙️ Tôi đẳng nhiệt & Martempering</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Phương pháp</th><th>Quy trình</th><th>Ưu điểm</th></tr></thead>
+        <tbody>
+          <tr><td class="td-highlight">Austempering<br>(Tôi bainit)</td><td>Tôi vào muối nóng 250–400°C, giữ đến hết chuyển biến bainit</td><td>Ít biến dạng, dai tốt, không cần ram</td></tr>
+          <tr><td class="td-highlight">Martempering</td><td>Tôi vào muối nóng ngay trên Ms, giữ đến đồng đều T° → nguội không khí</td><td>Giảm chênh lệch nhiệt độ tâm/bề mặt → ít nứt, cong vênh</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:12.5px;color:var(--text-soft);margin-top:8px;">⚠️ Martempering không phù hợp tiết diện lớn do giới hạn tốc độ dẫn nhiệt.</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- PHẦN 3: MÀU SẮC NHIỆT ĐỘ -->
+<div id="mau-sac" class="section">
+  <div class="section-header">
+    <div class="section-icon">🎨</div>
+    <div>
+      <h2>Bảng màu sắc nhiệt độ</h2>
+      <div class="sub">Nhận biết bằng mắt thường — kỹ năng thợ lành nghề</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🔥 Màu khi nung (Forging Colors) — trên 700°C</h3>
+    <div class="color-chart">
+      <div class="color-row">
+        <div class="color-dot" style="background:#8B0000"></div>
+        <div class="color-info">
+          <div class="color-name">Đỏ tối (Black Red)</div>
+          <div class="color-temp">426–593°C / 800–1100°F</div>
+          <div class="color-use">Chưa thể rèn, thép còn cứng</div>
+        </div>
+      </div>
+      <div class="color-row">
+        <div class="color-dot" style="background:#CC2200"></div>
+        <div class="color-info">
+          <div class="color-name">Đỏ tươi (Cherry Red)</div>
+          <div class="color-temp">760–845°C / 1400–1550°F</div>
+          <div class="color-use">Vùng tôi thép carbon (Ac3)</div>
+        </div>
+      </div>
+      <div class="color-row">
+        <div class="color-dot" style="background:#FF4500"></div>
+        <div class="color-info">
+          <div class="color-name">Đỏ cam (Bright Cherry)</div>
+          <div class="color-temp">845–900°C / 1550–1650°F</div>
+          <div class="color-use">Vùng tôi thép hợp kim thấp</div>
+        </div>
+      </div>
+      <div class="color-row">
+        <div class="color-dot" style="background:#FF6600"></div>
+        <div class="color-info">
+          <div class="color-name">Cam (Orange)</div>
+          <div class="color-temp">900–1050°C / 1650–1920°F</div>
+          <div class="color-use">Rèn tốt, bắt đầu cháy mặt nếu quá lâu</div>
+        </div>
+      </div>
+      <div class="color-row">
+        <div class="color-dot" style="background:#FFD700"></div>
+        <div class="color-info">
+          <div class="color-name">Vàng (Yellow)</div>
+          <div class="color-temp">1050–1200°C / 1920–2200°F</div>
+          <div class="color-use">Rèn nhanh dễ nhất — thép mềm nhất</div>
+        </div>
+      </div>
+      <div class="color-row">
+        <div class="color-dot" style="background:#FFFACD; border:1px solid #ccc"></div>
+        <div class="color-info">
+          <div class="color-name">Trắng vàng (Light Yellow)</div>
+          <div class="color-temp">1200–1300°C / 2200–2370°F</div>
+          <div class="color-use">⚠️ Nguy hiểm — gần nhiệt độ cháy, hạt to</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card blue">
+    <h3>🎨 Màu ram (Temper Colors) — lớp oxit mỏng &lt; 300°C</h3>
+    <p style="font-size:12px;color:var(--text-soft);margin-bottom:10px;">Quan sát trên bề mặt đã đánh bóng sạch sau khi tôi</p>
+    <div class="color-chart">
+      <div class="color-row">
+        <div class="color-dot" style="background:#FFFFB0"></div>
+        <div class="color-info">
+          <div class="color-name">Vàng rơm nhạt (Pale Yellow)</div>
+          <div class="color-temp">~210°C / 410°F</div>
+          <div class="color-use">Dao, dao cạo, dụng cụ cắt tinh</div>
+        </div>
+        <div class="color-hrc">~64 HRC</div>
+      </div>
+      <div class="color-row">
+        <div class="color-dot" style="background:#E8C840"></div>
+        <div class="color-info">
+          <div class="color-name">Vàng rơm (Straw)</div>
+          <div class="color-temp">~220°C / 430°F</div>
+          <div class="color-use">Mũi khoan đá, dao doa, dụng cụ cắt</div>
+        </div>
+        <div class="color-hrc">~62 HRC</div>
+      </div>
+      <div class="color-row">
+        <div class="color-dot" style="background:#D4A800"></div>
+        <div class="color-info">
+          <div class="color-name">Vàng đậm (Dark Yellow)</div>
+          <div class="color-temp">~230°C / 445°F</div>
+          <div class="color-use">Đục, dao tiện thô</div>
+        </div>
+        <div class="color-hrc">~60 HRC</div>
+      </div>
+      <div class="color-row">
+        <div class="color-dot" style="background:#A0522D"></div>
+        <div class="color-info">
+          <div class="color-name">Nâu (Brown)</div>
+          <div class="color-temp">~240°C / 465°F</div>
+          <div class="color-use">Taro, mũi khoan gỗ, đột</div>
+        </div>
+        <div class="color-hrc">~57 HRC</div>
+      </div>
+      <div class="color-row">
+        <div class="color-dot" style="background:#8B4513"></div>
+        <div class="color-info">
+          <div class="color-name">Nâu đỏ (Red Brown)</div>
+          <div class="color-temp">~250°C / 480°F</div>
+          <div class="color-use">Tarô, khuôn dập, dao phay</div>
+        </div>
+        <div class="color-hrc">~55 HRC</div>
+      </div>
+      <div class="color-row">
+        <div class="color-dot" style="background:#9B111E"></div>
+        <div class="color-info">
+          <div class="color-name">Tím đỏ (Purple)</div>
+          <div class="color-temp">~260°C / 500°F</div>
+          <div class="color-use">Đục, dao mộc, kéo cắt</div>
+        </div>
+        <div class="color-hrc">~52 HRC</div>
+      </div>
+      <div class="color-row">
+        <div class="color-dot" style="background:#6A0DAD"></div>
+        <div class="color-info">
+          <div class="color-name">Tím (Violet)</div>
+          <div class="color-temp">~270°C / 520°F</div>
+          <div class="color-use">Dao bào thô, kéo lớn</div>
+        </div>
+        <div class="color-hrc">~50 HRC</div>
+      </div>
+      <div class="color-row">
+        <div class="color-dot" style="background:#1F5FD8"></div>
+        <div class="color-info">
+          <div class="color-name">Xanh lam (Blue)</div>
+          <div class="color-temp">~300°C / 570°F</div>
+          <div class="color-use">Lò xo, đục đá, kẹp</div>
+        </div>
+        <div class="color-hrc">~45 HRC</div>
+      </div>
+      <div class="color-row">
+        <div class="color-dot" style="background:#87CEEB"></div>
+        <div class="color-info">
+          <div class="color-name">Xanh nhạt (Light Blue)</div>
+          <div class="color-temp">~340°C / 645°F</div>
+          <div class="color-use">Chi tiết chịu va đập, cần dai</div>
+        </div>
+        <div class="color-hrc">~40 HRC</div>
+      </div>
+    </div>
+    <div class="warning">
+      <div class="w-title">⚠️ Lưu ý quan trọng khi đọc màu ram</div>
+      <ul>
+        <li>Màu đúng chỉ khi bề mặt được đánh bóng sạch trước khi nung</li>
+        <li>Ánh sáng ban ngày tốt hơn đèn huỳnh quang</li>
+        <li>Thời gian giữ nhiệt dài hơn = màu đậm hơn dù nhiệt độ như nhau</li>
+        <li>Thép hợp kim Cr, Mo có thể khác màu so với thép carbon</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- PHẦN 4: MÔI TRƯỜNG TÔI -->
+<div id="moi-truong" class="section">
+  <div class="section-header">
+    <div class="section-icon">💧</div>
+    <div>
+      <h2>Môi trường làm nguội (Tôi)</h2>
+      <div class="sub">Chọn đúng → không nứt, không cong</div>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Môi trường</th><th>Tốc độ nguội</th><th>Rủi ro</th><th>Dùng cho</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="td-highlight">Nước muối (brine 8–10%)</td>
+          <td>Nhanh nhất</td>
+          <td>Nứt cao nhất</td>
+          <td>Thép carbon thấp, hình đơn giản</td>
+        </tr>
+        <tr>
+          <td class="td-highlight">Nước thường</td>
+          <td>Rất nhanh</td>
+          <td>Nứt, cong cao</td>
+          <td>C45, thép carbon, chi tiết đơn giản</td>
+        </tr>
+        <tr>
+          <td class="td-highlight">Dung dịch polymer (PAG)</td>
+          <td>Điều chỉnh được</td>
+          <td>Thấp</td>
+          <td>Thay nước, linh hoạt nồng độ</td>
+        </tr>
+        <tr>
+          <td class="td-highlight">Dầu (20–80°C)</td>
+          <td>Trung bình</td>
+          <td>Thấp</td>
+          <td>Thép hợp kim: 40Cr, SCM, SKD — phổ biến nhất</td>
+        </tr>
+        <tr>
+          <td class="td-highlight">Muối nóng (200–400°C)</td>
+          <td>Chậm</td>
+          <td>Rất thấp</td>
+          <td>Austempering, Martempering</td>
+        </tr>
+        <tr>
+          <td class="td-highlight">Không khí / Khí N₂</td>
+          <td>Chậm nhất</td>
+          <td>Gần như không</td>
+          <td>SKD11, D2, A2 — thép tôi không khí</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="formula">
+    <div class="f-title">⚙️ Nguyên tắc chọn môi trường tôi</div>
+    <div class="f-eq">Chọn môi trường nhẹ nhất có thể đạt được độ cứng yêu cầu</div>
+    <div class="f-note">→ Đủ cứng nhưng ít nứt và biến dạng nhất có thể</div>
+  </div>
+
+  <div class="tips-box">
+    <div class="tip-title">💡 Kinh nghiệm khi tôi dầu</div>
+    <ul>
+      <li>Dầu ấm 40–60°C nguội đều hơn dầu lạnh (tránh "bong bóng hơi" gây nguội không đều)</li>
+      <li>Khuấy đều hoặc di chuyển chi tiết trong dầu để nguội nhanh và đồng đều hơn</li>
+      <li>Không dùng dầu đã lẫn nước → nguy hiểm nổ</li>
+      <li>Sau tôi dầu: lau sạch dầu trước khi ram để tránh cháy lò</li>
+    </ul>
+  </div>
+
+  <div class="tips-box">
+    <div class="tip-title">💡 Kinh nghiệm khi tôi nước</div>
+    <ul>
+      <li>Nước 20–30°C (không tôi nước đá — nứt ngay)</li>
+      <li>Nhúng theo chiều trục chi tiết (thẳng đứng) — tránh cong vênh</li>
+      <li>Khuấy hình số 8 trong nước, không đứng yên</li>
+      <li>Tôi "gián đoạn" (interrupted quench): tôi nước 3–5 giây → chuyển dầu → giảm nứt cho chi tiết phức tạp</li>
+    </ul>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- PHẦN 5: MÁC THÉP THÔNG DỤNG -->
+<div id="mac-thep" class="section">
+  <div class="section-header">
+    <div class="section-icon">📋</div>
+    <div>
+      <h2>Chế độ nhiệt luyện theo mác thép</h2>
+      <div class="sub">Thông số thực tế hay dùng</div>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Mác thép</th><th>T° tôi</th><th>Môi trường</th><th>T° ram</th><th>Độ cứng</th></tr></thead>
+      <tbody>
+        <tr><td class="td-highlight">C45 (S45C)</td><td>820–860°C</td><td>Nước / Dầu</td><td>200–650°C</td><td>55–63 HRC (tôi)<br>25–40 HRC (tôi-ram cao)</td></tr>
+        <tr><td class="td-highlight">C55 (S55C)</td><td>810–850°C</td><td>Nước / Dầu</td><td>260–315°C</td><td>50–55 HRC</td></tr>
+        <tr><td class="td-highlight">40Cr (SCr440)</td><td>830–860°C</td><td>Dầu</td><td>200–650°C</td><td>50–60 HRC</td></tr>
+        <tr><td class="td-highlight">SCM415/20CrMo</td><td>880–920°C</td><td>Dầu</td><td>150–200°C</td><td>58–62 HRC (bề mặt)</td></tr>
+        <tr><td class="td-highlight">SCM440/42CrMo</td><td>830–870°C</td><td>Dầu</td><td>400–650°C</td><td>28–36 HRC</td></tr>
+        <tr><td class="td-highlight">SKD11 (D2)</td><td>1020–1050°C</td><td>Chân không/Khí</td><td>500–550°C (×2–3 lần)</td><td>60–62 HRC</td></tr>
+        <tr><td class="td-highlight">SKD61 (H13)</td><td>1000–1040°C</td><td>Chân không/Khí</td><td>560–600°C (×2–3 lần)</td><td>46–52 HRC</td></tr>
+        <tr><td class="td-highlight">SUJ2 (52100)</td><td>820–860°C</td><td>Dầu</td><td>150–180°C</td><td>60–65 HRC</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>⚙️ SKD11 — quy trình ram đặc biệt</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content"><h4>Nung sơ bộ</h4><p>400–500°C → 800°C (tránh sốc nhiệt cho thép hợp kim cao)</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content"><h4>Tôi chân không</h4><p>1020–1050°C → nguội khí N₂ áp suất cao</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content"><h4>Ram 3 lần</h4><p>500–550°C × 2 giờ × 3 lần → chuyển hóa Austenite dư → đạt 60–62 HRC ổn định</p></div>
+      </div>
+    </div>
+    <p style="font-size:12.5px;color:var(--text-soft);">⚠️ Ram ít lần → còn Austenite dư → khuôn dãn nở khi dùng nóng → hỏng kích thước</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- PHẦN 6: LỖI THƯỜNG GẶP -->
+<div id="lo-thuong" class="section">
+  <div class="section-header">
+    <div class="section-icon">🔧</div>
+    <div>
+      <h2>Lỗi thường gặp & Cách khắc phục</h2>
+      <div class="sub">Kinh nghiệm từ xưởng thực tế</div>
+    </div>
+  </div>
+
+  <div class="card red">
+    <h3>❌ Nứt sau tôi (Quench Cracking)</h3>
+    <ul>
+      <li><strong>Nguyên nhân:</strong> Nguội quá nhanh tạo ứng suất kéo lớn ở bề mặt; góc cạnh sắc tập trung ứng suất; không nung đều; %C quá cao</li>
+      <li><strong>Khắc phục:</strong> Dùng môi trường tôi nhẹ hơn; bo tròn góc cạnh R≥0.5mm; nung sơ bộ 2 giai đoạn; ram ngay sau tôi (&lt;1 giờ)</li>
+      <li><strong>Nhớ:</strong> Nứt tôi thường dọc trục — nứt cắt ngang thường do ứng suất khác</li>
+    </ul>
+  </div>
+
+  <div class="card red">
+    <h3>❌ Biến dạng, cong vênh</h3>
+    <ul>
+      <li><strong>Nguyên nhân:</strong> Nung không đều; nhúng tôi không đúng hướng; chi tiết dài mảnh không có đồ gá; môi trường tôi quá mạnh</li>
+      <li><strong>Khắc phục:</strong> Dùng đồ gá thẳng chi tiết dài; nhúng theo chiều trục; dùng dầu thay nước; Martempering cho chi tiết phức tạp</li>
+      <li><strong>Kinh nghiệm:</strong> Thanh dài φ6, L=400mm → cho vào ống thép, kẹp 3 điểm → nguội thẳng</li>
+    </ul>
+  </div>
+
+  <div class="card red">
+    <h3>❌ Độ cứng không đủ / không đều</h3>
+    <ul>
+      <li><strong>Nguyên nhân:</strong> Nhiệt độ tôi thấp hơn Ac3; thời gian giữ nhiệt không đủ; bề mặt bị cháy (decarburization); tốc độ nguội chưa đủ Vth</li>
+      <li><strong>Kiểm tra:</strong> Đo HRC nhiều điểm; kiểm tra lớp decarbua bằng mài → quan sát màu</li>
+      <li><strong>Phòng ngừa:</strong> Dùng khí bảo vệ (N₂, Ar) hoặc hộp than củi để tránh decarbua</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>🔸 Hạt lớn sau nung</h3>
+    <ul>
+      <li>Nguyên nhân: Nhiệt độ quá cao, thời gian quá dài</li>
+      <li>Hệ quả: Giòn, vỡ hạt, giảm độ dai va đập nghiêm trọng</li>
+      <li>Khắc phục: Thường hóa để làm nhỏ hạt trở lại, sau đó tôi lại</li>
+    </ul>
+  </div>
+
+  <div class="card gold">
+    <h3>🔸 Decarbua bề mặt (Decarburization)</h3>
+    <ul>
+      <li>Bề mặt mất carbon → lớp mềm bên ngoài, cứng bên trong</li>
+      <li>Dấu hiệu: Đo HRC thấp hơn dự kiến; mài thấy lớp khác màu</li>
+      <li>Phòng ngừa: Khí bảo vệ, hộp than, phủ sơn chống oxi hóa, giảm thời gian nung</li>
+      <li>Mức cho phép trong chế tạo máy: &lt; 0.5mm lớp decarbua</li>
+    </ul>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- PHẦN 7: BÍ QUYẾT -->
+<div id="bi-quyet" class="section">
+  <div class="section-header">
+    <div class="section-icon">🏆</div>
+    <div>
+      <h2>Bí quyết & Nguyên tắc vàng</h2>
+      <div class="sub">Kinh nghiệm bí truyền của thợ lành nghề</div>
+    </div>
+  </div>
+
+  <div class="tips-box">
+    <div class="tip-title">🔑 10 Nguyên tắc vàng</div>
+    <ul>
+      <li><strong>Ram ngay sau tôi</strong> — không để quá 2 giờ, đặc biệt thép cứng cao</li>
+      <li><strong>Nung đều — nguội đều</strong> — chi tiết trên giá đỡ, không tiếp xúc thành lò</li>
+      <li><strong>Chọn môi trường tôi nhẹ nhất đủ độ cứng</strong> — tránh nứt không cần thiết</li>
+      <li><strong>Thép hợp kim: nung chậm, 2 giai đoạn</strong> — tránh sốc nhiệt gây nứt trong lò</li>
+      <li><strong>Nhiệt luyện sau gia công thô, trước gia công tinh</strong> — để lại ~0.5–1.5mm lượng dư chỉnh biến dạng</li>
+      <li><strong>Kiểm tra nhiệt kế lò định kỳ</strong> — lò già lệch ±30°C → hỏng cả mẻ</li>
+      <li><strong>Thép dụng cụ cao cấp (SKD): ram ít nhất 2–3 lần</strong> — chuyển hóa Austenite dư hoàn toàn</li>
+      <li><strong>Không tôi khi chi tiết còn dính dầu gia công</strong> — dầu bay hơi → thiếu oxy cục bộ → cứng không đều</li>
+      <li><strong>Ghi chép đầy đủ từng mẻ</strong> — nhiệt độ, thời gian, môi trường, kết quả đo HRC</li>
+      <li><strong>Góc cạnh sắc = điểm nứt</strong> — thiết kế phải bo tròn trước khi nhiệt luyện</li>
+    </ul>
+  </div>
+
+  <div class="formula">
+    <div class="f-title">⏱️ Công thức thời gian giữ nhiệt thực tế</div>
+    <div class="f-eq">τ (phút) ≈ K × D (mm)</div>
+    <div class="f-note">K = 1.0–1.5 phút/mm với thép carbon<br>K = 1.5–2.0 phút/mm với thép hợp kim<br>D = chiều dày / đường kính tiết diện lớn nhất</div>
+  </div>
+
+  <div class="formula">
+    <div class="f-title">🌡️ Ước lượng nhiệt độ Ac3 (thực hành nhanh)</div>
+    <div class="f-eq">Ac3 ≈ 910 − 203√%C + 44.7×%Si − 30×%Mn</div>
+    <div class="f-note">Ví dụ C45: Ac3 ≈ 910 − 203×√0.45 ≈ 910 − 136 ≈ 774°C<br>→ Nhiệt độ tôi: 774 + 40 ≈ 815°C ✓</div>
+  </div>
+
+  <div class="card green">
+    <h3>💎 Bí quyết kiểm tra nhiệt độ không có thiết bị</h3>
+    <ul>
+      <li><strong>Nam châm test:</strong> Ở ~770°C (Curie point) thép mất từ tính → dùng nam châm kiểm tra — khi không hút nữa = gần nhiệt độ tôi</li>
+      <li><strong>Que đồng test:</strong> Chạm bề mặt thép nóng — đồng chảy ở 1083°C → thép quá nhiệt</li>
+      <li><strong>Màu bóng tối:</strong> Kiểm tra màu nung trong phòng tối → đánh giá chính xác hơn ban ngày</li>
+      <li><strong>Giấy test:</strong> Giấy cháy tức thời ở ~233°C → dùng kiểm tra vùng ram thấp</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>📐 Quy tắc thiết kế chi tiết để dễ nhiệt luyện</h3>
+    <ul>
+      <li>Tiết diện đồng đều — tránh thay đổi đột ngột dày-mỏng</li>
+      <li>Bo tròn tất cả góc trong R ≥ 0.5mm, góc ngoài R ≥ 1mm</li>
+      <li>Lỗ đối xứng — bất đối xứng → nguội không đều → cong</li>
+      <li>Rãnh khóa, rãnh chốt: để sau khi nhiệt luyện mới gia công tinh</li>
+      <li>Không thiết kế bề dày &lt; 3mm trên vật tôi nước — nứt chắc chắn</li>
+    </ul>
+  </div>
+
+  <div class="card blue">
+    <h3>🧪 Kiểm tra chất lượng sau nhiệt luyện</h3>
+    <ul>
+      <li><strong>HRC Rockwell:</strong> Đo tối thiểu 3 điểm, tâm và bề mặt nếu có thể</li>
+      <li><strong>Mài thử:</strong> Tia lửa nhỏ, đỏ = mềm; tia lửa nhiều, sáng, tỏa = cứng cao</li>
+      <li><strong>Kiểm tra bằng dũa:</strong> Dũa không ăn = ≥ 55 HRC; ăn nhẹ = 45–55 HRC; ăn bình thường = &lt; 45 HRC</li>
+      <li><strong>Thử gõ âm thanh:</strong> Âm trong, cao = đã tôi tốt; âm đục = chưa đủ cứng hoặc có vết nứt</li>
+    </ul>
+  </div>
+
+  <div class="tips-box">
+    <div class="tip-title">📊 So sánh nhanh: Tôi vs Ram vs Ủ vs Thường hóa</div>
+    <ul>
+      <li><strong>Tôi</strong> = Tăng cứng tối đa, nhưng giòn — luôn phải ram tiếp theo</li>
+      <li><strong>Ram cao (tôi + ram cao)</strong> = "Tôi cải thiện" — vừa bền vừa dai — dùng cho trục, bánh răng</li>
+      <li><strong>Ủ</strong> = Làm mềm tối đa, dễ gia công — nhưng tốn thời gian nhất</li>
+      <li><strong>Thường hóa</strong> = Cân bằng giữa ủ và tôi — nhanh hơn ủ, phổ biến sau đúc/rèn</li>
+    </ul>
+  </div>
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p>Sổ Tay <strong>Xử Lý Nhiệt Thép</strong></p>
+  <p style="margin-top:4px;font-size:11px;">Tổng hợp từ ASM Handbook · Practical Machinist · Tài liệu kỹ thuật Việt Nam</p>
+  <p style="margin-top:4px;font-size:11px;">Compiled by Claude · An Thái Phú Steel · 2025</p>
+</div>
+
+</body>
+</html>
