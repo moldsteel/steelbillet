@@ -1,0 +1,715 @@
+<!doctype html>
+<html lang="vi"><head>
+    <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Thép khuôn mẫu — Thép làm Khuôn &amp; Công Cụ</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;700&amp;family=DM+Serif+Display:ital@0;1&amp;display=swap" rel="stylesheet">
+  <style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --g:#1A7A4A;--gd:#0f5533;--gl:#e8f5ee;--g2:#6ee7a0;
+  --gold:#c8971a;--goldbg:#fdf6e3;
+  --bg:#f7f8f6;--card:#fff;--bd:#e5e7eb;
+  --t1:#111827;--t2:#4b5563;--t3:#9ca3af;
+  --r:12px;
+}
+html{scroll-behavior:smooth}
+body{font-family:"Comfortaa",sans-serif;background:var(--bg);color:var(--t1);line-height:1.6}
+a{text-decoration:none;color:inherit}
+
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:14px 40px;background:rgba(15,85,51,0.96);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.08);transition:all .3s}
+.nav-logo{display:flex;align-items:center;gap:11px}
+.nav-logo-box{width:38px;height:38px;border-radius:9px;background:var(--g);display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 4px 12px #1a7a4a55}
+.nav-brand{color:#fff;font-weight:700;font-size:13.5px;line-height:1.25}
+.nav-brand small{display:block;font-size:9.5px;font-weight:400;opacity:.6;letter-spacing:1.8px;text-transform:uppercase}
+.nav-links{display:flex;align-items:center;gap:24px}
+.nav-links a{color:rgba(255,255,255,.75);font-size:12.5px;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:#fff}
+.nav-call{display:inline-flex;align-items:center;gap:7px;padding:8px 18px;border-radius:99px;background:var(--g);color:#fff;font-size:12.5px;font-weight:700;box-shadow:0 4px 14px #1a7a4a55;transition:all .2s}
+.nav-call:hover{background:#22a05e;transform:translateY(-1px)}
+.nav-call svg{width:13px;height:13px}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{width:22px;height:2px;background:#fff;border-radius:2px;transition:all .3s}
+.mobile-menu{display:none;position:fixed;inset:0;top:66px;background:var(--gd);z-index:99;padding:24px;flex-direction:column;gap:0}
+.mobile-menu a{display:block;padding:16px 0;color:rgba(255,255,255,.85);font-size:15px;font-weight:600;border-bottom:1px solid rgba(255,255,255,.08)}
+.mobile-menu.open{display:flex}
+
+.hero{min-height:calc(100 * min(var(--vh,1vh),1vh));background:var(--gd);display:flex;flex-direction:column;position:relative;overflow:hidden;padding-top:66px}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 70% at 65% 25%,#2a9d6422,transparent 65%),radial-gradient(ellipse 50% 60% at 5% 75%,#0f553355,transparent 55%)}
+.hero::after{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:36px 36px}
+.hero-body{position:relative;z-index:2;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:64px 24px 56px}
+.hero-pill{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:99px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.07);color:rgba(255,255,255,.82);font-size:11.5px;backdrop-filter:blur(10px);margin-bottom:26px;animation:up .5s both}
+.blink{width:7px;height:7px;border-radius:50%;background:var(--g2);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 #6ee7a066}50%{box-shadow:0 0 0 6px #6ee7a000}}
+.hero-h1{font-family:"DM Serif Display",serif;font-size:clamp(36px,6.5vw,68px);color:#fff;line-height:1.1;margin-bottom:18px;animation:up .5s .08s both}
+.hero-h1 em{color:var(--g2);font-style:italic}
+.hero-p{font-size:clamp(13px,1.8vw,16px);color:rgba(255,255,255,.68);max-width:560px;margin:0 auto 18px;animation:up .5s .14s both}
+.hero-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:38px;animation:up .5s .2s both}
+.hero-tag{padding:5px 12px;border-radius:99px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.78);font-size:11px;backdrop-filter:blur(8px)}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;animation:up .5s .26s both}
+.btn-w{padding:13px 28px;border-radius:99px;background:#fff;color:var(--gd);font-size:13.5px;font-weight:700;display:inline-flex;align-items:center;gap:8px;box-shadow:0 8px 24px rgba(0,0,0,.22);transition:all .2s}
+.btn-w:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,0,0,.32)}
+.btn-o{padding:13px 28px;border-radius:99px;border:1.5px solid rgba(255,255,255,.3);color:#fff;font-size:13.5px;font-weight:600;display:inline-flex;align-items:center;gap:8px;transition:all .2s}
+.btn-o:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.6)}
+.btn-w svg,.btn-o svg{width:15px;height:15px}
+.hero-stats{position:relative;z-index:2;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(255,255,255,.09);background:rgba(0,0,0,.28);backdrop-filter:blur(20px)}
+.hs{padding:22px 16px;text-align:center;border-right:1px solid rgba(255,255,255,.07)}
+.hs:last-child{border:none}
+.hs-n{font-size:clamp(20px,3.5vw,32px);font-weight:700;color:var(--g2);line-height:1}
+.hs-l{font-size:10px;color:rgba(255,255,255,.5);margin-top:5px;text-transform:uppercase;letter-spacing:1.5px}
+@keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+section{padding:80px 0}
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+.sec-tag{display:inline-block;padding:3px 13px;border-radius:99px;background:var(--gl);color:var(--g);font-size:10.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px}
+.sec-h{font-family:"DM Serif Display",serif;font-size:clamp(24px,3.8vw,40px);color:var(--t1);line-height:1.2;margin-bottom:12px}
+.sec-p{font-size:14.5px;color:var(--t2);max-width:540px;line-height:1.75}
+.reveal{opacity:0;transform:translateY(28px);transition:all .55s ease}
+.reveal.vis{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}
+
+#about{background:#fff}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.about-feats{display:flex;flex-direction:column;gap:14px;margin-top:28px}
+.af{display:flex;align-items:flex-start;gap:14px;padding:16px 18px;border-radius:10px;border:1px solid var(--bd);background:var(--bg);transition:all .2s}
+.af:hover{border-color:var(--g);box-shadow:0 4px 18px #1a7a4a0e}
+.af-icon{width:38px;height:38px;border-radius:9px;background:var(--gl);color:var(--g);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.af-t{font-size:13.5px;font-weight:700;margin-bottom:3px}
+.af-d{font-size:12.5px;color:var(--t2);line-height:1.55}
+.av{background:linear-gradient(140deg,var(--gd) 0%,#1a5c37 100%);border-radius:18px;padding:40px 36px;color:#fff;box-shadow:0 24px 56px #1a7a4a2e;position:relative;overflow:hidden}
+.av::before{content:'';position:absolute;top:-50px;right:-50px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.04)}
+.av::after{content:'';position:absolute;bottom:-60px;left:-30px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,.04)}
+.av-label{font-size:9.5px;letter-spacing:2.5px;text-transform:uppercase;opacity:.55;margin-bottom:7px}
+.av-title{font-family:"DM Serif Display",serif;font-size:26px;line-height:1.25;margin-bottom:26px}
+.av-row{display:flex;align-items:center;gap:11px;padding:11px 14px;border-radius:9px;background:rgba(255,255,255,.08);font-size:12.5px;margin-bottom:10px;position:relative;z-index:2}
+.av-row:last-child{margin:0}
+.av-row svg{width:16px;height:16px;color:var(--g2);flex-shrink:0}
+
+#products{background:var(--bg)}
+.prod-head{text-align:center;margin-bottom:48px}
+.prod-head .sec-p{margin:0 auto}
+.cats{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.cat{border-radius:var(--r);border:1px solid var(--bd);background:var(--card);overflow:hidden;transition:all .25s}
+.cat:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(0,0,0,.09);border-color:transparent}
+.cat-head{padding:24px 24px 18px;border-bottom:1px solid var(--bd)}
+.cat-icon-wrap{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.cat-icon{width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.cat-name{font-size:16px;font-weight:700;line-height:1.2}
+.cat-sub{font-size:12px;color:var(--t2);margin-top:3px}
+.cat-desc{font-size:12.5px;color:var(--t2);line-height:1.6}
+.cat-body{padding:18px 24px 22px}
+.grades-wrap{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px}
+.grade{padding:5px 11px;border-radius:8px;font-size:12px;font-weight:700;border:1px solid;white-space:nowrap}
+.size-rows{display:flex;flex-direction:column;gap:6px}
+.size-row{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:8px;font-size:11.5px}
+.size-icon{font-size:14px;flex-shrink:0}
+.size-label{font-weight:700;white-space:nowrap}
+.size-val{color:var(--t2)}
+
+.cat-plastic .cat:hover{box-shadow:0 14px 40px #16a34a18}
+.cat-plastic .cat-head{background:linear-gradient(135deg,#f0fdf4,#dcfce7)}
+.cat-plastic .cat-icon{background:#bbf7d0;color:#15803d}
+.cat-plastic .cat-name{color:#14532d}
+.cat-plastic .grade{background:#f0fdf4;color:#166534;border-color:#bbf7d0}
+.cat-plastic .size-row{background:#f0fdf4}
+
+.cat-cold .cat:hover{box-shadow:0 14px 40px #1d4ed818}
+.cat-cold .cat-head{background:linear-gradient(135deg,#eff6ff,#dbeafe)}
+.cat-cold .cat-icon{background:#bfdbfe;color:#1d4ed8}
+.cat-cold .cat-name{color:#1e3a8a}
+.cat-cold .grade{background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe}
+.cat-cold .size-row{background:#eff6ff}
+
+.cat-hot .cat:hover{box-shadow:0 14px 40px #c2410c18}
+.cat-hot .cat-head{background:linear-gradient(135deg,#fff7ed,#fed7aa)}
+.cat-hot .cat-icon{background:#fed7aa;color:#c2410c}
+.cat-hot .cat-name{color:#7c2d12}
+.cat-hot .grade{background:#fff7ed;color:#c2410c;border-color:#fed7aa}
+.cat-hot .size-row{background:#fff7ed}
+
+.cat-carbon .cat:hover{box-shadow:0 14px 40px #37415118}
+.cat-carbon .cat-head{background:linear-gradient(135deg,#f9fafb,#f3f4f6)}
+.cat-carbon .cat-icon{background:#e5e7eb;color:#374151}
+.cat-carbon .cat-name{color:#111827}
+.cat-carbon .grade{background:#f3f4f6;color:#374151;border-color:#e5e7eb}
+.cat-carbon .size-row{background:#f9fafb}
+
+.cat-alu .cat:hover{box-shadow:0 14px 40px #b4530018}
+.cat-alu .cat-head{background:linear-gradient(135deg,#fefce8,#fef08a)}
+.cat-alu .cat-icon{background:#fde68a;color:#92400e}
+.cat-alu .cat-name{color:#713f12}
+.cat-alu .grade{background:#fefce8;color:#92400e;border-color:#fde68a}
+.cat-alu .size-row{background:#fefce8}
+
+.cat-copper .cat:hover{box-shadow:0 14px 40px #c2410c18}
+.cat-copper .cat-head{background:linear-gradient(135deg,#fff3e0,#ffe0b2)}
+.cat-copper .cat-icon{background:#ffcc80;color:#bf360c}
+.cat-copper .cat-name{color:#bf360c}
+.cat-copper .grade{background:#fff3e0;color:#bf360c;border-color:#ffcc80}
+.cat-copper .size-row{background:#fff3e0}
+
+#services{background:#fff}
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:40px}
+.svc{padding:24px 22px;border-radius:var(--r);border:1px solid var(--bd);transition:all .2s}
+.svc:hover{border-color:var(--g);box-shadow:0 6px 24px #1a7a4a0e;transform:translateY(-2px)}
+.svc-ico{font-size:28px;margin-bottom:12px}
+.svc-t{font-size:14px;font-weight:700;margin-bottom:6px}
+.svc-d{font-size:12.5px;color:var(--t2);line-height:1.6}
+
+#contact{background:var(--gd);position:relative;overflow:hidden}
+#contact::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:30px 30px}
+.contact-wrap{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.cl .sec-tag{background:rgba(255,255,255,.12);color:rgba(255,255,255,.8)}
+.cl .sec-h{color:#fff}
+.cl .sec-p{color:rgba(255,255,255,.62)}
+.chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:22px}
+.chip{padding:8px 14px;border-radius:99px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.72);font-size:11.5px}
+.ccard{background:rgba(255,255,255,.07);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:32px;display:flex;flex-direction:column;gap:16px}
+.ci{display:flex;align-items:center;gap:14px;padding:14px 18px;border-radius:11px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.07);transition:all .2s}
+.ci:hover{background:rgba(255,255,255,.11);border-color:rgba(255,255,255,.18)}
+.ci-ico{width:44px;height:44px;border-radius:11px;background:var(--g);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px #1a7a4a55}
+.ci-ico svg{width:20px;height:20px;color:#fff}
+.ci-l{font-size:10px;color:rgba(255,255,255,.45);letter-spacing:1px;text-transform:uppercase;margin-bottom:3px}
+.ci-v{font-size:16px;font-weight:700;color:#fff}
+.ci-v a{color:#fff}
+.ci-v a:hover{color:var(--g2)}
+.cta-btn{display:flex;align-items:center;justify-content:center;gap:10px;padding:15px;border-radius:11px;background:var(--g);color:#fff;font-size:15px;font-weight:700;box-shadow:0 6px 20px #1a7a4a55;transition:all .2s}
+.cta-btn:hover{background:#22a05e;transform:translateY(-2px);box-shadow:0 10px 28px #1a7a4a77}
+.cta-btn svg{width:20px;height:20px}
+
+footer{background:#081f0f;padding:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.ft-l{font-size:12.5px;color:rgba(255,255,255,.45)}
+.ft-l strong{color:rgba(255,255,255,.75)}
+.ft-r{font-size:11px;color:rgba(255,255,255,.28)}
+
+@media(max-width:900px){
+  .cats{grid-template-columns:1fr}
+  .about-grid{grid-template-columns:1fr;gap:32px}
+  .contact-wrap{grid-template-columns:1fr}
+  .hero-stats{grid-template-columns:repeat(2,1fr)}
+  .hs:nth-child(2){border-right:none}
+}
+@media(max-width:640px){
+  .nav{padding:12px 18px}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .hero-stats{grid-template-columns:1fr 1fr}
+  .hs{padding:16px 10px}
+}
+@media(max-width:420px){
+  .hero-stats{grid-template-columns:1fr}
+  .hs{border-right:none;border-bottom:1px solid rgba(255,255,255,.07)}
+}
+</style>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js" type="text/javascript"></script>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="/_sdk/resizing_sdk.js" type="text/javascript"></script>
+ </head>
+ <body data-template-id="__page-root" class="w-full" style="background: rgb(247, 248, 246);">
+  <nav class="nav" id="nav">
+   <div class="nav-logo">
+    <div class="nav-logo-box">
+     ⚙
+    </div>
+    <div class="nav-brand">
+     
+      <small>Thép làm Khuôn &amp; Công Cụ</small>
+    </div>
+   </div>
+   <div class="nav-links"><a href="#about">Giới thiệu</a> <a href="#products">Sản phẩm</a> <a href="#services">Dịch vụ</a> <a href="#contact">Liên hệ</a>
+   </div><a class="nav-call" href="tel:0938184590">
+    <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" stroke="currentColor" viewBox="0 0 24 24">
+     <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.01 2.18 2 2 0 012 0h3a2 2 0 012 1.72c.127 1.044.363 2.072.7 3.07a2 2 0 01-.45 2.11L6.09 8.09a16 16 0 006.82 6.82l1.27-1.27a2 2 0 012.11-.45c1 .337 2.026.573 3.07.7A2 2 0 0122 16.92z"></path>
+    </svg> 093 818 4590 </a>
+   <div class="hamburger" id="hbg" onclick="toggleMenu()"><span></span><span></span><span></span>
+   </div>
+  </nav>
+  <div class="mobile-menu" id="mmenu"><a href="#about" onclick="toggleMenu()">Giới thiệu</a> <a href="#products" onclick="toggleMenu()">Sản phẩm</a> <a href="#services" onclick="toggleMenu()">Dịch vụ</a> <a href="#contact" onclick="toggleMenu()">Liên hệ</a> <a href="tel:0938184590" style="color:var(--g2);font-size:17px;font-weight:700;margin-top:8px">📞 093 818 4590</a>
+  </div><!-- HERO -->
+  <header class="hero">
+   <div class="hero-body">
+    <div class="hero-pill">
+     <span class="blink"></span> <span data-template-id="hero-pill-text" class="canva-text" style="color: rgb(255, 255, 255); font-weight: 400; font-style: normal; font-size: 14px;">Hàng sẵn kho — Giao toàn quốc</span>
+    </div>
+    <h1 data-template-id="hero-heading" class="canva-text hero-h1" style="color: rgb(255, 255, 255); font-weight: 400; font-style: normal; font-size: 28px;">Phôi Thép Khuôn Mẫu
+Chất Lượng — Đúng Kỹ Thuật</h1>
+    <p data-template-id="hero-subtext" class="canva-text hero-p" style="color: rgba(255, 255, 255, 0.68); font-weight: 400; font-style: normal; font-size: 14px;">Chuyên thép làm khuôn, thép công cụ, thép chế tạo máy. Tư vấn chọn mác đúng kỹ thuật, gia công nhiệt luyện tận nơi.</p>
+    <div class="hero-tags"><span class="hero-tag">🔩 Thép khuôn mẫu</span> <span class="hero-tag">🔧 Thép công cụ</span> <span class="hero-tag">⚙️ Thép chế tạo máy</span> <span class="hero-tag">🏭 Phay 6 mặt</span> <span class="hero-tag">🔥 Nhiệt luyện chân không</span> <span class="hero-tag">📐 Vỏ khuôn phi tiêu chuẩn</span>
+    </div>
+    <div class="hero-btns"><a data-template-id="hero-btn-products" class="canva-button btn-w" href="#products" style="background: rgb(255, 255, 255); color: rgb(15, 85, 51); font-weight: 700; font-style: normal; font-size: 14px;">Xem Sản Phẩm Sẵn Kho</a> <a data-template-id="hero-btn-call" class="canva-button btn-o" href="tel:0938184590" style="color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 14px;">Gọi Ngay</a>
+    </div>
+   </div>
+   <div class="hero-stats">
+    <div class="hs">
+     <div class="hs-n">
+      50+
+     </div>
+     <div class="hs-l">
+      Mác thép sẵn kho
+     </div>
+    </div>
+    <div class="hs">
+     <div class="hs-n">
+      10+
+     </div>
+     <div class="hs-l">
+      Năm kinh nghiệm
+     </div>
+    </div>
+    <div class="hs">
+     <div class="hs-n">
+      Ø300
+     </div>
+     <div class="hs-l">
+      Max phi tròn (mm)
+     </div>
+    </div>
+    <div class="hs">
+     <div class="hs-n">
+      24/7
+     </div>
+     <div class="hs-l">
+      Tư vấn kỹ thuật
+     </div>
+    </div>
+   </div>
+  </header><!-- ABOUT -->
+  <section id="about">
+   <div class="wrap">
+    <div class="about-grid">
+     <div><span data-template-id="about-tag" class="canva-tag sec-tag reveal" style="background: rgb(232, 245, 238); color: rgb(26, 122, 74); font-weight: 700; font-style: normal; font-size: 14px;">Về chúng tôi</span>
+      <h2 data-template-id="about-heading" class="canva-text sec-h reveal d1" style="color: rgb(17, 24, 39); font-weight: 400; font-style: normal; font-size: 21px;">Đối Tác Thép Tin Cậy
+Của Ngành Khuôn Mẫu</h2>
+      <p data-template-id="about-desc" class="canva-text sec-p reveal d2" style="color: rgb(75, 85, 99); font-weight: 400; font-style: normal; font-size: 14px;">Thép khuôn mẫu chuyên cung cấp thép làm khuôn, thép công cụ, thép chế tạo máy nhập khẩu có chứng chỉ CO/CQ từ Nhật, Hàn, Châu Âu và Trung Quốc. Chúng tôi tư vấn chọn đúng mác thép theo từng ứng dụng — không bán nhầm, không tư vấn sai.</p>
+      <div class="about-feats">
+       <div class="af reveal d2">
+        <div class="af-icon">
+         📦
+        </div>
+        <div>
+         <div data-template-id="about-feat1-title" class="canva-text af-t" style="color: rgb(17, 24, 39); font-weight: 700; font-style: normal; font-size: 14px;">Hàng sẵn kho số lượng lớn</div>
+         <div data-template-id="about-feat1-desc" class="canva-text af-d" style="color: rgb(75, 85, 99); font-weight: 400; font-style: normal; font-size: 14px;">Phi tròn, tấm dày đa dạng kích thước — giao nhanh trong ngày tại TP.HCM và toàn quốc</div>
+        </div>
+       </div>
+       <div class="af reveal d3">
+        <div class="af-icon">
+         🔬
+        </div>
+        <div>
+         <div data-template-id="about-feat2-title" class="canva-text af-t" style="color: rgb(17, 24, 39); font-weight: 700; font-style: normal; font-size: 14px;">Tư vấn kỹ thuật miễn phí</div>
+         <div data-template-id="about-feat2-desc" class="canva-text af-d" style="color: rgb(75, 85, 99); font-weight: 400; font-style: normal; font-size: 14px;">Tư vấn chọn mác thép đúng độ cứng, độ dai, chống ăn mòn theo yêu cầu từng khuôn</div>
+        </div>
+       </div>
+       <div class="af reveal d4">
+        <div class="af-icon">
+         ⚙️
+        </div>
+        <div>
+         <div data-template-id="about-feat3-title" class="canva-text af-t" style="color: rgb(17, 24, 39); font-weight: 700; font-style: normal; font-size: 14px;">Gia công &amp; nhiệt luyện trọn gói</div>
+         <div data-template-id="about-feat3-desc" class="canva-text af-d" style="color: rgb(75, 85, 99); font-weight: 400; font-style: normal; font-size: 14px;">Phay 6 mặt, mài phẳng, CNC theo bản vẽ — tôi chân không, lò ram, thấm ni-tơ tại xưởng</div>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="av reveal d2">
+      <div class="av-label">
+       Nguồn gốc &amp; Chứng nhận
+      </div>
+      <div data-template-id="about-cert-title" class="canva-text av-title" style="color: rgb(255, 255, 255); font-weight: 400; font-style: normal; font-size: 14px;">Thép có mill test report — CO/CQ đầy đủ</div>
+      <div class="av-row">
+       <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" stroke="currentColor" viewBox="0 0 24 24">
+        <polyline points="20 6 9 17 4 12"></polyline>
+       </svg>🇯🇵 Daido · Hitachi · Sanyo — Nhật Bản
+      </div>
+      <div class="av-row">
+       <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" stroke="currentColor" viewBox="0 0 24 24">
+        <polyline points="20 6 9 17 4 12"></polyline>
+       </svg>🇦🇹 Böhler · 🇸🇪 Uddeholm — Châu Âu
+      </div>
+      <div class="av-row">
+       <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" stroke="currentColor" viewBox="0 0 24 24">
+        <polyline points="20 6 9 17 4 12"></polyline>
+       </svg>🇰🇷 POSCO · Hyundai Steel — Hàn Quốc
+      </div>
+      <div class="av-row">
+       <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" stroke="currentColor" viewBox="0 0 24 24">
+        <polyline points="20 6 9 17 4 12"></polyline>
+       </svg>🇨🇳 Daye · Fushun · CITIC — Trung Quốc
+      </div>
+      <div class="av-row">
+       <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" stroke="currentColor" viewBox="0 0 24 24">
+        <polyline points="20 6 9 17 4 12"></polyline>
+       </svg>📋 Vỏ khuôn (mold-base) phi tiêu chuẩn theo yêu cầu
+      </div>
+     </div>
+    </div>
+   </div>
+  </section><!-- PRODUCTS -->
+  <section id="products">
+   <div class="wrap">
+    <div class="prod-head"><span data-template-id="products-tag" class="canva-tag sec-tag reveal" style="background: rgb(232, 245, 238); color: rgb(26, 122, 74); font-weight: 700; font-style: normal; font-size: 14px;">Sản phẩm sẵn kho</span>
+     <h2 data-template-id="products-heading" class="canva-text sec-h reveal d1" style="color: rgb(17, 24, 39); font-weight: 400; font-style: normal; font-size: 21px;">Mác Thép Instock</h2>
+     <p data-template-id="products-desc" class="canva-text sec-p reveal d2" style="color: rgb(75, 85, 99); font-weight: 400; font-style: normal; font-size: 14px;">Phân loại theo mục đích sử dụng — đủ kích thước tấm &amp; phi tròn</p>
+    </div>
+    <div class="cats" style="margin-bottom:24px">
+     <div class="cat-plastic reveal d1">
+      <div class="cat">
+       <div class="cat-head">
+        <div class="cat-icon-wrap">
+         <div class="cat-icon">
+          🟩
+         </div>
+         <div>
+          <div class="cat-name">
+           Thép Làm Khuôn Nhựa
+          </div>
+          <div class="cat-sub">
+           Plastic Mold Steel
+          </div>
+         </div>
+        </div>
+        <div class="cat-desc">
+         Pre-hardened &amp; tôi cứng, phù hợp khuôn ép nhựa thông thường đến khuôn PVC, khuôn yêu cầu đánh bóng gương
+        </div>
+       </div>
+       <div class="cat-body">
+        <div class="grades-wrap">
+         <span class="grade">SCM440</span><span class="grade">P20 / 1.2311</span><span class="grade">718H / 1.2738</span><span class="grade">NAK80</span><span class="grade">S136H / 1.2083</span><span class="grade">1.2316H</span>
+        </div>
+        <div class="size-rows">
+         <div class="size-row">
+          <span class="size-icon">🔵</span><span class="size-label">Phi tròn:</span><span class="size-val">Ø18–200mm · dài 5.800mm</span>
+         </div>
+         <div class="size-row">
+          <span class="size-icon">▪</span><span class="size-label">Tấm:</span><span class="size-val">dày 6–300mm · mặt 1.100mm · dài 2.200mm</span>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="cat-cold reveal d2">
+      <div class="cat">
+       <div class="cat-head">
+        <div class="cat-icon-wrap">
+         <div class="cat-icon">
+          🔷
+         </div>
+         <div>
+          <div class="cat-name">
+           Thép Làm Khuôn Dập Nguội
+          </div>
+          <div class="cat-sub">
+           Cold Work Die Steel
+          </div>
+         </div>
+        </div>
+        <div class="cat-desc">
+         Độ cứng cao, chịu mài mòn tốt cho khuôn dập tôn, khuôn đột lỗ, lưỡi cắt, khuôn ép bột
+        </div>
+       </div>
+       <div class="cat-body">
+        <div class="grades-wrap">
+         <span class="grade">Cr12MoV</span><span class="grade">SKD11</span><span class="grade">D2</span><span class="grade">DC53</span><span class="grade">A8MOD</span>
+        </div>
+        <div class="size-rows">
+         <div class="size-row">
+          <span class="size-icon">🔵</span><span class="size-label">Phi tròn:</span><span class="size-val">Ø10–400mm · dài 6.000mm</span>
+         </div>
+         <div class="size-row">
+          <span class="size-icon">▪</span><span class="size-label">Tấm:</span><span class="size-val">dày 6–200mm · mặt 610mm · dài 5.800mm</span>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="cat-hot reveal d3">
+      <div class="cat">
+       <div class="cat-head">
+        <div class="cat-icon-wrap">
+         <div class="cat-icon">
+          🔶
+         </div>
+         <div>
+          <div class="cat-name">
+           Thép Làm Khuôn Dập Nóng
+          </div>
+          <div class="cat-sub">
+           Hot Work Die Steel
+          </div>
+         </div>
+        </div>
+        <div class="cat-desc">
+         Chịu nhiệt độ cao, độ dai tốt cho khuôn rèn, đúc áp lực, khuôn nhôm ép nhiệt
+        </div>
+       </div>
+       <div class="cat-body">
+        <div class="grades-wrap">
+         <span class="grade">SKD61</span><span class="grade">1.2344</span><span class="grade">DK1S</span><span class="grade">FDAC</span>
+        </div>
+        <div class="size-rows">
+         <div class="size-row">
+          <span class="size-icon">🔵</span><span class="size-label">Phi tròn:</span><span class="size-val">Ø10–400mm · dài 6.000mm</span>
+         </div>
+         <div class="size-row">
+          <span class="size-icon">▪</span><span class="size-label">Tấm:</span><span class="size-val">dày 18–300mm · mặt 610mm · dài 5.800mm</span>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="cat-carbon reveal d4">
+      <div class="cat">
+       <div class="cat-head">
+        <div class="cat-icon-wrap">
+         <div class="cat-icon">
+          ⬛
+         </div>
+         <div>
+          <div class="cat-name">
+           Thép Carbon &amp; Kết Cấu
+          </div>
+          <div class="cat-sub">
+           Carbon / Structural Steel
+          </div>
+         </div>
+        </div>
+        <div class="cat-desc">
+         Thép carbon chất lượng cao cho trục, bánh răng, đế khuôn, chi tiết cơ khí chế tạo máy
+        </div>
+       </div>
+       <div class="cat-body">
+        <div class="grades-wrap">
+         <span class="grade">S45C</span><span class="grade">S50C</span><span class="grade">S55C</span><span class="grade">Q235</span>
+        </div>
+        <div class="size-rows">
+         <div class="size-row">
+          <span class="size-icon">🔵</span><span class="size-label">Phi tròn:</span><span class="size-val">Ø10–300mm · dài 6.000mm</span>
+         </div>
+         <div class="size-row">
+          <span class="size-icon">▪</span><span class="size-label">Tấm:</span><span class="size-val">dày 6–300mm · mặt 2.200mm · dài 6.000mm</span>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div class="cats">
+     <div class="cat-alu reveal d1">
+      <div class="cat">
+       <div class="cat-head">
+        <div class="cat-icon-wrap">
+         <div class="cat-icon">
+          🟡
+         </div>
+         <div>
+          <div class="cat-name">
+           Nhôm Hợp Kim
+          </div>
+          <div class="cat-sub">
+           Aluminium Alloy
+          </div>
+         </div>
+        </div>
+        <div class="cat-desc">
+         Nhôm kỹ thuật dùng trong khuôn, điện cực EDM, chi tiết máy nhẹ, hàng không, ô tô
+        </div>
+       </div>
+       <div class="cat-body">
+        <div class="grades-wrap">
+         <span class="grade">A5052</span><span class="grade">A6061 T6</span><span class="grade">A7075</span><span class="grade">A6063</span>
+        </div>
+        <div class="size-rows">
+         <div class="size-row">
+          <span class="size-icon">🔵</span><span class="size-label">Phi tròn / vuông:</span><span class="size-val">Nhiều quy cách, liên hệ báo giá</span>
+         </div>
+         <div class="size-row">
+          <span class="size-icon">▪</span><span class="size-label">Tấm:</span><span class="size-val">Nhiều độ dày, liên hệ báo giá</span>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="cat-copper reveal d2">
+      <div class="cat">
+       <div class="cat-head">
+        <div class="cat-icon-wrap">
+         <div class="cat-icon">
+          🟠
+         </div>
+         <div>
+          <div class="cat-name">
+           Đồng · Thau · Điện Cực
+          </div>
+          <div class="cat-sub">
+           Copper Alloy / Electrode
+          </div>
+         </div>
+        </div>
+        <div class="cat-desc">
+         Đồng nguyên chất, đồng thau, điện cực EDM dùng trong gia công khuôn và điện tử
+        </div>
+       </div>
+       <div class="cat-body">
+        <div class="grades-wrap">
+         <span class="grade">C1100</span><span class="grade">C3604</span><span class="grade">C37700</span>
+        </div>
+        <div class="size-rows">
+         <div class="size-row">
+          <span class="size-icon">🔵</span><span class="size-label">Phi tròn / thanh:</span><span class="size-val">Nhiều quy cách, liên hệ báo giá</span>
+         </div>
+         <div class="size-row">
+          <span class="size-icon">▪</span><span class="size-label">Tấm / điện cực:</span><span class="size-val">Nhiều độ dày, liên hệ báo giá</span>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section><!-- SERVICES -->
+  <section id="services">
+   <div class="wrap"><span data-template-id="services-tag" class="canva-tag sec-tag reveal" style="background: rgb(232, 245, 238); color: rgb(26, 122, 74); font-weight: 700; font-style: normal; font-size: 14px;">Dịch vụ</span>
+    <h2 data-template-id="services-heading" class="canva-text sec-h reveal d1" style="color: rgb(17, 24, 39); font-weight: 400; font-style: normal; font-size: 21px;">Gia Công &amp; Nhiệt Luyện</h2>
+    <p data-template-id="services-desc" class="canva-text sec-p reveal d2" style="color: rgb(75, 85, 99); font-weight: 400; font-style: normal; font-size: 14px;">Nhận gia công trọn gói tại xưởng — từ cắt phôi đến hoàn thiện sản phẩm theo bản vẽ</p>
+    <div class="svc-grid">
+     <div class="svc reveal d1">
+      <div class="svc-ico">
+       ✂️
+      </div>
+      <div data-template-id="svc1-title" class="canva-text svc-t" style="color: rgb(17, 24, 39); font-weight: 700; font-style: normal; font-size: 14px;">Cắt phôi theo yêu cầu</div>
+      <div data-template-id="svc1-desc" class="canva-text svc-d" style="color: rgb(75, 85, 99); font-weight: 400; font-style: normal; font-size: 14px;">Cắt tấm, cắt phi tròn theo kích thước đặt hàng. Dung sai ±0.5mm. Giao hàng nhanh.</div>
+     </div>
+     <div class="svc reveal d2">
+      <div class="svc-ico">
+       🏭
+      </div>
+      <div data-template-id="svc2-title" class="canva-text svc-t" style="color: rgb(17, 24, 39); font-weight: 700; font-style: normal; font-size: 14px;">Phay 6 mặt &amp; Phay CNC</div>
+      <div data-template-id="svc2-desc" class="canva-text svc-d" style="color: rgb(75, 85, 99); font-weight: 400; font-style: normal; font-size: 14px;">Phay 6 mặt phẳng, phay cạnh, phay theo bản vẽ CAD/CAM. Phí từ 0.8đ/mm².</div>
+     </div>
+     <div class="svc reveal d3">
+      <div class="svc-ico">
+       📐
+      </div>
+      <div data-template-id="svc3-title" class="canva-text svc-t" style="color: rgb(17, 24, 39); font-weight: 700; font-style: normal; font-size: 14px;">Mài phẳng</div>
+      <div data-template-id="svc3-desc" class="canva-text svc-d" style="color: rgb(75, 85, 99); font-weight: 400; font-style: normal; font-size: 14px;">Mài phẳng độ nhẵn Ra 0.8–1.6, đảm bảo song song và vuông góc theo yêu cầu.</div>
+     </div>
+     <div class="svc reveal d4">
+      <div class="svc-ico">
+       🔥
+      </div>
+      <div data-template-id="svc4-title" class="canva-text svc-t" style="color: rgb(17, 24, 39); font-weight: 700; font-style: normal; font-size: 14px;">Tôi chân không</div>
+      <div data-template-id="svc4-desc" class="canva-text svc-d" style="color: rgb(75, 85, 99); font-weight: 400; font-style: normal; font-size: 14px;">Xử lý nhiệt lò chân không đảm bảo không bị oxy hóa, biến dạng tối thiểu. 30.000đ/kg.</div>
+     </div>
+     <div class="svc reveal d2">
+      <div class="svc-ico">
+       🌡️
+      </div>
+      <div data-template-id="svc5-title" class="canva-text svc-t" style="color: rgb(17, 24, 39); font-weight: 700; font-style: normal; font-size: 14px;">Lò Ram (Tempering)</div>
+      <div data-template-id="svc5-desc" class="canva-text svc-d" style="color: rgb(75, 85, 99); font-weight: 400; font-style: normal; font-size: 14px;">Ram giảm ứng suất sau tôi, đạt độ cứng đúng thiết kế theo yêu cầu kỹ thuật.</div>
+     </div>
+     <div class="svc reveal d3">
+      <div class="svc-ico">
+       🧲
+      </div>
+      <div data-template-id="svc6-title" class="canva-text svc-t" style="color: rgb(17, 24, 39); font-weight: 700; font-style: normal; font-size: 14px;">Thấm Ni-tơ</div>
+      <div data-template-id="svc6-desc" class="canva-text svc-d" style="color: rgb(75, 85, 99); font-weight: 400; font-style: normal; font-size: 14px;">Thấm ni-tơ bề mặt đạt 65–72 HRC, tăng độ bền mài mòn. 45.000đ/kg.</div>
+     </div>
+     <div class="svc reveal d1">
+      <div class="svc-ico">
+       📦
+      </div>
+      <div data-template-id="svc7-title" class="canva-text svc-t" style="color: rgb(17, 24, 39); font-weight: 700; font-style: normal; font-size: 14px;">Vỏ Khuôn Phi Tiêu Chuẩn</div>
+      <div data-template-id="svc7-desc" class="canva-text svc-d" style="color: rgb(75, 85, 99); font-weight: 400; font-style: normal; font-size: 14px;">Gia công vỏ khuôn (mold-base) theo bản vẽ riêng. Vật liệu SCM440, S45C, P20...</div>
+     </div>
+     <div class="svc reveal d2">
+      <div class="svc-ico">
+       🔩
+      </div>
+      <div data-template-id="svc8-title" class="canva-text svc-t" style="color: rgb(17, 24, 39); font-weight: 700; font-style: normal; font-size: 14px;">Tư Vấn Kỹ Thuật</div>
+      <div data-template-id="svc8-desc" class="canva-text svc-d" style="color: rgb(75, 85, 99); font-weight: 400; font-style: normal; font-size: 14px;">Hỗ trợ chọn mác thép, độ cứng, quy trình nhiệt luyện phù hợp với từng loại khuôn.</div>
+     </div>
+    </div>
+   </div>
+  </section><!-- CONTACT -->
+  <section id="contact">
+   <div class="wrap">
+    <div class="contact-wrap">
+     <div class="cl"><span data-template-id="contact-tag" class="canva-tag sec-tag reveal" style="color: rgba(255, 255, 255, 0.8); font-weight: 400; font-style: normal; font-size: 14px;">Liên hệ</span>
+      <h2 data-template-id="contact-heading" class="canva-text sec-h reveal d1" style="color: rgb(255, 255, 255); font-weight: 400; font-style: normal; font-size: 21px;">Báo Giá Nhanh
+Trong Ngày</h2>
+      <p data-template-id="contact-desc" class="canva-text sec-p reveal d2" style="color: rgba(255, 255, 255, 0.62); font-weight: 400; font-style: normal; font-size: 14px;">Gọi hoặc nhắn Zalo để được tư vấn kỹ thuật và báo giá tốt nhất. Kho tại TP.HCM — giao toàn quốc.<br>Email: <a class="info-row" href="mailto:info@thepkhuonmau.com" style="text-decoration:none"><i class="ti ti-mail"></i>info@thepkhuonmau.com</a></p>
+      <div class="chips reveal d3"><span class="chip">📍 TP. Hồ Chí Minh</span> <span class="chip">🚚 Giao toàn quốc</span> <span class="chip">💬 Tư vấn Zalo</span> <span class="chip"><a href="https://www.thepkhuonmau.com/p/ho-so-nang-luc.html">⚡ Hồ sơ năng lực</a></span> <span class="chip">📋 CO/CQ đầy đủ</span>
+      </div>
+     </div>
+     <div class="ccard reveal d2">
+      <div class="ci">
+       <div class="ci-ico">
+        <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" stroke="currentColor" viewBox="0 0 24 24">
+         <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.01 2.18 2 2 0 012 0h3a2 2 0 012 1.72c.127 1.044.363 2.072.7 3.07a2 2 0 01-.45 2.11L6.09 8.09a16 16 0 006.82 6.82l1.27-1.27a2 2 0 012.11-.45c1 .337 2.026.573 3.07.7A2 2 0 0122 16.92z"></path>
+        </svg>
+       </div>
+       <div>
+        <div class="ci-l">
+         Điện thoại / Zalo
+        </div>
+        <div data-template-id="contact-phone" class="canva-text ci-v" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 14px;">093 8184 590</div>
+       </div>
+      </div>
+      <div class="ci">
+       <div class="ci-ico">
+        <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" stroke="currentColor" viewBox="0 0 24 24">
+         <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path><circle cx="12" cy="7" r="4"></circle>
+        </svg>
+       </div>
+       <div>
+        <div class="ci-l">
+         Người phụ trách
+        </div>
+        <div data-template-id="contact-person" class="canva-text ci-v" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 14px;">Mr. Thành</div>
+       </div>
+      </div>
+      <div class="ci">
+       <div class="ci-ico">
+        <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" stroke="currentColor" viewBox="0 0 24 24">
+         <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"></path>
+        </svg>
+       </div>
+       <div>
+        <div class="ci-l">
+         Công ty
+        </div>
+        <div data-template-id="contact-company" class="canva-text ci-v" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 14px;">Thép khuôn mẫu</div>
+       </div>
+      </div><a data-template-id="contact-cta" class="canva-button cta-btn" href="tel:0938184590" style="background: rgb(26, 122, 74); color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 14px;">Gọi Ngay — 093 818 4590</a>
+     </div>
+    </div>
+   </div>
+  </section>
+  <footer>
+   <div data-template-id="footer-text" class="canva-text ft-l" style="color: rgba(255, 255, 255, 0.45); font-weight: 400; font-style: normal; font-size: 14px;">Thép khuôn mẫu — Thép làm Khuôn &amp; Công Cụ · Website liên kết <a href="http://www.xn--nhunpht-mwa2679d.vn/#gsc.tab=0" >www.nhuậnphát.vn</a></div>
+   <div class="ft-r">
+    Designed with ✦ Claude AI - Optimized by ✦ Canva
+   </div>
+  </footer>
+  <script src="/_sdk/editing_sdk.js"></script>
+  <script>
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')})},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+function toggleMenu(){document.getElementById('mmenu').classList.toggle('open')}
+
+const secs=document.querySelectorAll('section[id]');
+const navAs=document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  secs.forEach(s=>{if(window.scrollY>=s.offsetTop-80)cur=s.id});
+  navAs.forEach(a=>{
+    const active=a.getAttribute('href')==='#'+cur;
+    a.style.color=active?'#fff':'rgba(255,255,255,.72)';
+    a.style.fontWeight=active?'700':'500';
+  });
+},{passive:true});
+</script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9fe7bbc2f2eb109f',t:'MTc3OTI0MjI3Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+</body></html>
