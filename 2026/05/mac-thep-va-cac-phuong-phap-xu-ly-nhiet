@@ -1,0 +1,289 @@
+
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{font-family:'Open Sans',sans-serif;box-sizing:border-box}
+.wrap{padding:4px 0 16px}
+.method-tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.mtab{padding:6px 16px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;border:1.5px solid transparent;transition:all .15s;background:var(--color-background-secondary);color:var(--color-text-secondary)}
+.mtab:hover{border-color:var(--color-border-secondary)}
+.mtab.active{color:#fff}
+.mtab.vac.active{background:#0C447C;border-color:#0C447C}
+.mtab.oil.active{background:#633806;border-color:#633806}
+.mtab.ind.active{background:#085041;border-color:#085041}
+.mtab.nit.active{background:#3C3489;border-color:#3C3489}
+.mtab.all.active{background:var(--color-text-primary);border-color:var(--color-text-primary);color:var(--color-background-primary)}
+.section-title{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--color-text-secondary);margin:18px 0 8px;padding-bottom:4px;border-bottom:1px solid var(--color-border-tertiary)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
+.card{border:1px solid var(--color-border-tertiary);border-radius:10px;padding:10px 12px;background:var(--color-background-primary)}
+.card-name{font-size:13px;font-weight:600;color:var(--color-text-primary);margin-bottom:4px}
+.card-sub{font-size:11px;color:var(--color-text-secondary);margin-bottom:6px;line-height:1.4}
+.pills{display:flex;flex-wrap:wrap;gap:3px}
+.pill{font-size:10px;font-weight:600;padding:2px 7px;border-radius:20px;white-space:nowrap}
+.p-vac{background:#E6F1FB;color:#0C447C}
+.p-oil{background:#FAEEDA;color:#633806}
+.p-ind{background:#E1F5EE;color:#085041}
+.p-nit{background:#EEEDFE;color:#3C3489}
+@media(prefers-color-scheme:dark){
+  .p-vac{background:#0C447C;color:#B5D4F4}
+  .p-oil{background:#633806;color:#FAC775}
+  .p-ind{background:#085041;color:#9FE1CB}
+  .p-nit{background:#3C3489;color:#CECBF6}
+}
+.card.hidden{display:none}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;align-items:center;font-size:11px;color:var(--color-text-secondary)}
+.legend-item{display:flex;align-items:center;gap:5px}
+.no-result{text-align:center;padding:32px;font-size:13px;color:var(--color-text-secondary);display:none}
+.note-box{background:var(--color-background-secondary);border-radius:8px;padding:10px 14px;margin-top:14px;font-size:11.5px;color:var(--color-text-secondary);line-height:1.6}
+.note-box b{font-weight:600;color:var(--color-text-primary)}
+</style>
+
+<div class="wrap">
+  <div class="legend">
+    <span class="legend-item"><span class="pill p-vac">Chân không</span></span>
+    <span class="legend-item"><span class="pill p-oil">Nhiệt dầu</span></span>
+    <span class="legend-item"><span class="pill p-ind">Cao tần</span></span>
+    <span class="legend-item"><span class="pill p-nit">Thấm Nitơ</span></span>
+  </div>
+
+  <div class="method-tabs">
+    <button class="mtab all active" onclick="filter('all',this)">Tất cả</button>
+    <button class="mtab vac" onclick="filter('vac',this)">🔵 Chân không</button>
+    <button class="mtab oil" onclick="filter('oil',this)">🟡 Nhiệt dầu</button>
+    <button class="mtab ind" onclick="filter('ind',this)">🟢 Cao tần</button>
+    <button class="mtab nit" onclick="filter('nit',this)">🟣 Thấm Nitơ</button>
+  </div>
+
+  <!-- Nhóm 1 -->
+  <div class="section-title" data-group>Thép carbon trung bình – cao</div>
+  <div class="cards">
+    <div class="card" data-methods="oil ind nit">
+      <div class="card-name">S45C</div>
+      <div class="card-sub">HRC 45–55 sau tôi · vỏ khuôn, trục</div>
+      <div class="pills"><span class="pill p-oil">Nhiệt dầu</span><span class="pill p-ind">Cao tần</span><span class="pill p-nit">Thấm Nitơ</span></div>
+    </div>
+    <div class="card" data-methods="oil ind nit">
+      <div class="card-name">S50C</div>
+      <div class="card-sub">Carbon cao hơn S45C, bền hơn</div>
+      <div class="pills"><span class="pill p-oil">Nhiệt dầu</span><span class="pill p-ind">Cao tần</span><span class="pill p-nit">Thấm Nitơ</span></div>
+    </div>
+    <div class="card" data-methods="oil ind nit">
+      <div class="card-name">S55C</div>
+      <div class="card-sub">Độ bền cao, tôi bề mặt tốt</div>
+      <div class="pills"><span class="pill p-oil">Nhiệt dầu</span><span class="pill p-ind">Cao tần</span><span class="pill p-nit">Thấm Nitơ</span></div>
+    </div>
+    <div class="card" data-methods="oil">
+      <div class="card-name">SUJ2</div>
+      <div class="card-sub">Thép vòng bi · HRC 62–64</div>
+      <div class="pills"><span class="pill p-oil">Nhiệt dầu</span></div>
+    </div>
+    <div class="card" data-methods="oil ind nit">
+      <div class="card-name">C45 / 1045</div>
+      <div class="card-sub">AISI/DIN · tương đương S45C</div>
+      <div class="pills"><span class="pill p-oil">Nhiệt dầu</span><span class="pill p-ind">Cao tần</span><span class="pill p-nit">Thấm Nitơ</span></div>
+    </div>
+    <div class="card" data-methods="oil">
+      <div class="card-name">45# / 50# (GB)</div>
+      <div class="card-sub">Thép kết cấu carbon Trung Quốc</div>
+      <div class="pills"><span class="pill p-oil">Nhiệt dầu</span></div>
+    </div>
+  </div>
+
+  <!-- Nhóm 2 -->
+  <div class="section-title" data-group>Thép hợp kim kết cấu</div>
+  <div class="cards">
+    <div class="card" data-methods="oil vac nit">
+      <div class="card-name">SCM440</div>
+      <div class="card-sub">Cr-Mo · tôi sâu · HRC 28–56</div>
+      <div class="pills"><span class="pill p-oil">Nhiệt dầu</span><span class="pill p-vac">Chân không</span><span class="pill p-nit">Thấm Nitơ</span></div>
+    </div>
+    <div class="card" data-methods="oil vac nit">
+      <div class="card-name">4140 / 42CrMo4</div>
+      <div class="card-sub">AISI/DIN · tương đương SCM440</div>
+      <div class="pills"><span class="pill p-oil">Nhiệt dầu</span><span class="pill p-vac">Chân không</span><span class="pill p-nit">Thấm Nitơ</span></div>
+    </div>
+    <div class="card" data-methods="oil nit">
+      <div class="card-name">40Cr / 42CrMo (GB)</div>
+      <div class="card-sub">Thép hợp kim GB Trung Quốc</div>
+      <div class="pills"><span class="pill p-oil">Nhiệt dầu</span><span class="pill p-nit">Thấm Nitơ</span></div>
+    </div>
+    <div class="card" data-methods="oil">
+      <div class="card-name">SKS3</div>
+      <div class="card-sub">Dụng cụ cắt, khuôn dập nguội nhẹ</div>
+      <div class="pills"><span class="pill p-oil">Nhiệt dầu</span></div>
+    </div>
+  </div>
+
+  <!-- Nhóm 3 -->
+  <div class="section-title" data-group>Thép khuôn dập nguội (gia công trước khi tôi)</div>
+  <div class="cards">
+    <div class="card" data-methods="vac oil">
+      <div class="card-name">SKD11</div>
+      <div class="card-sub">JIS · HRC 58–62 · khuôn dập nguội</div>
+      <div class="pills"><span class="pill p-vac">Chân không ★</span><span class="pill p-oil">Nhiệt dầu</span></div>
+    </div>
+    <div class="card" data-methods="vac oil">
+      <div class="card-name">SKD11HQ</div>
+      <div class="card-sub">Chất lượng cao · biến dạng thấp</div>
+      <div class="pills"><span class="pill p-vac">Chân không ★</span><span class="pill p-oil">Nhiệt dầu</span></div>
+    </div>
+    <div class="card" data-methods="vac oil">
+      <div class="card-name">D2</div>
+      <div class="card-sub">AISI · tương đương SKD11</div>
+      <div class="pills"><span class="pill p-vac">Chân không ★</span><span class="pill p-oil">Nhiệt dầu</span></div>
+    </div>
+    <div class="card" data-methods="vac">
+      <div class="card-name">DC53</div>
+      <div class="card-sub">Biến dạng nhỏ · ít nứt sau tôi</div>
+      <div class="pills"><span class="pill p-vac">Chân không ★</span></div>
+    </div>
+    <div class="card" data-methods="vac oil">
+      <div class="card-name">Cr12MoV (GB)</div>
+      <div class="card-sub">GB · tương đương SKD11/D2</div>
+      <div class="pills"><span class="pill p-vac">Chân không</span><span class="pill p-oil">Nhiệt dầu</span></div>
+    </div>
+    <div class="card" data-methods="vac oil">
+      <div class="card-name">1.2379 (DIN)</div>
+      <div class="card-sub">DIN · tương đương SKD11</div>
+      <div class="pills"><span class="pill p-vac">Chân không</span><span class="pill p-oil">Nhiệt dầu</span></div>
+    </div>
+    <div class="card" data-methods="vac oil">
+      <div class="card-name">SKS93</div>
+      <div class="card-sub">JIS · khuôn dập nguội nhẹ</div>
+      <div class="pills"><span class="pill p-vac">Chân không</span><span class="pill p-oil">Nhiệt dầu</span></div>
+    </div>
+    <div class="card" data-methods="vac oil">
+      <div class="card-name">SK3 / SK4</div>
+      <div class="card-sub">Thép carbon dụng cụ · dao cắt</div>
+      <div class="pills"><span class="pill p-oil">Nhiệt dầu</span><span class="pill p-vac">Chân không</span></div>
+    </div>
+  </div>
+
+  <!-- Nhóm 4 -->
+  <div class="section-title" data-group>Thép khuôn nóng</div>
+  <div class="cards">
+    <div class="card" data-methods="vac nit">
+      <div class="card-name">SKD61</div>
+      <div class="card-sub">Khuôn đúc nhôm/kẽm · HRC 44–48</div>
+      <div class="pills"><span class="pill p-vac">Chân không ★</span><span class="pill p-nit">Thấm Nitơ</span></div>
+    </div>
+    <div class="card" data-methods="vac nit">
+      <div class="card-name">H13 / 1.2344</div>
+      <div class="card-sub">AISI/DIN · tương đương SKD61</div>
+      <div class="pills"><span class="pill p-vac">Chân không ★</span><span class="pill p-nit">Thấm Nitơ</span></div>
+    </div>
+    <div class="card" data-methods="vac nit">
+      <div class="card-name">4Cr5MoSiV1 (GB)</div>
+      <div class="card-sub">GB · tương đương H13</div>
+      <div class="pills"><span class="pill p-vac">Chân không</span><span class="pill p-nit">Thấm Nitơ</span></div>
+    </div>
+    <div class="card" data-methods="vac nit">
+      <div class="card-name">DAC / FDAC-MAGIC</div>
+      <div class="card-sub">Hitachi · nâng cấp SKD61</div>
+      <div class="pills"><span class="pill p-vac">Chân không ★</span><span class="pill p-nit">Thấm Nitơ</span></div>
+    </div>
+    <div class="card" data-methods="vac">
+      <div class="card-name">3Cr2W8V (GB)</div>
+      <div class="card-sub">Chịu nhiệt độ cao GB</div>
+      <div class="pills"><span class="pill p-vac">Chân không</span></div>
+    </div>
+  </div>
+
+  <!-- Nhóm 5 -->
+  <div class="section-title" data-group>Thép khuôn không gỉ</div>
+  <div class="cards">
+    <div class="card" data-methods="vac">
+      <div class="card-name">2083H</div>
+      <div class="card-sub">Không gỉ · HRC 50–54 · đã tôi sẵn</div>
+      <div class="pills"><span class="pill p-vac">Chân không ★</span></div>
+    </div>
+    <div class="card" data-methods="vac">
+      <div class="card-name">2083P / 2083M</div>
+      <div class="card-sub">Không gỉ · tiền tôi / medium</div>
+      <div class="pills"><span class="pill p-vac">Chân không ★</span></div>
+    </div>
+    <div class="card" data-methods="vac">
+      <div class="card-name">SUS420J2 / 1.2083</div>
+      <div class="card-sub">JIS/DIN · HRC 48–52</div>
+      <div class="pills"><span class="pill p-vac">Chân không ★</span></div>
+    </div>
+    <div class="card" data-methods="vac">
+      <div class="card-name">Stavax / S136</div>
+      <div class="card-sub">Không gỉ bóng gương · Uddeholm</div>
+      <div class="pills"><span class="pill p-vac">Chân không ★</span></div>
+    </div>
+    <div class="card" data-methods="vac">
+      <div class="card-name">4Cr13 / 4Cr13H (GB)</div>
+      <div class="card-sub">GB · không gỉ tương đương 2083</div>
+      <div class="pills"><span class="pill p-vac">Chân không ★</span></div>
+    </div>
+  </div>
+
+  <!-- Nhóm 6 -->
+  <div class="section-title" data-group>Thép tiền tôi (chỉ thấm nitơ bề mặt)</div>
+  <div class="cards">
+    <div class="card" data-methods="nit">
+      <div class="card-name">P20 / 1.2311</div>
+      <div class="card-sub">HRC 28–32 · không tôi thêm</div>
+      <div class="pills"><span class="pill p-nit">Thấm Nitơ</span></div>
+    </div>
+    <div class="card" data-methods="nit">
+      <div class="card-name">NAK80 / NAK55</div>
+      <div class="card-sub">HRC 38–42 · khuôn nhựa cao cấp</div>
+      <div class="pills"><span class="pill p-nit">Thấm Nitơ</span></div>
+    </div>
+    <div class="card" data-methods="nit">
+      <div class="card-name">H718 / 738H / 1.2738</div>
+      <div class="card-sub">P20+Ni · HRC 33–38</div>
+      <div class="pills"><span class="pill p-nit">Thấm Nitơ</span></div>
+    </div>
+    <div class="card" data-methods="nit">
+      <div class="card-name">KP4M / XPM / CENA1</div>
+      <div class="card-sub">Korea/Daido · ~HRC 38–42</div>
+      <div class="pills"><span class="pill p-nit">Thấm Nitơ</span></div>
+    </div>
+    <div class="card" data-methods="nit">
+      <div class="card-name">SCM440 (tiền tôi)</div>
+      <div class="card-sub">Trục, bánh răng sau gia công</div>
+      <div class="pills"><span class="pill p-nit">Thấm Nitơ</span></div>
+    </div>
+  </div>
+
+  <div id="no-result" class="no-result">Không có vật liệu nào phù hợp với phương pháp này.</div>
+
+  <div class="note-box">
+    <b>★ Chân không</b> là lựa chọn tốt nhất cho thép khuôn (SKD11, DC53, SKD61, thép không gỉ) vì không bị oxy hóa, biến dạng nhỏ, bề mặt sáng bóng sau tôi.<br>
+    <b>Nhiệt dầu</b> phù hợp thép carbon / hợp kim kết cấu (S45C, SCM440, SKD11) cần tôi thấu với chi phí thấp hơn.<br>
+    <b>Cao tần</b> chỉ tôi cứng bề mặt (≤2mm), vật liệu giữ nguyên lõi dẻo — lý tưởng cho trục, bánh răng, cam.<br>
+    <b>Thấm Nitơ</b> tạo lớp bề mặt cứng mỏng HV 600–1200 mà không làm biến dạng, phù hợp thép tiền tôi và thép kết cấu.
+  </div>
+</div>
+
+<script>
+function filter(method, btn){
+  document.querySelectorAll('.mtab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const cards=document.querySelectorAll('.card');
+  let visible=0;
+  cards.forEach(c=>{
+    const methods=(c.dataset.methods||'').split(' ');
+    const show=method==='all'||methods.includes(method);
+    c.classList.toggle('hidden',!show);
+    if(show)visible++;
+  });
+  document.getElementById('no-result').style.display=visible===0?'block':'none';
+
+  // hide/show section titles based on visible cards in their group
+  document.querySelectorAll('.section-title').forEach(title=>{
+    let next=title.nextElementSibling;
+    let hasVisible=false;
+    while(next&&!next.classList.contains('section-title')){
+      if(next.classList.contains('cards')){
+        const vis=[...next.querySelectorAll('.card')].some(c=>!c.classList.contains('hidden'));
+        if(vis){hasVisible=true;break;}
+      }
+      next=next.nextElementSibling;
+    }
+    title.style.display=hasVisible?'':'none';
+  });
+}
+</script>
