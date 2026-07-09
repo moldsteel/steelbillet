@@ -361,26 +361,263 @@
     font-size: 12px;
   }
   .footer strong { color: var(--gold); }
+
+  /* ============================================
+     RESPONSIVE — TABLET (≥640px)
+     ============================================ */
+  @media (min-width: 640px) {
+    body {
+      font-size: 15.5px;
+    }
+
+    .hero {
+      padding: 48px 32px 36px;
+    }
+    .hero::before {
+      font-size: 160px;
+      right: 20px;
+      top: -20px;
+    }
+    .hero h1 {
+      font-size: 32px;
+    }
+    .hero p {
+      font-size: 14px;
+      max-width: 480px;
+    }
+
+    .toc {
+      padding: 0 32px;
+    }
+    .toc a {
+      font-size: 13px;
+      padding: 12px 12px;
+    }
+
+    .section {
+      padding: 28px 32px 12px;
+    }
+
+    .card {
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+    .card h3 {
+      font-size: 15px;
+    }
+    .card p, .card li {
+      font-size: 14px;
+    }
+
+    .color-row {
+      padding: 10px 16px;
+      gap: 14px;
+    }
+    .color-dot {
+      width: 24px;
+      height: 24px;
+    }
+    .color-name { font-size: 14px; }
+    .color-temp { font-size: 12px; }
+    .color-use { font-size: 12px; }
+    .color-hrc { font-size: 13px; }
+
+    table {
+      font-size: 13px;
+    }
+    th { padding: 12px 14px; }
+    td { padding: 10px 14px; }
+
+    .step-num {
+      width: 32px;
+      height: 32px;
+      font-size: 13px;
+    }
+    .step-content h4 { font-size: 15px; }
+    .step-content p { font-size: 14px; }
+
+    .tips-box, .warning, .formula {
+      padding: 18px;
+    }
+    .tips-box .tip-title, .warning .w-title { font-size: 14px; }
+    .tips-box li, .warning p, .warning li { font-size: 13.5px; }
+
+    .section-header h2 { font-size: 19px; }
+    .section-header .sub { font-size: 12px; }
+  }
+
+  /* ============================================
+     RESPONSIVE — DESKTOP (≥960px)
+     ============================================ */
+  @media (min-width: 960px) {
+    /* Centered container for hero content */
+    .hero {
+      padding: 56px 0 40px;
+      text-align: center;
+    }
+    .hero::before {
+      font-size: 200px;
+      right: 40px;
+      top: -30px;
+      opacity: 0.1;
+    }
+    .hero .hero-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+    .hero h1 {
+      font-size: 38px;
+    }
+    .hero p {
+      font-size: 15px;
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    /* TOC: centered, no scroll */
+    .toc-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .toc {
+      padding: 8px 32px;
+      justify-content: center;
+    }
+    .toc a {
+      font-size: 13.5px;
+      padding: 10px 14px;
+      border-bottom: 2px solid transparent;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+    .toc a:hover {
+      background: rgba(255,255,255,0.08);
+      color: var(--gold);
+      border-color: var(--gold);
+    }
+
+    /* Main content: centered with max-width */
+    .content {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 16px 60px;
+    }
+
+    .section {
+      padding: 32px 0 12px;
+    }
+
+    /* Cards: slightly more spacious */
+    .card {
+      padding: 22px 24px;
+      margin-bottom: 18px;
+      border-radius: 14px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+    }
+    .card h3 { font-size: 15.5px; }
+    .card p, .card li { font-size: 14px; }
+
+    /* Color chart rows: larger on desktop */
+    .color-row {
+      padding: 12px 18px;
+      gap: 16px;
+      border-radius: 10px;
+    }
+    .color-dot {
+      width: 28px;
+      height: 28px;
+    }
+    .color-name { font-size: 14.5px; }
+    .color-temp { font-size: 12.5px; }
+    .color-use { font-size: 12.5px; }
+    .color-hrc { font-size: 14px; }
+
+    /* Tables */
+    table {
+      font-size: 13.5px;
+      border-radius: 12px;
+    }
+    th { padding: 13px 16px; }
+    td { padding: 11px 16px; }
+
+    /* Steps */
+    .step { gap: 16px; margin-bottom: 18px; }
+    .step-num { width: 34px; height: 34px; font-size: 14px; }
+    .step-content h4 { font-size: 15px; }
+    .step-content p { font-size: 14px; }
+
+    /* Tips & warnings */
+    .tips-box, .warning { padding: 20px 22px; border-radius: 12px; }
+    .formula { padding: 20px 22px; border-radius: 12px; }
+    .formula .f-eq { font-size: 15px; }
+
+    /* Section headers */
+    .section-header {
+      gap: 14px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+    }
+    .section-icon { width: 42px; height: 42px; font-size: 20px; }
+    .section-header h2 { font-size: 21px; }
+    .section-header .sub { font-size: 13px; }
+
+    /* Footer */
+    .footer { padding: 28px 32px; font-size: 13px; }
+    .footer-inner {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+  }
+
+  /* ============================================
+     RESPONSIVE — LARGE DESKTOP (≥1200px)
+     ============================================ */
+  @media (min-width: 1200px) {
+    .hero h1 { font-size: 42px; }
+    .hero .hero-inner { max-width: 800px; }
+    .hero p { max-width: 600px; font-size: 16px; }
+
+    .toc-inner { max-width: 800px; }
+
+    .content {
+      max-width: 800px;
+    }
+
+    .card {
+      padding: 24px 28px;
+    }
+
+    .footer-inner { max-width: 800px; }
+  }
 </style>
 </head>
 <body>
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-badge">⚙️ Kỹ thuật kim loại</div>
-  <h1>Sổ Tay<br><span>Xử Lý Nhiệt Thép</span></h1>
-  <p>Kinh nghiệm thực tế · Kỹ thuật chuyên sâu · Nguyên tắc nền tảng</p>
+  <div class="hero-inner">
+    <div class="hero-badge">⚙️ Kỹ thuật kim loại</div>
+    <h1>Sổ Tay<br><span>Xử Lý Nhiệt Thép</span></h1>
+    <p>Kinh nghiệm thực tế · Kỹ thuật chuyên sâu · Nguyên tắc nền tảng</p>
+  </div>
 </div>
 
 <!-- TOC -->
 <nav class="toc">
-  <a href="#co-ban">Cơ bản</a>
-  <a href="#quy-trinh">Quy trình</a>
-  <a href="#mau-sac">Màu sắc</a>
-  <a href="#moi-truong">Môi trường tôi</a>
-  <a href="#mac-thep">Mác thép</a>
-  <a href="#lo-thuong">Lỗi thường</a>
-  <a href="#bi-quyet">Bí quyết</a>
+  <div class="toc-inner">
+    <a href="#co-ban">Cơ bản</a>
+    <a href="#quy-trinh">Quy trình</a>
+    <a href="#mau-sac">Màu sắc</a>
+    <a href="#moi-truong">Môi trường tôi</a>
+    <a href="#mac-thep">Mác thép</a>
+    <a href="#lo-thuong">Lỗi thường</a>
+    <a href="#bi-quyet">Bí quyết</a>
+  </div>
 </nav>
 
 <div class="content">
@@ -1000,9 +1237,11 @@
 
 <!-- FOOTER -->
 <div class="footer">
-  <p>Sổ Tay <strong>Xử Lý Nhiệt Thép</strong></p>
-  <p style="margin-top:4px;font-size:11px;">Tổng hợp từ ASM Handbook · Practical Machinist · Tài liệu kỹ thuật Việt Nam</p>
-  <p style="margin-top:4px;font-size:11px;">Compiled by Claude · An Thái Phú Steel · 2025</p>
+  <div class="footer-inner">
+    <p>Sổ Tay <strong>Xử Lý Nhiệt Thép</strong></p>
+    <p style="margin-top:4px;font-size:11px;">Tổng hợp từ ASM Handbook · Practical Machinist · Tài liệu kỹ thuật Việt Nam</p>
+    <p style="margin-top:4px;font-size:11px;">Compiled by Claude · An Thái Phú Steel · 2025</p>
+  </div>
 </div>
 
 </body>
