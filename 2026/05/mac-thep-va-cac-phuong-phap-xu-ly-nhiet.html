@@ -1,10 +1,10 @@
-
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-*{font-family:'Open Sans',sans-serif;box-sizing:border-box}
-.wrap{padding:4px 0 16px}
+*{font-family:'Open Sans',sans-serif;box-sizing:border-box;margin:0;padding:0}
+.wrap{padding:4px 16px 24px;max-width:1200px;margin:0 auto} /* Thêm padding ngang và giới hạn chiều rộng */
+
 .method-tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
-.mtab{padding:6px 16px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;border:1.5px solid transparent;transition:all .15s;background:var(--color-background-secondary);color:var(--color-text-secondary)}
+.mtab{padding:6px 16px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;border:1.5px solid transparent;transition:all .15s;background:var(--color-background-secondary);color:var(--color-text-secondary);white-space:nowrap}
 .mtab:hover{border-color:var(--color-border-secondary)}
 .mtab.active{color:#fff}
 .mtab.vac.active{background:#0C447C;border-color:#0C447C}
@@ -12,9 +12,11 @@
 .mtab.ind.active{background:#085041;border-color:#085041}
 .mtab.nit.active{background:#3C3489;border-color:#3C3489}
 .mtab.all.active{background:var(--color-text-primary);border-color:var(--color-text-primary);color:var(--color-background-primary)}
+
 .section-title{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--color-text-secondary);margin:18px 0 8px;padding-bottom:4px;border-bottom:1px solid var(--color-border-tertiary)}
+
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
-.card{border:1px solid var(--color-border-tertiary);border-radius:10px;padding:10px 12px;background:var(--color-background-primary)}
+.card{border:1px solid var(--color-border-tertiary);border-radius:10px;padding:10px 12px;background:var(--color-background-primary);transition: all 0.2s ease}
 .card-name{font-size:13px;font-weight:600;color:var(--color-text-primary);margin-bottom:4px}
 .card-sub{font-size:11px;color:var(--color-text-secondary);margin-bottom:6px;line-height:1.4}
 .pills{display:flex;flex-wrap:wrap;gap:3px}
@@ -23,6 +25,7 @@
 .p-oil{background:#FAEEDA;color:#633806}
 .p-ind{background:#E1F5EE;color:#085041}
 .p-nit{background:#EEEDFE;color:#3C3489}
+
 @media(prefers-color-scheme:dark){
   .p-vac{background:#0C447C;color:#B5D4F4}
   .p-oil{background:#633806;color:#FAC775}
@@ -30,11 +33,55 @@
   .p-nit{background:#3C3489;color:#CECBF6}
 }
 .card.hidden{display:none}
+
 .legend{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;align-items:center;font-size:11px;color:var(--color-text-secondary)}
 .legend-item{display:flex;align-items:center;gap:5px}
 .no-result{text-align:center;padding:32px;font-size:13px;color:var(--color-text-secondary);display:none}
 .note-box{background:var(--color-background-secondary);border-radius:8px;padding:10px 14px;margin-top:14px;font-size:11.5px;color:var(--color-text-secondary);line-height:1.6}
 .note-box b{font-weight:600;color:var(--color-text-primary)}
+
+/* ================= RESPONSIVE ================= */
+/* Màn hình Tablet và Mobile (dưới 768px) */
+@media (max-width: 768px) {
+  .wrap { padding: 4px 12px 20px; }
+  .method-tabs { gap: 6px; }
+  .cards { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px; }
+}
+
+/* Màn hình Mobile nhỏ (dưới 480px) - Chuyển sang 1 cột để dễ đọc */
+@media (max-width: 480px) {
+  .wrap { padding: 4px 10px 16px; }
+  
+  .method-tabs { 
+    gap: 6px; 
+    margin-bottom: 12px;
+    /* Cho phép các nút cuộn ngang nếu nhiều, hoặc wrap tùy ý */
+    justify-content: flex-start; 
+  }
+  .mtab {
+    padding: 8px 14px; /* Tạo vùng bấm lớn hơn cho ngón tay */
+    font-size: 11px;
+  }
+  
+  .cards {
+    grid-template-columns: 1fr; /* 1 cột duy nhất */
+    gap: 10px;
+  }
+  
+  .card {
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .card-name { font-size: 14px; } /* Tăng size tiêu đề cho dễ nhìn */
+  .card-sub { font-size: 12px; margin-bottom: 2px; } /* Tăng size mô tả */
+  .pill { font-size: 10.5px; padding: 3px 8px; }
+  
+  .section-title { font-size: 11px; margin-top: 16px; }
+  .note-box { font-size: 12px; padding: 12px; }
+}
 </style>
 
 <div class="wrap">
