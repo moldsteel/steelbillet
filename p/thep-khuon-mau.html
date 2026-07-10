@@ -895,24 +895,24 @@ function gtag_report_conversion(url){
       </div>
     </div>
 
-    <form class="contact-form fade-in" onsubmit="handleSubmit(event)">
+    <form class="contact-form fade-in" id="quote-form" onsubmit="handleSubmit(event)">
       <div class="form-row">
         <div class="form-group">
           <label>Họ và tên *</label>
-          <input type="text" placeholder="Nguyễn Văn A" required>
+          <input type="text" name="name" placeholder="Nguyễn Văn A" required>
         </div>
         <div class="form-group">
           <label>Điện thoại *</label>
-          <input type="tel" placeholder="0917 168 289" required>
+          <input type="tel" name="phone" placeholder="0917 168 289" required>
         </div>
       </div>
       <div class="form-group">
         <label>Email</label>
-        <input type="email" placeholder="info@thepkhuonmau.com">
+        <input type="email" name="email" placeholder="info@thepkhuonmau.com">
       </div>
       <div class="form-group">
         <label>Sản phẩm quan tâm</label>
-        <select>
+        <select name="product">
           <option value="">-- Chọn loại thép --</option>
           <option>Phôi thép carbon (S45C, C45...)</option>
           <option>Thép khuôn nhựa (P20, 718, NAK80)</option>
@@ -925,11 +925,12 @@ function gtag_report_conversion(url){
       </div>
       <div class="form-group">
         <label>Nội dung yêu cầu</label>
-        <textarea rows="4" placeholder="Mô tả mác thép, quy cách, số lượng cần mua..."></textarea>
+        <textarea name="message" rows="4" placeholder="Mô tả mác thép, quy cách, số lượng cần mua..."></textarea>
       </div>
       <button type="submit" class="btn-primary" id="submit-btn" style="width:100%;text-align:center;">
         Gửi yêu cầu báo giá →
       </button>
+      <p id="form-error" style="display:none;color:#ff6b6b;font-size:13px;text-align:center;">Gửi thất bại, vui lòng thử lại hoặc gọi trực tiếp hotline.</p>
     </form>
   </div>
 </section>
@@ -961,19 +962,50 @@ function gtag_report_conversion(url){
       window.scrollY > 10 ? '0 2px 24px rgba(0,0,0,.6)' : 'none';
   });
 
-  // Form submit
-  function handleSubmit(e) {
+  // Form submit -> Formspree
+  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/maqgrown';
+
+  async function handleSubmit(e) {
     e.preventDefault();
+    const form = e.target;
     const btn = document.getElementById('submit-btn');
-    btn.textContent = '✓ Đã gửi! Chúng tôi sẽ liên hệ sớm.';
-    btn.style.background = '#2d8c4e';
-    btn.style.cursor = 'default';
-    setTimeout(() => {
-      btn.textContent = 'Gửi yêu cầu báo giá →';
-      btn.style.background = '';
+    const errorMsg = document.getElementById('form-error');
+    errorMsg.style.display = 'none';
+
+    const originalText = btn.textContent;
+    btn.textContent = 'Đang gửi...';
+    btn.disabled = true;
+    btn.style.cursor = 'wait';
+
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (res.ok) {
+        btn.textContent = '✓ Đã gửi! Chúng tôi sẽ liên hệ sớm.';
+        btn.style.background = '#2d8c4e';
+        btn.style.cursor = 'default';
+        // Google Ads conversion tracking
+        if (typeof gtag_report_conversion === 'function') { gtag_report_conversion(); }
+        setTimeout(() => {
+          btn.textContent = originalText;
+          btn.style.background = '';
+          btn.style.cursor = '';
+          btn.disabled = false;
+          form.reset();
+        }, 4000);
+      } else {
+        throw new Error('Formspree error');
+      }
+    } catch (err) {
+      btn.textContent = originalText;
       btn.style.cursor = '';
-      e.target.reset();
-    }, 4000);
+      btn.disabled = false;
+      errorMsg.style.display = 'block';
+    }
   }
 </script>
 </body>
