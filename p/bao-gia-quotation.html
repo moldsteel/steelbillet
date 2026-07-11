@@ -1894,6 +1894,258 @@ img {
 ::-moz-selection {
     background: transparent;
 }
-</style>  
+</style>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#auth-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  z-index: 10000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.auth-box {
+  background: white;
+  padding: 40px 35px;
+  border-radius: 20px;
+  text-align: center;
+  max-width: 420px;
+  width: 90%;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.auth-box h2 {
+  margin-bottom: 10px;
+  color: #1e3c72;
+  font-size: 24px;
+}
+
+.auth-box .sub {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 25px;
+}
+
+.auth-box input {
+  width: 100%;
+  padding: 14px 16px;
+  margin: 10px 0;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 15px;
+  transition: 0.3s;
+  outline: none;
+}
+
+.auth-box input:focus {
+  border-color: #1e3c72;
+}
+
+.auth-box button {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  color: white;
+  border: none;
+  padding: 14px 25px;
+  border-radius: 40px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 15px;
+  transition: transform 0.2s;
+}
+
+.auth-box button:hover {
+  transform: scale(1.02);
+  cursor: pointer;
+}
+
+.error-msg {
+  color: #e74c3c;
+  font-size: 13px;
+  margin-top: 12px;
+  padding: 8px;
+  background: #fee;
+  border-radius: 8px;
+  display: none;
+}
+
+.success-msg {
+  color: #27ae60;
+  font-size: 13px;
+  margin-top: 12px;
+  background: #e8f8e8;
+  padding: 8px;
+  border-radius: 8px;
+  display: none;
+}
+
+.loading-msg {
+  color: #1e3c72;
+  font-size: 13px;
+  margin-top: 12px;
+  background: #e8f0fe;
+  padding: 8px;
+  border-radius: 8px;
+  display: none;
+}
+
+body.authenticated #auth-overlay {
+  display: none;
+}
+</style>
+
+<div id="auth-overlay">
+  <div class="auth-box">
+    <h2>🔒 Xác Minh Truy Cập</h2>
+    <div class="sub">Vui lòng nhập email và mật khẩu để xem nội dung</div>
+    
+    <input type="email" id="user-email" placeholder="📧 Email của bạn" autocomplete="off">
+    <input type="password" id="access-password" placeholder="🔑 Mật khẩu" autocomplete="off">
+    
+    <button onclick="verifyAccess()">Xác Nhận & Tiếp Tục</button>
+    
+    <div id="error-msg" class="error-msg"></div>
+    <div id="loading-msg" class="loading-msg">⏳ Đang xác minh, vui lòng chờ...</div>
+    <div id="success-msg" class="success-msg">✅ Xác minh thành công! Đang chuyển tiếp...</div>
+  </div>
+</div>
+
+<script>
+// ====================================
+// 🔐 CẤU HÌNH CỦA BẠN
+const CORRECT_PASSWORD = "thep@atp732";     // 👈 Mật khẩu bạn muốn đặt
+const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbxtv4k8Rl7PRILlHR-A7NEhFeweSsfJJsCpRFa7DKDhNMbtTq6emNpG9Oj9VIZHymQhaQ/exec";  // 👈 URL Web App từ Bước 2
+// ====================================
+
+function showLoading(show) {
+  document.getElementById('loading-msg').style.display = show ? 'block' : 'none';
+}
+
+function showError(msg) {
+  const errorDiv = document.getElementById('error-msg');
+  errorDiv.innerHTML = '❌ ' + msg;
+  errorDiv.style.display = 'block';
+  showLoading(false);
+}
+
+function showSuccess(msg) {
+  const successDiv = document.getElementById('success-msg');
+  successDiv.innerHTML = '✅ ' + msg;
+  successDiv.style.display = 'block';
+}
+
+async function saveEmailToSheet(email) {
+  try {
+    const response = await fetch(WEBAPP_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: email,
+        status: 'Verified',
+        userAgent: navigator.userAgent
+      })
+    });
+    return true;
+  } catch (error) {
+    console.error('Lỗi ghi log:', error);
+    return false; // Vẫn cho phép truy cập dù không ghi được log
+  }
+}
+
+async function verifyAccess() {
+  const email = document.getElementById('user-email').value.trim();
+  const password = document.getElementById('access-password').value;
+  
+  // Reset thông báo
+  document.getElementById('error-msg').style.display = 'none';
+  document.getElementById('success-msg').style.display = 'none';
+  showLoading(true);
+  
+  // Kiểm tra email
+  if (email === '') {
+    showError('Vui lòng nhập email của bạn');
+    return;
+  }
+  
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailPattern.test(email)) {
+    showError('Email không hợp lệ (ví dụ: ten@example.com)');
+    return;
+  }
+  
+  // Kiểm tra mật khẩu
+  if (password === '') {
+    showError('Vui lòng nhập mật khẩu');
+    return;
+  }
+  
+  if (password !== CORRECT_PASSWORD) {
+    showError('Mật khẩu không đúng. Vui lòng thử lại.');
+    return;
+  }
+  
+  // Ghi email vào Google Sheet
+  showLoading(true);
+  showSuccess('Đang ghi nhận thông tin...');
+  
+  await saveEmailToSheet(email);
+  
+  // Xác minh thành công
+  showSuccess('Xác minh thành công! Đang chuyển tiếp...');
+  
+  // Lưu vào localStorage
+  localStorage.setItem('auth_verified', 'true');
+  localStorage.setItem('auth_email', email);
+  localStorage.setItem('auth_time', new Date().getTime());
+  
+  document.body.classList.add('authenticated');
+  
+  setTimeout(() => {
+    document.getElementById('auth-overlay').style.display = 'none';
+  }, 1000);
+}
+
+function checkExistingAuth() {
+  const isVerified = localStorage.getItem('auth_verified') === 'true';
+  const authTime = localStorage.getItem('auth_time');
+  
+  if (isVerified && authTime) {
+    const now = new Date().getTime();
+    const hoursSinceAuth = (now - parseInt(authTime)) / (1000 * 60 * 60);
+    
+    if (hoursSinceAuth < 24) {
+      document.body.classList.add('authenticated');
+      document.getElementById('auth-overlay').style.display = 'none';
+    } else {
+      localStorage.removeItem('auth_verified');
+      localStorage.removeItem('auth_email');
+      localStorage.removeItem('auth_time');
+    }
+  }
+}
+
+checkExistingAuth();
+</script>
+	 
 </body>
 </html>
