@@ -231,6 +231,325 @@ img{max-width:100%;height:auto;display:block}a{color:inherit;text-decoration:non
 @media(max-width:480px){.hero h1{font-size:20px}.hero-stats{flex-wrap:wrap;gap:16px}.hs-val{font-size:22px}.hero-img{max-width:100%}.filter-bar{gap:4px;padding:6px}.fchip{padding:7px 12px;font-size:12px}.cat-info p{display:none}.sub-tab{font-size:11px;padding:10px 8px}.item-meta-row{grid-template-columns:1fr}.item-meta-row .im-f:nth-child(3){grid-column:auto}.size-row{grid-template-columns:1fr 1fr}}
 @media print{nav,.filter-wrap,.sidebar,.fab,.faq-sec,.inquire-sec,.footer,.hero-img{display:none!important}.hero{background:#fff!important;padding:20px 0!important}.hero h1,.hero p{color:#000!important}.noscript-tbl{display:block!important}}
 </style>
+   <style>
+  /* Reset + base */
+  .bg-app * { box-sizing: border-box; margin: 0; padding: 0; }
+  .bg-app {
+    --bg: #ffffff;
+    --text: #0f172a;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --accent: #f59e0b;
+    --accent-dark: #d97706;
+    --bg-soft: #f8fafc;
+    --bg-soft-2: #f1f5f9;
+    --danger: #ef4444;
+    --radius: 12px;
+    --radius-sm: 8px;
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    color: var(--text);
+    background: linear-gradient(135deg, #f8fafc 0%, #ffffff 50%, #fffbeb 100%);
+    min-height: 100vh;
+    padding: 24px 16px;
+    line-height: 1.5;
+    font-size: 14px;
+  }
+  .bg-app .bg-container { max-width: 1200px; margin: 0 auto; }
+
+  /* Header */
+  .bg-app .bg-page-title {
+    font-size: 28px; font-weight: 700; color: #0f172a; margin-bottom: 6px;
+    letter-spacing: -0.02em;
+  }
+  .bg-app .bg-page-sub {
+    font-size: 13px; color: var(--muted); margin-bottom: 28px;
+  }
+
+  /* Layout grid */
+  .bg-app .bg-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  @media (min-width: 1024px) {
+    .bg-app .bg-grid { grid-template-columns: 2fr 3fr; }
+  }
+
+  /* Card */
+  .bg-app .bg-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
+  }
+  .bg-app .bg-card-title {
+    font-size: 17px; font-weight: 600; color: #1e293b; margin-bottom: 4px;
+  }
+  .bg-app .bg-card-sub {
+    font-size: 12px; color: var(--muted); margin-bottom: 20px;
+  }
+  .bg-app .bg-card-sub .req { color: var(--danger); }
+
+  /* Form field */
+  .bg-app .bg-field { margin-bottom: 16px; }
+  .bg-app .bg-field:last-child { margin-bottom: 0; }
+  .bg-app .bg-label {
+    display: block; font-size: 13px; font-weight: 500;
+    color: #334155; margin-bottom: 6px;
+  }
+  .bg-app .bg-label .req { color: var(--danger); margin-left: 2px; }
+  .bg-app .bg-input,
+  .bg-app .bg-textarea,
+  .bg-app .bg-select {
+    width: 100%;
+    padding: 9px 12px;
+    font-size: 14px;
+    color: #0f172a;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    transition: border-color 0.15s, box-shadow 0.15s;
+    outline: none;
+    font-family: inherit;
+  }
+  .bg-app .bg-input::placeholder,
+  .bg-app .bg-textarea::placeholder { color: #94a3b8; }
+  .bg-app .bg-input:focus,
+  .bg-app .bg-textarea:focus,
+  .bg-app .bg-select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.12);
+  }
+  .bg-app .bg-input.error,
+  .bg-app .bg-textarea.error,
+  .bg-app .bg-select.error {
+    border-color: var(--danger);
+  }
+  .bg-app .bg-textarea { resize: vertical; min-height: 90px; }
+  .bg-app .bg-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 36px;
+    cursor: pointer;
+  }
+  .bg-app .bg-error-text {
+    display: block; font-size: 12px; color: var(--danger); margin-top: 4px;
+  }
+
+  /* Submit button */
+  .bg-app .bg-submit {
+    width: 100%;
+    padding: 12px 20px;
+    background: #0f172a;
+    color: var(--accent);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background 0.15s, color 0.15s;
+  }
+  .bg-app .bg-submit:hover:not(:disabled) {
+    background: #1e293b;
+    color: #fbbf24;
+  }
+  .bg-app .bg-submit:disabled { opacity: 0.65; cursor: not-allowed; }
+  .bg-app .bg-submit .spinner {
+    width: 16px; height: 16px;
+    border: 2px solid rgba(245, 158, 11, 0.3);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: bg-spin 0.7s linear infinite;
+  }
+  @keyframes bg-spin { to { transform: rotate(360deg); } }
+  .bg-app .bg-footer-note {
+    text-align: center; font-size: 12px; color: var(--muted); margin-top: 12px;
+  }
+
+  /* Right column header */
+  .bg-app .bg-items-header {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 20px;
+  }
+  .bg-app .bg-items-icon {
+    width: 32px; height: 32px;
+    background: #fef3c7;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .bg-app .bg-items-icon svg { width: 16px; height: 16px; color: #d97706; }
+  .bg-app .bg-items-title {
+    font-size: 13px; font-weight: 600; color: #475569;
+    text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .bg-app .bg-items-sub { font-size: 12px; color: var(--muted); }
+
+  /* Item card */
+  .bg-app .bg-item {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 16px;
+    background: #fff;
+  }
+  .bg-app .bg-item:last-of-type { margin-bottom: 0; }
+  .bg-app .bg-item-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 16px;
+    background: var(--bg-soft);
+    border-bottom: 1px solid var(--border);
+  }
+  .bg-app .bg-item-head-left {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; font-weight: 600; color: #334155;
+    text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .bg-app .bg-item-head-left svg { width: 16px; height: 16px; color: var(--accent); }
+  .bg-app .bg-icon-btn {
+    width: 28px; height: 28px;
+    border: none; background: transparent;
+    border-radius: 6px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted);
+    transition: background 0.15s, color 0.15s;
+  }
+  .bg-app .bg-icon-btn:hover { background: #fef2f2; color: var(--danger); }
+  .bg-app .bg-icon-btn svg { width: 16px; height: 16px; }
+  .bg-app .bg-item-body { padding: 16px; }
+
+  /* Item row grid */
+  .bg-app .bg-row-3 {
+    display: grid; gap: 12px; margin-bottom: 12px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 640px) { .bg-app .bg-row-3 { grid-template-columns: repeat(3, 1fr); } }
+
+  /* Spec row */
+  .bg-app .bg-spec-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+  .bg-app .bg-spec-row {
+    display: grid; gap: 8px;
+    grid-template-columns: repeat(12, 1fr);
+    align-items: end;
+    background: var(--bg-soft);
+    padding: 10px;
+    border-radius: var(--radius-sm);
+  }
+  .bg-app .bg-spec-col { grid-column: span 12; }
+  .bg-app .bg-spec-col-3 { grid-column: span 3; }
+  .bg-app .bg-spec-col-2 { grid-column: span 2; }
+  .bg-app .bg-spec-col-1 { grid-column: span 1; display: flex; justify-content: flex-end; }
+  @media (max-width: 639px) {
+    .bg-app .bg-spec-col-3,
+    .bg-app .bg-spec-col-2,
+    .bg-app .bg-spec-col-1 { grid-column: span 12; }
+  }
+  .bg-app .bg-spec-label {
+    display: block; font-size: 10px; font-weight: 500;
+    color: #64748b; margin-bottom: 4px;
+  }
+  .bg-app .bg-spec-row .bg-input,
+  .bg-app .bg-spec-row .bg-select {
+    padding: 7px 10px; font-size: 12px;
+  }
+  .bg-app .bg-spec-row .bg-select { padding-right: 30px; background-position: right 8px center; }
+  .bg-app .bg-trash-btn {
+    width: 32px; height: 32px;
+    border: none; background: transparent;
+    border-radius: 6px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted);
+    transition: background 0.15s, color 0.15s;
+  }
+  .bg-app .bg-trash-btn:hover { background: #fef2f2; color: var(--danger); }
+  .bg-app .bg-trash-btn svg { width: 14px; height: 14px; }
+  .bg-app .bg-trash-btn.empty { visibility: hidden; }
+  .bg-app .bg-add-spec {
+    background: none; border: none; cursor: pointer;
+    font-size: 12px; font-weight: 500; color: #d97706;
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 4px 0;
+  }
+  .bg-app .bg-add-spec:hover { color: var(--accent-dark); }
+  .bg-app .bg-add-spec svg { width: 12px; height: 12px; }
+
+  /* Add item dashed button */
+  .bg-app .bg-add-item {
+    width: 100%;
+    margin-top: 16px;
+    padding: 16px;
+    background: transparent;
+    border: 2px dashed #cbd5e1;
+    border-radius: var(--radius-sm);
+    color: var(--muted);
+    font-size: 13px; font-weight: 500;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    transition: border-color 0.15s, background 0.15s, color 0.15s;
+  }
+  .bg-app .bg-add-item:hover {
+    border-color: var(--accent);
+    background: rgba(254, 243, 199, 0.4);
+    color: var(--accent-dark);
+  }
+  .bg-app .bg-add-item svg { width: 14px; height: 14px; }
+
+  /* Toast */
+  .bg-app .bg-toast-wrap {
+    position: fixed; top: 20px; right: 20px; z-index: 9999;
+    display: flex; flex-direction: column; gap: 8px;
+    max-width: 360px; width: calc(100% - 40px);
+  }
+  .bg-app .bg-toast {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08), 0 4px 6px rgba(0,0,0,0.04);
+    animation: bg-slide-in 0.25s ease-out;
+  }
+  .bg-app .bg-toast.success { border-left-color: #10b981; }
+  .bg-app .bg-toast.error { border-left-color: var(--danger); }
+  .bg-app .bg-toast-title { font-size: 13px; font-weight: 600; color: #0f172a; margin-bottom: 2px; }
+  .bg-app .bg-toast-msg { font-size: 12px; color: var(--muted); }
+  @keyframes bg-slide-in {
+    from { transform: translateX(120%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+  @keyframes bg-slide-out {
+    to { transform: translateX(120%); opacity: 0; }
+  }
+
+  /* Top bar (optional, có thể bỏ nếu trang bạn đã có header) */
+  .bg-app .bg-topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 0; margin-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .bg-app .bg-brand {
+    display: flex; align-items: center; gap: 8px;
+    font-weight: 600; color: #1e293b;
+  }
+  .bg-app .bg-brand-logo {
+    width: 32px; height: 32px; border-radius: 8px;
+    background: var(--accent); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 14px;
+  }
+  .bg-app .bg-topbar-meta {
+    display: flex; align-items: center; gap: 16px;
+    font-size: 12px; color: var(--muted);
+  }
+  .bg-app .bg-topbar-meta span { display: flex; align-items: center; gap: 4px; }
+  .bg-app .bg-topbar-meta svg { width: 14px; height: 14px; color: var(--accent); }
+  @media (max-width: 639px) { .bg-app .bg-topbar-meta { display: none; } }
+</style>
 </head>
 <body>
 
@@ -471,293 +790,464 @@ window.submitForm=function(){const contact=document.querySelector('.inq-contact'
 document.getElementById('burgerBtn').addEventListener('click',()=>{document.getElementById('filters').scrollIntoView({behavior:'smooth'})});
 })();
 </script>
-   ----*--
-   <script>
-emailjs.init({ publicKey: "Hb2dfb5X3avz1qD7I" });
-const EMAILJS_SERVICE_ID  = "service_nbcocmb";
-const EMAILJS_TEMPLATE_ID = "template_6yo48pk";
+<!-- ============================================================
+   BẮT ĐẦU KHỐI FORM - copy phần này vào trang của bạn
+   ============================================================ -->
+<div class="bg-app" id="bao-gia-app">
+  <div class="bg-container">
 
-// ═══ CẤU HÌNH LOẠI HÀNG ═══════════════════════════════════════
-const CAT = {
-  steel_block:   {
-    label:"Thép tấm / khối (khuôn mẫu)",
-    fields:[{k:"thick",l:"Dày (mm)",p:"100"},{k:"width",l:"Rộng (mm)",p:"300"},{k:"len",l:"Dài (mm)",p:"600"}],
-    units:["kg","tấn","tấm"],
-    fmt:f=>`${f.thick||"?"}×${f.width||"?"}×${f.len||"?"} mm`,
-  },
-  billet_square: {
-    label:"Phôi vuông (billet)",
-    fields:[{k:"side",l:"Cạnh □ (mm)",p:"60"},{k:"len",l:"Dài (mm)",p:"6000"}],
-    units:["cây","tấn","kg"],
-    fmt:f=>`□${f.side||"?"}×${f.len||"?"} mm`,
-  },
-  billet_flat:   {
-    label:"Phôi dẹt (slab)",
-    fields:[{k:"thick",l:"Dày (mm)",p:"12"},{k:"width",l:"Rộng (mm)",p:"200"},{k:"len",l:"Dài (mm)",p:"500"}],
-    units:["tấm","tấn","kg"],
-    fmt:f=>`Dày ${f.thick||"?"}×Mặt ${f.width||"?"}×${f.len||"?"} mm`,
-  },
-  billet_round:  {
-    label:"Phôi tròn (bloom)",
-    fields:[{k:"dia",l:"Ø Đường kính (mm)",p:"20"},{k:"len",l:"Dài (mm)",p:"500"}],
-    units:["cây","tấn","kg"],
-    fmt:f=>`Ø${f.dia||"?"}×${f.len||"?"} mm`,
-  },
-};
-
-const GRADES_HTML = `
-  <option value="">— Chọn mác thép —</option>
-  <optgroup label="Khuôn nhựa">
-    <option>P20 / 1.2311</option><option>718 / 1.2738</option>
-    <option>718H (pre-hardened)</option><option>NAK80</option>
-    <option>S136 / 1.2316</option><option>420SS</option>
-  </optgroup>
-  <optgroup label="Khuôn nóng">
-    <option>H13 / SKD61 / 1.2344</option><option>H11 / 1.2343</option><option>8407</option>
-  </optgroup>
-  <optgroup label="Khuôn nguội">
-    <option>D2 / SKD11 / 1.2379</option><option>D3 / SKD1</option>
-    <option>Cr12MoV</option><option>O1 / SKS3</option><option>A2 / 1.2363</option>
-  </optgroup>
-  <optgroup label="Thép máy / kết cấu">
-    <option>S45C</option><option>S50C</option><option>42CrMo / 4140</option><option>40Cr</option>
-  </optgroup>
-  <optgroup label="Thép gió (HSS)">
-    <option>M2 / SKH51</option><option>M42 / SKH59</option><option>T15 / SKH57</option>
-  </optgroup>
-  <option value="__other__">Mác khác (tự nhập)…</option>`;
-
-// ═══ DOM refs ═══
-const itemList   = document.getElementById("itemList");
-const btnAddItem = document.getElementById("btnAddItem");
-const form       = document.getElementById("quoteForm");
-const submitBtn  = document.getElementById("submitBtn");
-const btnText    = document.getElementById("btnText");
-const spinner    = document.getElementById("spinner");
-const toast      = document.getElementById("toast");
-let itemIdx = 0, sizeIdx = 0;
-
-// ═══ Tạo 1 dòng quy cách ═══
-function makeSizeRow(cfg, sn) {
-  sizeIdx++;
-  const colClass = cfg.fields.length >= 3 ? "c3" : "c2";
-  const fieldsHTML = cfg.fields.map(fd =>
-    `<div class="sr-f">
-      <label>${fd.l}</label>
-      <input type="number" data-k="${fd.k}" placeholder="${fd.p}" min="0">
-    </div>`).join("");
-  const unitOpts = cfg.units.map(u=>`<option>${u}</option>`).join("");
-
-  const wrap = document.createElement("div");
-  wrap.className = `size-row-wrap ${colClass}`;
-  wrap.innerHTML = fieldsHTML +
-    `<div class="sr-f qty-wrap"><label>Số lượng</label><input type="number" data-k="qty" placeholder="0" min="0"></div>
-     <div class="sr-f unit-wrap"><label>Đơn vị</label><select data-k="unit">${unitOpts}</select></div>
-     <button type="button" class="btn-del-size" title="Xoá dòng">×</button>`;
-  wrap.querySelector(".btn-del-size").addEventListener("click", () => {
-    wrap.remove(); renumberSizes(wrap.closest(".item-card"));
-  });
-  return wrap;
-}
-
-function renumberSizes(card) {
-  // optional: nothing needed visually, rows are unlabeled
-}
-
-// ═══ Tạo 1 mặt hàng ═══
-function makeItemCard() {
-  itemIdx++;
-  const iid = itemIdx;
-
-  const card = document.createElement("div");
-  card.className = "item-card";
-  card.dataset.iid = iid;
-
-  card.innerHTML = `
-    <div class="item-card-head">
-      <span class="item-card-title">Mác thép #${iid}</span>
-      <button type="button" class="btn-del-item" title="Xoá mặt hàng">×</button>
+    <!-- Topbar (có thể xóa nếu trang bạn đã có header) -->
+    <div class="bg-topbar">
+      <div class="bg-brand">
+        <div class="bg-brand-logo">B</div>
+        <span>Báo Giá Nhanh</span>
+      </div>
+      <div class="bg-topbar-meta">
+        <span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Phản hồi 48h
+        </span>
+        <span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Bảo mật thông tin
+        </span>
+      </div>
     </div>
-    <div class="item-card-body">
-      <div class="item-meta">
-        <div class="f full">
-          <label>Loại hàng</label>
-          <select class="js-cat">
-            <option value="">— Chọn loại hàng —</option>
-            <option value="steel_block">Thép tấm / khối (khuôn mẫu)</option>
-            <option value="billet_square">Phôi vuông (billet)</option>
-            <option value="billet_flat">Phôi dẹt (slab)</option>
-            <option value="billet_round">Phôi tròn (bloom)</option>
+
+    <!-- Page title -->
+    <h1 class="bg-page-title">Yêu cầu báo giá</h1>
+    <p class="bg-page-sub">Điền thông tin liên hệ và danh sách mặt hàng cần báo giá. Chúng tôi sẽ phản hồi trong vòng 48 giờ.</p>
+
+    <!-- Form -->
+    <form id="bao-gia-form" class="bg-grid" novalidate>
+
+      <!-- ============ LEFT: Contact ============ -->
+      <section class="bg-card">
+        <div class="bg-card-title">Thông tin liên hệ</div>
+        <div class="bg-card-sub">Các trường có dấu <span class="req">*</span> là bắt buộc</div>
+
+        <div class="bg-field">
+          <label class="bg-label" for="bg-customerName">Họ tên <span class="req">*</span></label>
+          <input class="bg-input" type="text" id="bg-customerName" name="customerName" placeholder="Nguyễn Văn A">
+          <span class="bg-error-text" data-error-for="customerName"></span>
+        </div>
+
+        <div class="bg-field">
+          <label class="bg-label" for="bg-phone">Số điện thoại <span class="req">*</span></label>
+          <input class="bg-input" type="tel" id="bg-phone" name="phone" placeholder="0912 345 678" inputmode="tel">
+          <span class="bg-error-text" data-error-for="phone"></span>
+        </div>
+
+        <div class="bg-field">
+          <label class="bg-label" for="bg-company">Công ty</label>
+          <input class="bg-input" type="text" id="bg-company" name="company" placeholder="Công ty ABC">
+        </div>
+
+        <div class="bg-field">
+          <label class="bg-label" for="bg-email">Email</label>
+          <input class="bg-input" type="email" id="bg-email" name="email" placeholder="email@company.com" inputmode="email">
+          <span class="bg-error-text" data-error-for="email"></span>
+        </div>
+
+        <div class="bg-field">
+          <label class="bg-label" for="bg-city">Tỉnh/TP</label>
+          <select class="bg-select" id="bg-city" name="city">
+            <option value="">— Chọn —</option>
           </select>
         </div>
-        <div class="f full js-grade-row" style="display:none">
-          <label>Mác thép</label>
-          <select class="js-grade">${GRADES_HTML}</select>
-          <input class="js-grade-custom" type="text" placeholder="Nhập tên mác thép…" style="display:none;margin-top:5px">
-          <p class="grade-hint">Kho TKM: P20, 718, H13/SKD61, D2/SKD11, S136, NAK80, S45C, 42CrMo, M2/SKH51</p>
+
+        <div class="bg-field">
+          <label class="bg-label" for="bg-note">Ghi chú</label>
+          <textarea class="bg-textarea" id="bg-note" name="note" placeholder="Gia công, nhiệt luyện, CO/CQ..." rows="4"></textarea>
         </div>
-        <div class="f">
-          <label>Xuất xứ</label>
-          <select class="js-origin">
-            <option value="">— Không yêu cầu —</option>
-            <option>Trung Quốc</option><option>Nhật Bản</option>
-            <option>Hàn Quốc</option><option>Châu Âu</option>
-            <option>Đài Loan</option><option>Việt Nam</option>
-          </select>
+
+        <div style="margin-top: 20px;">
+          <button type="submit" class="bg-submit" id="bg-submit-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            <span class="btn-text">Gửi yêu cầu</span>
+          </button>
+          <p class="bg-footer-note">Phản hồi trong 48h. Thông tin được bảo mật.</p>
         </div>
-      </div>
+      </section>
 
-      <div class="js-size-section" style="display:none">
-        <div class="size-sec-label" style="margin-bottom:6px">Quy cách &amp; Số lượng</div>
-        <div class="size-rows js-size-rows"></div>
-        <button type="button" class="btn-add-size" style="margin-top:6px">＋ Thêm quy cách</button>
-      </div>
-    </div>`;
+      <!-- ============ RIGHT: Items ============ -->
+      <section class="bg-card">
+        <div class="bg-items-header">
+          <div class="bg-items-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          </div>
+          <div>
+            <div class="bg-items-title">Danh sách mặt hàng</div>
+            <div class="bg-items-sub">Thêm các mặt hàng cần báo giá</div>
+          </div>
+        </div>
 
-  // xoá item
-  card.querySelector(".btn-del-item").addEventListener("click", () => {
-    card.remove(); renumberItems();
-  });
+        <div id="bg-items-list"></div>
 
-  // đổi loại hàng
-  const catSel    = card.querySelector(".js-cat");
-  const gradeRow  = card.querySelector(".js-grade-row");
-  const sizeSection = card.querySelector(".js-size-section");
-  const sizeRows  = card.querySelector(".js-size-rows");
-  const addSizeBtn= card.querySelector(".btn-add-size");
+        <button type="button" class="bg-add-item" id="bg-add-item-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Thêm mặt hàng
+        </button>
+      </section>
 
-  catSel.addEventListener("change", () => {
-    const cat = catSel.value;
-    const cfg = CAT[cat];
-    const isBlock = cat === "steel_block";
-    gradeRow.style.display = isBlock ? "" : "none";
-    sizeRows.innerHTML = "";
-    if (cfg) {
-      sizeSection.style.display = "";
-      sizeRows.appendChild(makeSizeRow(cfg, 1));
-    } else {
-      sizeSection.style.display = "none";
-    }
-  });
+    </form>
+  </div>
 
-  // mác khác
-  const gradeSel    = card.querySelector(".js-grade");
-  const gradeCustom = card.querySelector(".js-grade-custom");
-  gradeSel.addEventListener("change", () => {
-    gradeCustom.style.display = gradeSel.value === "__other__" ? "" : "none";
-    if (gradeSel.value !== "__other__") gradeCustom.value = "";
-  });
+  <!-- Toast container -->
+  <div class="bg-toast-wrap" id="bg-toast-wrap"></div>
+</div>
+<!-- ============================================================
+   KẾT THÚC KHỐI FORM
+   ============================================================ -->
+<!-- Form logic -->
+<script>
+(function () {
+  'use strict';
 
-  // thêm quy cách
-  addSizeBtn.addEventListener("click", () => {
-    const cfg = CAT[catSel.value];
-    if (!cfg) return;
-    sizeRows.appendChild(makeSizeRow(cfg, sizeRows.querySelectorAll(".size-row-wrap").length + 1));
-  });
-
-  return card;
-}
-
-function renumberItems() {
-  itemList.querySelectorAll(".item-card-title").forEach((el, i) => {
-    el.textContent = "Mác thép #" + (i + 1);
-  });
-}
-
-// tạo 1 item mặc định
-itemList.appendChild(makeItemCard());
-
-btnAddItem.addEventListener("click", () => {
-  itemList.appendChild(makeItemCard());
-  itemList.lastElementChild.scrollIntoView({ behavior:"smooth", block:"nearest" });
-});
-
-// ═══ Toast / loading ═══
-function showToast(msg, type) {
-  toast.textContent = msg;
-  toast.className = "toast " + type;
-  toast.scrollIntoView({ behavior:"smooth", block:"nearest" });
-}
-function setLoading(on) {
-  submitBtn.disabled = on;
-  spinner.style.display = on ? "block" : "none";
-  btnText.textContent = on ? "Đang gửi..." : "Gửi yêu cầu báo giá";
-}
-
-// ═══ Collect giỏ hàng ═══
-function collectItems() {
-  return Array.from(itemList.querySelectorAll(".item-card")).map((card, ci) => {
-    const cat    = card.querySelector(".js-cat").value;
-    const cfg    = CAT[cat] || {};
-    const grade  = (() => {
-      const sel = card.querySelector(".js-grade");
-      if (!sel) return "";
-      if (sel.value === "__other__") return card.querySelector(".js-grade-custom").value || "(tự nhập)";
-      return sel.value || "";
-    })();
-    const origin = card.querySelector(".js-origin").value || "";
-    const rows   = Array.from(card.querySelectorAll(".size-row-wrap")).map((row, ri) => {
-      const g = k => (row.querySelector(`[data-k="${k}"]`) || {}).value || "";
-      const fv = {};
-      (cfg.fields||[]).forEach(fd => fv[fd.k] = g(fd.k));
-      const dim = cfg.fmt ? cfg.fmt(fv) : "(?)";
-      return `  • ${dim} – SL: ${g("qty")||"?"} ${g("unit")}`;
-    });
-    const header = `[${ci+1}] ${cfg.label||cat}${grade?" – "+grade:""}${origin?" ("+origin+")":""}`;
-    return rows.length ? header + "\n" + rows.join("\n") : header + "\n  • (chưa nhập quy cách)";
-  });
-}
-
-// ═══ Submit ═══
-form.addEventListener("submit", async e => {
-  e.preventDefault();
-  toast.className = "toast";
-
-  // validate required fields (liên hệ)
-  let valid = true;
-  form.querySelectorAll("[required]").forEach(el => {
-    el.style.borderColor = "";
-    if (!el.value.trim()) { el.style.borderColor = "#c0392b"; valid = false; }
-  });
-  if (itemList.querySelectorAll(".item-card").length === 0) {
-    showToast("⚠ Vui lòng thêm ít nhất một mặt hàng.", "error"); return;
-  }
-  if (!valid) { showToast("⚠ Vui lòng điền đầy đủ các trường bắt buộc (*).", "error"); return; }
-
-  setLoading(true);
-  const d = Object.fromEntries(new FormData(form));
-  const items = collectItems();
-
-  const params = {
-    customer_name: d.customer_name,
-    phone:         d.phone,
-    email:         d.email   || "(không cung cấp)",
-    company:       d.company || "(không cung cấp)",
-    city:          d.city,
-    items_list:    items.join("\n\n"),
-    note:          d.note    || "(không có)",
-    sent_at:       new Date().toLocaleString("vi-VN", { timeZone:"Asia/Ho_Chi_Minh" }),
+  // ========= EmailJS Configuration =========
+  var EMAILJS_CONFIG = {
+    publicKey: 'Hb2dfb5X3avz1qD7I',
+    serviceId: 'service_nbcocmb',
+    templateId: 'template_6yo48pk',
   };
+  // =========================================
 
-  try {
-    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, params);
-    showToast("✓ Gửi thành công! Nhân viên Thép Khuôn Mẫu sẽ liên hệ bạn sớm.", "success");
-    form.reset();
-    itemList.innerHTML = "";
-    itemIdx = 0;
-    itemList.appendChild(makeItemCard());
-  } catch(err) {
-    console.error(err);
-    showToast("✗ Gửi thất bại. Vui lòng gọi trực tiếp hoặc thử lại sau.", "error");
-  } finally {
-    setLoading(false);
+  var LOAI_OPTIONS = ['Structural', 'Tool Steel', 'Stainless', 'Carbon Steel', 'Alloy Steel', 'Spring Steel', 'Bearing Steel', 'Mould Steel', 'Khác'];
+  var XUAT_XU_OPTIONS = ['Nhật Bản', 'Trung Quốc', 'Đức', 'Hàn Quốc', 'Đài Loan', 'Việt Nam', 'Mỹ', 'Anh', 'Pháp', 'Thụy Điển', 'Khác'];
+  var DVT_OPTIONS = ['Thanh', 'Cuộn', 'Tấm', 'Kg', 'Mét', 'Tấn', 'Cái', 'Bộ'];
+  var VIETNAM_PROVINCES = [
+    'Hà Nội', 'TP. Hồ Chí Minh', 'Hải Phòng', 'Đà Nẵng', 'Cần Thơ',
+    'Bình Dương', 'Đồng Nai', 'Bà Rịa - Vũng Tàu', 'Hà Nam', 'Hải Dương',
+    'Nam Định', 'Thái Bình', 'Vĩnh Phúc', 'Bắc Ninh', 'Bắc Giang',
+    'Hưng Yên', 'Thái Nguyên', 'Phú Thọ', 'Tuyên Quang', 'Lạng Sơn',
+    'Quảng Ninh', 'Ninh Bình', 'Thanh Hóa', 'Nghệ An', 'Hà Tĩnh',
+    'Quảng Bình', 'Quảng Trị', 'Thừa Thiên Huế', 'Quảng Nam', 'Quảng Ngãi',
+    'Bình Định', 'Phú Yên', 'Khánh Hòa', 'Ninh Thuận', 'Bình Thuận',
+    'Lâm Đồng', 'Đắk Lắk', 'Đắk Nông', 'Gia Lai', 'Kon Tum',
+    'Long An', 'Tiền Giang', 'Bến Tre', 'Trà Vinh', 'Vĩnh Long',
+    'An Giang', 'Đồng Tháp', 'Kiên Giang', 'Hậu Giang', 'Sóc Trăng',
+    'Bạc Liêu', 'Cà Mau', 'Khác'
+  ];
+
+  // ====== Helpers ======
+  function uid() { return Math.random().toString(36).slice(2, 10); }
+
+  function emptySpec() {
+    return { id: uid(), dkDay: '', daiMat: '', sl: '', dvt: '' };
   }
-});
+  function emptyItem() {
+    return { id: uid(), loai: '', macThep: '', xuatXu: '', specs: [emptySpec()] };
+  }
 
-form.querySelectorAll("input,select,textarea").forEach(el =>
-  el.addEventListener("input", () => el.style.borderColor = "")
-);
+  function formatItemsList(items) {
+    return items.map(function (item, idx) {
+      var lines = [];
+      lines.push('MẶT HÀNG #' + (idx + 1));
+      lines.push('  - Loại     : ' + (item.loai || '(chưa chọn)'));
+      lines.push('  - Mác thép : ' + (item.macThep || '(trống)'));
+      lines.push('  - Xuất xứ  : ' + (item.xuatXu || '(chưa chọn)'));
+      if (item.specs.length === 1) {
+        var s = item.specs[0];
+        lines.push('  + Quy cách: ĐK/Đáy=' + (s.dkDay || '-') + ', Đài/Mặt=' + (s.daiMat || '-') + ', SL=' + (s.sl || '-') + ', ĐVT=' + (s.dvt || '-'));
+      } else {
+        item.specs.forEach(function (s, i) {
+          lines.push('  + Quy cách ' + (i + 1) + ': ĐK/Đáy=' + (s.dkDay || '-') + ', Đài/Mặt=' + (s.daiMat || '-') + ', SL=' + (s.sl || '-') + ', ĐVT=' + (s.dvt || '-'));
+        });
+      }
+      return lines.join('\n');
+    }).join('\n\n');
+  }
+
+  function formatDateTime(d) {
+    function pad(n) { return String(n).padStart(2, '0'); }
+    return pad(d.getDate()) + '/' + pad(d.getMonth() + 1) + '/' + d.getFullYear() + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes());
+  }
+
+  // ====== State ======
+  var items = [emptyItem()];
+
+  // ====== Init EmailJS ======
+  if (window.emailjs) {
+    emailjs.init({ publicKey: EMAILJS_CONFIG.publicKey });
+  }
+
+  // ====== Toast ======
+  function showToast(type, title, msg) {
+    var wrap = document.getElementById('bg-toast-wrap');
+    var el = document.createElement('div');
+    el.className = 'bg-toast ' + (type || '');
+    el.innerHTML = '<div class="bg-toast-title"></div><div class="bg-toast-msg"></div>';
+    el.querySelector('.bg-toast-title').textContent = title;
+    el.querySelector('.bg-toast-msg').textContent = msg;
+    wrap.appendChild(el);
+    setTimeout(function () {
+      el.style.animation = 'bg-slide-out 0.25s ease-in forwards';
+      setTimeout(function () { el.remove(); }, 250);
+    }, 5000);
+  }
+
+  // ====== Build selects ======
+  function buildOptions(options, placeholder) {
+    var html = placeholder ? '<option value="">' + placeholder + '</option>' : '';
+    options.forEach(function (o) { html += '<option value="' + o + '">' + o + '</option>'; });
+    return html;
+  }
+
+  // Populate city dropdown
+  var citySelect = document.getElementById('bg-city');
+  citySelect.innerHTML = buildOptions(VIETNAM_PROVINCES, '— Chọn —');
+
+  // ====== Render items ======
+  function renderItems() {
+    var list = document.getElementById('bg-items-list');
+    list.innerHTML = '';
+    items.forEach(function (item, idx) {
+      list.appendChild(buildItemCard(item, idx));
+    });
+  }
+
+  function buildItemCard(item, idx) {
+    var card = document.createElement('div');
+    card.className = 'bg-item';
+    card.dataset.itemId = item.id;
+
+    // Header
+    var head = document.createElement('div');
+    head.className = 'bg-item-head';
+    head.innerHTML =
+      '<div class="bg-item-head-left">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>' +
+        '<span>Mặt hàng #' + (idx + 1) + '</span>' +
+      '</div>' +
+      '<button type="button" class="bg-icon-btn" data-action="remove-item" title="Xóa mặt hàng">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>' +
+      '</button>';
+    card.appendChild(head);
+
+    // Body
+    var body = document.createElement('div');
+    body.className = 'bg-item-body';
+
+    // Row 1: Loai / Mac thep / Xuat xu
+    var row1 = document.createElement('div');
+    row1.className = 'bg-row-3';
+    row1.innerHTML =
+      '<div>' +
+        '<label class="bg-label" style="font-size:12px;">Loại</label>' +
+        '<select class="bg-select" data-field="loai">' + buildOptions(LOAI_OPTIONS, '— Chọn —') + '</select>' +
+      '</div>' +
+      '<div>' +
+        '<label class="bg-label" style="font-size:12px;">Mác thép <span class="req">*</span></label>' +
+        '<input class="bg-input" type="text" data-field="macThep" placeholder="SKD11, P20...">' +
+        '<span class="bg-error-text" data-error-for="mac_' + item.id + '"></span>' +
+      '</div>' +
+      '<div>' +
+        '<label class="bg-label" style="font-size:12px;">Xuất xứ</label>' +
+        '<select class="bg-select" data-field="xuatXu">' + buildOptions(XUAT_XU_OPTIONS, '— Chọn —') + '</select>' +
+      '</div>';
+    body.appendChild(row1);
+
+    // Specs container
+    var specList = document.createElement('div');
+    specList.className = 'bg-spec-list';
+    specList.dataset.role = 'spec-list';
+    body.appendChild(specList);
+    item.specs.forEach(function (s) { specList.appendChild(buildSpecRow(s, item)); });
+
+    // Add spec button
+    var addSpec = document.createElement('button');
+    addSpec.type = 'button';
+    addSpec.className = 'bg-add-spec';
+    addSpec.dataset.action = 'add-spec';
+    addSpec.innerHTML =
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>' +
+      'Thêm quy cách';
+    body.appendChild(addSpec);
+
+    card.appendChild(body);
+
+    // ===== Set values =====
+    row1.querySelector('[data-field="loai"]').value = item.loai;
+    row1.querySelector('[data-field="macThep"]').value = item.macThep;
+    row1.querySelector('[data-field="xuatXu"]').value = item.xuatXu;
+
+    // ===== Wire events =====
+    row1.querySelector('[data-field="loai"]').addEventListener('change', function (e) {
+      item.loai = e.target.value;
+    });
+    row1.querySelector('[data-field="macThep"]').addEventListener('input', function (e) {
+      item.macThep = e.target.value;
+      clearError('mac_' + item.id);
+      e.target.classList.remove('error');
+    });
+    row1.querySelector('[data-field="xuatXu"]').addEventListener('change', function (e) {
+      item.xuatXu = e.target.value;
+    });
+
+    head.querySelector('[data-action="remove-item"]').addEventListener('click', function () {
+      if (items.length > 1) {
+        items = items.filter(function (i) { return i.id !== item.id; });
+        renderItems();
+      } else {
+        showToast('error', 'Không thể xóa', 'Phải có ít nhất 1 mặt hàng.');
+      }
+    });
+
+    addSpec.addEventListener('click', function () {
+      item.specs.push(emptySpec());
+      specList.appendChild(buildSpecRow(item.specs[item.specs.length - 1], item));
+    });
+
+    return card;
+  }
+
+  function buildSpecRow(spec, item) {
+    var row = document.createElement('div');
+    row.className = 'bg-spec-row';
+    row.dataset.specId = spec.id;
+    row.innerHTML =
+      '<div class="bg-spec-col bg-spec-col-3">' +
+        '<label class="bg-spec-label">ĐK/Đáy</label>' +
+        '<input class="bg-input" type="text" data-spec-field="dkDay" placeholder="Ø50">' +
+      '</div>' +
+      '<div class="bg-spec-col bg-spec-col-3">' +
+        '<label class="bg-spec-label">Đài/Mặt</label>' +
+        '<input class="bg-input" type="text" data-spec-field="daiMat" placeholder="1000mm">' +
+      '</div>' +
+      '<div class="bg-spec-col bg-spec-col-2">' +
+        '<label class="bg-spec-label">SL</label>' +
+        '<input class="bg-input" type="text" data-spec-field="sl" placeholder="1" inputmode="numeric">' +
+      '</div>' +
+      '<div class="bg-spec-col bg-spec-col-3">' +
+        '<label class="bg-spec-label">ĐVT</label>' +
+        '<select class="bg-select" data-spec-field="dvt">' + buildOptions(DVT_OPTIONS, '—') + '</select>' +
+      '</div>' +
+      '<div class="bg-spec-col bg-spec-col-1">' +
+        '<button type="button" class="bg-trash-btn ' + (item.specs.length > 1 ? '' : 'empty') + '" data-action="remove-spec" title="Xóa quy cách">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>' +
+        '</button>' +
+      '</div>';
+
+    // Set values
+    row.querySelector('[data-spec-field="dkDay"]').value = spec.dkDay;
+    row.querySelector('[data-spec-field="daiMat"]').value = spec.daiMat;
+    row.querySelector('[data-spec-field="sl"]').value = spec.sl;
+    row.querySelector('[data-spec-field="dvt"]').value = spec.dvt;
+
+    // Wire events
+    row.querySelector('[data-spec-field="dkDay"]').addEventListener('input', function (e) { spec.dkDay = e.target.value; });
+    row.querySelector('[data-spec-field="daiMat"]').addEventListener('input', function (e) { spec.daiMat = e.target.value; });
+    row.querySelector('[data-spec-field="sl"]').addEventListener('input', function (e) { spec.sl = e.target.value; });
+    row.querySelector('[data-spec-field="dvt"]').addEventListener('change', function (e) { spec.dvt = e.target.value; });
+
+    row.querySelector('[data-action="remove-spec"]').addEventListener('click', function () {
+      if (item.specs.length > 1) {
+        item.specs = item.specs.filter(function (s) { return s.id !== spec.id; });
+        row.remove();
+        // Update trash visibility on first spec
+        var specList = row.parentNode;
+        var firstTrash = specList.querySelector('.bg-trash-btn');
+        if (firstTrash) firstTrash.classList.toggle('empty', item.specs.length <= 1);
+      }
+    });
+
+    return row;
+  }
+
+  // ====== Validation ======
+  function setError(key, msg) {
+    var el = document.querySelector('[data-error-for="' + key + '"]');
+    if (el) el.textContent = msg;
+  }
+  function clearError(key) {
+    setError(key, '');
+  }
+  function clearAllErrors() {
+    document.querySelectorAll('.bg-error-text').forEach(function (el) { el.textContent = ''; });
+    document.querySelectorAll('.bg-input.error, .bg-textarea.error').forEach(function (el) { el.classList.remove('error'); });
+  }
+
+  function validate() {
+    clearAllErrors();
+    var ok = true;
+    var customerName = document.getElementById('bg-customerName').value.trim();
+    var phone = document.getElementById('bg-phone').value.trim();
+    var email = document.getElementById('bg-email').value.trim();
+
+    if (!customerName) { setError('customerName', 'Vui lòng nhập họ tên'); document.getElementById('bg-customerName').classList.add('error'); ok = false; }
+    if (!phone) { setError('phone', 'Vui lòng nhập số điện thoại'); document.getElementById('bg-phone').classList.add('error'); ok = false; }
+    else if (!/^[0-9+\-\s]{8,15}$/.test(phone)) { setError('phone', 'Số điện thoại không hợp lệ'); document.getElementById('bg-phone').classList.add('error'); ok = false; }
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setError('email', 'Email không hợp lệ'); document.getElementById('bg-email').classList.add('error'); ok = false; }
+
+    items.forEach(function (item) {
+      if (!item.macThep.trim()) {
+        setError('mac_' + item.id, 'Bắt buộc');
+        var input = document.querySelector('[data-item-id="' + item.id + '"] [data-field="macThep"]');
+        if (input) input.classList.add('error');
+        ok = false;
+      }
+    });
+
+    return ok;
+  }
+
+  // ====== Add item ======
+  document.getElementById('bg-add-item-btn').addEventListener('click', function () {
+    items.push(emptyItem());
+    renderItems();
+  });
+
+  // ====== Submit ======
+  document.getElementById('bao-gia-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!validate()) {
+      showToast('error', 'Vui lòng kiểm tra lại', 'Một số trường bắt buộc chưa được điền đúng.');
+      return;
+    }
+
+    var btn = document.getElementById('bg-submit-btn');
+    var btnText = btn.querySelector('.btn-text');
+    btn.disabled = true;
+    btnText.textContent = 'Đang gửi...';
+    // Add spinner
+    var spinner = document.createElement('span');
+    spinner.className = 'spinner';
+    btn.insertBefore(spinner, btn.firstChild);
+
+    var sentAt = formatDateTime(new Date());
+    var templateParams = {
+      customer_name: document.getElementById('bg-customerName').value.trim() || '(không có)',
+      phone: document.getElementById('bg-phone').value.trim() || '(không có)',
+      email: document.getElementById('bg-email').value.trim() || '(không có)',
+      company: document.getElementById('bg-company').value.trim() || '(không có)',
+      city: document.getElementById('bg-city').value || '(không có)',
+      items_list: formatItemsList(items),
+      note: document.getElementById('bg-note').value.trim() || '(không có)',
+      sent_at: sentAt
+    };
+
+    emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, templateParams)
+      .then(function () {
+        showToast('success', 'Gửi yêu cầu thành công', 'Đã gửi báo giá lúc ' + sentAt + '. Chúng tôi sẽ phản hồi trong 48h.');
+        // Reset
+        document.getElementById('bao-gia-form').reset();
+        items = [emptyItem()];
+        renderItems();
+      })
+      .catch(function (err) {
+        var msg = (err && err.message) ? err.message : 'Lỗi không xác định';
+        showToast('error', 'Gửi yêu cầu thất bại', msg);
+      })
+      .finally(function () {
+        btn.disabled = false;
+        btnText.textContent = 'Gửi yêu cầu';
+        if (spinner.parentNode) spinner.remove();
+      });
+  });
+
+  // ====== Initial render ======
+  renderItems();
+})();
 </script>
-   ---*---
 </body>
 </html>
