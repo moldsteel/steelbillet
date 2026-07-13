@@ -186,7 +186,8 @@ img{max-width:100%;height:auto;display:block}a{color:inherit;text-decoration:non
 .faq-a-inner li:last-child{border-bottom:none}
 .faq-a-inner li::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:6px;height:6px;border-radius:50%;background:var(--accent)}
 .faq-a-inner code{font-family:var(--mono);font-size:12.5px;background:var(--bg);padding:1px 6px;border-radius:4px;color:var(--accent-h);font-weight:500}
-.faq-a-inner .faq-compare{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border-radius:var(--rs);overflow:hidden;margin:12px 0}
+.faq-a-inner .faq-compare{grid-template-columns:repeat(auto-fit,minmax(100px,1fr))}   
+.faq-a-inner .faq-compare{display:grid;gap:1px;background:var(--border);border-radius:var(--rs);overflow:hidden;margin:12px 0}
 .faq-compare-hd{background:var(--bg);padding:8px 14px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
 .faq-compare-td{padding:8px 14px;font-size:13px;background:var(--surface);line-height:1.5}
 .faq-compare-td:first-child{font-weight:500;color:var(--text)}
