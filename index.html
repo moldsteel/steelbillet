@@ -850,6 +850,10 @@ img{max-width:100%;height:auto;display:block}a{color:inherit;text-decoration:non
 <!-- ============================================================
    KẾT THÚC KHỐI FORM
    ============================================================ -->
+
+<!-- EmailJS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
 <!-- Form logic -->
 <script>
 (function () {
@@ -864,8 +868,8 @@ img{max-width:100%;height:auto;display:block}a{color:inherit;text-decoration:non
   // =========================================
 
   var LOAI_OPTIONS = ['Structural', 'Tool Steel', 'Stainless', 'Carbon Steel', 'Alloy Steel', 'Spring Steel', 'Bearing Steel', 'Mould Steel', 'Khác'];
-  var XUAT_XU_OPTIONS = ['Nhật Bản', 'Trung Quốc', 'Đức', 'Hàn Quốc', 'Đài Loan', 'Việt Nam', 'Khác'];
-  var DVT_OPTIONS = ['Thanh', 'Tấm', 'Kg', 'Cái'];
+  var XUAT_XU_OPTIONS = ['Nhật Bản', 'Trung Quốc', 'Đức', 'Hàn Quốc', 'Đài Loan', 'Việt Nam', 'Mỹ', 'Anh', 'Pháp', 'Thụy Điển', 'Khác'];
+  var DVT_OPTIONS = ['Thanh', 'Cuộn', 'Tấm', 'Kg', 'Mét', 'Tấn', 'Cái', 'Bộ'];
   var VIETNAM_PROVINCES = [
     'Hà Nội', 'TP. Hồ Chí Minh', 'Hải Phòng', 'Đà Nẵng', 'Cần Thơ',
     'Bình Dương', 'Đồng Nai', 'Bà Rịa - Vũng Tàu', 'Hà Nam', 'Hải Dương',
