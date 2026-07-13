@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ===== SEO CƠ BẢN ===== -->
+<title>Thép Mold Base Là Gì? 20 Câu Hỏi Đáp Chọn Mác Thép Khuôn (P20, 718, NAK80, S136) | An Thái Phú</title>
+<meta name="description" content="Giải đáp 20 câu hỏi chuyên sâu về thép mold base &amp; thép khuôn mẫu: P20 vs 718, NAK80 vs S136, SUJ2, S50C, SKD11 — đối chiếu tiêu chuẩn JIS, DIN, AISI, GB, CNS, GOST. Tư vấn kỹ thuật từ An Thái Phú.">
+<meta name="keywords" content="thép mold base, thép khuôn mẫu, thép làm khuôn nhựa, P20 1.2311, 718 1.2738, NAK80, S136 1.2083, SKD11, SKD61, S50C, SUJ2, thép khuôn ép nhựa, tiêu chuẩn JIS DIN AISI GB CNS GOST, An Thái Phú">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="author" content="An Thái Phú">
+<meta name="language" content="vi">
+<meta http-equiv="content-language" content="vi">
+<meta name="theme-color" content="#0B2545">
+
+<!-- Cập nhật URL thật của trang trước khi đăng, ví dụ: https://www.anthaiphu.vn/tu-van/thep-mold-base -->
+<link rel="canonical" href="https://www.anthaiphu.vn/tu-van/thep-mold-base">
+
+<!-- ===== OPEN GRAPH (Facebook, Zalo, LinkedIn) ===== -->
+<meta property="og:type" content="article">
+<meta property="og:locale" content="vi_VN">
+<meta property="og:site_name" content="An Thái Phú">
+<meta property="og:title" content="20 Câu Hỏi Đáp Chuyên Sâu: Chọn Thép Cho Mold Base | An Thái Phú">
+<meta property="og:description" content="Đối chiếu P20, 718, NAK80, S136, SKD11, S50C, SUJ2 theo tiêu chuẩn JIS/DIN/AISI/GB/CNS/GOST — cẩm nang tư vấn kỹ thuật cho khách hàng ngành khuôn mẫu.">
+<meta property="og:url" content="https://www.anthaiphu.vn/tu-van/thep-mold-base">
+<!-- Thêm og:image (khuyến nghị 1200x630px) khi có ảnh banner cho trang -->
+
+<!-- ===== TWITTER CARD ===== -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="20 Câu Hỏi Đáp Chuyên Sâu: Chọn Thép Cho Mold Base">
+<meta name="twitter:description" content="Cẩm nang tư vấn chọn thép mold base &amp; thép khuôn mẫu theo tiêu chuẩn JIS/DIN/AISI/GB/CNS/GOST.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0B2545;
+    --blue:#13315C;
+    --accent:#2E6BE6;
+    --accent-light:#EAF1FF;
+    --steel:#5C7A99;
+    --bg:#F5F8FC;
+    --white:#FFFFFF;
+    --text:#1B2A3D;
+    --muted:#5A6B80;
+    --border:#DCE6F2;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Nunito','Roboto',sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.6;
+  }
+  h1,h2,h3,.brand,.qnum{
+    font-family:'Comfortaa','Nunito','Roboto',sans-serif;
+  }
+  .hero{
+    background:linear-gradient(135deg,var(--navy) 0%,var(--blue) 55%,var(--accent) 130%);
+    color:#fff;
+    padding:38px 20px 34px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.05) 0 1px, transparent 1px 40px),
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.05) 0 1px, transparent 1px 40px);
+    opacity:.5;
+  }
+  .hero-inner{position:relative; max-width:820px; margin:0 auto;}
+  .brand{font-size:13px; letter-spacing:2px; text-transform:uppercase; opacity:.85; margin-bottom:10px;}
+  .hero h1{font-size:26px; margin:0 0 10px; line-height:1.35;}
+  .hero p{font-size:14.5px; opacity:.92; max-width:640px; margin:0 0 16px;}
+  .hero-tags{display:flex; flex-wrap:wrap; gap:8px;}
+  .tag{
+    background:rgba(255,255,255,0.14);
+    border:1px solid rgba(255,255,255,0.35);
+    border-radius:20px;
+    padding:5px 12px;
+    font-size:12px;
+    font-weight:600;
+  }
+  .wrap{max-width:820px; margin:0 auto; padding:24px 18px 60px;}
+  .toc{
+    background:var(--white);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:18px 20px;
+    margin-bottom:24px;
+    box-shadow:0 2px 10px rgba(11,37,69,0.05);
+  }
+  .toc h2{font-size:15px; color:var(--navy); margin:0 0 10px;}
+  .toc-grid{display:grid; grid-template-columns:1fr; gap:6px;}
+  .toc a{
+    color:var(--blue);
+    text-decoration:none;
+    font-size:13.5px;
+    font-weight:600;
+    padding:4px 0;
+    border-bottom:1px dashed transparent;
+  }
+  .toc a:hover{border-bottom:1px dashed var(--accent);}
+  .toc-num{color:var(--accent); font-weight:700; margin-right:6px;}
+
+  .section-label{
+    font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase;
+    color:var(--accent); margin:30px 0 10px;
+  }
+
+  details.qa{
+    background:var(--white);
+    border:1px solid var(--border);
+    border-radius:12px;
+    margin-bottom:10px;
+    box-shadow:0 1px 4px rgba(11,37,69,0.04);
+    overflow:hidden;
+  }
+  details.qa[open]{border-color:var(--accent);}
+  summary.q{
+    list-style:none;
+    cursor:pointer;
+    padding:15px 18px;
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    font-weight:700;
+    font-size:14.5px;
+    color:var(--navy);
+  }
+  summary.q::-webkit-details-marker{display:none;}
+  .qnum{
+    flex:0 0 auto;
+    background:var(--accent-light);
+    color:var(--accent);
+    font-weight:700;
+    font-size:13px;
+    border-radius:8px;
+    width:28px; height:28px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  h3.qtext{flex:1; margin:0; font-size:inherit; font-weight:inherit; line-height:inherit; font-family:inherit; color:inherit;}
+  .chev{
+    flex:0 0 auto;
+    color:var(--steel);
+    transition:transform .2s ease;
+    margin-top:3px;
+  }
+  details.qa[open] .chev{transform:rotate(180deg);}
+  .a{
+    padding:0 18px 18px 58px;
+    font-size:13.8px;
+    color:var(--text);
+  }
+  .a p{margin:0 0 10px;}
+  .a ul{margin:0 0 10px; padding-left:18px;}
+  .a li{margin-bottom:5px;}
+  table.cmp{
+    width:100%;
+    border-collapse:collapse;
+    margin:8px 0 14px;
+    font-size:12.6px;
+  }
+  table.cmp th{
+    background:var(--navy);
+    color:#fff;
+    padding:7px 8px;
+    text-align:left;
+    font-weight:700;
+  }
+  table.cmp td{
+    padding:7px 8px;
+    border-bottom:1px solid var(--border);
+    vertical-align:top;
+  }
+  table.cmp tr:nth-child(even) td{background:#F8FAFD;}
+  .note{
+    background:var(--accent-light);
+    border-left:3px solid var(--accent);
+    padding:9px 12px;
+    border-radius:6px;
+    font-size:12.8px;
+    color:var(--blue);
+    margin:8px 0;
+  }
+  .warn{
+    background:#FFF4E8;
+    border-left:3px solid #D98A2B;
+    padding:9px 12px;
+    border-radius:6px;
+    font-size:12.8px;
+    color:#7A4E12;
+    margin:8px 0;
+  }
+  code{
+    background:#EEF3FA;
+    padding:1px 6px;
+    border-radius:4px;
+    font-size:12.5px;
+    color:var(--blue);
+    font-family:'Nunito',monospace;
+  }
+  .cta{
+    margin-top:36px;
+    background:linear-gradient(135deg,var(--navy),var(--blue));
+    color:#fff;
+    border-radius:16px;
+    padding:24px 22px;
+    text-align:center;
+  }
+  .cta h3{margin:0 0 6px; font-size:18px;}
+  .cta p{margin:0 0 16px; font-size:13.5px; opacity:.9;}
+  .cta-grid{
+    display:grid; gap:10px;
+    grid-template-columns:1fr 1fr;
+    text-align:left;
+    max-width:420px;
+    margin:0 auto;
+  }
+  .cta-item{
+    background:rgba(255,255,255,0.1);
+    border:1px solid rgba(255,255,255,0.25);
+    border-radius:10px;
+    padding:10px 12px;
+    font-size:12.5px;
+  }
+  .cta-item b{display:block; font-size:11px; opacity:.75; font-weight:600; text-transform:uppercase; letter-spacing:.5px; margin-bottom:3px;}
+  footer{
+    text-align:center;
+    font-size:11.5px;
+    color:var(--muted);
+    margin-top:26px;
+  }
+  @media(max-width:480px){
+    .hero h1{font-size:21px;}
+    .cta-grid{grid-template-columns:1fr;}
+    .a{padding-left:18px;}
+    summary.q{font-size:13.8px;}
+  }
+</style>
+
+<!-- ===== STRUCTURED DATA: FAQPage (giúp Google hiển thị rich snippet Q&A) ===== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"Mold base là gì, và vì sao thép cho mold base khác với thép làm lòng khuôn (cavity/core)?","acceptedAnswer":{"@type":"Answer","text":"Mold base (vỏ khuôn) là bộ khung kết cấu gồm tấm đế, tấm kẹp, tấm đỡ, bạc và chốt dẫn hướng — không tiếp xúc trực tiếp với nhựa nóng chảy như lòng khuôn nên chỉ cần độ bền cơ học, độ phẳng, độ ổn định kích thước và giá thành hợp lý, không cần độ cứng cao hay đánh bóng gương như thép cavity/core (P20, 718, NAK80, S136, H13)."}},
+    {"@type":"Question","name":"Mác thép nào dùng phổ biến nhất cho tấm đế mold base tại Việt Nam và Trung Quốc?","acceptedAnswer":{"@type":"Answer","text":"S50C (JIS G4051, tương đương AISI 1050, DIN C50/1.1210) là lựa chọn phổ biến nhất cho tấm đế mold base nhờ độ cứng đồng đều HB 160-200 và ít biến dạng khi gia công. Với khuôn nhỏ có thể dùng SM45 (tương đương S45C); tấm không chịu lực đặc biệt có thể dùng SS400 hoặc Q235/Q345."}},
+    {"@type":"Question","name":"Sự khác nhau giữa P20 (1.2311) và 718 (1.2738) là gì?","acceptedAnswer":{"@type":"Answer","text":"718 là P20 bổ sung khoảng 1% Niken giúp tăng độ thấm tôi. P20 tôi sẵn 28-32 HRC, giá thấp, phù hợp khuôn vừa/nhỏ sản lượng thấp. 718/718H tôi sẵn 33-38 HRC, đánh bóng tốt hơn, tuổi thọ gấp 2-3 lần P20, phù hợp khuôn lớn, sản lượng cao, yêu cầu bề mặt bóng."}},
+    {"@type":"Question","name":"NAK80, S136 và H13 khác nhau ra sao, nên chọn mác nào cho khuôn trong suốt, chống ăn mòn PVC, hay nhiệt độ cao?","acceptedAnswer":{"@type":"Answer","text":"NAK80 (38-43 HRC, tôi sẵn) đánh bóng gương xuất sắc nhưng không chống ăn mòn, phù hợp khuôn nhựa trong suốt. S136/1.2083 (48-52 HRC sau tôi) chống ăn mòn tốt, dùng cho PVC, chất chống cháy, khuôn y tế. H13/1.2344 (50-54 HRC) chịu nhiệt tốt nhất, dùng cho nhựa kỹ thuật nhiệt độ cao như PEEK, PPS hoặc khuôn đúc áp lực kim loại."}},
+    {"@type":"Question","name":"Chốt dẫn hướng và bạc dẫn hướng mold base nên dùng thép gì?","acceptedAnswer":{"@type":"Answer","text":"Phổ biến nhất là SUJ2 (tương đương GCr15, AISI 52100, DIN 100Cr6) và 20Cr (thép thấm cacbon), cả hai tôi bề mặt đạt HRC 58-62. SUJ2 có độ cứng đồng đều toàn tiết diện, còn 20Cr chỉ cứng lớp bề mặt, lõi dẻo dai hơn, phù hợp khuôn cỡ lớn chịu va đập."}},
+    {"@type":"Question","name":"Bảng đối chiếu thép mold base giữa JIS, DIN/EN, AISI/ASTM và GB Trung Quốc?","acceptedAnswer":{"@type":"Answer","text":"P20 tương đương DIN 1.2311/GB 3Cr2Mo; 718 tương đương DIN 1.2738/GB 3Cr2NiMo; S136 tương đương DIN 1.2083/GB 4Cr13; H13 tương đương DIN 1.2344; SKD11 tương đương AISI D2/DIN 1.2379/GB Cr12Mo1V1; S50C tương đương AISI 1050/DIN C50; SUJ2 tương đương AISI 52100/DIN 100Cr6/GB GCr15."}},
+    {"@type":"Question","name":"Thị trường Đài Loan dùng ký hiệu thép khuôn như thế nào so với Trung Quốc đại lục?","acceptedAnswer":{"@type":"Answer","text":"Đài Loan chủ yếu dùng ký hiệu JIS và thương hiệu quốc tế (ASSAB, STAVAX) cho ngành khuôn mẫu, được đánh giá cao về độ đồng đều. Trung Quốc đại lục dùng song song GB và JIS, có lợi thế về giá và sản lượng cho thép phổ thông như S50C, P20 nội địa."}},
+    {"@type":"Question","name":"Nga (GOST) có mác thép tương đương thép khuôn mold base thông dụng không?","acceptedAnswer":{"@type":"Answer","text":"GOST tập trung vào thép kết cấu ngành nặng hơn là thép khuôn ép nhựa chuyên dụng. Thị trường Nga/SNG làm khuôn nhựa hiện đại thường nhập thép theo tiêu chuẩn DIN (Uddeholm, Böhler) thay vì dùng mác GOST bản địa."}},
+    {"@type":"Question","name":"HRC và HB khác nhau thế nào trong đo độ cứng thép khuôn?","acceptedAnswer":{"@type":"Answer","text":"HB (Brinell) đo vật liệu mềm-trung bình như S50C ủ (160-200 HB). HRC (Rockwell C) đo vật liệu đã tôi cứng như NAK80 (38-43 HRC) hay S136 (48-52 HRC). Quy đổi gần đúng 300 HB xấp xỉ 32 HRC nhưng chỉ mang tính tham khảo."}},
+    {"@type":"Question","name":"Thép tôi sẵn (pre-hardened) và thép ủ mềm (annealed) khác nhau ra sao?","acceptedAnswer":{"@type":"Answer","text":"Thép tôi sẵn như P20, 718, NAK80 giao hàng đã đạt độ cứng làm việc, gia công trực tiếp không cần nhiệt luyện thêm. Thép ủ mềm như S136, H13, SKD11 giao hàng mềm để gia công thô, sau đó mới tôi cứng đạt độ cứng cuối cao hơn nhưng tốn thêm công đoạn nhiệt luyện."}},
+    {"@type":"Question","name":"ESR (Electro Slag Remelting) là gì và khi nào nên chọn thép luyện ESR?","acceptedAnswer":{"@type":"Answer","text":"ESR là công nghệ luyện lại thép qua lớp xỉ điện giúp loại tạp chất, tạo cấu trúc hạt mịn đồng đều, đánh bóng đạt độ gương cao hơn thép EAF thường. Giá cao hơn 20-40% nhưng nên chọn cho khuôn yêu cầu độ bóng quang học hoặc khuôn y tế."}},
+    {"@type":"Question","name":"Khi nào mold base nên dùng nhôm hợp kim 7075 thay vì thép?","acceptedAnswer":{"@type":"Answer","text":"Nhôm 7075-T6 phù hợp khuôn mẫu thử nhanh hoặc sản lượng thấp dưới 10.000-50.000 lần bắn nhờ nhẹ và gia công nhanh, nhưng độ bền mỏi thấp hơn thép nhiều lần nên không thay thế thép cho sản xuất hàng loạt dài hạn."}},
+    {"@type":"Question","name":"SKD11 (D2) dùng để làm gì trong bộ khuôn, có phải để làm mold base không?","acceptedAnswer":{"@type":"Answer","text":"SKD11 là thép làm việc nguội (58-62 HRC), không dùng cho mold base mà dùng cho dao cắt, khuôn dập nguội, hoặc insert chịu mài mòn tại vị trí dòng nhựa có sợi thủy tinh trong khuôn ép nhựa."}},
+    {"@type":"Question","name":"Dung sai độ dày và độ phẳng tiêu chuẩn cho tấm đế mold base là bao nhiêu?","acceptedAnswer":{"@type":"Answer","text":"Tấm mold base phay tinh theo chuẩn DME/HASCO/FUTABA/LKM thường có dung sai độ dày ±0.05-0.10mm và độ phẳng 0.02-0.05mm/300mm. Thép phôi thô chưa gia công có dung sai rộng hơn, tới ±0.5-1mm."}},
+    {"@type":"Question","name":"MTC (Material Test Certificate) là gì và vì sao khách hàng công nghiệp luôn yêu cầu?","acceptedAnswer":{"@type":"Answer","text":"MTC là chứng chỉ do nhà máy luyện thép cấp xác nhận thành phần hóa học, tính chất cơ học và số lô luyện, thường theo chuẩn EN 10204. Khách hàng ô tô, y tế, điện tử yêu cầu MTC để truy xuất nguồn gốc và đáp ứng audit IATF 16949 hoặc ISO 13485."}},
+    {"@type":"Question","name":"Làm sao nhận biết rủi ro thép trộn mác hoặc kém chất lượng khi nhập từ nhiều nguồn Trung Quốc?","acceptedAnswer":{"@type":"Answer","text":"Cần yêu cầu MTC kèm số lô luyện, đối chiếu phiếu kiểm tra siêu âm, lấy mẫu kiểm tra độ cứng ngẫu nhiên tại nhiều vị trí trên tấm để phát hiện độ cứng không đồng đều, và ưu tiên nguồn thép có thương hiệu rõ ràng cho đơn hàng yêu cầu độ tin cậy cao."}},
+    {"@type":"Question","name":"Với khuôn sản lượng thấp dưới 50.000 lần bắn nên chọn combo thép nào để tối ưu chi phí?","acceptedAnswer":{"@type":"Answer","text":"Combo tiết kiệm phổ biến: mold base S50C thường hóa, cavity/core P20/1.2311, chốt dẫn hướng SUJ2, ty đẩy SKD61. Với nhựa không mài mòn như PP, PE, ABS, HIPS, P20 hoàn toàn đáp ứng tuổi thọ mong muốn với chi phí thấp nhất."}},
+    {"@type":"Question","name":"Với khuôn sản lượng cao trên 500.000 lần bắn nên chọn thép gì?","acceptedAnswer":{"@type":"Answer","text":"Combo khuyến nghị: mold base S50C phay tinh, cavity/core 718H hoặc NAK80, insert chịu mài mòn SKD11/H13 tại vị trí cổng phun, chốt dẫn hướng SUJ2 tôi sâu để chịu ma sát hàng trăm nghìn chu kỳ."}},
+    {"@type":"Question","name":"Với khuôn dùng nhựa ăn mòn PVC hoặc môi trường ẩm cần lưu ý gì ngoài chọn S136?","acceptedAnswer":{"@type":"Answer","text":"Ngoài thép không gỉ S136 cho cavity/core, cần mạ chống ăn mòn cho mold base gần vùng khí ăn mòn, dùng ống lót đồng hoặc thép không gỉ cho kênh làm mát, và bảo trì vệ sinh định kỳ nếu vận hành trong môi trường ẩm cao."}},
+    {"@type":"Question","name":"Cần hỏi khách hàng những gì trước khi tư vấn và báo giá thép mold base?","acceptedAnswer":{"@type":"Answer","text":"Sáu điểm cần hỏi: vị trí sử dụng thép, loại nhựa ép, sản lượng dự kiến, yêu cầu bề mặt, kích thước/độ dày khối thép, và yêu cầu chứng chỉ MTC hoặc tiêu chuẩn ngành như IATF 16949/ISO 13485."}}
+  ]
+}
+</script>
+
+<!-- ===== STRUCTURED DATA: Organization (thông tin doanh nghiệp cho Google) ===== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Công ty TNHH MTV An Thái Phú",
+  "alternateName": "An Thái Phú (ATP)",
+  "url": "https://www.anthaiphu.vn",
+  "email": "sales.anthaiphu@gmail.com",
+  "telephone": "+84917168289",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "732 Lê Đức Anh",
+    "addressLocality": "Bình Tân",
+    "addressRegion": "TP.HCM",
+    "addressCountry": "VN"
+  },
+  "description": "Nhà phân phối thép khuôn mẫu và thép công cụ tại TP.HCM: thép khuôn nhựa (P20, 718, NAK80, S136), thép làm việc nóng/nguội (SKD61, SKD11), nhôm và đồng hợp kim, gia công CNC và nhiệt luyện chân không."
+}
+</script>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="brand">AN THÁI PHÚ · TÀI LIỆU KỸ THUẬT THÉP KHUÔN MẪU (NỘI BỘ)</div>
+    <h1>20 Câu Hỏi – Đáp Chuyên Sâu Về Chọn Thép Cho Mold Base</h1>
+    <p>Tổng hợp đối chiếu tiêu chuẩn JIS (Nhật), DIN/EN (Đức), AISI/ASTM (Mỹ), GB/T (Trung Quốc), CNS (Đài Loan) và GOST (Nga) — dùng để tư vấn khách hàng chọn đúng mác thép cho từng vị trí trong bộ khuôn.</p>
+    <div class="hero-tags">
+      <span class="tag">P20 · 718 · NAK80 · S136</span>
+      <span class="tag">S50C · SKD11 · SKD61</span>
+      <span class="tag">SUJ2 · 20Cr · H13</span>
+      <span class="tag">JIS / DIN / AISI / GB / CNS / GOST</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="toc">
+    <h2>Mục lục nhanh</h2>
+    <div class="toc-grid" id="toc"></div>
+  </div>
+
+  <h2 class="section-label">Phần 1 — Kiến thức nền tảng</h2>
+
+  <details class="qa" id="q1" open>
+    <summary class="q"><span class="qnum">1</span><h3 class="qtext">Mold base là gì, và vì sao thép cho mold base khác với thép làm lòng khuôn (cavity/core)?</h3><span class="chev">▾</span></summary>
+    <div class="a">
+      <p>Mold base (vỏ khuôn / đế khuôn) là bộ khung kết cấu gồm các tấm đế trên/dưới, tấm kẹp, tấm đỡ, bạc dẫn hướng, chốt dẫn hướng… giữ và định vị lòng khuôn (cavity, core) khi lắp lên máy ép. Mold base <b>không trực tiếp tiếp xúc với nhựa nóng chảy</b> ở mật độ cao như lòng khuôn, nên yêu cầu chính là <b>độ bền cơ học, độ phẳng, độ ổn định kích thước và giá thành hợp lý</b> — không cần độ cứng cao, không cần đánh bóng gương, không cần chống ăn mòn đặc biệt (trừ khi khách hàng yêu cầu riêng).</p>
+      <p>Ngược lại, thép cho cavity/core (lòng khuôn) phải chịu áp lực phun, ma sát dòng nhựa, nhiệt độ chu kỳ và yêu cầu độ bóng bề mặt — nên dùng các mác thép chuyên dụng như P20, 718, NAK80, S136, H13…</p>
+      <table class="cmp">
+        <tr><th>Vị trí trong bộ khuôn</th><th>Mác thép phổ biến</th><th>Yêu cầu chính</th></tr>
+        <tr><td>Tấm đế trên/dưới (Top/Bottom plate)</td><td>S50C, S55C, SS400 (thép thường)</td><td>Độ phẳng, độ bền kéo, giá tốt</td></tr>
+        <tr><td>Tấm kẹp, tấm đỡ (Support/Clamp plate)</td><td>S50C, SS400, Q235/Q345</td><td>Chịu lực kẹp máy ép</td></tr>
+        <tr><td>Cavity / Core (lòng khuôn)</td><td>P20/1.2311, 718/1.2738, NAK80, S136, H13</td><td>Độ cứng, độ bóng, chống mài mòn</td></tr>
+        <tr><td>Chốt dẫn hướng / bạc dẫn hướng</td><td>SUJ2, 20Cr (thấm cacbon tôi)</td><td>Độ cứng bề mặt HRC 58–62, chống ma sát</td></tr>
+        <tr><td>Ty đẩy, lò xo hồi</td><td>SKD61, SKH9 (thép gió)</td><td>Chịu mỏi, chịu va đập lặp lại</td></tr>
+      </table>
+    </div>
+  </details>
+
+  <details class="qa" id="q2">
+    <summary class="q"><span class="qnum">2</span><h3 class="qtext">Mác thép nào dùng phổ biến nhất cho tấm đế mold base tại thị trường Việt Nam và Trung Quốc?</h3><span class="chev">▾</span></summary>
+    <div class="a">
+      <p><b>S50C</b> (tiêu chuẩn JIS G4051, tương đương AISI 1050, DIN C50/1.1210) là lựa chọn phổ biến nhất cho tấm đế mold base cỡ vừa và lớn, do độ cứng đồng đều HB 160–200 sau ủ, ít biến dạng khi gia công, cắt dây/CNC tốt. Với các bộ khuôn nhỏ, chi phí thấp, nhiều xưởng Trung Quốc dùng thép nội địa <b>SM45 (tương đương S45C)</b> để giảm giá thành.</p>
+      <p>Với các tấm không chịu lực đặc biệt (tấm chặn, gối đỡ phụ), có thể dùng thép kết cấu thường như <b>SS400 (JIS)</b> hoặc <b>Q235/Q345 (GB Trung Quốc)</b> để tiết kiệm chi phí.</p>
+      <table class="cmp">
+        <tr><th>Mác (JIS)</th><th>Tương đương AISI/ASTM</th><th>Tương đương DIN/EN</th><th>Tương đương GB (TQ)</th><th>Ứng dụng</th></tr>
+        <tr><td>S50C</td><td>1050 / SAE1050</td><td>C50 / 1.1210</td><td>50#</td><td>Tấm đế mold base tiêu chuẩn</td></tr>
+        <tr><td>S45C</td><td>1045</td><td>C45 / 1.1191</td><td>45#</td><td>Tấm đế cỡ nhỏ, chi tiết kết cấu</td></tr>
+        <tr><td>S55C</td><td>1055</td><td>C55 / 1.1203</td><td>55#</td><td>Tấm chịu lực cao hơn</td></tr>
+        <tr><td>SS400</td><td>A36 (gần đúng)</td><td>S235JR</td><td>Q235</td><td>Khung, tấm chặn, kết cấu phụ</td></tr>
+      </table>
+      <div class="note">Lưu ý: S45C/S50C không phải "thép khuôn" (mold steel) chuyên dụng, mà là "thép kết cấu carbon trung bình" — bản chất khác với P20 hay NAK80. Khi khách hàng hỏi "thép làm khuôn" cần hỏi rõ họ cần thép cho <b>đế khuôn</b> hay <b>lòng khuôn</b> để tư vấn đúng mác.</div>
+    </div>
+  </details>
+
+  <details class="qa" id="q3">
+    <summary class="q"><span class="qnum">3</span><h3 class="qtext">Sự khác nhau giữa P20 (1.2311) và 718 (1.2738) là gì? Khi nào nên khuyên khách nâng cấp lên 718?</h3><span class="chev">▾</span></summary>
+    <div class="a">
+      <p>718 chính là P20 được bổ sung khoảng 1% Niken (P20 + Ni ≈ 718), giúp tăng độ thấm tôi (hardenability) — với khối thép dày trên 400mm, lõi P20 có thể chỉ đạt ~20 HRC trong khi bề mặt đạt 30 HRC (không đồng đều), còn 718 nhờ Ni giữ được độ cứng đồng đều xuyên suốt tiết diện lớn tới 800–1000mm.</p>
+      <ul>
+        <li><b>P20 (1.2311/1.2312):</b> độ cứng tôi sẵn ~28–32 HRC, giá thấp, phù hợp khuôn vừa/nhỏ, sản lượng thấp–trung bình, không yêu cầu bóng gương.</li>
+        <li><b>718/718H (1.2738):</b> độ cứng tôi sẵn ~33–38 HRC, đánh bóng tốt hơn (không bị rỗ da cam), tuổi thọ khuôn gấp 2–3 lần P20, phù hợp khuôn lớn, yêu cầu bề mặt bóng, sản lượng cao.</li>
+      </ul>
+      <div class="note">Quy tắc tư vấn nhanh: nếu khách cần bề mặt bóng gương, khuôn dày >400mm, hoặc sản lượng trên ~300.000 lần bắn → nên khuyên 718/718H thay vì P20, dù giá cao hơn khoảng 15–25%, để tránh rủi ro lõi mềm gây mòn không đều.</div>
+    </div>
+  </details>
+
+  <details class="qa" id="q4">
+    <summary class="q"><span class="qnum">4</span><h3 class="qtext">NAK80, S136 và H13 khác nhau ra sao? Nên tư vấn mác nào cho khuôn nhựa trong suốt, khuôn chống ăn mòn PVC, khuôn nhiệt độ cao?</h3><span class="chev">▾</span></summary>
+    <div class="a">
+      <table class="cmp">
+        <tr><th>Tiêu chí</th><th>NAK80</th><th>S136 (1.2083)</th><th>H13 (1.2344/SKD61)</th></tr>
+        <tr><td>Loại thép</td><td>Hóa già (precipitation-hardening), tôi sẵn</td><td>Thép không gỉ, tôi cứng sau khi ủ giao hàng</td><td>Thép làm việc nóng (hot-work)</td></tr>
+        <tr><td>Độ cứng</td><td>38–43 HRC (sẵn, không cần nhiệt luyện thêm)</td><td>48–52 HRC (sau tôi)</td><td>50–54 HRC</td></tr>
+        <tr><td>Đánh bóng</td><td>Xuất sắc, đạt gương #10.000–12.000</td><td>Xuất sắc, đạt #12.000–18.000 khi luyện ESR</td><td>Khá, kém hơn NAK80/S136</td></tr>
+        <tr><td>Chống ăn mòn</td><td>Kém — không dùng cho nhựa ăn mòn</td><td>Rất tốt (17% Cr) — dùng PVC, chất chống cháy</td><td>Trung bình</td></tr>
+        <tr><td>Chịu nhiệt</td><td>Trung bình (&lt;300°C)</td><td>Trung bình</td><td>Cao — chịu chu kỳ nhiệt tốt nhất</td></tr>
+        <tr><td>Ứng dụng điển hình</td><td>Vỏ trong suốt, ống kính, linh kiện quang học, đồ gia dụng bóng</td><td>Khuôn y tế, ống tiêm, khuôn ẩm, PVC, khuôn cần bảo quản lâu</td><td>Khuôn PEEK/PPS/LCP, khuôn đúc áp lực nhôm/kẽm</td></tr>
+      </table>
+      <p>Với khuôn nhựa trong suốt không ăn mòn → <b>NAK80</b>. Với khuôn dùng nhựa PVC/chất chống cháy hoặc môi trường ẩm → <b>S136</b> (ưu tiên bản luyện ESR để giảm rỗ khí, tăng độ bóng). Với khuôn cần chịu nhiệt >120°C (PEEK, PPS, LCP, PEI/Ultem) hoặc khuôn đúc áp lực kim loại nhẹ → <b>H13</b>.</p>
+    </div>
+  </details>
+
+  <details class="qa" id="q5">
+    <summary class="q"><span class="qnum">5</span><h3 class="qtext">Chốt dẫn hướng (guide pillar) và bạc dẫn hướng (guide bush) nên dùng thép gì?</h3><span class="chev">▾</span></summary>
+    <div class="a">
+      <p>Hai mác phổ biến nhất là <b>SUJ2</b> (thép ổ bi, tương đương GCr15 – GB, AISI 52100, DIN 100Cr6/1.3505) và <b>20Cr</b> (thép thấm cacbon). Cả hai đều được tôi bề mặt đạt HRC 58–62 để chống mài mòn khi trượt lặp lại hàng trăm nghìn chu kỳ.</p>
+      <ul>
+        <li><b>SUJ2:</b> độ cứng đồng đều toàn tiết diện (xuyên tâm), độ bền mỏi cao, dùng cho chốt/bạc yêu cầu độ chính xác cao, ứng dụng phổ biến nhất trong khuôn nhựa.</li>
+        <li><b>20Cr:</b> thép thấm cacbon — chỉ cứng lớp bề mặt (case hardening, độ sâu lớp thấm 1–3mm), lõi vẫn dẻo dai, chịu va đập tốt hơn SUJ2 ở tải trọng lớn, thường dùng cho khuôn dập/khuôn cỡ lớn.</li>
+      </ul>
+      <p>Chốt/bạc/ty đẩy hồi (return pin) đôi khi cũng dùng <b>T8A, T10A</b> (thép cacbon dụng cụ, HRC 52–56) làm phương án giá rẻ hơn cho khuôn ít va đập.</p>
+    </div>
+  </details>
+
+  <h2 class="section-label">Phần 2 — Đối chiếu tiêu chuẩn quốc tế</h2>
+
+  <details class="qa" id="q6">
+    <summary class="q"><span class="qnum">6</span><h3 class="qtext">Bảng đối chiếu các mác thép mold base thông dụng giữa JIS, DIN/EN, AISI/ASTM, GB (Trung Quốc)?</h3><span class="chev">▾</span></summary>
+    <div class="a">
+      <table class="cmp">
+        <tr><th>JIS (Nhật)</th><th>DIN/EN (Đức)</th><th>AISI/ASTM (Mỹ)</th><th>GB (Trung Quốc)</th><th>Nhóm</th></tr>
+        <tr><td>—</td><td>1.2311 / 40CrMnMo7</td><td>P20</td><td>3Cr2Mo</td><td>Thép khuôn nhựa tôi sẵn</td></tr>
+        <tr><td>—</td><td>1.2738 / 40CrMnNiMo8-6-4</td><td>P20+Ni (718)</td><td>3Cr2NiMo</td><td>Thép khuôn nhựa tôi sẵn (cao cấp)</td></tr>
+        <tr><td>—</td><td>1.2083 / X40Cr13 (S136)</td><td>420 (mod.)</td><td>4Cr13</td><td>Thép khuôn không gỉ</td></tr>
+        <tr><td>—</td><td>1.2344 / X40CrMoV5-1</td><td>H13</td><td>4Cr5MoSiV1 (SKD61 gần tương đương)</td><td>Thép làm việc nóng</td></tr>
+        <tr><td>SKD11</td><td>1.2379 / X153CrMoV12</td><td>D2</td><td>Cr12Mo1V1</td><td>Thép làm việc nguội</td></tr>
+        <tr><td>S50C</td><td>C50 / 1.1210</td><td>1050</td><td>50#</td><td>Thép carbon kết cấu (tấm đế)</td></tr>
+        <tr><td>SUJ2</td><td>100Cr6 / 1.3505</td><td>52100</td><td>GCr15</td><td>Thép ổ bi (chốt dẫn hướng)</td></tr>
+        <tr><td>SKH9</td><td>1.3348 / S6-5-2</td><td>M2</td><td>W6Mo5Cr4V2</td><td>Thép gió (ty đẩy chịu mỏi)</td></tr>
+      </table>
+      <div class="warn">Đây là bảng "tương đương gần đúng" (near-equivalent) dùng để tư vấn nhanh — thành phần hóa học và dung sai giữa các tiêu chuẩn không hoàn toàn giống nhau 100%. Khi khách hàng yêu cầu chứng chỉ đúng tiêu chuẩn (ví dụ hợp đồng ghi rõ DIN 1.2738), luôn xác nhận với nhà máy cán thép nguồn gốc thực tế, không chỉ dựa vào bảng quy đổi.</div>
+    </div>
+  </details>
+
+  <details class="qa" id="q7">
+    <summary class="q"><span class="qnum">7</span><h3 class="qtext">Thị trường Đài Loan dùng ký hiệu thép khuôn như thế nào? Có khác gì so với Trung Quốc đại lục?</h3><span class="chev">▾</span></summary>
+    <div class="a">
+      <p>Đài Loan sử dụng chủ yếu tiêu chuẩn <b>CNS (Chinese National Standards)</b> cho thép xây dựng/kết cấu, nhưng trong ngành khuôn mẫu — do phần lớn máy móc và kỹ thuật viên Đài Loan chịu ảnh hưởng công nghiệp Nhật Bản — thị trường thực tế dùng phổ biến ký hiệu <b>JIS</b> (S50C, SKD11, SKD61, SUJ2, NAK80) và thương hiệu quốc tế (ASSAB 718, STAVAX, DIEVAR) hơn là ký hiệu CNS thuần túy.</p>
+      <p>So với Trung Quốc đại lục, các nhà máy thép Đài Loan (như JFS Steel, Walcom, Cheng Tun) thường được đánh giá kiểm soát tạp chất và độ đồng đều tốt hơn ở phân khúc thép nhập khẩu/gia công tinh, trong khi Trung Quốc đại lục có lợi thế về giá và sản lượng cho thép phổ thông (S50C, P20 nội địa).</p>
+      <table class="cmp">
+        <tr><th>Khía cạnh</th><th>Đài Loan</th><th>Trung Quốc đại lục</th></tr>
+        <tr><td>Ký hiệu phổ biến trong ngành khuôn</td><td>JIS + thương hiệu quốc tế (ASSAB/Uddeholm)</td><td>GB + JIS song song, nhiều hãng nội địa (Baosteel, Daye)</td></tr>
+        <tr><td>Thế mạnh</td><td>Độ đồng đều, dịch vụ gia công tinh</td><td>Giá cạnh tranh, đa dạng nguồn cung, giao hàng nhanh</td></tr>
+        <tr><td>Rủi ro cần lưu ý</td><td>Giá cao hơn 10–20%</td><td>Chất lượng không đồng đều giữa các lò, cần MTC rõ nguồn gốc</td></tr>
+      </table>
+    </div>
+  </details>
+
+  <details class="qa" id="q8">
+    <summary class="q"><span class="qnum">8</span><h3 class="qtext">Nga (GOST) có mác thép nào tương đương với thép khuôn mold base thông dụng không?</h3><span class="chev">▾</span></summary>
+    <div class="a">
+      <p>Hệ tiêu chuẩn GOST của Nga phát triển độc lập từ thời Liên Xô, tập trung nhiều vào thép kết cấu, thép hợp kim cho ngành nặng (đóng tàu, nồi hơi, đường ray) hơn là thép khuôn ép nhựa chuyên dụng như JIS/DIN. Vì vậy thị trường Nga/SNG khi làm khuôn nhựa công nghiệp hiện đại (ô tô, điện tử) thường <b>nhập khẩu trực tiếp thép theo tiêu chuẩn DIN (Uddeholm Thụy Điển, Böhler Áo)</b> thay vì dùng mác GOST bản địa.</p>
+      <p>Với thép carbon kết cấu dùng làm tấm đế, GOST có các mác gần tương đương S50C/1050 như <b>GOST 50</b> (thép carbon kết cấu, thành phần C ~0.47–0.55%) — nhưng dung sai và quy trình luyện khác nên không thể thay thế 1:1 khi khách hàng yêu cầu đúng chứng chỉ JIS/DIN.</p>
+      <div class="note">Khi tư vấn cho đối tác hướng thị trường Nga/SNG, nên chào theo tiêu chuẩn DIN hoặc JIS (thép nhập khẩu qua Trung Quốc/Đài Loan) kèm MTC, thay vì cố quy đổi sang GOST — vì thực tế ngành khuôn mẫu khu vực này cũng nhập thép ngoại là chính.</div>
+    </div>
+  </details>
+
+  <h2 class="section-label">Phần 3 — Kỹ thuật lựa chọn & đặt hàng</h2>
+
+  <details class="qa" id="q9">
+    <summary class="q"><span class="qnum">9</span><h3 class="qtext">HRC và HB khác nhau thế nào? Vì sao thép mold base thường đo bằng HB còn thép lòng khuôn đo bằng HRC?</h3><span class="chev">▾</span></summary>
+    <div class="a">
+      <p><b>HB (Brinell)</b> dùng đo vật liệu mềm–trung bình (dưới ~450 HB), ép bi thép/carbide vào bề mặt và đo diện tích vết lõm — phù hợp với thép ủ hoặc thép cường độ trung bình như S50C (HB 160–200). <b>HRC (Rockwell C)</b> dùng đo vật liệu cứng (thường trên 20 HRC), ép mũi kim cương côn — phù hợp thép đã tôi cứng như NAK80 (38–43 HRC), S136 (48–52 HRC).</p>
+      <p>Quy đổi gần đúng: 200 HB ≈ 13–14 HRC (rất mềm), 300 HB ≈ 32 HRC, 400 HB ≈ 41 HRC — nhưng bảng quy đổi chỉ mang tính tham khảo, không dùng thay thế phép đo trực tiếp khi nghiệm thu.</p>
+    </div>
+  </details>
+
+  <details class="qa" id="q10">
+    <summary class="q"><span class="qnum">10</span><h3 class="qtext">Thép "tôi sẵn" (pre-hardened) và thép "ủ mềm" (annealed) khác nhau ra sao? Loại nào phù hợp cho mold base?</h3><span class="chev">▾</span></summary>
+    <div class="a">
+      <ul>
+        <li><b>Thép tôi sẵn (pre-hardened):</b> P20, 718, NAK80 — giao hàng đã đạt độ cứng làm việc (28–43 HRC), gia công CNC/EDM trực tiếp, không cần nhiệt luyện thêm → tiết kiệm thời gian, tránh biến dạng nhiệt luyện. Phù hợp nhất cho mold base và cavity/core phổ thông.</li>
+        <li><b>Thép ủ mềm (annealed):</b> S136, H13, SKD11 ở trạng thái giao hàng thường HB 190–235 (mềm để gia công thô/phay thô dễ dàng), sau khi gia công gần xong mới đem tôi + ram để đạt độ cứng cuối (48–54 HRC) → cần thêm công đoạn nhiệt luyện chân không, chi phí và thời gian cao hơn, nhưng đạt độ cứng cao hơn thép tôi sẵn.</li>
+      </ul>
+      <p>Với mold base (tấm đế, tấm kẹp) — luôn ưu tiên thép tôi sẵn hoặc thép carbon ủ thường hóa (S50C normalized HB 160–200) vì không cần độ cứng cao, chỉ cần ổn định kích thước và dễ gia công lỗ, ren, rãnh.</p>
+    </div>
+  </details>
+
+  <details class="qa" id="q11">
+    <summary class="q"><span class="qnum">11</span><h3 class="qtext">ESR (Electro Slag Remelting) là gì? Vì sao thép luyện ESR đắt hơn và khi nào nên khuyên khách chọn?</h3><span class="chev">▾</span></summary>
+    <div class="a">
+      <p>ESR (luyện lại bằng xỉ điện) là công nghệ tinh luyện thứ cấp: thỏi thép thô được nấu chảy lại từng lớp qua lớp xỉ dẫn điện, loại bỏ tạp chất phi kim (oxit, sunfua) và tạo cấu trúc hạt mịn, đồng đều hơn so với luyện EAF (lò hồ quang điện) thông thường. Thép ESR có độ sạch cao hơn, ít lỗ rỗng khí, đánh bóng đạt độ gương cao hơn (ví dụ S136-ESR đạt #12.000–18.000 so với S136 thường).</p>
+      <p>Giá thép ESR thường cao hơn 20–40% so với thép EAF cùng mác do chi phí luyện lại và tỷ lệ hao hụt cao hơn. Nên khuyên khách chọn ESR khi: khuôn yêu cầu độ bóng gương cấp quang học (ống kính, màn hình), khuôn y tế cần độ đồng nhất cao, hoặc khuôn có thành mỏng dễ lộ khuyết tật thép sau đánh bóng.</p>
+    </div>
+  </details>
+
+  <details class="qa" id="q12">
+    <summary class="q"><span class="qnum">12</span><h3 class="qtext">Khi nào mold base nên dùng nhôm hợp kim (7075) thay vì thép?</h3><span class="chev">▾</span></summary>
+    <div class="a">
+      <p>Nhôm hợp kim <b>7075-T6</b> (hoặc 6061-T6 cho ứng dụng nhẹ hơn) đôi khi được dùng làm mold base cho khuôn mẫu thử nhanh (prototype), khuôn sản lượng thấp, hoặc khuôn cần giảm trọng lượng khi lắp trên máy ép nhỏ/robot gắp. Ưu điểm: nhẹ hơn thép ~65%, gia công CNC nhanh hơn 3–5 lần, tản nhiệt tốt hơn giúp giảm chu kỳ ép.</p>
+      <p>Nhược điểm: độ bền mỏi và độ cứng thấp hơn thép nhiều lần, không chịu được lực kẹp lớn hoặc sản lượng cao (thường giới hạn dưới 10.000–50.000 lần bắn tùy thiết kế), dễ trầy xước, không phù hợp khuôn sản xuất hàng loạt dài hạn. Với khách hàng ATP — nhôm mold base chỉ nên tư vấn cho đơn hàng mẫu thử hoặc khuôn tạm, không thay thế thép cho sản xuất hàng loạt.</p>
+    </div>
+  </details>
+
+  <details class="qa" id="q13">
+    <summary class="q"><span class="qnum">13</span><h3 class="qtext">SKD11 (D2) dùng để làm gì trong bộ khuôn, có phải để làm mold base không?</h3><span class="chev">▾</span></summary>
+    <div class="a">
+      <p>SKD11 (tương đương D2 – AISI, 1.2379/Cr12Mo1V1 – GB) là <b>thép làm việc nguội (cold-work tool steel)</b>, độ cứng sau tôi đạt 58–62 HRC, chống mài mòn cực tốt nhờ hàm lượng Crom cao (~12%) tạo carbide cứng. SKD11 <b>không dùng cho mold base</b> — mà dùng cho: dao cắt, khuôn dập nguội, chi tiết chịu mài mòn cao trong khuôn ép nhựa (như bạc dẫn hướng cao cấp, insert chịu mài mòn tại vị trí dòng nhựa có sợi thủy tinh/khoáng).</p>
+      <p>Nhầm lẫn phổ biến: một số khách hàng gọi chung "thép làm khuôn" cho cả SKD11 lẫn S50C — cần hỏi rõ vị trí sử dụng (đế khuôn / lòng khuôn / insert chịu mài mòn) trước khi báo giá để tránh chào nhầm mác đắt tiền cho vị trí không cần thiết, hoặc ngược lại.</p>
+    </div>
+  </details>
+
+  <details class="qa" id="q14">
+    <summary class="q"><span class="qnum">14</span><h3 class="qtext">Dung sai độ dày, độ phẳng tiêu chuẩn cho tấm đế mold base là bao nhiêu?</h3><span class="chev">▾</span></summary>
+    <div class="a">
+      <p>Tấm thép mold base thương mại (S50C, P20) thường được cán/phay sẵn theo hệ tiêu chuẩn mold base quốc tế như <b>DME, HASCO, FUTABA, LKM (Trung Quốc)</b> với dung sai độ dày phổ biến ±0.05–0.10mm cho tấm đã phay tinh (finished ground), và độ phẳng (flatness) thường yêu cầu trong khoảng 0.02–0.05mm/300mm.</p>
+      <p>Với thép phôi thô (chưa gia công, chỉ cắt theo kích thước — as-cut/hot-rolled), dung sai độ dày có thể lên tới ±0.5–1mm tùy độ dày tấm và cần khách hàng tự gia công phay tinh trước khi lắp ráp. Khi báo giá, luôn làm rõ với khách: thép thô (giá rẻ hơn) hay thép đã phay tinh theo tiêu chuẩn mold base (giá cao hơn nhưng lắp ráp trực tiếp).</p>
+    </div>
+  </details>
+
+  <details class="qa" id="q15">
+    <summary class="q"><span class="qnum">15</span><h3 class="qtext">MTC (Material Test Certificate) là gì và tại sao khách hàng công nghiệp (ô tô, y tế, điện tử) luôn yêu cầu?</h3><span class="chev">▾</span></summary>
+    <div class="a">
+      <p>MTC (còn gọi Mill Test Certificate/Chứng chỉ chất lượng vật liệu) là chứng từ do nhà máy luyện thép cấp, xác nhận thành phần hóa học (C, Cr, Mn, Ni, Mo, Si…), tính chất cơ học (độ cứng, độ bền kéo) và số lô/mẻ luyện (heat number) của lô thép cụ thể — thường theo chuẩn EN 10204 loại 2.2 hoặc 3.1.</p>
+      <p>Khách hàng ngành ô tô, y tế, điện tử yêu cầu MTC để: (1) đảm bảo truy xuất nguồn gốc khi có lỗi chất lượng khuôn, (2) xác nhận đúng thành phần hợp kim tránh hàng trộn/hàng giả mác, (3) đáp ứng yêu cầu audit IATF 16949 (ô tô) hoặc ISO 13485 (y tế). ATP nên luôn đính kèm MTC gốc từ nhà cung cấp khi giao các lô thép hợp kim (P20, 718, NAK80, S136…) cho khách hàng công nghiệp.</p>
+    </div>
+  </details>
+
+  <details class="qa" id="q16">
+    <summary class="q"><span class="qnum">16</span><h3 class="qtext">Làm sao nhận biết rủi ro thép "trộn mác" hoặc kém chất lượng khi nhập từ nhiều nguồn Trung Quốc?</h3><span class="chev">▾</span></summary>
+    <div class="a">
+      <p>Rủi ro phổ biến trên thị trường thép khuôn giá rẻ: (1) thép P20/718 không luyện đúng thành phần Ni/Cr, chỉ đạt độ cứng bề mặt mà lõi không đồng đều; (2) thép ghi nhãn "NAK80" nhưng thực chất là thép nội địa mô phỏng thành phần gần đúng, độ ổn định kích thước kém hơn hàng ASSAB/Daido chính hãng; (3) thép cắt từ tấm lớn không kiểm tra siêu âm (ultrasonic test) nên có thể lẫn rỗ khí/tạp chất bên trong không thấy bằng mắt thường.</p>
+      <ul>
+        <li>Luôn yêu cầu MTC kèm số lô (heat number) và đối chiếu với phiếu kiểm tra siêu âm nếu có.</li>
+        <li>Với đơn hàng lớn/khách công nghiệp, đề xuất lấy mẫu kiểm tra độ cứng ngẫu nhiên tại nhiều vị trí trên tấm (góc, tâm) để phát hiện độ cứng không đồng đều — dấu hiệu thép luyện kém hoặc nhiệt luyện sai quy trình.</li>
+        <li>Ưu tiên nguồn thép có thương hiệu rõ ràng (Baosteel, Daye, Walcom, ASSAB) thay vì thép "no-name" trôi nổi cho các đơn hàng yêu cầu độ tin cậy cao.</li>
+      </ul>
+    </div>
+  </details>
+
+  <h2 class="section-label">Phần 4 — Tư vấn theo ứng dụng</h2>
+
+  <details class="qa" id="q17">
+    <summary class="q"><span class="qnum">17</span><h3 class="qtext">Với khuôn sản lượng thấp (dưới 50.000 lần bắn) nên tư vấn combo thép nào để tối ưu chi phí?</h3><span class="chev">▾</span></summary>
+    <div class="a">
+      <p>Combo tiết kiệm chi phí phổ biến: <b>mold base S50C (thường hóa)</b> + <b>cavity/core P20/1.2311</b> + <b>chốt dẫn hướng SUJ2</b> + <b>ty đẩy SKD61 hoặc thép carbon tôi cục bộ</b>. Với nhựa không mài mòn (PP, PE, ABS, HIPS) không cần nâng cấp lên 718 hay thép tôi cứng — P20 hoàn toàn đáp ứng tuổi thọ mong muốn với chi phí thấp nhất.</p>
+      <p>Đây là phân khúc giá trị cạnh tranh nhất trên thị trường, nên khi báo giá cần nhấn mạnh tổng chi phí sở hữu (bao gồm gia công, không chỉ giá thép/kg) để giữ biên lợi nhuận hợp lý thay vì cạnh tranh thuần theo giá vật liệu.</p>
+    </div>
+  </details>
+
+  <details class="qa" id="q18">
+    <summary class="q"><span class="qnum">18</span><h3 class="qtext">Với khuôn sản lượng cao (trên 500.000 lần bắn, ví dụ linh kiện ô tô/điện tử) nên tư vấn thép gì?</h3><span class="chev">▾</span></summary>
+    <div class="a">
+      <p>Combo khuyến nghị: <b>mold base S50C phay tinh theo chuẩn DME/HASCO</b> + <b>cavity/core 718H hoặc NAK80</b> (nếu cần bóng gương) + <b>insert chịu mài mòn SKD11/H13</b> tại vị trí cổng phun và dòng chảy sợi thủy tinh + <b>chốt dẫn hướng SUJ2 mạ hoặc tôi sâu</b> để chịu ma sát hàng trăm nghìn chu kỳ mà không mòn rơ.</p>
+      <p>Với nhựa có sợi thủy tinh/khoáng (GF-reinforced), nên đề xuất thêm insert thép hoặc lớp phủ PVD/nitriding tại các vùng mài mòn cục bộ (cổng phun, rãnh dẫn) thay vì làm cứng toàn bộ lòng khuôn — vừa tiết kiệm chi phí vừa dễ sửa chữa khi mòn.</p>
+    </div>
+  </details>
+
+  <details class="qa" id="q19">
+    <summary class="q"><span class="qnum">19</span><h3 class="qtext">Với khuôn dùng nhựa ăn mòn (PVC, chất chống cháy — FR) hoặc môi trường ẩm, cần lưu ý gì ngoài chọn S136?</h3><span class="chev">▾</span></summary>
+    <div class="a">
+      <p>Ngoài chọn thép không gỉ S136/1.2083 cho cavity/core, cần tư vấn thêm: (1) mạ hoặc phủ chống ăn mòn cho tấm mold base tiếp xúc gần vùng khí ăn mòn thoát ra (dù bản thân S50C rẻ hơn nhưng dễ gỉ khi hơi PVC/HCl thoát ra trong quá trình ép); (2) hệ thống kênh làm mát nên dùng ống lót đồng hoặc thép không gỉ để tránh ăn mòn đường nước lâu dài; (3) khuyến nghị khách bảo trì định kỳ, vệ sinh và bôi dầu chống gỉ ngay sau mỗi ca sản xuất nếu dùng môi trường ẩm cao.</p>
+      <div class="note">S136-ESR (luyện xỉ điện) là lựa chọn cao cấp nhất cho khuôn y tế/dược phẩm cần cả độ bóng gương lẫn chống ăn mòn tuyệt đối — nên định vị là dòng sản phẩm premium khi tư vấn khách hàng ngành y tế.</div>
+    </div>
+  </details>
+
+  <details class="qa" id="q20">
+    <summary class="q"><span class="qnum">20</span><h3 class="qtext">Checklist 6 câu hỏi cần hỏi khách hàng trước khi tư vấn/báo giá thép mold base?</h3><span class="chev">▾</span></summary>
+    <div class="a">
+      <p>Để tránh tư vấn sai mác thép hoặc báo giá không sát nhu cầu, luôn hỏi khách 6 điểm sau trước khi chốt báo giá:</p>
+      <ul>
+        <li><b>1. Vị trí sử dụng:</b> Tấm đế/mold base, cavity/core, hay chi tiết chuyển động (chốt, bạc, ty đẩy)?</li>
+        <li><b>2. Loại nhựa ép:</b> Thường (PP/ABS/PE) hay ăn mòn (PVC/FR) hay có sợi thủy tinh/khoáng mài mòn?</li>
+        <li><b>3. Sản lượng dự kiến:</b> Dưới 50K, 50K–300K, hay trên 500K lần bắn?</li>
+        <li><b>4. Yêu cầu bề mặt:</b> Bình thường, bóng thương mại, hay bóng gương cấp quang học (SPI A-1/A-2)?</li>
+        <li><b>5. Kích thước/độ dày khối thép:</b> Ảnh hưởng lựa chọn giữa P20 và 718 (độ thấm tôi theo tiết diện).</li>
+        <li><b>6. Yêu cầu chứng chỉ:</b> Có cần MTC, truy xuất nguồn gốc, hay tiêu chuẩn ngành (IATF/ISO 13485) không?</li>
+      </ul>
+      <p>Trả lời đủ 6 câu này giúp xác định chính xác mác thép, dạng cung cấp (tôi sẵn/ủ mềm/thô), và mức giá phù hợp — tránh tình trạng chào giá thấp nhưng sai mác khiến khách phải đổi hàng, hoặc chào thép cao cấp không cần thiết khiến mất đơn hàng vì giá.</p>
+    </div>
+  </details>
+
+  <div class="cta">
+    <h3>Cần báo giá hoặc tư vấn chọn mác thép cụ thể?</h3>
+    <p>Đội ngũ kỹ thuật – kinh doanh An Thái Phú hỗ trợ tra cứu tương đương tiêu chuẩn, MTC, và báo giá theo quy cách khách hàng yêu cầu.</p>
+    <div class="cta-grid">
+      <div class="cta-item"><b>Liên hệ</b>Anh Thành – Sales</div>
+      <div class="cta-item"><b>Điện thoại</b>091 716 8289</div>
+      <div class="cta-item"><b>Email</b>info@thepkhuonmau.com</div>
+      <div class="cta-item"><b>Địa chỉ</b>732 Lê Đức Anh, Bình Tân, TP.HCM</div>
+    </div>
+  </div>
+
+  <footer>
+    Công ty TNHH MTV An Thái Phú · Nhà phân phối thép khuôn mẫu &amp; thép công cụ · Nội dung tổng hợp tham khảo từ tiêu chuẩn JIS/DIN/AISI/GB/CNS/GOST và nhà cung cấp quốc tế (ASSAB, Uddeholm, Daido, Baosteel) — mang tính tư vấn kỹ thuật, cần đối chiếu MTC thực tế khi ký hợp đồng.
+  </footer>
+
+</div>
+
+<script>
+  const toc = document.getElementById('toc');
+  document.querySelectorAll('details.qa').forEach((d, i) => {
+    const text = d.querySelector('.qtext').textContent;
+    const a = document.createElement('a');
+    a.href = '#' + d.id;
+    a.innerHTML = '<span class="toc-num">' + String(i+1).padStart(2,'0') + '</span>' + text;
+    a.addEventListener('click', () => { d.open = true; });
+    toc.appendChild(a);
+  });
+</script>
+
+</body>
+</html>
