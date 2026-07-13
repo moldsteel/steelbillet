@@ -168,7 +168,7 @@
   .phone-btn:hover{background:#22915a}
   .phone-btn i{font-size:14px}
 
-  /* Map placeholder */
+  /* Map */
   .map-wrap{
     margin-top:2rem;border-radius:var(--radius);overflow:hidden;
     border:1px solid var(--steel-border);aspect-ratio:16/10;
@@ -176,12 +176,13 @@
     display:flex;align-items:center;justify-content:center;
   }
   .map-wrap iframe{
-    width:100%;height:100%;border:0;display:block;filter:grayscale(.6) brightness(.85) contrast(1.1);
+    width:100%;height:100%;border:0;display:block;
+    filter:grayscale(.6) brightness(.85) contrast(1.1);
   }
   .map-overlay{
     position:absolute;inset:0;display:flex;flex-direction:column;
     align-items:center;justify-content:center;gap:8px;
-    background:rgba(13,13,14,.5);transition:opacity .3s;cursor:pointer;
+    background:rgba(13,13,14,.55);transition:opacity .3s;cursor:pointer;
   }
   .map-overlay:hover{opacity:0}
   .map-overlay i{font-size:28px;color:var(--accent)}
@@ -346,8 +347,8 @@
 
 <div class="mobile-menu" id="mobileMenu">
   <a href="https://www.thepkhuonmau.com">Trang chủ</a>
-  <a href="https://www.thepkhuonmau.com/p/san-pham.html">Sản phẩm</a>
-  <a href="https://www.thepkhuonmau.com/p/gioi-thieu.html">Giới thiệu</a>
+  <a href="https://thepkhuonmau.com/2026/05/bang-tra-cuu-mac-thep-khuon-mau.html">Sản phẩm</a>
+    <a href="https://www.thepkhuonmau.com/p/thep-khuon-mau.html">Giới thiệu</a>
   <a href="#">Liên hệ</a>
 </div>
 
@@ -401,7 +402,7 @@
       <!-- MAP -->
       <div class="map-wrap">
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4638.9352277097805!2d106.59116547569504!3d10.783376259064177!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752d00463d407b%3A0x5e3908d1bf171e53!2sKho%20An%20Th%C3%A1i%20Ph%C3%BA%20Steel!5e1!3m2!1svi!2s!4v1783909977579!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d492.3249402845492!2d106.5933921442395!3d10.783354742786775!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752d00463d407b%3A0x5e3908d1bf171e53!2sKho%20An%20Th%C3%A1i%20Ph%C3%BA%20Steel!5e1!3m2!1svi!2s!4v1783911575648!5m2!1svi!2s%22%20width=%22600%22%20height=%22450%22%20style=%22border:0;%22%20allowfullscreen=%22%22%20loading=%22lazy%22%20referrerpolicy=%22strict-origin-when-cross-origin"
           allowfullscreen loading="lazy"
           referrerpolicy="no-referrer-when-downgrade">
         </iframe>
@@ -412,8 +413,8 @@
       </div>
     </div>
 
-    <!-- RIGHT: FORM -->
-    <form class="contact-form" id="contactForm" novalidate>
+    <!-- RIGHT: FORM — Formspree -->
+    <form class="contact-form" id="contactForm" action="https://formspree.io/f/maqgrown" method="POST" novalidate>
       <div class="form-row">
         <div class="form-group" id="fg-name">
           <label>Họ và tên <span class="req">*</span></label>
@@ -452,6 +453,9 @@
         <textarea name="message" id="inputMessage" rows="4" placeholder="Mô tả mác thép, quy cách, số lượng cần mua..."></textarea>
       </div>
 
+      <!-- Honeypot chống spam -->
+      <input type="text" name="_gotcha" style="display:none">
+
       <div class="form-submit">
         <button type="submit" class="btn-primary" id="submitBtn">
           <span class="spinner"></span>
@@ -485,63 +489,63 @@
   'use strict';
 
   /* ── HAMBURGER ───────────────────────────── */
-  var hamburger=document.getElementById('hamburgerBtn');
-  var mobileMenu=document.getElementById('mobileMenu');
+  var hamburger = document.getElementById('hamburgerBtn');
+  var mobileMenu = document.getElementById('mobileMenu');
 
-  hamburger.addEventListener('click',function(){
+  hamburger.addEventListener('click', function(){
     this.classList.toggle('active');
     mobileMenu.classList.toggle('open');
-    document.body.style.overflow=mobileMenu.classList.contains('open')?'hidden':'';
+    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
   });
 
   mobileMenu.querySelectorAll('a').forEach(function(link){
-    link.addEventListener('click',function(){
+    link.addEventListener('click', function(){
       hamburger.classList.remove('active');
       mobileMenu.classList.remove('open');
-      document.body.style.overflow='';
+      document.body.style.overflow = '';
     });
   });
 
   /* ── NAV SHADOW ──────────────────────────── */
-  var navEl=document.querySelector('nav');
-  window.addEventListener('scroll',function(){
-    navEl.style.boxShadow=window.scrollY>10?'0 2px 24px rgba(0,0,0,.6)':'none';
-  },{passive:true});
+  var navEl = document.querySelector('nav');
+  window.addEventListener('scroll', function(){
+    navEl.style.boxShadow = window.scrollY > 10 ? '0 2px 24px rgba(0,0,0,.6)' : 'none';
+  }, {passive: true});
 
   /* ── MAP OVERLAY ─────────────────────────── */
-  var mapOverlay=document.getElementById('mapOverlay');
+  var mapOverlay = document.getElementById('mapOverlay');
   if(mapOverlay){
-    mapOverlay.addEventListener('click',function(){
-      this.style.opacity='0';
-      setTimeout(function(){mapOverlay.style.display='none'},300);
+    mapOverlay.addEventListener('click', function(){
+      this.style.opacity = '0';
+      setTimeout(function(){ mapOverlay.style.display = 'none'; }, 300);
     });
   }
 
   /* ── TOAST ───────────────────────────────── */
-  var toastContainer=document.getElementById('toastContainer');
+  var toastContainer = document.getElementById('toastContainer');
 
-  function showToast(type,title,message){
-    var toast=document.createElement('div');
-    toast.className='toast toast-'+type;
-    var iconClass=type==='success'?'fa-check':'fa-xmark';
-    toast.innerHTML=
-      '<div class="toast-icon"><i class="fa-solid '+iconClass+'"></i></div>'+
-      '<div class="toast-body"><strong>'+title+'</strong><span>'+message+'</span></div>'+
+  function showToast(type, title, message){
+    var toast = document.createElement('div');
+    toast.className = 'toast toast-' + type;
+    var iconClass = type === 'success' ? 'fa-check' : 'fa-xmark';
+    toast.innerHTML =
+      '<div class="toast-icon"><i class="fa-solid ' + iconClass + '"></i></div>' +
+      '<div class="toast-body"><strong>' + title + '</strong><span>' + message + '</span></div>' +
       '<button class="toast-close" aria-label="Đóng">&times;</button>';
     toastContainer.appendChild(toast);
 
-    var closeBtn=toast.querySelector('.toast-close');
+    var closeBtn = toast.querySelector('.toast-close');
     function removeToast(){
       toast.classList.add('removing');
-      setTimeout(function(){toast.remove()},300);
+      setTimeout(function(){ toast.remove(); }, 300);
     }
-    closeBtn.addEventListener('click',removeToast);
-    setTimeout(removeToast,5000);
+    closeBtn.addEventListener('click', removeToast);
+    setTimeout(removeToast, 5000);
   }
 
-  /* ── FORM ────────────────────────────────── */
-  var form=document.getElementById('contactForm');
-  var submitBtn=document.getElementById('submitBtn');
+  /* ── FORM — FORMSPREE AJAX ───────────────── */
+  var form     = document.getElementById('contactForm');
+  var submitBtn = document.getElementById('submitBtn');
 
   function clearErrors(){
     form.querySelectorAll('.form-group').forEach(function(fg){
@@ -554,51 +558,73 @@
   }
 
   function validatePhone(phone){
-    var cleaned=phone.replace(/[\s\-\.\(\)]/g,'');
+    var cleaned = phone.replace(/[\s\-\.\(\)]/g, '');
     return /^(0[3-9]\d{8,9})$/.test(cleaned);
   }
 
   function validateEmail(email){
-    if(!email)return true;
+    if(!email) return true; // tùy chọn
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   }
 
-  // Clear error khi nhập
+  // Xóa lỗi khi nhập lại
   form.querySelectorAll('input,select,textarea').forEach(function(el){
-    el.addEventListener('input',function(){this.closest('.form-group').classList.remove('has-error')});
-    el.addEventListener('change',function(){this.closest('.form-group').classList.remove('has-error')});
+    el.addEventListener('input', function(){
+      this.closest('.form-group').classList.remove('has-error');
+    });
+    el.addEventListener('change', function(){
+      this.closest('.form-group').classList.remove('has-error');
+    });
   });
 
-  form.addEventListener('submit',function(e){
+  form.addEventListener('submit', function(e){
     e.preventDefault();
     clearErrors();
 
-    var name=document.getElementById('inputName').value.trim();
-    var phone=document.getElementById('inputPhone').value.trim();
-    var email=document.getElementById('inputEmail').value.trim();
-    var hasError=false;
+    var name    = document.getElementById('inputName').value.trim();
+    var phone   = document.getElementById('inputPhone').value.trim();
+    var email   = document.getElementById('inputEmail').value.trim();
+    var hasError = false;
 
-    if(!name){setError('fg-name');hasError=true}
-    if(!validatePhone(phone)){setError('fg-phone');hasError=true}
-    if(!validateEmail(email)){setError('fg-email');hasError=true}
+    if(!name){                  setError('fg-name');  hasError = true; }
+    if(!validatePhone(phone)){  setError('fg-phone'); hasError = true; }
+    if(!validateEmail(email)){  setError('fg-email'); hasError = true; }
 
     if(hasError){
-      showToast('error','Thiếu thông tin','Vui lòng kiểm tra lại các trường bắt buộc.');
-      var firstErr=form.querySelector('.has-error input,.has-error select');
-      if(firstErr)firstErr.focus();
+      showToast('error', 'Thiếu thông tin', 'Vui lòng kiểm tra lại các trường bắt buộc.');
+      var firstErr = form.querySelector('.has-error input, .has-error select');
+      if(firstErr) firstErr.focus();
       return;
     }
 
-    // Submit simulation
+    // ── Gửi thật qua Formspree bằng fetch ──
     submitBtn.classList.add('loading');
-    submitBtn.disabled=true;
+    submitBtn.disabled = true;
 
-    setTimeout(function(){
+    var formData = new FormData(form);
+
+    fetch(form.action, {
+      method: 'POST',
+      body: formData,
+      headers: { 'Accept': 'application/json' }
+    })
+    .then(function(response){
+      if(response.ok){
+        showToast('success', 'Gửi thành công!', 'Chúng tôi sẽ liên hệ bạn trong vòng 2 giờ làm việc.');
+        form.reset();
+      } else {
+        return response.json().then(function(data){
+          throw new Error(data.errors ? data.errors.map(function(e){ return e.message; }).join(', ') : 'Lỗi server, vui lòng thử lại.');
+        });
+      }
+    })
+    .catch(function(err){
+      showToast('error', 'Gửi thất bại', err.message || 'Có lỗi xảy ra, vui lòng thử lại.');
+    })
+    .finally(function(){
       submitBtn.classList.remove('loading');
-      submitBtn.disabled=false;
-      showToast('success','Gửi thành công!','Chúng tôi sẽ liên hệ bạn trong vòng 2 giờ làm việc.');
-      form.reset();
-    },1800);
+      submitBtn.disabled = false;
+    });
   });
 
 })();
