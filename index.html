@@ -699,7 +699,7 @@ img{max-width:100%;height:auto;display:block}a{color:inherit;text-decoration:non
   </div></div></div>
 
   <!-- Q9 -->
-  <div class="faq-item"><div class="faq-q" role="button" tabindex="0"><i class="ti ti-plus"></i> SKD11 cắt dây EDM bị nứt tia — nguyên nhân và cách khắc phục?</div><div class="faq-a"><div class="faq-inner">
+  <div class="faq-item"><div class="faq-q" role="button" tabindex="0"><i class="ti ti-plus"></i> SKD11 cắt dây EDM bị nứt tia — nguyên nhân và cách khắc phục?</div><div class="faq-a"><div class="faq-a-inner">
     <p>Từ CNCzone EDM forum — đây là vấn đề "đau đầu" nhất khi gia công SKD11:</p>
     <p><strong>Nguyên nhân gốc:</strong> SKD11 có C (1.4–1.6%) và Cr (11–13%) rất cao. Khi cắt EDM, năng lượng tia lửa làm thép nóng chảy lại ở bề mặt, tạo <strong>"white layer"</strong> (lớp tái đúc) dày <strong>10–30 μm</strong>. Lớp này cực giòn, <strong>65+ HRC</strong>, và chứa vết nứt vi mô.</p>
     <p><strong>Giải pháp 4 bước:</strong></p>
@@ -1203,5 +1203,27 @@ img{max-width:100%;height:auto;display:block}a{color:inherit;text-decoration:non
   renderItems();
 })();
 </script>
+<script>
+// FAQ accordion toggle
+document.querySelectorAll('.faq-q').forEach(function(q) {
+  q.addEventListener('click', function() {
+    var item = this.closest('.faq-item');
+    var isOpen = item.classList.contains('open');
+    // Đóng tất cả
+    document.querySelectorAll('.faq-item.open').forEach(function(el) {
+      el.classList.remove('open');
+    });
+    // Mở nếu trước đó đang đóng
+    if (!isOpen) item.classList.add('open');
+  });
+  // Hỗ trợ bàn phím
+  q.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      this.click();
+    }
+  });
+});
+</script>   
 </body>
 </html>
