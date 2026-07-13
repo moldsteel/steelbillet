@@ -1,536 +1,441 @@
-
 <html lang="vi">
 <head>
-<meta charset="UTF-8"></meta>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"></meta>
-<title>Thép Khuôn mãu – Phôi Thép Hàng Đầu Việt Nam</title>
-<link href="https://fonts.googleapis.com" rel="preconnect"></link>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Comfortaa:wght@300;400;500;600&amp;family=Space+Mono:wght@700&amp;display=swap" rel="stylesheet"></link>
+<meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Liên hệ – Thép Khuôn Mẫu</title>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Comfortaa:wght@300;400;500;600&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
-  :root {
-    --steel-dark:   #0d0d0e;
-    --steel-mid:    #1a1a1d;
-    --steel-card:   #22222a;
-    --steel-border: #2e2e38;
-    --accent:       #f5a523;
-    --accent-dim:   #b87618;
-    --silver:       #a0a8b8;
-    --white:        #f0eff0;
-    --font-head:    'Bebas Neue', sans-serif;
-    --font-body:    'DM Sans', sans-serif;
-    --font-mono:    'Space Mono', monospace;
+  :root{
+    --steel-dark:#0d0d0e;
+    --steel-mid:#1a1a1d;
+    --steel-card:#22222a;
+    --steel-border:#2e2e38;
+    --accent:#f5a523;
+    --silver:#a0a8b8;
+    --white:#f0eff0;
+    --font-head:'Bebas Neue',sans-serif;
+    --font-body:'Comfortaa',sans-serif;
+    --font-mono:'Space Mono',monospace;
+    --radius:4px;
   }
 
-  html { scroll-behavior: smooth; }
+  html{scroll-behavior:smooth}
 
-  body {
-    font-family: var(--font-body);
-    background: var(--steel-dark);
-    color: var(--white);
-    overflow-x: hidden;
+  body{
+    font-family:var(--font-body);
+    background:var(--steel-dark);
+    color:var(--white);
+    overflow-x:hidden;
+    font-size:15px;
+    line-height:1.6;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
   }
 
-  /* ── NOISE TEXTURE OVERLAY ────────────────── */
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none; z-index: 0; opacity: .35;
+  body::before{
+    content:'';position:fixed;inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events:none;z-index:0;opacity:.35;
   }
 
   /* ── NAV ──────────────────────────────────── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 5vw;
-    height: 68px;
-    background: rgba(13,13,14,.88);
-    backdrop-filter: blur(14px);
-    border-bottom: 1px solid var(--steel-border);
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 clamp(16px,5vw,80px);
+    height:64px;
+    background:rgba(13,13,14,.92);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--steel-border);
+    transition:box-shadow .3s;
   }
 
-  .nav-logo {
-    display: flex; align-items: center; gap: 10px;
-    text-decoration: none;
+  .nav-logo{
+    display:flex;align-items:center;gap:10px;
+    text-decoration:none;flex-shrink:0;
   }
-  .nav-logo-mark {
-    width: 38px; height: 38px;
-    background: var(--accent);
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--font-head);
-    font-size: 16px; color: var(--steel-dark);
-    flex-shrink: 0;
+  .nav-logo-mark{
+    width:36px;height:36px;
+    background:var(--accent);
+    clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--font-head);font-size:14px;color:var(--steel-dark);
   }
-  .nav-logo-text { font-family: var(--font-head); font-size: 22px; letter-spacing: .06em; color: var(--white); }
-  .nav-logo-text span { color: var(--accent); }
+  .nav-logo-text{font-family:var(--font-head);font-size:20px;letter-spacing:.06em;color:var(--white)}
+  .nav-logo-text span{color:var(--accent)}
 
-  .nav-links { display: flex; align-items: center; gap: 2rem; }
-  .nav-links a {
-    font-size: 13px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase;
-    color: var(--silver); text-decoration: none; transition: color .2s;
+  .nav-links{display:flex;align-items:center;gap:1.8rem}
+  .nav-links a{
+    font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--silver);text-decoration:none;transition:color .2s;white-space:nowrap;
   }
-  .nav-links a:hover { color: var(--white); }
+  .nav-links a:hover{color:var(--white)}
 
-  .nav-cta {
-    background: var(--accent); color: var(--steel-dark);
-    padding: 9px 22px; border-radius: 4px;
-    font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
-    text-decoration: none; transition: background .2s;
-    white-space: nowrap;
+  .hamburger{
+    display:none;background:none;border:none;cursor:pointer;padding:8px;flex-shrink:0;
   }
-  .nav-cta:hover { background: #ffc052; }
+  .hamburger span{
+    display:block;width:22px;height:2px;
+    background:var(--white);margin:5px 0;transition:.3s;border-radius:2px;
+  }
+  .hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+  .hamburger.active span:nth-child(2){opacity:0}
+  .hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
 
-  .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
-  .hamburger span {
-    display: block; width: 24px; height: 2px;
-    background: var(--white); margin: 5px 0; transition: .3s;
+  .mobile-menu{
+    display:none;position:fixed;top:64px;left:0;right:0;bottom:0;z-index:99;
+    background:rgba(13,13,14,.98);
+    -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
+    padding:2rem clamp(16px,5vw,80px);
+    flex-direction:column;gap:0;overflow-y:auto;
   }
+  .mobile-menu.open{display:flex}
+  .mobile-menu a{
+    font-size:16px;font-weight:500;color:var(--silver);
+    text-decoration:none;padding:1rem 0;border-bottom:1px solid var(--steel-border);
+    transition:color .2s;
+  }
+  .mobile-menu a:last-child{border-bottom:none}
+  .mobile-menu a:hover{color:var(--white)}
 
-  .mobile-menu {
-    display: none;
-    position: fixed; top: 68px; left: 0; right: 0; z-index: 99;
-    background: rgba(13,13,14,.97);
-    border-bottom: 1px solid var(--steel-border);
-    padding: 1.5rem 5vw 2rem;
-    flex-direction: column; gap: 1.2rem;
+  /* ── PAGE HEADER ──────────────────────────── */
+  .page-header{
+    position:relative;z-index:1;
+    padding:120px clamp(16px,5vw,80px) 40px;
+    text-align:center;
   }
-  .mobile-menu.open { display: flex; }
-  .mobile-menu a {
-    font-size: 15px; font-weight: 500; color: var(--silver);
-    text-decoration: none; padding: .4rem 0;
+  .page-header .section-tag{
+    font-family:var(--font-mono);font-size:11px;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin-bottom:.6rem;
   }
-  .mobile-menu a:hover { color: var(--white); }
-
-  /* ── HERO ─────────────────────────────────── */
-  .hero {
-    position: relative; min-height: 100vh;
-    display: flex; align-items: center;
-    padding: 120px 5vw 80px;
-    overflow: hidden;
+  .page-header h1{
+    font-family:var(--font-head);font-size:clamp(36px,7vw,72px);
+    line-height:1;letter-spacing:.03em;margin-bottom:.6rem;
   }
-
-  .hero-bg {
-    position: absolute; inset: 0; z-index: 0;
-    background: linear-gradient(135deg, #0d0d0e 0%, #141418 50%, #1a1208 100%);
-  }
-  .hero-grid {
-    position: absolute; inset: 0;
-    background-image:
-      linear-gradient(rgba(245,165,35,.07) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(245,165,35,.07) 1px, transparent 1px);
-    background-size: 60px 60px;
-  }
-  .hero-glow {
-    position: absolute; right: -10vw; top: 50%; transform: translateY(-50%);
-    width: 55vw; height: 55vw; max-width: 700px; max-height: 700px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(245,165,35,.18) 0%, transparent 70%);
-    pointer-events: none;
+  .page-header h1 span{color:var(--accent)}
+  .page-header p{
+    font-size:15px;color:var(--silver);line-height:1.7;
+    max-width:520px;margin:0 auto;
   }
 
-  .hero-inner {
-    position: relative; z-index: 1;
-    max-width: 720px;
+  /* ── CONTACT ──────────────────────────────── */
+  .contact-section{
+    position:relative;z-index:1;flex:1;
+    padding:20px clamp(16px,5vw,80px) clamp(40px,6vw,80px);
   }
-  .hero-tag {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-family: var(--font-mono); font-size: 11px; letter-spacing: .15em;
-    text-transform: uppercase; color: var(--accent);
-    border: 1px solid rgba(245,165,35,.3);
-    padding: 6px 14px; border-radius: 2px;
-    margin-bottom: 1.8rem;
-  }
-  .hero-tag::before {
-    content: ''; width: 6px; height: 6px;
-    background: var(--accent); border-radius: 50%;
-    animation: pulse 2s infinite;
-  }
-  @keyframes pulse {
-    0%,100% { opacity: 1; } 50% { opacity: .3; }
+  .contact-inner{
+    display:grid;grid-template-columns:1fr 1fr;
+    gap:clamp(2rem,4vw,4rem);align-items:start;
+    max-width:1100px;margin:0 auto;
   }
 
-  .hero h1 {
-    font-family: var(--font-head);
-    font-size: clamp(52px, 8vw, 110px);
-    line-height: .92; letter-spacing: .02em;
-    margin-bottom: 1.4rem;
+  /* LEFT — INFO */
+  .contact-left h2{
+    font-family:var(--font-head);font-size:clamp(28px,4vw,44px);
+    margin-bottom:.6rem;line-height:1;
   }
-  .hero h1 .line2 { color: var(--accent); display: block; }
+  .contact-left h2 span{color:var(--accent)}
+  .contact-desc{
+    font-size:14px;color:var(--silver);line-height:1.75;margin-bottom:2rem;
+  }
+  .contact-info{display:flex;flex-direction:column;gap:1.2rem}
+  .info-row{
+    display:flex;align-items:flex-start;gap:14px;
+    font-size:13px;color:var(--silver);text-decoration:none;
+  }
+  .info-icon{
+    width:40px;height:40px;border-radius:var(--radius);flex-shrink:0;
+    background:rgba(245,165,35,.08);border:1px solid rgba(245,165,35,.15);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .info-icon i{font-size:15px;color:var(--accent)}
+  .info-row strong{color:var(--white);display:block;margin-bottom:3px;font-size:13px}
+  .info-row a{color:var(--silver);text-decoration:none;transition:color .2s}
+  .info-row a:hover{color:var(--accent)}
+  .phone-btn{
+    display:inline-flex;align-items:center;gap:8px;
+    background:#1a7a4a;color:#fff;padding:8px 16px;
+    border-radius:var(--radius);font-size:14px;font-weight:700;
+    text-decoration:none;transition:background .2s;margin-top:4px;
+    font-family:var(--font-body);
+  }
+  .phone-btn:hover{background:#22915a}
+  .phone-btn i{font-size:14px}
 
-  .hero-desc {
-    font-size: clamp(15px, 2vw, 17px); font-weight: 300; line-height: 1.7;
-    color: var(--silver); max-width: 520px;
-    margin-bottom: 2.4rem;
+  /* Map placeholder */
+  .map-wrap{
+    margin-top:2rem;border-radius:var(--radius);overflow:hidden;
+    border:1px solid var(--steel-border);aspect-ratio:16/10;
+    background:var(--steel-mid);position:relative;
+    display:flex;align-items:center;justify-content:center;
   }
+  .map-wrap iframe{
+    width:100%;height:100%;border:0;display:block;filter:grayscale(.6) brightness(.85) contrast(1.1);
+  }
+  .map-overlay{
+    position:absolute;inset:0;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;gap:8px;
+    background:rgba(13,13,14,.5);transition:opacity .3s;cursor:pointer;
+  }
+  .map-overlay:hover{opacity:0}
+  .map-overlay i{font-size:28px;color:var(--accent)}
+  .map-overlay span{font-size:13px;color:var(--silver);letter-spacing:.05em}
 
-  .hero-actions { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
-  .btn-primary {
-    background: var(--accent); color: var(--steel-dark);
-    padding: 14px 32px; border-radius: 4px;
-    font-size: 14px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
-    text-decoration: none; transition: all .2s; border: none; cursor: pointer;
+  /* ── FORM ─────────────────────────────────── */
+  .contact-form{
+    display:flex;flex-direction:column;gap:.9rem;
+    background:var(--steel-card);border:1px solid var(--steel-border);
+    padding:clamp(1.2rem,3vw,2rem);border-radius:var(--radius);
   }
-  .btn-primary:hover { background: #ffc052; transform: translateY(-1px); }
-  .btn-ghost {
-    border: 1px solid var(--steel-border); color: var(--white);
-    padding: 14px 32px; border-radius: 4px;
-    font-size: 14px; font-weight: 500; letter-spacing: .07em;
-    text-decoration: none; transition: all .2s;
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+  .form-group{display:flex;flex-direction:column;gap:5px}
+  .form-group label{
+    font-size:11px;color:var(--silver);letter-spacing:.08em;
+    text-transform:uppercase;font-weight:500;
   }
-  .btn-ghost:hover { border-color: var(--silver); background: rgba(255,255,255,.04); }
-
-  /* hero stats strip */
-  .hero-stats {
-    position: absolute; bottom: 0; left: 0; right: 0; z-index: 1;
-    display: grid; grid-template-columns: repeat(4, 1fr);
-    border-top: 1px solid var(--steel-border);
-  }
-  .hero-stat {
-    padding: 1.6rem 5vw;
-    border-right: 1px solid var(--steel-border);
-  }
-  .hero-stat:last-child { border-right: none; }
-  .hero-stat-num {
-    font-family: var(--font-head); font-size: 38px; color: var(--accent);
-    line-height: 1; margin-bottom: 4px;
-  }
-  .hero-stat-label { font-size: 12px; color: var(--silver); text-transform: uppercase; letter-spacing: .1em; }
-
-  /* ── SECTIONS COMMON ──────────────────────── */
-  section { padding: 100px 5vw; position: relative; z-index: 1; }
-  .section-tag {
-    font-family: var(--font-mono); font-size: 11px; letter-spacing: .2em;
-    text-transform: uppercase; color: var(--accent);
-    margin-bottom: 1rem;
-  }
-  .section-title {
-    font-family: var(--font-head); font-size: clamp(36px, 5vw, 60px);
-    line-height: 1; letter-spacing: .02em; margin-bottom: 1rem;
-  }
-  .section-sub {
-    font-size: 16px; color: var(--silver); line-height: 1.7;
-    max-width: 540px;
-  }
-
-  /* ── PRODUCTS ─────────────────────────────── */
-  .products { background: var(--steel-mid); }
-  .products-header { margin-bottom: 3.5rem; }
-  .products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1.5px;
-    border: 1.5px solid var(--steel-border);
-  }
-  .product-card {
-    background: var(--steel-card);
-    padding: 2.4rem 2rem;
-    transition: background .25s;
-    cursor: default;
-  }
-  .product-card:hover { background: #2a2a35; }
-  .product-icon {
-    width: 48px; height: 48px; margin-bottom: 1.4rem;
-    background: rgba(245,165,35,.12);
-    border: 1px solid rgba(245,165,35,.25);
-    border-radius: 6px;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .product-icon svg { width: 24px; height: 24px; stroke: var(--accent); fill: none; stroke-width: 1.5; }
-  .product-card h3 { font-family: var(--font-head); font-size: 26px; margin-bottom: .5rem; }
-  .product-card p { font-size: 14px; color: var(--silver); line-height: 1.65; margin-bottom: 1.4rem; }
-  .product-specs { list-style: none; }
-  .product-specs li {
-    font-size: 13px; color: var(--silver);
-    padding: 5px 0; border-bottom: 1px solid var(--steel-border);
-    display: flex; gap: 8px; align-items: flex-start;
-  }
-  .product-specs li:last-child { border-bottom: none; }
-  .product-specs li::before {
-    content: '→'; color: var(--accent); flex-shrink: 0; margin-top: 1px;
-  }
-
-  /* ── WHY US ───────────────────────────────── */
-  .why-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    margin-top: 3.5rem;
-    align-items: center;
-  }
-  .why-features { display: flex; flex-direction: column; gap: 1.5rem; }
-  .feature-item {
-    display: flex; gap: 1.2rem; align-items: flex-start;
-    padding: 1.4rem;
-    border: 1px solid var(--steel-border);
-    border-left: 3px solid var(--accent);
-    background: var(--steel-card);
-    border-radius: 2px;
-    transition: border-left-color .2s;
-  }
-  .feature-item:hover { border-left-color: #ffc052; }
-  .feature-num {
-    font-family: var(--font-head); font-size: 36px; color: rgba(245,165,35,.25);
-    line-height: 1; flex-shrink: 0; width: 38px;
-  }
-  .feature-item h4 { font-size: 16px; font-weight: 600; margin-bottom: .35rem; }
-  .feature-item p { font-size: 14px; color: var(--silver); line-height: 1.6; }
-
-  .why-visual {
-    position: relative;
-    background: var(--steel-card);
-    border: 1px solid var(--steel-border);
-    padding: 2.5rem;
-    border-radius: 4px;
-  }
-  .why-visual-title {
-    font-family: var(--font-head); font-size: 18px; color: var(--accent);
-    letter-spacing: .08em; margin-bottom: 2rem; text-transform: uppercase;
-  }
-  .spec-row {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: .75rem 0; border-bottom: 1px solid var(--steel-border);
-    font-size: 14px;
-  }
-  .spec-row:last-child { border-bottom: none; }
-  .spec-label { color: var(--silver); }
-  .spec-value { font-weight: 600; font-family: var(--font-mono); font-size: 13px; color: var(--white); }
-  .spec-value.highlight { color: var(--accent); }
-
-  .bar-wrap { margin-top: 1.8rem; }
-  .bar-row { margin-bottom: 1rem; }
-  .bar-info { display: flex; justify-content: space-between; font-size: 13px; color: var(--silver); margin-bottom: 6px; }
-  .bar-track {
-    height: 6px; background: var(--steel-border); border-radius: 3px; overflow: hidden;
-  }
-  .bar-fill {
-    height: 100%; background: var(--accent); border-radius: 3px;
-    animation: barIn 1s ease forwards;
-    transform-origin: left;
-  }
-  @keyframes barIn { from { width: 0 !important; } }
-
-  /* ── PROCESS ──────────────────────────────── */
-  .process { background: var(--steel-mid); }
-  .process-steps {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 0;
-    margin-top: 3.5rem;
-    position: relative;
-  }
-  .process-step {
-    padding: 2rem 1.8rem;
-    border-right: 1px solid var(--steel-border);
-    border-bottom: 1px solid var(--steel-border);
-    position: relative;
-  }
-  .step-num {
-    font-family: var(--font-head); font-size: 56px;
-    color: rgba(245,165,35,.15); line-height: 1;
-    margin-bottom: .5rem;
-  }
-  .process-step h4 { font-size: 15px; font-weight: 600; margin-bottom: .5rem; }
-  .process-step p { font-size: 13px; color: var(--silver); line-height: 1.6; }
-  .step-arrow {
-    position: absolute; right: -12px; top: 50%;
-    transform: translateY(-50%);
-    z-index: 2;
-    background: var(--steel-mid);
-    color: var(--accent); font-size: 18px;
-  }
-
-  /* ── TESTIMONIAL ──────────────────────────── */
-  .testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-    margin-top: 3.5rem;
-  }
-  .testi-card {
-    background: var(--steel-card);
-    border: 1px solid var(--steel-border);
-    padding: 1.8rem;
-    border-radius: 4px;
-    position: relative;
-  }
-  .testi-card::before {
-    content: '"';
-    font-family: Georgia, serif; font-size: 72px;
-    color: rgba(245,165,35,.2); line-height: 1;
-    position: absolute; top: 8px; left: 18px;
-  }
-  .testi-text { font-size: 14px; color: var(--silver); line-height: 1.7; margin-bottom: 1.4rem; padding-top: 1.2rem; }
-  .testi-author { display: flex; align-items: center; gap: 10px; }
-  .testi-avatar {
-    width: 38px; height: 38px; border-radius: 50%;
-    background: rgba(245,165,35,.2);
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 700; font-size: 14px; color: var(--accent);
-    flex-shrink: 0;
-  }
-  .testi-name { font-weight: 600; font-size: 14px; }
-  .testi-role { font-size: 12px; color: var(--silver); }
-
-  /* ── CONTACT / CTA ────────────────────────── */
-  .contact { background: var(--steel-card); }
-  .contact-inner {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 4rem; align-items: start;
-  }
-  .contact h2 { font-family: var(--font-head); font-size: clamp(36px,5vw,58px); margin-bottom: .8rem; }
-  .contact h2 span { color: var(--accent); }
-  .contact-desc { font-size: 15px; color: var(--silver); line-height: 1.7; margin-bottom: 2rem; }
-  .contact-info { display: flex; flex-direction: column; gap: 1rem; }
-  .info-row { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--silver); }
-  .info-icon {
-    width: 36px; height: 36px; border-radius: 4px;
-    background: rgba(245,165,35,.1); border: 1px solid rgba(245,165,35,.2);
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-  }
-  .info-icon svg { width: 16px; height: 16px; stroke: var(--accent); fill: none; stroke-width: 1.5; }
-  .info-row strong { color: var(--white); }
-
-  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-  .form-group { display: flex; flex-direction: column; gap: 6px; }
-  .form-group label { font-size: 12px; color: var(--silver); letter-spacing: .08em; text-transform: uppercase; }
+  .form-group label .req{color:var(--accent)}
   .form-group input,
   .form-group select,
-  .form-group textarea {
-    background: var(--steel-mid); border: 1px solid var(--steel-border);
-    border-radius: 4px; padding: 11px 14px;
-    font-family: var(--font-body); font-size: 14px; color: var(--white);
-    outline: none; transition: border-color .2s; resize: vertical;
+  .form-group textarea{
+    background:var(--steel-dark);border:1px solid var(--steel-border);
+    border-radius:var(--radius);padding:12px 14px;
+    font-family:var(--font-body);font-size:14px;color:var(--white);
+    outline:none;transition:border-color .25s,box-shadow .25s;
+    resize:vertical;width:100%;
+    -webkit-appearance:none;appearance:none;
+  }
+  .form-group select{
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a0a8b8' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 12px center;
+    padding-right:36px;cursor:pointer;
   }
   .form-group input:focus,
   .form-group select:focus,
-  .form-group textarea:focus { border-color: var(--accent); }
+  .form-group textarea:focus{
+    border-color:var(--accent);box-shadow:0 0 0 3px rgba(245,165,35,.1);
+  }
   .form-group input::placeholder,
-  .form-group textarea::placeholder { color: rgba(160,168,184,.4); }
-  .form-group select option { background: var(--steel-mid); }
+  .form-group textarea::placeholder{color:rgba(160,168,184,.35)}
+  .form-group select option{background:var(--steel-mid);color:var(--white)}
+
+  .form-group .error-msg{
+    font-size:11px;color:#e74c3c;display:none;align-items:center;gap:4px;
+  }
+  .form-group.has-error input,
+  .form-group.has-error select,
+  .form-group.has-error textarea{border-color:#e74c3c}
+  .form-group.has-error .error-msg{display:flex}
+
+  .form-submit{margin-top:.3rem}
+  .form-submit .btn-primary{
+    width:100%;padding:14px;font-size:14px;
+    position:relative;overflow:hidden;
+    background:var(--accent);color:var(--steel-dark);
+    border:none;border-radius:var(--radius);cursor:pointer;
+    font-family:var(--font-body);font-weight:700;letter-spacing:.07em;
+    text-transform:uppercase;transition:all .2s;
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  }
+  .form-submit .btn-primary:hover{background:#ffc052;transform:translateY(-1px)}
+  .form-submit .btn-primary:disabled{opacity:.7;cursor:not-allowed;transform:none}
+  .form-submit .btn-primary .spinner{
+    display:none;width:16px;height:16px;
+    border:2px solid transparent;border-top-color:var(--steel-dark);
+    border-radius:50%;animation:spin .6s linear infinite;
+  }
+  .form-submit .btn-primary.loading .spinner{display:inline-block}
+  .form-submit .btn-primary.loading .btn-text{opacity:.6}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  .form-footer{text-align:center;font-size:12px;margin-top:.2rem}
+  .form-footer a{color:var(--silver);text-decoration:none;transition:color .2s}
+  .form-footer a:hover{color:var(--accent);text-decoration:underline}
+
+  /* ── TOAST ────────────────────────────────── */
+  .toast-container{
+    position:fixed;top:80px;right:16px;z-index:9999;
+    display:flex;flex-direction:column;gap:10px;
+    pointer-events:none;
+  }
+  .toast{
+    pointer-events:auto;display:flex;align-items:flex-start;gap:10px;
+    background:var(--steel-card);border:1px solid var(--steel-border);
+    border-radius:var(--radius);padding:14px 16px;
+    box-shadow:0 8px 32px rgba(0,0,0,.5);
+    max-width:360px;width:calc(100vw - 32px);
+    animation:toastIn .35s ease;font-size:13px;line-height:1.5;
+  }
+  .toast.removing{animation:toastOut .3s ease forwards}
+  @keyframes toastIn{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:none}}
+  @keyframes toastOut{to{opacity:0;transform:translateX(40px)}}
+  .toast-icon{
+    flex-shrink:0;width:24px;height:24px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-size:11px;
+  }
+  .toast-success .toast-icon{background:rgba(39,174,96,.2);color:#27ae60}
+  .toast-error .toast-icon{background:rgba(231,76,60,.2);color:#e74c3c}
+  .toast-body strong{display:block;margin-bottom:2px;color:var(--white);font-size:13px}
+  .toast-body span{color:var(--silver);font-size:12px}
+  .toast-close{
+    background:none;border:none;color:var(--silver);cursor:pointer;
+    font-size:18px;padding:0;margin-left:auto;flex-shrink:0;
+    line-height:1;transition:color .2s;
+  }
+  .toast-close:hover{color:var(--white)}
 
   /* ── FOOTER ───────────────────────────────── */
-  footer {
-    background: #080809;
-    border-top: 1px solid var(--steel-border);
-    padding: 2.5rem 5vw;
-    display: flex; align-items: center; justify-content: space-between;
-    flex-wrap: wrap; gap: 1rem;
-    font-size: 13px; color: var(--silver);
+  footer{
+    position:relative;z-index:1;
+    background:#080809;border-top:1px solid var(--steel-border);
+    padding:1.8rem clamp(16px,5vw,80px);
+    display:flex;align-items:center;justify-content:space-between;
+    flex-wrap:wrap;gap:1rem;
+    font-size:12px;color:var(--silver);
   }
-  footer a { color: var(--silver); text-decoration: none; }
-  footer a:hover { color: var(--accent); }
-  .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
-
-  /* ── RIBBON ──────────────────────────────── */
-  .ticker {
-    overflow: hidden; background: var(--accent);
-    padding: 8px 0; z-index: 99; position: relative;
-  }
-  .ticker-inner {
-    display: flex; gap: 0; white-space: nowrap;
-    animation: ticker 28s linear infinite;
-  }
-  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-  .ticker-item {
-    font-family: var(--font-mono); font-size: 12px; letter-spacing: .1em;
-    color: var(--steel-dark); font-weight: 700; text-transform: uppercase;
-    padding: 0 3rem;
-  }
-  .ticker-dot { color: var(--steel-mid); }
+  footer a{color:var(--silver);text-decoration:none;transition:color .2s}
+  footer a:hover{color:var(--accent)}
+  .footer-links{display:flex;gap:1.2rem;flex-wrap:wrap}
 
   /* ── RESPONSIVE ───────────────────────────── */
-  @media (max-width: 900px) {
-    .nav-links { display: none; }
-    .nav-cta { display: none; }
-    .hamburger { display: block; }
-    .hero-stats { grid-template-columns: 1fr 1fr; }
-    .hero-stat:nth-child(2) { border-right: none; }
-    .hero-stat:nth-child(3) { border-right: 1px solid var(--steel-border); }
-    .why-grid { grid-template-columns: 1fr; }
-    .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
-    .form-row { grid-template-columns: 1fr; }
+  @media(max-width:900px){
+    .contact-inner{grid-template-columns:1fr;gap:2rem}
   }
-
-  @media (max-width: 600px) {
-    section { padding: 70px 5vw; }
-    .hero { padding-bottom: 200px; }
-    .hero-stats { grid-template-columns: 1fr 1fr; }
-    .hero-stat { padding: 1.2rem 1rem; }
-    .hero-stat-num { font-size: 28px; }
-    .hero-actions { flex-direction: column; align-items: stretch; text-align: center; }
-    .btn-primary, .btn-ghost { text-align: center; }
-    .process-step { border-right: none; }
+  @media(max-width:768px){
+    .nav-links{display:none}
+    .hamburger{display:block}
+    .form-row{grid-template-columns:1fr}
   }
-
-  /* ── FADE IN ANIMATION ───────────────────── */
-  .fade-in {
-    opacity: 0; transform: translateY(24px);
-    transition: opacity .6s ease, transform .6s ease;
+  @media(max-width:480px){
+    .page-header{padding:100px 16px 30px}
+    .page-header h1{font-size:clamp(32px,10vw,48px)}
+    .contact-section{padding:10px 12px 40px}
+    .contact-form{padding:1rem}
+    .info-row{font-size:12px}
+    .info-icon{width:36px;height:36px}
+    .info-icon i{font-size:13px}
+    .phone-btn{font-size:13px;padding:7px 12px}
+    footer{flex-direction:column;text-align:center}
+    .footer-links{justify-content:center}
   }
-  .fade-in.visible { opacity: 1; transform: none; }
 </style>
 </head>
 <body>
+
+<!-- NAV -->
+<nav>
+  <a href="https://www.thepkhuonmau.com" class="nav-logo">
+    <div class="nav-logo-mark">TK</div>
+    <div class="nav-logo-text">THÉP <span>KHUÔN MẪU</span></div>
+  </a>
+  <div class="nav-links">
+    <a href="https://www.thepkhuonmau.com">Trang chủ</a>
+    <a href="https://www.thepkhuonmau.com/p/san-pham.html">Sản phẩm</a>
+    <a href="https://www.thepkhuonmau.com/p/gioi-thieu.html">Giới thiệu</a>
+    <a href="#">Liên hệ</a>
+  </div>
+  <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="https://www.thepkhuonmau.com">Trang chủ</a>
+  <a href="https://www.thepkhuonmau.com/p/san-pham.html">Sản phẩm</a>
+  <a href="https://www.thepkhuonmau.com/p/gioi-thieu.html">Giới thiệu</a>
+  <a href="#">Liên hệ</a>
+</div>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="section-tag">Liên hệ</div>
+  <h1>LIÊN HỆ <span>CHÚNG TÔI</span></h1>
+  <p>Đội ngũ kỹ thuật và kinh doanh sẵn sàng tư vấn, báo giá trong thời gian sớm nhất.</p>
+</div>
+
 <!-- CONTACT -->
-<section class="contact" id="contact">
+<div class="contact-section">
   <div class="contact-inner">
-    <div class="fade-in">
-      <h2>LIÊN HỆ <span>NGAY</span></h2>
-      <p class="contact-desc">Đội ngũ kỹ thuật và kinh doanh Thép Khuôn mẫu sẵn sàng tư vấn và báo giá trong thời gian sớm nhất.</p>
+
+    <!-- LEFT: INFO -->
+    <div class="contact-left">
+      <h2>THÔNG TIN <span>LIÊN HỆ</span></h2>
+      <p class="contact-desc">Gửi yêu cầu qua form bên cạnh hoặc liên hệ trực tiếp. Chúng tôi phản hồi trong vòng 2 giờ làm việc.</p>
+
       <div class="contact-info">
         <div class="info-row">
-          <div class="info-icon">
-            <svg viewbox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"></path></svg>
-          </div>
-          <div><strong>Hotline / Zalo</strong><br />
-            <a class="canva-button cta-btn" data-template-id="contact-cta" href="tel:0938184590" style="background: rgb(26, 122, 74); color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 14px;">093 818 4590
-            </a>
+          <div class="info-icon"><i class="fa-solid fa-phone"></i></div>
+          <div>
+            <strong>Hotline / Zalo</strong>
+            <a href="tel:0938184590" class="phone-btn"><i class="fa-brands fa-zalo"></i> 093 818 4590</a>
           </div>
         </div>
         <div class="info-row">
-          <div class="info-icon">
-            <svg viewbox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"><polyline points="22,6 12,13 2,6"></polyline></path></svg>
+          <div class="info-icon"><i class="fa-solid fa-envelope"></i></div>
+          <div>
+            <strong>Email</strong>
+            <a href="mailto:info@thepkhuonmau.com">info@thepkhuonmau.com</a>
           </div>
-          <div><strong>Email</strong><br /><a class="info-row" href="mailto:info@thepkhuonmau.com" style="text-decoration:none"><i class="ti ti-mail"></i>info@thepkhuonmau.com</a></div>
         </div>
         <div class="info-row">
-          <div class="info-icon">
-            <svg viewbox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"><circle cx="12" cy="10" r="3"></circle></path></svg>
+          <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
+          <div>
+            <strong>Kho hàng & Văn phòng</strong>
+            Gần KCN Tân Tạo, TP. Hồ Chí Minh
           </div>
-          <div><strong>Kho hàng &amp; Văn phòng</strong><br />Gần Khu công nghiệp Tân Tạo, TP. Hồ Chí Minh</div>
         </div>
         <div class="info-row">
-          <div class="info-icon">
-            <svg viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"><polyline points="12 6 12 12 16 14"></polyline></circle></svg>
+          <div class="info-icon"><i class="fa-regular fa-clock"></i></div>
+          <div>
+            <strong>Giờ làm việc</strong>
+            Thứ 2 – Thứ 7: 7:30 – 17:30
           </div>
-          <div><strong>Giờ làm việc</strong><br />Thứ 2 – Thứ 7: 7:30 – 17:30</div>
+        </div>
+      </div>
+
+      <!-- MAP -->
+      <div class="map-wrap">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4638.9352277097805!2d106.59116547569504!3d10.783376259064177!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752d00463d407b%3A0x5e3908d1bf171e53!2sKho%20An%20Th%C3%A1i%20Ph%C3%BA%20Steel!5e1!3m2!1svi!2s!4v1783909977579!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+        <div class="map-overlay" id="mapOverlay">
+          <i class="fa-solid fa-map-location-dot"></i>
+          <span>Nhấn để xem bản đồ</span>
         </div>
       </div>
     </div>
 
-    <form class="contact-form fade-in" form="" name="contact-form" onsubmit="handleSubmit(event)">
+    <!-- RIGHT: FORM -->
+    <form class="contact-form" id="contactForm" novalidate>
       <div class="form-row">
-        <div class="form-group">
-          <label>Họ và tên *</label>
-          <input class="contact-form-name" id="ContactForm1_contact-form-name" name="name" placeholder="Nguyễn Văn A" required="" type="text" />
+        <div class="form-group" id="fg-name">
+          <label>Họ và tên <span class="req">*</span></label>
+          <input type="text" name="name" id="inputName" placeholder="Nguyễn Văn A" required autocomplete="name">
+          <div class="error-msg"><i class="fa-solid fa-circle-exclamation"></i> <span>Vui lòng nhập họ tên</span></div>
         </div>
-        <div class="form-group">
-          <label>Điện thoại *</label>
-          <input id="ContactForm1_contact-form-name" name="phone" placeholder="0909 000 000" required="" type="tel" />
+        <div class="form-group" id="fg-phone">
+          <label>Điện thoại <span class="req">*</span></label>
+          <input type="tel" name="phone" id="inputPhone" placeholder="0909 000 000" required autocomplete="tel">
+          <div class="error-msg"><i class="fa-solid fa-circle-exclamation"></i> <span>Số điện thoại không hợp lệ</span></div>
         </div>
       </div>
-      <div class="form-group">
+
+      <div class="form-group" id="fg-email">
         <label>Email</label>
-        <input class="contact-form-email" id="ContactForm1_contact-form-email" name="email" placeholder="info@congty.com" type="email" />
+        <input type="email" name="email" id="inputEmail" placeholder="info@congty.com" autocomplete="email">
+        <div class="error-msg"><i class="fa-solid fa-circle-exclamation"></i> <span>Email không hợp lệ</span></div>
       </div>
+
       <div class="form-group">
         <label>Sản phẩm quan tâm</label>
-        <select>
+        <select name="product" id="inputProduct">
           <option value="">-- Chọn loại thép --</option>
           <option>Phôi thép carbon (S45C, C45...)</option>
           <option>Thép khuôn nhựa (P20, 718, NAK80)</option>
@@ -541,51 +446,162 @@
           <option>Khác / Cần tư vấn</option>
         </select>
       </div>
+
       <div class="form-group">
         <label>Nội dung yêu cầu</label>
-        <textarea class="contact-form-email-message" cols="25" id="ContactForm1_contact-form-email-message" name="email-message" placeholder="Mô tả mác thép, quy cách, số lượng cần mua..." rows="5"></textarea>
+        <textarea name="message" id="inputMessage" rows="4" placeholder="Mô tả mác thép, quy cách, số lượng cần mua..."></textarea>
       </div>
-      <button type="submit">      
-      <input class="btn-primary" id="ContactForm1_contact-form-submit" style="text-align: center; width: 100%;" type="button" value="Gửi yêu cầu báo giá →" />
-      </button>
-      <p>
-      <a class="info-row" href="https://www.thepkhuonmau.com/p/chinh-sach-quyen-rieng-tu-privacy-policy.html" style="text-decoration:none">Chính sách quyền riêng tư (Privacy Policy)</a>
-      </p>
-      <div style="max-width: 222px; text-align: center; width: 100%;">
-        <p class="contact-form-error-message" id="ContactForm1_contact-form-error-message"></p>
-        <p class="contact-form-success-message" id="ContactForm1_contact-form-success-message"></p>
+
+      <div class="form-submit">
+        <button type="submit" class="btn-primary" id="submitBtn">
+          <span class="spinner"></span>
+          <span class="btn-text">Gửi yêu cầu báo giá <i class="fa-solid fa-arrow-right" style="font-size:12px"></i></span>
+        </button>
+      </div>
+
+      <div class="form-footer">
+        <a href="https://www.thepkhuonmau.com/p/chinh-sach-quyen-rieng-tu-privacy-policy.html">Chính sách quyền riêng tư (Privacy Policy)</a>
       </div>
     </form>
+
   </div>
-</section>
+</div>
 
-  <script>
-  // Scroll animations
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+<!-- TOAST -->
+<div class="toast-container" id="toastContainer"></div>
 
-  // Sticky nav shadow
-  window.addEventListener('scroll', () => {
-    document.querySelector('nav').style.boxShadow =
-      window.scrollY > 10 ? '0 2px 24px rgba(0,0,0,.6)' : 'none';
+<!-- FOOTER -->
+<footer>
+  <div>&copy; 2024 Thép Khuôn Mẫu. Mọi quyền được bảo lưu.</div>
+  <div class="footer-links">
+    <a href="https://www.thepkhuonmau.com">Trang chủ</a>
+    <a href="https://thepkhuonmau.com/2026/05/bang-tra-cuu-mac-thep-khuon-mau.html">Sản phẩm</a>
+    <a href="#">Liên hệ</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ── HAMBURGER ───────────────────────────── */
+  var hamburger=document.getElementById('hamburgerBtn');
+  var mobileMenu=document.getElementById('mobileMenu');
+
+  hamburger.addEventListener('click',function(){
+    this.classList.toggle('active');
+    mobileMenu.classList.toggle('open');
+    document.body.style.overflow=mobileMenu.classList.contains('open')?'hidden':'';
   });
 
-  // Form submit
-  function handleSubmit(e) {
-    e.preventDefault();
-    const btn = document.getElementById('submit-btn');
-    btn.textContent = '✓ Đã gửi! Chúng tôi sẽ liên hệ sớm.';
-    btn.style.background = '#2d8c4e';
-    btn.style.cursor = 'default';
-    setTimeout(() => {
-      btn.textContent = 'Gửi yêu cầu báo giá →';
-      btn.style.background = '';
-      btn.style.cursor = '';
-      e.target.reset();
-    }, 4000);
+  mobileMenu.querySelectorAll('a').forEach(function(link){
+    link.addEventListener('click',function(){
+      hamburger.classList.remove('active');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow='';
+    });
+  });
+
+  /* ── NAV SHADOW ──────────────────────────── */
+  var navEl=document.querySelector('nav');
+  window.addEventListener('scroll',function(){
+    navEl.style.boxShadow=window.scrollY>10?'0 2px 24px rgba(0,0,0,.6)':'none';
+  },{passive:true});
+
+  /* ── MAP OVERLAY ─────────────────────────── */
+  var mapOverlay=document.getElementById('mapOverlay');
+  if(mapOverlay){
+    mapOverlay.addEventListener('click',function(){
+      this.style.opacity='0';
+      setTimeout(function(){mapOverlay.style.display='none'},300);
+    });
   }
+
+  /* ── TOAST ───────────────────────────────── */
+  var toastContainer=document.getElementById('toastContainer');
+
+  function showToast(type,title,message){
+    var toast=document.createElement('div');
+    toast.className='toast toast-'+type;
+    var iconClass=type==='success'?'fa-check':'fa-xmark';
+    toast.innerHTML=
+      '<div class="toast-icon"><i class="fa-solid '+iconClass+'"></i></div>'+
+      '<div class="toast-body"><strong>'+title+'</strong><span>'+message+'</span></div>'+
+      '<button class="toast-close" aria-label="Đóng">&times;</button>';
+    toastContainer.appendChild(toast);
+
+    var closeBtn=toast.querySelector('.toast-close');
+    function removeToast(){
+      toast.classList.add('removing');
+      setTimeout(function(){toast.remove()},300);
+    }
+    closeBtn.addEventListener('click',removeToast);
+    setTimeout(removeToast,5000);
+  }
+
+  /* ── FORM ────────────────────────────────── */
+  var form=document.getElementById('contactForm');
+  var submitBtn=document.getElementById('submitBtn');
+
+  function clearErrors(){
+    form.querySelectorAll('.form-group').forEach(function(fg){
+      fg.classList.remove('has-error');
+    });
+  }
+
+  function setError(groupId){
+    document.getElementById(groupId).classList.add('has-error');
+  }
+
+  function validatePhone(phone){
+    var cleaned=phone.replace(/[\s\-\.\(\)]/g,'');
+    return /^(0[3-9]\d{8,9})$/.test(cleaned);
+  }
+
+  function validateEmail(email){
+    if(!email)return true;
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  // Clear error khi nhập
+  form.querySelectorAll('input,select,textarea').forEach(function(el){
+    el.addEventListener('input',function(){this.closest('.form-group').classList.remove('has-error')});
+    el.addEventListener('change',function(){this.closest('.form-group').classList.remove('has-error')});
+  });
+
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    clearErrors();
+
+    var name=document.getElementById('inputName').value.trim();
+    var phone=document.getElementById('inputPhone').value.trim();
+    var email=document.getElementById('inputEmail').value.trim();
+    var hasError=false;
+
+    if(!name){setError('fg-name');hasError=true}
+    if(!validatePhone(phone)){setError('fg-phone');hasError=true}
+    if(!validateEmail(email)){setError('fg-email');hasError=true}
+
+    if(hasError){
+      showToast('error','Thiếu thông tin','Vui lòng kiểm tra lại các trường bắt buộc.');
+      var firstErr=form.querySelector('.has-error input,.has-error select');
+      if(firstErr)firstErr.focus();
+      return;
+    }
+
+    // Submit simulation
+    submitBtn.classList.add('loading');
+    submitBtn.disabled=true;
+
+    setTimeout(function(){
+      submitBtn.classList.remove('loading');
+      submitBtn.disabled=false;
+      showToast('success','Gửi thành công!','Chúng tôi sẽ liên hệ bạn trong vòng 2 giờ làm việc.');
+      form.reset();
+    },1800);
+  });
+
+})();
 </script>
 </body>
 </html>
