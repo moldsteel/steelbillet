@@ -497,7 +497,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <label for="note">Ghi chú</label>
             <textarea id="note" name="Ghi chú" rows="3" placeholder="Quy cách, số lượng, thời gian cần hàng..."></textarea>
           </div>
-          <button type="submit" class="btn btn-primary submit-btn" onclick="return gtag_report_conversion();">Gửi yêu cầu báo giá</button>
+          <button type="submit" id="submitBtn" class="btn btn-primary submit-btn">Gửi yêu cầu báo giá</button>
+          <div id="formStatus" class="form-note" style="display:none"></div>
           <div class="form-note">Phản hồi trong 48h qua điện thoại hoặc email · Thông tin được bảo mật</div>
         </form>
       </div>
@@ -630,9 +631,48 @@ document.querySelectorAll('.faq-item').forEach(item=>{
   item.querySelector('.faq-q').addEventListener('click', ()=>item.classList.toggle('open'));
 });
 
-// ---- Meta Pixel: track khi submit form thành công ----
-document.getElementById('quoteForm').addEventListener('submit', ()=>{
-  if (typeof fbq !== 'undefined') fbq('track', 'Lead');
+// ---- Gửi form qua AJAX tới Formspree — không rời trang, chỉ bắn conversion khi Formspree xác nhận ----
+const quoteForm = document.getElementById('quoteForm');
+const submitBtn = document.getElementById('submitBtn');
+const formStatus = document.getElementById('formStatus');
+
+quoteForm.addEventListener('submit', function(e){
+  e.preventDefault();
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Đang gửi...';
+  formStatus.style.display = 'block';
+  formStatus.style.color = 'var(--text-muted)';
+  formStatus.textContent = '';
+
+  fetch(quoteForm.action, {
+    method: 'POST',
+    body: new FormData(quoteForm),
+    headers: { 'Accept': 'application/json' }
+  })
+  .then(response => {
+    if (response.ok) {
+      // Gửi thành công — bắn conversion Google Ads + Meta Lead
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'conversion', { 'send_to': 'AW-18187317165/vDyNCKLawLMcEK3fseBD' });
+      }
+      if (typeof fbq !== 'undefined') fbq('track', 'Lead');
+
+      quoteForm.reset();
+      selected.clear();
+      updateSelectedUI();
+      submitBtn.textContent = '✓ Đã gửi thành công';
+      formStatus.style.color = 'var(--accent)';
+      formStatus.textContent = 'Cảm ơn bạn! MoldSteel VN sẽ liên hệ lại trong vòng 48 giờ.';
+    } else {
+      throw new Error('Formspree trả về lỗi');
+    }
+  })
+  .catch(() => {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Gửi yêu cầu báo giá';
+    formStatus.style.color = '#c0392b';
+    formStatus.textContent = 'Gửi chưa thành công. Vui lòng thử lại hoặc liên hệ trực tiếp qua Zalo 0938 184 590.';
+  });
 });
 </script>
 </body>
