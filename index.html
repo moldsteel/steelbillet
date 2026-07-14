@@ -1226,6 +1226,76 @@ document.querySelectorAll('.faq-q').forEach(function(q) {
     }
   });
 });
+</script> 
+<script>
+// 1. BURGER MENU (Mobile)
+(function(){
+  var burger=document.getElementById('burgerBtn'),
+      nav=document.querySelector('.nav-links');
+  if(!burger||!nav)return;
+  burger.addEventListener('click',function(){
+    var open=nav.style.display==='flex';
+    Object.assign(nav.style,{display:open?'':'flex',position:open?'':'fixed',top:open?'':'64px',left:open?'':'0',right:open?'':'0',flexDirection:open?'':'column',background:open?'':'#111',padding:open?'':'16px',zIndex:open?'':'300',borderBottom:open?'':'1px solid rgba(255,255,255,0.1)',borderRadius:open?'':'0 0 12px 12px'});
+    var i=burger.querySelector('i');if(i)i.className=open?'ti ti-menu-2':'ti ti-x';
+  });
+  nav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){
+    ['display','position','top','left','right','flexDirection','background','padding','zIndex','borderBottom','borderRadius'].forEach(function(p){nav.style[p]=''});
+    var i=burger.querySelector('i');if(i)i.className='ti ti-menu-2';
+  });});
+})();
+
+// 2. DANH MỤC — Toggle mở/đóng
+document.querySelectorAll('.cat-head').forEach(function(h){
+  h.addEventListener('click',function(){
+    var s=this.closest('.cat-section');if(!s)return;
+    var o=s.classList.contains('open');s.classList.toggle('open');this.setAttribute('aria-expanded',!o);
+  });
+  h.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();this.click();}});
+});
+
+// 3. FILTER CHIPS
+document.querySelectorAll('.fchip').forEach(function(c){
+  c.addEventListener('click',function(){
+    var cat=this.dataset.cat;
+    document.querySelectorAll('.fchip').forEach(function(x){x.classList.remove('active');x.setAttribute('aria-selected','false');});
+    this.classList.add('active');this.setAttribute('aria-selected','true');
+    document.querySelectorAll('.cat-section').forEach(function(s){s.style.display=(cat==='all'||s.dataset.cat===cat)?'':'none';});
+  });
+});
+
+// 4. SUB-TAB (SKD11 Nhật/Hàn)
+document.querySelectorAll('.sub-tab').forEach(function(t){
+  t.addEventListener('click',function(){
+    var sg=this.dataset.sg,body=this.closest('.cat-body');if(!body)return;
+    body.querySelectorAll('.sub-tab').forEach(function(x){x.classList.remove('active');});this.classList.add('active');
+    body.querySelectorAll('.spec-row').forEach(function(r){
+      var g=r.dataset.grade;if(!g)return;
+      if(g==='SKD11-JP'||g==='SKD11-KR'){r.style.display=(g===sg)?'':'none';}else{r.style.display='';}
+    });
+  });
+});
+
+// 5. NÚT "CHI TIẾT"
+var specData={SS400:{t:'SS400',n:'Structural',c:'\u22640.15%',cr:'\u2014',mo:'\u2014',v:'\u2014',hrc:'\u2014'},CT3:{t:'CT3',n:'Structural',c:'\u22640.22%',cr:'\u2014',mo:'\u2014',v:'\u2014',hrc:'\u2014'},S45C:{t:'S45C',n:'Carbon',c:'0.43\u20130.48%',cr:'\u22640.20%',mo:'\u2014',v:'\u2014',hrc:'\u2014'},S50C:{t:'S50C',n:'Carbon',c:'0.47\u20130.53%',cr:'\u22640.20%',mo:'\u2014',v:'\u2014',hrc:'\u2014'},S55C:{t:'S55C',n:'Carbon',c:'0.52\u20130.58%',cr:'\u22640.20%',mo:'\u2014',v:'\u2014',hrc:'\u2014'},SUJ2:{t:'SUJ2',n:'Carbon',c:'0.95\u20131.10%',cr:'1.30\u20131.60%',mo:'\u2014',v:'\u2014',hrc:'58\u201364'},SCM440:{t:'SCM440',n:'Carbon',c:'0.38\u20130.43%',cr:'0.90\u20131.20%',mo:'0.15\u20130.30%',v:'\u2014',hrc:'28\u201335'},'SKD11-JP':{t:'SKD11 (Nh\u1eadt)',n:'Cold Stamping',c:'1.40\u20131.60%',cr:'11\u201313%',mo:'0.80\u20131.20%',v:'0.20\u20130.50%',hrc:'58\u201362'},'SKD11-KR':{t:'SKD11 (H\u00e0n)',n:'Cold Stamping',c:'1.40\u20131.60%',cr:'11\u201313%',mo:'0.80\u20131.20%',v:'0.20\u20130.50%',hrc:'58\u201362'},D2:{t:'D2',n:'Cold Stamping',c:'1.40\u20131.60%',cr:'11\u201313%',mo:'0.70\u20131.00%',v:'\u22640.50%',hrc:'58\u201362'},DC53:{t:'DC53',n:'Cold Stamping',c:'0.95\u20131.05%',cr:'7.50\u20138.50%',mo:'1.80\u20132.30%',v:'0.15\u20130.35%',hrc:'60\u201362'},H13:{t:'H13',n:'Hot Stamping',c:'0.32\u20130.45%',cr:'4.75\u20135.50%',mo:'1.10\u20131.75%',v:'0.80\u20131.20%',hrc:'44\u201352'},SKD61:{t:'SKD61',n:'Hot Stamping',c:'0.32\u20130.42%',cr:'4.80\u20135.50%',mo:'1.00\u20131.50%',v:'0.80\u20131.20%',hrc:'44\u201352'},P20:{t:'P20',n:'Plastic Molding',c:'0.28\u20130.40%',cr:'1.40\u20132.00%',mo:'0.30\u20130.55%',v:'\u2014',hrc:'28\u201336'},NAK80:{t:'NAK80',n:'Plastic Molding',c:'0.10\u20130.20%',cr:'\u2014',mo:'\u2014',v:'\u2014',hrc:'37\u201341'},S136:{t:'S136',n:'Plastic Molding',c:'0.26\u20130.40%',cr:'12.00\u201314.00%',mo:'\u2014',v:'\u2014',hrc:'48\u201354'},'718H':{t:'718H',n:'Plastic Molding',c:'0.28\u20130.40%',cr:'1.40\u20132.00%',mo:'0.20\u20130.50%',v:'\u2014',hrc:'33\u201338'}};
+document.querySelectorAll('.btn-spec').forEach(function(b){
+  b.addEventListener('click',function(e){
+    e.stopPropagation();var g=this.dataset.grade,s=this.dataset.shape,d=specData[g];if(!d)return;
+    var se=document.getElementById('specEmpty'),sc=document.getElementById('specContent');
+    se.style.display='none';sc.style.display='block';
+    var sl=s==='round'?'Thanh tr\u00f2n':'T\u1ea5m ph\u1eb3ng';
+    sc.innerHTML='<div style="padding:20px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><h3 style="margin:0;font-size:18px;font-weight:700">'+d.t+'</h3><span style="font-size:12px;padding:4px 10px;background:var(--bg);border-radius:var(--rs);color:var(--text2)">'+sl+'</span></div><div style="margin-bottom:16px"><span style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px">'+d.n+'</span></div><table style="width:100%;border-collapse:collapse;font-size:13px"><tr><td style="padding:8px 0;color:var(--muted);border-bottom:1px solid var(--border);width:40%">C (%)</td><td style="padding:8px 0;border-bottom:1px solid var(--border);font-weight:500">'+d.c+'</td></tr><tr><td style="padding:8px 0;color:var(--muted);border-bottom:1px solid var(--border)">Cr (%)</td><td style="padding:8px 0;border-bottom:1px solid var(--border);font-weight:500">'+d.cr+'</td></tr><tr><td style="padding:8px 0;color:var(--muted);border-bottom:1px solid var(--border)">Mo (%)</td><td style="padding:8px 0;border-bottom:1px solid var(--border);font-weight:500">'+d.mo+'</td></tr><tr><td style="padding:8px 0;color:var(--muted);border-bottom:1px solid var(--border)">V (%)</td><td style="padding:8px 0;border-bottom:1px solid var(--border);font-weight:500">'+d.v+'</td></tr><tr><td style="padding:8px 0;color:var(--muted);border-bottom:1px solid var(--border)">\u0110\u1ed9 c\u1ee9ng (HRC)</td><td style="padding:8px 0;border-bottom:1px solid var(--border);font-weight:600;color:var(--accent)">'+d.hrc+'</td></tr></table><a href="https://zalo.me/0938184590" style="display:block;margin-top:16px;padding:12px;text-align:center;background:var(--accent);color:#fff;border-radius:var(--rs);font-size:14px;font-weight:600;text-decoration:none" onclick="gtag_report_conversion(\'https://zalo.me/0938184590\')">Y\u00eau c\u1ea7u b\u00e1o gi\u00e1</a></div>';
+    if(window.innerWidth<1024)document.getElementById('specCard').scrollIntoView({behavior:'smooth',block:'start'});
+  });
+});
+
+// 6. TÍNH TRỌNG LƯỢNG
+(function(){
+  var s=document.getElementById('cShape'),d=document.getElementById('cD'),w=document.getElementById('cW'),l=document.getElementById('cL'),r=document.getElementById('cRes'),ww=document.getElementById('cWWrap');
+  if(!s||!d||!l||!r)return;
+  function uv(){ww.style.display=s.value==='plate'?'':'none';}
+  function calc(){var D=parseFloat(d.value)||0,W=parseFloat(w.value)||0,L=parseFloat(l.value)||0,kg=0;if(s.value==='round'){kg=Math.PI*Math.pow(D/2,2)*L*7.85e-6;}else{kg=D*W*L*7.85e-6;}r.textContent=kg>0?kg.toFixed(2)+' kg':'\u2014 kg';}
+  s.addEventListener('change',function(){uv();calc();});d.addEventListener('input',calc);w.addEventListener('input',calc);l.addEventListener('input',calc);uv();
+})();
 </script>   
 </body>
 </html>
