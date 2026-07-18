@@ -18,6 +18,25 @@
 <meta name="geo.placename" content="Bình Tân, TP. Hồ Chí Minh">
 <meta name="geo.region" content="VN-SG">
 
+<!-- Event snippet for Nhấp để gọi conversion page
+In your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. -->
+<script>
+function gtag_report_conversion(url) {
+  var callback = function () {
+    if (typeof(url) != 'undefined') {
+      window.location = url;
+    }
+  };
+  gtag('event', 'conversion', {
+      'send_to': 'AW-18187317165/f2psCNTotdIcEK3fseBD',
+      'value': 1.0,
+      'currency': 'VND',
+      'event_callback': callback
+  });
+  return false;
+}
+</script>
+
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18187317165"></script>
 <script>
