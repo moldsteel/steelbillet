@@ -5302,7 +5302,138 @@ ${panel.innerHTML}
   else{const blob=new Blob([html],{type:'text/html'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.target='_blank';a.click();setTimeout(()=>URL.revokeObjectURL(url),3000);}
 }
 </script>
+<script>
+// ============================================
+// CODE CHỐNG COPY VÀ VÔ HIỆU HÓA CHUỘT PHẢI
+// ============================================
 
+// 1️⃣ Vô hiệu hóa chuột phải (contextmenu)
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+    return false;
+});
+
+// 2️⃣ Vô hiệu hóa phím tắt copy (Ctrl+C)
+document.addEventListener('copy', function(e) {
+    e.preventDefault();
+    alert('⚠️ Chức năng copy đã bị vô hiệu hóa trên trang này!');
+    return false;
+});
+
+// 3️⃣ Vô hiệu hóa phím tắt cắt (Ctrl+X)
+document.addEventListener('cut', function(e) {
+    e.preventDefault();
+    alert('⚠️ Chức năng cắt đã bị vô hiệu hóa!');
+    return false;
+});
+
+// 4️⃣ Vô hiệu hóa phím tắt paste (Ctrl+V)
+document.addEventListener('paste', function(e) {
+    e.preventDefault();
+    alert('⚠️ Chức năng paste đã bị vô hiệu hóa!');
+    return false;
+});
+
+// 5️⃣ Vô hiệu hóa kéo thả nội dung (drag & drop)
+document.addEventListener('dragstart', function(e) {
+    e.preventDefault();
+    return false;
+});
+
+// 6️⃣ Vô hiệu hóa phím tắt (F12, Ctrl+Shift+I, Ctrl+U, Ctrl+S, Ctrl+P)
+document.addEventListener('keydown', function(e) {
+    // Danh sách phím tắt cần chặn
+    const forbiddenKeys = {
+        123: true,    // F12
+        73: true,     // I (Ctrl+Shift+I)
+        85: true,     // U (Ctrl+U)
+        83: true,     // S (Ctrl+S)
+        80: true,     // P (Ctrl+P)
+        67: true,     // C (Ctrl+C)
+        86: true,     // V (Ctrl+V)
+        88: true      // X (Ctrl+X)
+    };
+    
+    // Kiểm tra Ctrl, Shift, Alt
+    const isCtrl = e.ctrlKey;
+    const isShift = e.shiftKey;
+    const isAlt = e.altKey;
+    
+    // Chặn F12
+    if (e.keyCode === 123) {
+        e.preventDefault();
+        return false;
+    }
+    
+    // Chặn Ctrl+Shift+I (DevTools)
+    if (isCtrl && isShift && e.keyCode === 73) {
+        e.preventDefault();
+        return false;
+    }
+    
+    // Chặn Ctrl+U (Xem nguồn trang)
+    if (isCtrl && e.keyCode === 85) {
+        e.preventDefault();
+        return false;
+    }
+    
+    // Chặn Ctrl+S (Lưu trang)
+    if (isCtrl && e.keyCode === 83) {
+        e.preventDefault();
+        alert('⚠️ Chức năng lưu trang đã bị vô hiệu hóa!');
+        return false;
+    }
+    
+    // Chặn Ctrl+P (In trang)
+    if (isCtrl && e.keyCode === 80) {
+        e.preventDefault();
+        alert('⚠️ Chức năng in trang đã bị vô hiệu hóa!');
+        return false;
+    }
+});
+
+// 7️⃣ Vô hiệu hóa chọn văn bản bằng CSS + JS
+document.querySelector('body').style.userSelect = 'none';
+document.querySelector('body').style.webkitUserSelect = 'none';
+document.querySelector('body').style.msUserSelect = 'none';
+
+// 8️⃣ Thêm CSS ẩn menu chuột phải ảo (cho mobile)
+const style = document.createElement('style');
+style.innerHTML = `
+    img {
+        pointer-events: none;
+        -webkit-touch-callout: none;
+    }
+`;
+document.head.appendChild(style);
+
+console.log('✅ Đã kích hoạt chế độ chống copy và chuột phải!');
+</script>
+
+<style>
+/* CSS hỗ trợ chống copy */
+body {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+/* Ngăn chọn ảnh trên mobile */
+img {
+    -webkit-touch-callout: none;
+    pointer-events: none;
+}
+
+/* Ẩn highlight khi chọn văn bản */
+::selection {
+    background: transparent;
+}
+
+::-moz-selection {
+    background: transparent;
+}
+</style>
 <!-- ══════════════════════════════════════════════════════
      MODAL — Phiếu Yêu Cầu Gia Công
      ══════════════════════════════════════════════════════ -->
