@@ -3046,7 +3046,7 @@ let rowsMetal=[],uidMetal=0;
 let kerf0=0;
 let kerfMetal=0; // hao đường cắt cho kim loại màu (mm), tuỳ chỉnh
 const GC_OPS=[
-  {key:'p6',  label:'Phay 6 mặt',       rate:0.8,desc:'2×(D×R)+2×(D×T)+2×(R×T)',sec:'ph',sub:'mat'},
+  {key:'p6',  label:'Phay 6 mặt',       rate:0.9,desc:'2×(D×R)+2×(D×T)+2×(R×T)',sec:'ph',sub:'mat'},
   {key:'p2m', label:'Phay 2 mặt: 1T+6B',       rate:1.0,desc:'2×(D×R)',                 sec:'ph',sub:'mat'},
   {key:'p1m', label:'Phay 1 mặt: 1T',       rate:1.0,desc:'D×R',                     sec:'ph',sub:'mat'},
   {key:'pcd', label:'Phay 2 cạnh dài: 2F+5K',  rate:1.0,desc:'2×(D×T)',                 sec:'ph',sub:'cd'},
@@ -3976,8 +3976,8 @@ const PX_ATP={
   "SS400":       {ht:"0°C",      tam:[{r:"6–8mm",p:20000},{r:"10–85mm",p:22000},{r:"90–200mm",p:25000}]},
   "SM490":       null,
   "S20C":        null,
-  "S45C":        {ht:"18~19°C",tam:[{r:"6–8mm",p:35000},{r:"10–16mm",p:30000},{r:"20–80mm",p:26000},{r:"85–200mm",p:29000},{r:"205–250mm",p:32000},{r:"255–300mm",p:34000}],tron:[{r:"Ø16–200mm",p:27000},{r:"Ø210–300mm",p:30000},{r:"Ø305–350mm",p:34000},{r:"Ø<18 / >360mm",p:0}]},
-  "S50C":        {ht:"18~19°C",tam:[{r:"6–8mm",p:35000},{r:"10–16mm",p:30000},{r:"20–80mm",p:26000},{r:"85–200mm",p:29000},{r:"205–250mm",p:32000},{r:"255–300mm",p:34000}],tron:[{r:"Ø16–200mm",p:27000},{r:"Ø210–300mm",p:30000},{r:"Ø305–350mm",p:34000}]},
+  "S45C":        {ht:"18~19°C",tam:[{r:"6–8mm",p:35000},{r:"10–16mm",p:30000},{r:"20–80mm",p:26000},{r:"85–200mm",p:29000},{r:"205–250mm",p:32000},{r:"255–300mm",p:35000}],tron:[{r:"Ø8–16mm",p:35000},{r:"Ø18–200mm",p:27000},{r:"Ø210–300mm",p:30000},{r:"Ø305–350mm",p:35000},{r:"Ø<18 / >360mm",p:0}]},
+  "S50C":        {ht:"18~19°C",tam:[{r:"6–8mm",p:35000},{r:"10–16mm",p:30000},{r:"20–80mm",p:26000},{r:"85–200mm",p:29000},{r:"205–250mm",p:32000},{r:"255–300mm",p:35000}],tron:[{r:"Ø8–16mm",p:35000},{r:"Ø18–200mm",p:27000},{r:"Ø210–300mm",p:30000},{r:"Ø305–350mm",p:35000}]},
   "S55C":        {ht:"18~19°C",tam:[{r:"6–8mm",p:38000},{r:"10–18mm",p:33000},{r:"20–80mm",p:30000},{r:"85–200mm",p:32000},{r:"205–250mm",p:35000},{r:"255–300mm",p:38000},{r:">310mm",p:0}]},
   "S60C":        null,
   "SCr440 / 40Cr":null,
@@ -3989,25 +3989,25 @@ const PX_ATP={
   "SUS420J2":    null,
   "SKS3":        null,
   "SKD11 / D2":  {ht:"19°C",multi:true,sources:[
-    {lbl:"📦 Tấm D2",          rows:[{r:"6–10mm",p:110000},{r:"12–18mm",p:97000},{r:"20–75mm",p:95000},{r:"80–200mm",p:97000}]},
-    {lbl:"📦 Tấm SKD11 China", rows:[{r:"6–10mm",p:95000},{r:"12–18mm",p:82000},{r:"20–75mm",p:78000},{r:"80–140mm",p:85000},{r:"150–200mm",p:95000}]},
-    {lbl:"📦 Tấm SKD11 POSCO", rows:[{r:"10–12mm",p:110000},{r:"14–18mm",p:100000},{r:"20–75mm",p:95000},{r:"80–200mm",p:100000}]},
+    {lbl:"📦 Tấm D2",          rows:[{r:"6–10mm",p:110000},{r:"12–18mm",p:100000},{r:"20–80mm",p:95000},{r:"85–200mm",p:105000}]},
+    {lbl:"📦 Tấm SKD11 China", rows:[{r:"6–10mm",p:95000},{r:"12–18mm",p:85000},{r:"20–75mm",p:78000},{r:"80–140mm",p:85000},{r:"150–200mm",p:95000}]},
+    {lbl:"📦 Tấm SKD11 POSCO", rows:[{r:"6–10mm",p:110000},{r:"12–18mm",p:100000},{r:"20–80mm",p:95000},{r:"85–200mm",p:105000}]},
     {lbl:"📦 Tấm SKD11 Japan", rows:[{r:"10–200mm",p:120000}]},
-    {lbl:"🔵 Tròn D2",         rows:[{r:"Ø10–45mm",p:100000},{r:"Ø50–240mm",p:95000},{r:"Ø245–285mm",p:100000},{r:"Ø290–320mm",p:105000}]},
-    {lbl:"🔵 Tròn SKD11 China",rows:[{r:"Ø10–16mm",p:95000},{r:"Ø18–45mm",p:85000},{r:"Ø50–200mm",p:78000},{r:"Ø205–285mm",p:82000},{r:"Ø290–320mm",p:87000}]},
-    {lbl:"🔵 Tròn SKD11 POSCO",rows:[{r:"Ø10–45mm",p:100000},{r:"Ø50–240mm",p:95000},{r:"Ø245–285mm",p:100000},{r:"Ø290–320mm",p:105000}]},
+    {lbl:"🔵 Tròn D2",         rows:[{r:"Ø10–20mm",p:110000},{r:"Ø25–45mm",p:105000},{r:"Ø50–200mm",p:95000},{r:"Ø205–320mm",p:105000}]},
+    {lbl:"🔵 Tròn SKD11 China",rows:[{r:"Ø10–18mm",p:100000},{r:"Ø20–45mm",p:85000},{r:"Ø50–200mm",p:78000},{r:"Ø205–285mm",p:85000},{r:"Ø290–320mm",p:90000}]},
+    {lbl:"🔵 Tròn SKD11 POSCO",rows:[{r:"Ø10–20mm",p:110000},{r:"Ø25–45mm",p:105000},{r:"Ø50–200mm",p:95000},{r:"Ø205–320mm",p:105000}]},
     {lbl:"🔵 Tròn SKD11 Japan",rows:[{r:"10–200mm",p:120000}]},
   ]},
-  "SKD61 / H13": {ht:"19°C",tam:[{r:"6–16mm",p:115000},{r:"18–85mm",p:95000},{r:"90–150mm",p:97000}],tron:[{r:"Ø10–45mm",p:100000},{r:"Ø50–200mm",p:95000},{r:"Ø210–230mm",p:0}],note:"KDA-1S Nhật (Nippon/Comasu): Ø150–200mm: 150.000₫/kg"},
-  "DC53":        {ht:"19°C",  tam:[{r:"10–14mm",p:160000},{r:"16–100mm",p:140000}],tron:[{r:"Ø25–130mm",p:160000},{r:"Ø160mm",p:160000}]},
+  "SKD61 / H13": {ht:"19°C",tam:[{r:"6–16mm",p:115000},{r:"18–85mm",p:95000},{r:"90–150mm",p:100000}],tron:[{r:"Ø8mm",p:150000},{r:"Ø10–45mm",p:115000},{r:"Ø50–200mm",p:95000}],note:"KDA-1S Nhật (Nippon/Comasu): Ø150–200mm: 150.000₫/kg"},
+  "DC53":        {ht:"19°C",  tam:[{r:"10–14mm",p:160000},{r:"16–100mm",p:145000}],tron:[{r:"Ø25–130mm",p:160000},{r:"Ø160mm",p:160000}]},
   "SUJ2":        null,
   "P20 / 1.2311":{ht:"28~33°C",tam:[{r:"10–18mm",p:56000},{r:"20–80mm",p:43000},{r:"85–200mm",p:55000},{r:">200mm",p:0}]},
   "H718 / 1.2738":{ht:"35~38°C",tam:[{r:"<20mm",p:105000},{r:"20–80mm",p:98000}]},
-  "NAK55":       {ht:"35~38°C",tam:[{r:"20–80mm",p:95000}]},
-  "NAK80":       {ht:"40~43°C",tam:[{r:"20–80mm",p:160000},{r:"<20 / >85mm",p:190000}]},
+  "NAK55":       {ht:"35~38°C",tam:[{r:"20–80mm",p:100000}]},
+  "NAK80":       {ht:"40~43°C",tam:[{r:"20–80mm",p:180000},{r:"<20 / >85mm",p:190000}]},
   "FDAC":        {ht:"38°C",  tam:[{r:"10–18mm",p:0},{r:"20–150mm",p:200000}]},
-  "2083H / S136":{ht:"28~33°C",tam:[{r:"6–10mm",p:95000},{r:"12–18mm",p:90000},{r:"20–85mm",p:78000},{r:"90–250mm",p:100000}],tron:[{r:"Ø16–200mm (đen)",p:80000},{r:"Ø16–200mm (trắng)",p:88000}]},
-  "X38CrMo16 / 1.2316":{ht:"28~33°C",tam:[{r:"20–200mm",p:130000}],tron:[{r:"Ø40–130mm",p:140000}]},
+  "2083H / S136":{ht:"28~33°C",tam:[{r:"6–10mm",p:95000},{r:"12–18mm",p:90000},{r:"20–85mm",p:78000},{r:"90–250mm",p:100000}],tron:[{r:"Ø16 (đen)",p:90000},{r:"Ø18–150mm (đen)",p:80000},{r:"Ø160–200mm (đen)",p:85000},{r:"Ø160–200mm (trắng)",p:88000}]},
+  "X38CrMo16 / 1.2316":{ht:"28~33°C",tam:[{r:"20–200mm",p:140000}],tron:[{r:"Ø40–130mm",p:140000}]},
 };
 
 // Alias để tìm kiếm linh hoạt hơn (key viết thường → key gốc trong PX_ATP)
@@ -5325,138 +5325,5 @@ ${panel.innerHTML}
     </div>
   </div>
 </div>
-
-	<script>
-// ============================================
-// CODE CHỐNG COPY VÀ VÔ HIỆU HÓA CHUỘT PHẢI
-// ============================================
-
-// 1️⃣ Vô hiệu hóa chuột phải (contextmenu)
-document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-    return false;
-});
-
-// 2️⃣ Vô hiệu hóa phím tắt copy (Ctrl+C)
-document.addEventListener('copy', function(e) {
-    e.preventDefault();
-    alert('⚠️ Chức năng copy đã bị vô hiệu hóa trên trang này!');
-    return false;
-});
-
-// 3️⃣ Vô hiệu hóa phím tắt cắt (Ctrl+X)
-document.addEventListener('cut', function(e) {
-    e.preventDefault();
-    alert('⚠️ Chức năng cắt đã bị vô hiệu hóa!');
-    return false;
-});
-
-// 4️⃣ Vô hiệu hóa phím tắt paste (Ctrl+V)
-document.addEventListener('paste', function(e) {
-    e.preventDefault();
-    alert('⚠️ Chức năng paste đã bị vô hiệu hóa!');
-    return false;
-});
-
-// 5️⃣ Vô hiệu hóa kéo thả nội dung (drag & drop)
-document.addEventListener('dragstart', function(e) {
-    e.preventDefault();
-    return false;
-});
-
-// 6️⃣ Vô hiệu hóa phím tắt (F12, Ctrl+Shift+I, Ctrl+U, Ctrl+S, Ctrl+P)
-document.addEventListener('keydown', function(e) {
-    // Danh sách phím tắt cần chặn
-    const forbiddenKeys = {
-        123: true,    // F12
-        73: true,     // I (Ctrl+Shift+I)
-        85: true,     // U (Ctrl+U)
-        83: true,     // S (Ctrl+S)
-        80: true,     // P (Ctrl+P)
-        67: true,     // C (Ctrl+C)
-        86: true,     // V (Ctrl+V)
-        88: true      // X (Ctrl+X)
-    };
-    
-    // Kiểm tra Ctrl, Shift, Alt
-    const isCtrl = e.ctrlKey;
-    const isShift = e.shiftKey;
-    const isAlt = e.altKey;
-    
-    // Chặn F12
-    if (e.keyCode === 123) {
-        e.preventDefault();
-        return false;
-    }
-    
-    // Chặn Ctrl+Shift+I (DevTools)
-    if (isCtrl && isShift && e.keyCode === 73) {
-        e.preventDefault();
-        return false;
-    }
-    
-    // Chặn Ctrl+U (Xem nguồn trang)
-    if (isCtrl && e.keyCode === 85) {
-        e.preventDefault();
-        return false;
-    }
-    
-    // Chặn Ctrl+S (Lưu trang)
-    if (isCtrl && e.keyCode === 83) {
-        e.preventDefault();
-        alert('⚠️ Chức năng lưu trang đã bị vô hiệu hóa!');
-        return false;
-    }
-    
-    // Chặn Ctrl+P (In trang)
-    if (isCtrl && e.keyCode === 80) {
-        e.preventDefault();
-        alert('⚠️ Chức năng in trang đã bị vô hiệu hóa!');
-        return false;
-    }
-});
-
-// 7️⃣ Vô hiệu hóa chọn văn bản bằng CSS + JS
-document.querySelector('body').style.userSelect = 'none';
-document.querySelector('body').style.webkitUserSelect = 'none';
-document.querySelector('body').style.msUserSelect = 'none';
-
-// 8️⃣ Thêm CSS ẩn menu chuột phải ảo (cho mobile)
-const style = document.createElement('style');
-style.innerHTML = `
-    img {
-        pointer-events: none;
-        -webkit-touch-callout: none;
-    }
-`;
-document.head.appendChild(style);
-
-console.log('✅ Đã kích hoạt chế độ chống copy và chuột phải!');
-</script>
-
-<style>
-/* CSS hỗ trợ chống copy */
-body {
-    user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-}
-
-/* Ngăn chọn ảnh trên mobile */
-img {
-    -webkit-touch-callout: none;
-    pointer-events: none;
-}
-
-/* Ẩn highlight khi chọn văn bản */
-::selection {
-    background: transparent;
-}
-
-::-moz-selection {
-    background: transparent;
-}
-</style>
 </body>
 </html>
