@@ -1,1 +1,600 @@
-.
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Máy Tính Nhiệt Độ Ac1 & Ac3 Cho Thép | MoldSteel VN</title>
+<meta name="description" content="Công cụ tính nhiệt độ tới hạn Ac1, Ac3 của thép theo 4 công thức thực nghiệm (Andrews, Eldis, Grange, Trzaska). Tự động suy ra dải nhiệt độ tôi, ram, thường hóa, ủ cầu hóa cho thép khuôn mẫu.">
+<meta property="og:title" content="Máy Tính Nhiệt Độ Ac1 & Ac3 Cho Thép | MoldSteel VN">
+<meta property="og:description" content="Tính Ac1, Ac3 theo thành phần hóa học thép — suy ra dải nhiệt luyện: tôi, thường hóa, ram sau hàn (PWHT), ủ cầu hóa. Có sơ đồ pha minh họa.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://thepkhuonmau.com/p/cong-cu-tinh-nhiet-do-toi-han-tren-va-duoi-khi-xu-ly-nhiet">
+<meta property="og:locale" content="vi_VN">
+<meta property="og:site_name" content="MoldSteel VN">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="http://thepkhuonmau.com/p/cong-cu-tinh-nhiet-do-toi-han-tren-va-duoi-khi-xu-ly-nhiet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"Ac1 và Ac3 là gì?","acceptedAnswer":{"@type":"Answer","text":"Ac1 là nhiệt độ bắt đầu hình thành austenite khi nung thép từ tổ chức ferrite/pearlite. Ac3 là nhiệt độ kết thúc quá trình austenite hóa hoàn toàn, tức toàn bộ ferrite dư đã hòa tan vào austenite. Vùng giữa Ac1 và Ac3 gọi là vùng liên tới hạn (intercritical), nơi austenite và ferrite cùng tồn tại."}},
+    {"@type":"Question","name":"Công thức Andrews (1965) tính Ac1, Ac3 như thế nào?","acceptedAnswer":{"@type":"Answer","text":"Andrews xây dựng công thức hồi quy từ 66 mác thép, không có số hạng carbon trong Ac1 nhưng carbon là yếu tố chi phối mạnh nhất trong Ac3 theo dạng căn bậc hai. Đây là công thức được tham chiếu rộng rãi nhất, có mặt trong các tiêu chuẩn ASME Section IX, B31.1, B31.3."}},
+    {"@type":"Question","name":"Vì sao carbon làm giảm nhiệt độ Ac3?","acceptedAnswer":{"@type":"Answer","text":"Carbon là nguyên tố ổn định pha austenite, mở rộng vùng γ trên giản đồ Fe-C. Đường A3 dốc xuống khi carbon tăng, từ 912°C ở 0%C đến điểm cùng tích 727°C tại 0.77%C. Vì vậy thép carbon trung bình có thể austenite hóa ở nhiệt độ thấp hơn thép carbon thấp."}},
+    {"@type":"Question","name":"Khác biệt giữa Ac1/Ac3 và Ae1/Ae3 là gì?","acceptedAnswer":{"@type":"Answer","text":"Ae1, Ae3 là nhiệt độ cân bằng lý thuyết ở tốc độ nung bằng 0. Ac1, Ac3 là nhiệt độ chuyển pha thực tế đo được khi nung ở tốc độ công nghiệp (5-20°C/phút), luôn cao hơn giá trị cân bằng khoảng 10-40°C do quá trình khuếch tán carbon cần thời gian."}},
+    {"@type":"Question","name":"Nhiệt độ tôi (austenite hóa) nên chọn bao nhiêu so với Ac3?","acceptedAnswer":{"@type":"Answer","text":"Với tôi cứng, nên nung tới Ac3 + 30-60°C để đảm bảo hòa tan hết carbide dư và đồng đều carbon trong austenite. Với thường hóa, dùng Ac3 + 50-80°C. Vượt quá Ac3 + 100°C dễ gây hạt austenite thô, giảm độ dai của thép sau tôi."}},
+    {"@type":"Question","name":"Ram sau hàn (PWHT) liên quan gì đến Ac1?","acceptedAnswer":{"@type":"Answer","text":"PWHT phải luôn thấp hơn Ac1 để tránh austenite hóa lại vùng ảnh hưởng nhiệt (HAZ), gây martensite chưa ram sau khi nguội. Biên an toàn thường dùng là 30-50°C dưới Ac1."}}
+  ]
+}
+</script>
+<script>
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-PHT9D4SC');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18187317165"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'AW-18187317165');
+function gtag_report_conversion(url){
+  gtag('event', 'conversion', {'send_to': 'AW-18187317165/vDyNCKLawLMcEK3fseBD', 'event_callback': function(){ if (typeof(url) != 'undefined'){ window.location = url; } }});
+  return false;
+}
+function gtag_report_conversion_call(){
+  gtag('event', 'conversion', {'send_to': 'AW-18187317165/f2psCNTotdIcEK3fseBD', 'value': 1.0, 'currency': 'VND'});
+}
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '964972156428094');
+fbq('track', 'PageView');
+</script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root{
+  --cream:#f7f5f1;
+  --cream-2:#efece5;
+  --ink:#1c1a17;
+  --ink-soft:#57534a;
+  --accent:#ff6a35;
+  --accent-deep:#c94a1e;
+  --line:#e2ddd2;
+  --austenite:#4a7c6f;
+  --ferrite:#8fb3d9;
+  --white:#fffdfa;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--cream);
+  color:var(--ink);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif; font-weight:700; letter-spacing:-0.01em;}
+.mono{font-family:'JetBrains Mono',monospace;}
+a{color:var(--accent-deep); text-decoration:none;}
+.wrap{max-width:960px; margin:0 auto; padding:0 20px;}
+
+header.site{
+  background:var(--white); border-bottom:1px solid var(--line);
+  position:sticky; top:0; z-index:50;
+}
+header.site .wrap{display:flex; align-items:center; justify-content:space-between; padding-top:14px; padding-bottom:14px;}
+.logo{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.15rem; color:var(--ink);}
+.logo span{color:var(--accent);}
+nav.site-nav a{font-size:.92rem; color:var(--ink-soft); margin-left:22px;}
+nav.site-nav a:hover{color:var(--accent-deep);}
+.tel-cta{background:var(--ink); color:var(--white)!important; padding:8px 16px; border-radius:999px; font-weight:600; font-size:.85rem;}
+
+.crumbs{font-size:.8rem; color:var(--ink-soft); padding:14px 0 0;}
+.crumbs a{color:var(--ink-soft);}
+
+.hero{padding:34px 0 10px;}
+.eyebrow{
+  display:inline-block; font-family:'JetBrains Mono',monospace; font-size:.72rem;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--accent-deep);
+  background:#fff1ea; border:1px solid #ffd9c4; padding:4px 10px; border-radius:5px; margin-bottom:14px;
+}
+h1{font-size:clamp(1.7rem,4vw,2.5rem); line-height:1.15; margin-bottom:14px;}
+.lede{font-size:1.05rem; color:var(--ink-soft); max-width:70ch;}
+
+.takeaways{
+  background:var(--white); border:1px solid var(--line); border-left:4px solid var(--accent);
+  border-radius:8px; padding:18px 22px; margin:26px 0;
+}
+.takeaways h3{font-size:.95rem; margin-bottom:10px;}
+.takeaways ul{padding-left:18px; font-size:.92rem; color:var(--ink-soft);}
+.takeaways li{margin-bottom:6px;}
+
+.card{
+  background:var(--white); border:1px solid var(--line); border-radius:12px;
+  padding:24px; margin:22px 0;
+}
+.card h2{font-size:1.3rem; margin-bottom:6px;}
+.card .sub{color:var(--ink-soft); font-size:.9rem; margin-bottom:18px;}
+
+.presets{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:22px;}
+.preset-btn{
+  font-family:'JetBrains Mono',monospace; font-size:.78rem; background:var(--cream-2);
+  border:1px solid var(--line); border-radius:999px; padding:7px 13px; cursor:pointer;
+  color:var(--ink); transition:.15s;
+}
+.preset-btn:hover, .preset-btn.active{background:var(--accent); border-color:var(--accent); color:#fff;}
+
+.grid-inputs{
+  display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:14px; margin-bottom:20px;
+}
+.field label{display:block; font-size:.82rem; font-weight:600; margin-bottom:4px;}
+.field .range{font-size:.72rem; color:#9a948a; margin-bottom:5px;}
+.field input{
+  width:100%; padding:9px 10px; border:1px solid var(--line); border-radius:7px;
+  font-family:'JetBrains Mono',monospace; font-size:.92rem; background:var(--cream);
+}
+.field input:focus{outline:2px solid var(--accent); outline-offset:1px; border-color:var(--accent);}
+
+.actions{display:flex; gap:10px; flex-wrap:wrap;}
+.btn-primary{
+  background:var(--accent); color:#fff; border:none; padding:12px 24px; border-radius:8px;
+  font-weight:700; font-size:.95rem; cursor:pointer; font-family:'Space Grotesk',sans-serif;
+}
+.btn-primary:hover{background:var(--accent-deep);}
+.btn-secondary{
+  background:transparent; color:var(--ink-soft); border:1px solid var(--line); padding:12px 20px;
+  border-radius:8px; font-weight:600; font-size:.9rem; cursor:pointer;
+}
+
+.results-hero{
+  display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:24px 0;
+}
+.result-big{
+  background:linear-gradient(135deg,#fff8f4,var(--white)); border:1px solid var(--line);
+  border-radius:10px; padding:18px; text-align:center;
+}
+.result-big .lbl{font-size:.78rem; color:var(--ink-soft); font-weight:600; text-transform:uppercase; letter-spacing:.03em;}
+.result-big .val{font-family:'JetBrains Mono',monospace; font-size:1.9rem; font-weight:600; color:var(--accent-deep); margin-top:4px;}
+
+.results-grid{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:12px; margin-bottom:22px;
+}
+.result-tile{background:var(--cream-2); border-radius:9px; padding:14px;}
+.result-tile .lbl{font-size:.78rem; color:var(--ink-soft); font-weight:600;}
+.result-tile .val{font-family:'JetBrains Mono',monospace; font-size:1.25rem; font-weight:600; margin-top:3px;}
+
+table.eq-table{width:100%; border-collapse:collapse; font-size:.88rem; margin-top:6px;}
+table.eq-table th, table.eq-table td{padding:9px 10px; border-bottom:1px solid var(--line); text-align:left;}
+table.eq-table th{font-family:'Space Grotesk',sans-serif; font-size:.8rem; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.03em;}
+table.eq-table td.mono{font-family:'JetBrains Mono',monospace;}
+
+.steps{background:var(--cream-2); border-radius:9px; padding:16px 18px; font-family:'JetBrains Mono',monospace; font-size:.84rem; white-space:pre-wrap; line-height:1.7; color:var(--ink-soft);}
+
+svg.phase-diagram{width:100%; height:auto; background:var(--white); border:1px solid var(--line); border-radius:10px;}
+
+.content h2{margin-top:36px; margin-bottom:12px; font-size:1.35rem;}
+.content h3{margin-top:22px; margin-bottom:8px; font-size:1.05rem;}
+.content p{margin-bottom:12px; color:var(--ink-soft); font-size:.96rem;}
+.content ul, .content ol{padding-left:20px; margin-bottom:12px; color:var(--ink-soft); font-size:.96rem;}
+.content li{margin-bottom:5px;}
+
+.elem-table-wrap{overflow-x:auto;}
+table.elem-table{width:100%; border-collapse:collapse; font-size:.85rem; min-width:640px;}
+table.elem-table th, table.elem-table td{padding:9px 10px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top;}
+table.elem-table th{background:var(--cream-2); font-family:'Space Grotesk',sans-serif; font-size:.78rem;}
+
+.faq-item{border-bottom:1px solid var(--line); padding:14px 0;}
+.faq-item summary{font-weight:600; cursor:pointer; font-size:.98rem;}
+.faq-item p{margin-top:8px; color:var(--ink-soft); font-size:.92rem;}
+
+.cta-band{
+  background:var(--ink); color:#fff; border-radius:14px; padding:32px 28px; text-align:center; margin:38px 0;
+}
+.cta-band h3{color:#fff; font-size:1.3rem; margin-bottom:8px;}
+.cta-band p{color:#cfc9bd; margin-bottom:18px; font-size:.94rem;}
+.cta-buttons{display:flex; gap:12px; justify-content:center; flex-wrap:wrap;}
+.cta-buttons a.call{
+  background:var(--accent); color:#fff; padding:12px 22px; border-radius:8px; font-weight:700;
+}
+.cta-buttons a.form{
+  background:transparent; border:1px solid #56524a; color:#fff; padding:12px 22px; border-radius:8px; font-weight:600;
+}
+
+footer.site{border-top:1px solid var(--line); margin-top:40px; padding:26px 0 40px; font-size:.82rem; color:var(--ink-soft);}
+footer.site a{color:var(--ink-soft);}
+
+@media(max-width:640px){
+  .results-hero{grid-template-columns:1fr;}
+  nav.site-nav{display:none;}
+}
+</style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PHT9D4SC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<header class="site">
+  <div class="wrap">
+    <div class="logo">Mold<span>Steel</span> VN</div>
+    <nav class="site-nav">
+      <a href="/">Trang chủ</a>
+      <a href="/mac-thep">Mác thép</a>
+      <a href="/bai-viet">Bài viết kỹ thuật</a>
+      <a href="tel:0938184590" class="tel-cta" onclick="gtag_report_conversion_call()">📞 0938 184 590</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <p class="crumbs"><a href="/">Trang chủ</a> › <a href="/bai-viet">Bài viết kỹ thuật</a> › Máy tính Ac1 / Ac3</p>
+
+  <section class="hero">
+    <span class="eyebrow">Công cụ tính toán · Nhiệt luyện thép</span>
+    <h1>Máy Tính Nhiệt Độ Ac1 & Ac3 Cho Thép</h1>
+    <p class="lede">Nhập thành phần hóa học để tính nhiệt độ tới hạn dưới (Ac1) và tới hạn trên (Ac3) theo 4 công thức thực nghiệm đã được kiểm chứng — Andrews (1965), Eldis (1987), Grange (1961) và Trzaska (2016) — từ đó suy ra toàn bộ dải nhiệt luyện: nhiệt độ tôi, thường hóa, ram sau hàn (PWHT) và ủ cầu hóa.</p>
+
+    <div class="takeaways">
+      <h3>Tóm tắt nhanh</h3>
+      <ul>
+        <li>Ac1 là nhiệt độ austenite bắt đầu hình thành khi nung; PWHT phải thấp hơn Ac1 khoảng 30–50°C để tránh austenite hóa lại.</li>
+        <li>Ac3 là nhiệt độ austenite hóa hoàn toàn; nhiệt độ tôi và thường hóa cần đạt Ac3 + 30–60°C.</li>
+        <li>Carbon là yếu tố làm giảm Ac3 mạnh nhất (theo dạng −203×√%C trong công thức Andrews); silic làm tăng cả Ac1 lẫn Ac3 do là nguyên tố ổn định ferrite.</li>
+        <li>Ac1 khác Ae1 (cân bằng lý thuyết): tốc độ nung thực tế khiến chuyển pha xảy ra cao hơn giá trị cân bằng khoảng 10–40°C.</li>
+        <li>Vùng liên tới hạn (Ac1–Ac3) là dải nhiệt độ dùng để ủ thép hai pha (dual-phase) và là vùng HAZ liên tới hạn trong mối hàn — nơi dễ xảy ra nứt Type IV ở thép P91.</li>
+        <li>Trzaska (2016) cho độ chính xác tốt hơn với thép hợp kim cao (Cr-Mo, HSLA); Andrews vẫn là công thức được tham chiếu nhiều nhất trong các tiêu chuẩn ASME.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Chọn mác thép có sẵn hoặc nhập thành phần</h2>
+    <p class="sub">Bấm để tự động điền thành phần điển hình, hoặc tự nhập theo phiếu kiểm nghiệm (mill cert) thực tế của lô thép.</p>
+
+    <div class="presets" id="presetBtns"></div>
+
+    <div class="grid-inputs" id="inputGrid"></div>
+
+    <div class="actions">
+      <button class="btn-primary" onclick="calculate()">Tính Ac1, Ac3 & dải nhiệt luyện</button>
+      <button class="btn-secondary" onclick="resetForm()">Đặt lại</button>
+    </div>
+  </section>
+
+  <section class="card" id="resultsCard" style="display:none;">
+    <h2>Kết quả — Trung bình 4 công thức</h2>
+    <div class="results-hero">
+      <div class="result-big"><div class="lbl">Ac1 (tới hạn dưới)</div><div class="val" id="ac1Big">—</div></div>
+      <div class="result-big"><div class="lbl">Ac3 (tới hạn trên)</div><div class="val" id="ac3Big">—</div></div>
+    </div>
+
+    <div class="results-grid">
+      <div class="result-tile"><div class="lbl">Độ rộng vùng liên tới hạn</div><div class="val" id="rWidth">—</div></div>
+      <div class="result-tile"><div class="lbl">PWHT tối đa (Ac1 − 40°C)</div><div class="val" id="rPwht">—</div></div>
+      <div class="result-tile"><div class="lbl">Nhiệt độ thường hóa (Ac3 + 60°C)</div><div class="val" id="rNorm">—</div></div>
+      <div class="result-tile"><div class="lbl">Tôi tối thiểu (Ac3 + 30°C)</div><div class="val" id="rHard">—</div></div>
+      <div class="result-tile"><div class="lbl">Ủ cầu hóa (Ac1 − 20°C)</div><div class="val" id="rSpher">—</div></div>
+      <div class="result-tile"><div class="lbl">Ủ liên tới hạn (giữa Ac1–Ac3)</div><div class="val" id="rMid">—</div></div>
+    </div>
+
+    <h3 style="font-size:1.05rem; margin-bottom:10px;">Kết quả từng công thức</h3>
+    <table class="eq-table">
+      <thead><tr><th>Công thức</th><th>Ac1 (°C)</th><th>Ac3 (°C)</th></tr></thead>
+      <tbody id="eqTableBody"></tbody>
+    </table>
+
+    <h3 style="font-size:1.05rem; margin:22px 0 10px;">Giản đồ pha minh họa</h3>
+    <div id="phaseDiagramHolder"></div>
+
+    <h3 style="font-size:1.05rem; margin:22px 0 10px;">Diễn giải từng bước (theo Andrews)</h3>
+    <div class="steps" id="stepsBox">—</div>
+  </section>
+
+  <div class="cta-band">
+    <h3>Cần tư vấn chọn mác thép & xử lý nhiệt cụ thể?</h3>
+    <p>MoldSteel VN hỗ trợ tra cứu thông số nhiệt luyện thực tế cho SKD11, DC53, P20, NAK80, H13, S45C, S136, 718H và các mác thép khuôn mẫu khác.</p>
+    <div class="cta-buttons">
+      <a href="tel:0938184590" class="call" onclick="gtag_report_conversion_call()">📞 Gọi 0938 184 590</a>
+      <a href="/lien-he" class="form" onclick="gtag_report_conversion()">Gửi yêu cầu tư vấn</a>
+    </div>
+  </div>
+
+  <section class="content">
+    <h2>Ý nghĩa vật lý của Ac1 và Ac3 trong hệ Fe–C</h2>
+    <p>Ký hiệu Ac1, Ac3 bắt nguồn từ tiếng Pháp "arrêt chauffage" (điểm dừng khi nung) — chỉ các điểm dừng nhiệt độ quan sát được trên đường cong nung khi hợp kim sắt-carbon được nung ở tốc độ kiểm soát, trong quá trình chuyển pha pearlite sang austenite. Các điểm này có thể đo được bằng phương pháp giãn nở kế (dilatometry) — mẫu co lại nhẹ tại Ac1 do austenite đặc hơn ferrite và cementite — hoặc bằng phân tích nhiệt vi sai với các đỉnh thu nhiệt tại nhiệt độ chuyển pha.</p>
+
+    <h3>Chuyển pha tại Ac1: Pearlite → Austenite</h3>
+    <p>Ngay tại và trên Ac1, phản ứng cùng tích đảo chiều: pearlite (hỗn hợp phiến ferrite và cementite Fe₃C, thành phần 0.77%C) chuyển thành austenite (γ, lập phương tâm mặt). Chuyển pha bắt đầu tại biên giới ferrite-cementite trong các khối pearlite, nơi nồng độ carbon gần với thành phần cùng tích. Đây là quá trình khống chế bởi khuếch tán: carbon phải khuếch tán từ các phiến cementite (6.67%C) vào austenite đang hình thành rồi phân bố đều trong toàn bộ hạt austenite mới. Với thép trước cùng tích (dưới 0.77%C), chuyển pha ferrite sang austenite cũng bắt đầu tại Ac1 và tiếp tục cho đến Ac3 khi ferrite dư dần bị tiêu thụ hết.</p>
+
+    <h3>Chuyển pha tại Ac3: Hoàn tất austenite hóa</h3>
+    <p>Trên Ac1, vùng hai pha austenite + ferrite (vùng liên tới hạn) thu hẹp dần khi nhiệt độ tăng cho đến khi toàn bộ ferrite hòa tan vào austenite tại Ac3. Lúc này thép hoàn toàn ở pha γ với phân bố carbon tương đối đồng đều (dù để đồng đều hoàn toàn vẫn cần thêm thời gian giữ nhiệt trên Ac3). Vị trí Ac3 trên giản đồ Fe-C chính là đường ranh giới A3 — phân tách vùng α+γ với vùng γ hoàn toàn. Với sắt nguyên chất (0%C), A3 = 912°C; khi carbon tăng dần tới thành phần cùng tích (0.77%C), A3 giảm xuống gặp A1 tại 727°C. Các nguyên tố hợp kim làm dịch chuyển ranh giới này: nguyên tố ổn định austenite (Ni, Mn, Cu, N) làm hạ thấp; nguyên tố ổn định ferrite (Si, Mo, Cr, W, Al, V, Nb, Ti) làm tăng cao.</p>
+
+    <h2>Bốn công thức thực nghiệm: nguồn gốc và độ chính xác</h2>
+
+    <h3>Andrews (1965) — Công thức tham chiếu của ASME</h3>
+    <p>Xây dựng từ hồi quy trên 66 mác thép, đây là công thức được trích dẫn rộng rãi nhất và được tham chiếu trong ASME Section IX, B31.1, B31.3 và API 582. Điểm đặc biệt: Andrews không đưa số hạng carbon vào công thức Ac1 (cho rằng carbon chỉ có ảnh hưởng bậc hai đến Ac1 ở thép hợp kim thấp), nhưng carbon lại là yếu tố chi phối mạnh nhất trong Ac3 với hệ số −203×√%C. Độ chính xác điển hình ±15–25°C cho thép hợp kim thấp.</p>
+
+    <h3>Eldis (1987)</h3>
+    <p>Cho kết quả Ac1, Ac3 thận trọng hơn Andrews, với hệ số Ni và Mn cao hơn trong Ac1 và ít nguyên tố hơn trong Ac3. Công thức này hợp lệ cho thép có C ≤ 0.6%, Ni ≤ 5%, Mn ≤ 2%, thường dùng làm phép kiểm tra chéo cho thép kỹ thuật chứa Ni.</p>
+
+    <h3>Grange (1961)</h3>
+    <p>Là nền tảng cho công thức Ac1 của Andrews sau này, sử dụng ít nguyên tố hơn nên phù hợp cho kiểm tra nhanh; cho kết quả gần với Andrews đối với thép không chứa W hoặc Nb.</p>
+
+    <h3>Trzaska (2016) — Cơ sở dữ liệu mở rộng, chính xác hơn cho thép hợp kim cao</h3>
+    <p>Xây dựng từ hơn 1000 mác thép — phạm vi hiệu chuẩn rộng nhất trong 4 công thức, độ chính xác khoảng ±12°C trên tập dữ liệu huấn luyện, đặc biệt tốt cho thép Cr cao và Mo cao. Khác biệt quan trọng: công thức Ac1 của Trzaska có số hạng carbon (−22.8×%C) mà Andrews bỏ qua — điều này phù hợp với các tính toán CALPHAD cho thấy carbon làm giảm nhẹ Ac1. Công thức này được khuyến nghị dùng cho thép P91, P92, P22, thép không gỉ song pha và thép hợp kim thấp cường độ cao vi hợp kim hóa (HSLA).</p>
+
+    <h2>Ảnh hưởng của nguyên tố hợp kim đến Ac1 và Ac3</h2>
+    <div class="elem-table-wrap">
+    <table class="elem-table">
+      <thead><tr><th>Nguyên tố</th><th>Loại</th><th>ΔAc1/1% (Andrews)</th><th>ΔAc3/1% (Andrews)</th><th>Cơ chế</th></tr></thead>
+      <tbody>
+        <tr><td>Carbon (C)</td><td>Ổn định γ</td><td>~0 (Andrews) / −22.8°C (Trzaska)</td><td>−203×√%C (chi phối)</td><td>Mở rộng vùng γ, là nguyên tố xen kẽ ổn định austenite</td></tr>
+        <tr><td>Mangan (Mn)</td><td>Ổn định γ</td><td>−10.7°C</td><td>−30°C</td><td>Phân bố vào austenite, mở rộng vùng γ</td></tr>
+        <tr><td>Niken (Ni)</td><td>Ổn định γ</td><td>−16.9°C</td><td>−15.2°C</td><td>Nguyên tố ổn định austenite mạnh</td></tr>
+        <tr><td>Silic (Si)</td><td>Ổn định α</td><td>+29.1°C</td><td>+44.7°C</td><td>Ưu tiên mạnh vào ferrite, tăng ổn định pha α</td></tr>
+        <tr><td>Crôm (Cr)</td><td>Ổn định α</td><td>+16.9°C</td><td>+11°C</td><td>Ổn định ferrite, tạo carbide M7C3/M23C6</td></tr>
+        <tr><td>Molypden (Mo)</td><td>Ổn định α</td><td>+9.4°C (Trzaska)</td><td>+31.5°C</td><td>Ổn định α mạnh, tăng Ac3 đáng kể ở thép Cr-Mo</td></tr>
+        <tr><td>Niobi (Nb)</td><td>Ổn định α</td><td>Không đáng kể</td><td>+65°C</td><td>Ổn định α rất mạnh, tinh chỉnh hạt qua NbC/NbN</td></tr>
+        <tr><td>Titan (Ti)</td><td>Ổn định α</td><td>Không đáng kể</td><td>+400°C</td><td>Ổn định α cực mạnh, chỉ hợp lệ ở hàm lượng vết</td></tr>
+        <tr><td>Vanadi (V)</td><td>Ổn định α</td><td>+19°C (Trzaska)</td><td>Trung bình</td><td>Ổn định ferrite, kết tủa VC/VN</td></tr>
+        <tr><td>Nhôm (Al)</td><td>Ổn định α</td><td>Trung bình</td><td>+40°C (ước tính)</td><td>Ổn định α mạnh ở hàm lượng cao</td></tr>
+        <tr><td>Đồng (Cu)</td><td>Ổn định γ</td><td>Nhỏ</td><td>−20°C</td><td>Ổn định γ nhẹ, hóa bền tiết pha ở 400–600°C</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h2>Các dải nhiệt luyện suy ra từ Ac1 và Ac3</h2>
+
+    <h3>Austenite hóa hoàn toàn (tôi và thường hóa)</h3>
+    <p>Để austenite hóa hoàn toàn trước khi tôi (nguội nhanh) hoặc thường hóa (nguội trong không khí), thép cần được nung trên Ac3. Nhiệt độ khuyến nghị cho tôi cứng là <strong>Ac3 + 30–60°C</strong> — mức vượt này đảm bảo hòa tan hết carbide dư và tạo động lực đồng đều hóa carbon trong austenite trong thời gian giữ nhiệt cho phép. Nếu nhiệt độ thấp hơn Ac3, thép sau tôi sẽ có "điểm mềm" do còn sót ferrite. Nếu nhiệt độ quá cao (trên Ac3 + 100°C), hạt austenite phát triển thô, làm giảm độ dai và độ bền mỏi. Thường hóa thực hiện ở Ac3 + 50–80°C, giữ nhiệt khoảng 1 giờ/25mm chiều dày cộng thêm 15–30 phút, sau đó làm nguội trong không khí.</p>
+
+    <h3>Nhiệt độ tối đa cho ram sau hàn (PWHT)</h3>
+    <p>PWHT không được vượt quá Ac1 vì sẽ gây austenite hóa lại vùng nhiệt độ cao nhất trong dải HAZ, tạo ra martensite chưa ram khi nguội sau PWHT. Hậu quả tùy theo mác thép:</p>
+    <ul>
+      <li><strong>Thép kết cấu hợp kim thấp (Ac1 ≈ 710–760°C):</strong> PWHT ở 580–650°C có biên an toàn 60–100°C. ASME B31.1 quy định PWHT 595–650°C cho thép carbon P-No.1.</li>
+      <li><strong>P91 / Grade 91 (Ac1 ≈ 815°C):</strong> PWHT ở 730–775°C, biên an toàn 40–85°C — đây là lý do PWHT của P91 cao hơn nhiều so với thép carbon, do Ac1 cao hơn nhờ hàm lượng 9%Cr, Si, V.</li>
+      <li><strong>Thép không gỉ song pha (Ac1 ước tính 600–650°C):</strong> Dải PWHT rất hẹp, thường dùng xử lý hòa tan thay vì PWHT.</li>
+    </ul>
+
+    <h3>Ủ liên tới hạn cho thép hai pha (Dual-Phase)</h3>
+    <p>Nhà sản xuất thép DP ủ liên tới hạn thép cuộn nguội ở nhiệt độ giữa Ac1 và Ac3 để tạo hỗn hợp austenite và ferrite. Khi làm nguội nhanh, austenite chuyển thành martensite còn ferrite giữ nguyên, tạo tổ chức đặc trưng DP gồm ferrite mềm và các đảo martensite cứng. Tỷ lệ austenite điển hình: DP600 khoảng 25–35% martensite, DP780 khoảng 40–55%, DP980 khoảng 60–80%.</p>
+
+    <h3>Ủ cầu hóa (Spheroidising)</h3>
+    <p>Ủ cầu hóa ở Ac1 − 10 đến Ac1 − 40°C (ngay dưới nhiệt độ austenite hóa) chuyển cementite dạng phiến trong pearlite thành hạt cầu phân tán trong nền ferrite. Đây là trạng thái mềm nhất (độ cứng thấp nhất, độ dẻo và khả năng gia công cao nhất) cho thép carbon cao (0.6–1.2%C), thép dụng cụ, thép ổ bi trước khi tạo hình nguội hoặc gia công cắt. Cần thời gian giữ nhiệt dài (4–20 giờ) ngay dưới Ac1 để các hạt carbide phát triển đều theo cơ chế Ostwald. Nhiệt độ không được vượt Ac1 vì austenite hóa một phần sẽ tạo lại pearlite dạng phiến khi nguội chậm thay vì cấu trúc cầu mong muốn.</p>
+
+    <h2>Ví dụ tính toán: thép P91</h2>
+    <p>Với thành phần danh nghĩa P91: 0.10%C, 0.45%Mn, 0.35%Si, 8.90%Cr, 0.10%Ni, 0.95%Mo, 0.21%V, 0.06%Nb, 0.04%Al — công thức Andrews cho Ac1 ≈ 877°C (thực nghiệm bằng giãn nở kế thường cho khoảng 810–830°C, do 9%Cr nằm gần giới hạn trên của phạm vi hiệu chuẩn) và Ac3 ≈ 978°C. Trzaska cho Ac1 ≈ 856°C, gần với giá trị thực nghiệm hơn. PWHT theo ASME B31.1 cho P91 là 730–775°C — biên an toàn so với Ac1 thực nghiệm khoảng 35–55°C, vẫn đảm bảo an toàn. Nhiệt độ thường hóa tiêu chuẩn của P91 là 1040–1080°C, phù hợp với Ac3 + 60°C tính theo Andrews.</p>
+    <p><strong>Lưu ý với thép hợp kim cao:</strong> các công thức thực nghiệm như Andrews và Trzaska được hiệu chuẩn chủ yếu trên thép hợp kim thấp đến trung bình. Với thép hợp kim rất cao (tổng hợp kim &gt;5%, gồm P91, thép không gỉ song pha, thép maraging), công thức có thể sai lệch 30–80°C. Với ứng dụng nhiệt luyện quan trọng trên thép hợp kim cao, nên bổ sung: (1) đo giãn nở kế thực nghiệm trên lô thép đại diện; (2) tính toán nhiệt động học CALPHAD (Thermo-Calc); hoặc (3) dữ liệu thực nghiệm đã công bố cho mác thép cụ thể. Độ chênh lệch lớn giữa các công thức (&gt;40°C) là tín hiệu cần kiểm chứng thực nghiệm.</p>
+
+    <h2>Câu hỏi thường gặp</h2>
+
+    <details class="faq-item">
+      <summary>Ac1 và Ac3 là gì và có ý nghĩa vật lý ra sao?</summary>
+      <p>Ac1 là nhiệt độ tới hạn dưới, nơi austenite bắt đầu hình thành khi nung thép từ tổ chức ferrite/pearlite — phản ứng cùng tích đảo chiều và pearlite (α + Fe₃C) chuyển thành austenite (γ). Ac3 là nơi chuyển pha sang hoàn toàn austenite kết thúc — toàn bộ ferrite trước cùng tích đã hòa tan. Giữa Ac1 và Ac3 (vùng liên tới hạn), austenite và ferrite cùng tồn tại. Ac1 xác định nhiệt độ PWHT tối đa an toàn; Ac3 xác định nhiệt độ austenite hóa tối thiểu hợp lệ. Cả hai đều khác giá trị cân bằng Ae1/Ae3 đọc trên giản đồ Fe-C — chữ "c" trong Ac chỉ quá trình nung, và tốc độ nung thực tế dịch chuyển chuyển pha cao hơn cân bằng 10–40°C.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Công thức Andrews (1965) tính Ac1 và Ac3 ra sao?</summary>
+      <p>Ac1 (°C) = 723 − 10.7×%Mn − 16.9×%Ni + 29.1×%Si + 16.9×%Cr + 290×%As + 6.38×%W; Ac3 (°C) = 910 − 203×√(%C) − 15.2×%Ni + 44.7×%Si + 31.5×%Mo + 13.1×%W − 30×%Mn + 11×%Cr + 65×%Nb + 400×%Ti − 20×%Cu. Xây dựng từ hồi quy trên 66 mác thép. Với Ac1, Mn và Ni là hai yếu tố hạ nhiệt mạnh nhất, Si và Cr làm tăng. Với Ac3, carbon là yếu tố chi phối; Si, Mo, Nb, Ti làm tăng Ac3 trong khi Mn, Ni, Cu làm giảm.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Vì sao carbon làm giảm nhiệt độ Ac3?</summary>
+      <p>Carbon là nguyên tố ổn định austenite, mở rộng vùng γ trên giản đồ Fe-C. Đường ranh giới A3 dốc xuống khi carbon tăng, từ 912°C ở 0%C tới điểm cùng tích 727°C tại 0.77%C. Dạng căn bậc hai −203×√%C phản ánh quan hệ phi tuyến — ảnh hưởng trên mỗi đơn vị carbon lớn hơn ở nồng độ thấp. Ở 0.1%C, carbon làm giảm Ac3 khoảng 64°C; ở 0.4%C mức giảm là khoảng 128°C.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Khác biệt giữa Ac1/Ac3 và Ae1/Ae3 là gì?</summary>
+      <p>Ae1, Ae3 là nhiệt độ tới hạn cân bằng đọc từ giản đồ Fe-C ở tốc độ nung gần bằng không. Ac1, Ac3 là nhiệt độ chuyển pha đo được ở tốc độ nung thực tế (5–20°C/phút trong công nghiệp). Vì austenite hóa là quá trình khống chế khuếch tán (cần tái phân bố carbon), cần một mức quá nhiệt nhất định — khi nung, chuyển pha bị dịch lên trên cân bằng khoảng 10–40°C tùy tốc độ nung, hàm lượng carbon và hợp kim.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Nên chọn nhiệt độ austenite hóa nào cho từng mục đích nhiệt luyện?</summary>
+      <p>Với tôi cứng: Ac3 + 30–60°C. Với thường hóa: Ac3 + 50–80°C, giữ nhiệt ngắn hơn. Với ủ liên tới hạn (sản xuất thép DP): giữa Ac1 và Ac3, nhiệt độ chính xác quyết định tỷ lệ austenite. Với ủ cầu hóa: Ac1 − 10 đến Ac1 − 40°C để cầu hóa cementite mà không austenite hóa. Với ủ khử ứng suất: 550–650°C, thấp hơn nhiều so với Ac1. Vượt Ac3 + 100°C có nguy cơ hạt austenite phát triển thô, làm giảm độ dai sau tôi.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Ram sau hàn (PWHT) liên quan gì đến Ac1?</summary>
+      <p>PWHT phải luôn thấp hơn Ac1 để tránh austenite hóa lại vùng HAZ, gây martensite chưa ram khi nguội. Biên an toàn thực tế thường là 30–50°C dưới Ac1. Với P91 (Ac1 thực nghiệm ≈ 815°C), ASME B31.1 quy định PWHT 730–775°C — biên an toàn 40–85°C. Với P22 (Ac1 ≈ 790°C), PWHT 690–750°C cũng cho biên an toàn tương tự.</p>
+    </details>
+
+  </section>
+
+  <footer class="site">
+    <p>© 2026 MoldSteel VN — thepkhuonmau.com · Công cụ tra cứu kỹ thuật thép khuôn mẫu.</p>
+    <p style="margin-top:6px;">Nội dung tham khảo các công thức thực nghiệm Andrews (1965), Eldis (1987), Grange (1961), Trzaska (2016). Chỉ mang tính tham khảo kỹ thuật — luôn kiểm chứng bằng dữ liệu thực nghiệm hoặc datasheet nhà sản xuất trước khi áp dụng cho sản xuất thực tế.</p>
+  </footer>
+</div>
+
+<script>
+// ---------- Data ----------
+var ELEMENTS = [
+  {key:'C', label:'Carbon (C)', range:'0–2.0%', step:'0.01'},
+  {key:'Mn', label:'Mangan (Mn)', range:'0–10%', step:'0.01'},
+  {key:'Si', label:'Silic (Si)', range:'0–3%', step:'0.01'},
+  {key:'Cr', label:'Crôm (Cr)', range:'0–20%', step:'0.01'},
+  {key:'Ni', label:'Niken (Ni)', range:'0–30%', step:'0.01'},
+  {key:'Mo', label:'Molypden (Mo)', range:'0–10%', step:'0.01'},
+  {key:'V', label:'Vanadi (V)', range:'0–5%', step:'0.01'},
+  {key:'Al', label:'Nhôm (Al)', range:'0–3%', step:'0.01'},
+  {key:'W', label:'Wolfram (W)', range:'0–20%', step:'0.01'},
+  {key:'Nb', label:'Niobi (Nb)', range:'0–1%', step:'0.001'},
+  {key:'Ti', label:'Titan (Ti)', range:'0–1%', step:'0.001'},
+  {key:'Cu', label:'Đồng (Cu)', range:'0–5%', step:'0.01'}
+];
+
+var PRESETS = {
+  'SKD11 / D2':      {C:1.50, Mn:0.40, Si:0.30, Cr:12.0, Ni:0,   Mo:1.00, V:0.30, Al:0, W:0, Nb:0, Ti:0, Cu:0},
+  'H13 / SKD61':      {C:0.40, Mn:0.35, Si:1.00, Cr:5.20, Ni:0,   Mo:1.30, V:0.95, Al:0, W:0, Nb:0, Ti:0, Cu:0},
+  'NAK80':            {C:0.15, Mn:1.50, Si:0.30, Cr:1.90, Ni:1.00,Mo:0.30, V:0,    Al:1.00,W:0, Nb:0, Ti:0, Cu:0},
+  'P20 / 1.2311':     {C:0.38, Mn:1.40, Si:0.30, Cr:1.90, Ni:0,   Mo:0.20, V:0,    Al:0, W:0, Nb:0, Ti:0, Cu:0},
+  'S45C':             {C:0.45, Mn:0.70, Si:0.25, Cr:0,    Ni:0,   Mo:0,    V:0,    Al:0, W:0, Nb:0, Ti:0, Cu:0},
+  'S136 / Stavax':    {C:0.38, Mn:0.40, Si:0.90, Cr:13.6, Ni:0,   Mo:0.30, V:0.30, Al:0, W:0, Nb:0, Ti:0, Cu:0},
+  '718H':             {C:0.40, Mn:1.40, Si:0.30, Cr:2.00, Ni:1.00,Mo:0.20, V:0,    Al:0, W:0, Nb:0, Ti:0, Cu:0},
+  'DC53':             {C:1.00, Mn:0.50, Si:0.90, Cr:8.00, Ni:0,   Mo:2.00, V:0.30, Al:0, W:0, Nb:0, Ti:0, Cu:0}
+};
+
+// ---------- Build inputs ----------
+var grid = document.getElementById('inputGrid');
+ELEMENTS.forEach(function(el){
+  var div = document.createElement('div');
+  div.className = 'field';
+  div.innerHTML = '<label for="in_'+el.key+'">'+el.label+'</label>'+
+    '<div class="range">'+el.range+'</div>'+
+    '<input type="number" id="in_'+el.key+'" step="'+el.step+'" min="0" value="0">';
+  grid.appendChild(div);
+});
+
+var presetHolder = document.getElementById('presetBtns');
+Object.keys(PRESETS).forEach(function(name){
+  var b = document.createElement('button');
+  b.className = 'preset-btn';
+  b.type = 'button';
+  b.textContent = name;
+  b.onclick = function(){
+    document.querySelectorAll('.preset-btn').forEach(function(x){x.classList.remove('active');});
+    b.classList.add('active');
+    var comp = PRESETS[name];
+    ELEMENTS.forEach(function(el){ document.getElementById('in_'+el.key).value = comp[el.key]; });
+    calculate();
+    gtag('event','select_preset',{'preset_name':name});
+  };
+  presetHolder.appendChild(b);
+});
+
+function getComposition(){
+  var c = {};
+  ELEMENTS.forEach(function(el){ c[el.key] = parseFloat(document.getElementById('in_'+el.key).value) || 0; });
+  return c;
+}
+
+function resetForm(){
+  ELEMENTS.forEach(function(el){ document.getElementById('in_'+el.key).value = 0; });
+  document.querySelectorAll('.preset-btn').forEach(function(x){x.classList.remove('active');});
+  document.getElementById('resultsCard').style.display = 'none';
+}
+
+// ---------- Equations ----------
+function andrews(c){
+  var ac1 = 723 - 10.7*c.Mn - 16.9*c.Ni + 29.1*c.Si + 16.9*c.Cr + 6.38*c.W;
+  var ac3 = 910 - 203*Math.sqrt(c.C) - 15.2*c.Ni + 44.7*c.Si + 31.5*c.Mo + 13.1*c.W - 30*c.Mn + 11*c.Cr + 65*c.Nb + 400*c.Ti - 20*c.Cu;
+  return {ac1:ac1, ac3:ac3};
+}
+function eldis(c){
+  var ac1 = 712 - 17.8*c.Mn - 19.1*c.Ni + 20.1*c.Si + 11.9*c.Cr + 9.8*c.Mo;
+  var ac3 = 871 - 254.4*Math.sqrt(c.C) - 14.2*c.Ni + 51.7*c.Si - 14.1*c.Mn;
+  return {ac1:ac1, ac3:ac3};
+}
+function grange(c){
+  var ac1 = 727 - 10.7*c.Mn - 16.9*c.Ni + 29.1*c.Si + 16.9*c.Cr;
+  var ac3 = 910 - 203*Math.sqrt(c.C) + 44.7*c.Si + 31.5*c.Mo - 30*c.Mn + 11*c.Cr - 15.2*c.Ni;
+  return {ac1:ac1, ac3:ac3};
+}
+function trzaska(c){
+  var ac1 = 739 - 22.8*c.C - 6.8*c.Mn + 18.2*c.Si + 11.7*c.Cr + 9.4*c.Mo - 13.7*c.Ni + 19*c.V;
+  var ac3 = 901 - 206*Math.sqrt(c.C) - 16.9*c.Ni + 41.7*c.Si + 27.5*c.Mo + 15*c.W - 29.1*c.Mn + 16.9*c.Cr - 20*c.Cu + 17.8*c.Nb + 390*c.Ti;
+  return {ac1:ac1, ac3:ac3};
+}
+
+function fmt(n){ return Math.round(n*10)/10; }
+
+function calculate(){
+  var c = getComposition();
+  var results = {
+    'Andrews (1965)': andrews(c),
+    'Eldis (1987)': eldis(c),
+    'Grange (1961)': grange(c),
+    'Trzaska (2016)': trzaska(c)
+  };
+
+  var ac1Sum=0, ac3Sum=0, n=0;
+  Object.keys(results).forEach(function(k){ ac1Sum += results[k].ac1; ac3Sum += results[k].ac3; n++; });
+  var ac1Mean = ac1Sum/n, ac3Mean = ac3Sum/n;
+
+  document.getElementById('ac1Big').textContent = fmt(ac1Mean)+' °C';
+  document.getElementById('ac3Big').textContent = fmt(ac3Mean)+' °C';
+  document.getElementById('rWidth').textContent = fmt(ac3Mean-ac1Mean)+' °C';
+  document.getElementById('rPwht').textContent = fmt(ac1Mean-40)+' °C';
+  document.getElementById('rNorm').textContent = fmt(ac3Mean+60)+' °C';
+  document.getElementById('rHard').textContent = fmt(ac3Mean+30)+' °C';
+  document.getElementById('rSpher').textContent = fmt(ac1Mean-20)+' °C';
+  document.getElementById('rMid').textContent = fmt((ac1Mean+ac3Mean)/2)+' °C';
+
+  var tbody = document.getElementById('eqTableBody');
+  tbody.innerHTML = '';
+  Object.keys(results).forEach(function(k){
+    var tr = document.createElement('tr');
+    tr.innerHTML = '<td>'+k+'</td><td class="mono">'+fmt(results[k].ac1)+'</td><td class="mono">'+fmt(results[k].ac3)+'</td>';
+    tbody.appendChild(tr);
+  });
+
+  var a = results['Andrews (1965)'];
+  var stepText =
+'Công thức Andrews (1965):\n\n'+
+'Ac1 = 723 − 10.7×'+c.Mn+' − 16.9×'+c.Ni+' + 29.1×'+c.Si+' + 16.9×'+c.Cr+' + 6.38×'+c.W+'\n'+
+'    = 723 '+signed(-10.7*c.Mn)+' '+signed(-16.9*c.Ni)+' '+signed(29.1*c.Si)+' '+signed(16.9*c.Cr)+' '+signed(6.38*c.W)+'\n'+
+'    ≈ '+fmt(a.ac1)+' °C\n\n'+
+'Ac3 = 910 − 203×√('+c.C+') − 15.2×'+c.Ni+' + 44.7×'+c.Si+' + 31.5×'+c.Mo+' + 13.1×'+c.W+'\n'+
+'      − 30×'+c.Mn+' + 11×'+c.Cr+' + 65×'+c.Nb+' + 400×'+c.Ti+' − 20×'+c.Cu+'\n'+
+'    ≈ '+fmt(a.ac3)+' °C\n\n'+
+'Dải nhiệt luyện suy ra (theo trung bình 4 công thức):\n'+
+'  PWHT tối đa:        '+fmt(ac1Mean-40)+' °C\n'+
+'  Ủ cầu hóa:          '+fmt(ac1Mean-20)+' °C\n'+
+'  Ủ liên tới hạn giữa: '+fmt((ac1Mean+ac3Mean)/2)+' °C\n'+
+'  Tôi tối thiểu:       '+fmt(ac3Mean+30)+' °C\n'+
+'  Thường hóa:          '+fmt(ac3Mean+60)+' °C';
+  document.getElementById('stepsBox').textContent = stepText;
+
+  drawPhaseDiagram(ac1Mean, ac3Mean, c.C);
+
+  document.getElementById('resultsCard').style.display = 'block';
+  document.getElementById('resultsCard').scrollIntoView({behavior:'smooth', block:'start'});
+
+  gtag('event','calculate_ac1_ac3',{'ac1':fmt(ac1Mean),'ac3':fmt(ac3Mean)});
+}
+
+function signed(v){
+  return (v>=0?'+ ':'− ') + Math.abs(fmt(v));
+}
+
+function drawPhaseDiagram(ac1, ac3, carbonPct){
+  var w=700, h=380;
+  var x0=60, x1=640, y0=40, y1=330; // plot area
+  var cMax=1.0;
+  function xPos(cVal){ return x0 + (cVal/cMax)*(x1-x0); }
+  function yPos(temp){ var tMin=650, tMax=950; return y1 - ((temp-tMin)/(tMax-tMin))*(y1-y0); }
+
+  var eutC = 0.77, eutT = 727;
+  var a1Y = yPos(727);
+  var markC = Math.min(Math.max(carbonPct,0.02), 0.95);
+  var markAc1X = xPos(markC), markAc1Y = yPos(ac1);
+  var markAc3X = xPos(markC), markAc3Y = yPos(ac3);
+
+  var svg = ''+
+  '<svg class="phase-diagram" viewBox="0 0 '+w+' '+h+'" xmlns="http://www.w3.org/2000/svg">'+
+    '<rect x="0" y="0" width="'+w+'" height="'+h+'" fill="var(--white)"/>'+
+    '<line x1="'+x0+'" y1="'+y0+'" x2="'+x0+'" y2="'+y1+'" stroke="var(--ink-soft)" stroke-width="1"/>'+
+    '<line x1="'+x0+'" y1="'+y1+'" x2="'+x1+'" y2="'+y1+'" stroke="var(--ink-soft)" stroke-width="1"/>'+
+    '<text x="'+(x0-40)+'" y="'+(y0+10)+'" font-size="11" fill="var(--ink-soft)" font-family="JetBrains Mono, monospace">T(°C)</text>'+
+    '<text x="'+(x1-15)+'" y="'+(y1+22)+'" font-size="11" fill="var(--ink-soft)" font-family="JetBrains Mono, monospace">%C</text>'+
+    '<line x1="'+x0+'" y1="'+a1Y+'" x2="'+x1+'" y2="'+a1Y+'" stroke="#c9c2b4" stroke-width="1.2" stroke-dasharray="4 3"/>'+
+    '<text x="'+(x1-70)+'" y="'+(a1Y-6)+'" font-size="10.5" fill="var(--ink-soft)" font-family="JetBrains Mono, monospace">Ae1 = 727°C</text>'+
+    '<path d="M '+xPos(0)+' '+yPos(912)+' Q '+xPos(0.4)+' '+yPos(780)+' '+xPos(eutC)+' '+yPos(eutT)+'" fill="none" stroke="#b9c9db" stroke-width="1.4" stroke-dasharray="4 3"/>'+
+    '<text x="'+(xPos(0.15))+'" y="'+(yPos(895))+'" font-size="10.5" fill="var(--ink-soft)" font-family="JetBrains Mono, monospace">Ae3 (cân bằng)</text>'+
+    '<line x1="'+x0+'" y1="'+yPos(ac1)+'" x2="'+x1+'" y2="'+yPos(ac1)+'" stroke="var(--accent)" stroke-width="2"/>'+
+    '<text x="'+(x0+6)+'" y="'+(yPos(ac1)-8)+'" font-size="11.5" fill="var(--accent-deep)" font-family="Space Grotesk, sans-serif" font-weight="700">Ac1 ≈ '+fmt(ac1)+'°C</text>'+
+    '<path d="M '+xPos(0)+' '+yPos(ac3+30)+' Q '+xPos(0.4)+' '+yPos(ac3-40)+' '+xPos(eutC)+' '+yPos(ac1+15)+'" fill="none" stroke="var(--austenite)" stroke-width="2"/>'+
+    '<text x="'+(xPos(0.08))+'" y="'+(yPos(ac3+42))+'" font-size="11.5" fill="var(--austenite)" font-family="Space Grotesk, sans-serif" font-weight="700">Ac3 ≈ '+fmt(ac3)+'°C</text>'+
+    '<circle cx="'+markAc1X+'" cy="'+markAc1Y+'" r="4.5" fill="var(--accent)"/>'+
+    '<circle cx="'+markAc3X+'" cy="'+markAc3Y+'" r="4.5" fill="var(--austenite)"/>'+
+    '<line x1="'+markAc1X+'" y1="'+markAc1Y+'" x2="'+markAc1X+'" y2="'+markAc3Y+'" stroke="#c9c2b4" stroke-width="1" stroke-dasharray="2 2"/>'+
+    '<text x="'+(markAc1X+8)+'" y="'+((markAc1Y+markAc3Y)/2)+'" font-size="10" fill="var(--ink-soft)" font-family="JetBrains Mono, monospace">%C = '+carbonPct+'</text>'+
+    '<text x="'+(x0+10)+'" y="'+(y0+20)+'" font-size="10.5" fill="var(--ferrite)" font-family="Inter, sans-serif">α ferrite / α+γ liên tới hạn</text>'+
+    '<text x="'+(x0+10)+'" y="'+(y0+34)+'" font-size="10.5" fill="var(--austenite)" font-family="Inter, sans-serif">γ austenite (trên Ac3)</text>'+
+    '<text x="10" y="'+(h-6)+'" font-size="9" fill="#a89f90" font-family="JetBrains Mono, monospace">Sơ đồ minh họa, không theo tỷ lệ · MoldSteel VN</text>'+
+  '</svg>';
+  document.getElementById('phaseDiagramHolder').innerHTML = svg;
+}
+
+// Default: load H13 preset on first view
+window.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('in_C').value = 0.40;
+});
+</script>
+</body>
+</html>
