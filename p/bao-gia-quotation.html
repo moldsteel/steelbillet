@@ -1523,15 +1523,19 @@ function addTkho(){
 function removeTkho(v){ tKho[activeKhoShape]=tKho[activeKhoShape].filter(x=>x.d1!==v); renderTkhoList(); }
 document.getElementById('tkho-input').addEventListener('keydown',e=>{if(e.key==='Enter')addTkho();});
 
-// ── EXPORT EXCEL ──
+// ── EXPORT EXCEL (đã hoàn thiện: gộp ô tiêu đề, thêm VAT + Tổng thanh toán, thêm Người lập/Thanh toán) ──
 function exportExcel(){
   const customer=document.getElementById('mc').value||'Khách hàng';
   const quoteNo=document.getElementById('mq').value||'BG-2026';
   const dateVal=document.getElementById('md').value||'';
+  const preparer=document.getElementById('mp').value||'';
+  const payment=document.getElementById('meta-payment')?.value||'';
+
   const wb=XLSX.utils.book_new();
   const ws=[];
   ws.push(['BẢNG TÍNH GIÁ THÉP KHUÔN MẪU — MOLDSTEEL VN']);
-  ws.push([`Khách hàng: ${customer}`,,'Số BG: '+quoteNo,,'Ngày: '+dateVal]);
+  ws.push([`Khách hàng: ${customer}`,,'','Số BG: '+quoteNo,,'Ngày: '+dateVal,,'Người lập: '+preparer]);
+  if(payment) ws.push([`Phương thức thanh toán: ${payment}`]);
   ws.push([]);
   ws.push(['STT','MÃ HÀNG','VẬT LIỆU',
     'Dày T (mm)','Rộng W (mm)','Dài L (mm)',
@@ -1539,6 +1543,7 @@ function exportExcel(){
     'SL','Đơn vị','Đơn giá (đ/kg)',
     'TL tinh/cái (kg)','TL thô/cái (kg)','TL thô tổng (kg)',
     'Tiền vật tư (đ)','Tiền phay/mài (đ)','Thành tiền (đ)','Ghi chú']);
+
   let swf=0,swr=0,smat=0,smill=0,stot=0;
   rows.forEach((row,idx)=>{
     const id=row.id;
@@ -1566,11 +1571,34 @@ function exportExcel(){
     swf+=wf*qty; swr+=wr*qty; smat+=mat; smill+=mill; stot+=tot;
     ws.push([idx+1,grade,matLabel,t,w,l,aRT,aRW,aRL,Math.round((aRT-t)*10)/10,qty,unit,price,wf,wr,Math.round(wr*qty*100)/100,mat,mill,tot,note]);
   });
+
+  const vat=Math.round(stot*0.1);
+  const grand=stot+vat;
+
   ws.push([]);
-  ws.push(['','','','','','','','','','','','','TỔNG CỘNG','',Math.round(swf*100)/100,Math.round(swr*100)/100,smat,smill,stot,'']);
+  // Dòng tổng cộng — nhãn gộp ô A-M, TL tinh tổng đúng cột 13, TL thô tổng đúng cột 15
+  ws.push(['TỔNG CỘNG',,,,,,,,,,,,,Math.round(swf*100)/100,'',Math.round(swr*100)/100,smat,smill,stot,'']);
+  ws.push(['VAT 10%',,,,,,,,,,,,,,,,,,vat,'']);
+  ws.push(['TỔNG THANH TOÁN',,,,,,,,,,,,,,,,,,grand,'']);
+
   const sheet=XLSX.utils.aoa_to_sheet(ws);
   sheet['!cols']=[{wch:5},{wch:12},{wch:10},{wch:9},{wch:9},{wch:9},{wch:9},{wch:9},{wch:9},{wch:9},{wch:6},{wch:6},{wch:12},{wch:12},{wch:12},{wch:12},{wch:14},{wch:14},{wch:14},{wch:18}];
-  sheet['!merges']=[{s:{r:0,c:0},e:{r:0,c:19}}];
+
+  // Xác định số dòng để gộp ô đúng vị trí (title, tổng cộng, VAT, tổng thanh toán)
+  const headerRowIdx = payment ? 4 : 3; // dòng header cột (0-based)
+  const dataStart = headerRowIdx + 1;
+  const dataEnd = dataStart + rows.length - 1;
+  const totalRowIdx = dataEnd + 2;   // sau 1 dòng trống
+  const vatRowIdx = totalRowIdx + 1;
+  const grandRowIdx = totalRowIdx + 2;
+
+  sheet['!merges']=[
+    {s:{r:0,c:0},e:{r:0,c:19}},                         // Tiêu đề
+    {s:{r:totalRowIdx,c:0},e:{r:totalRowIdx,c:12}},     // Nhãn TỔNG CỘNG
+    {s:{r:vatRowIdx,c:0},e:{r:vatRowIdx,c:17}},         // Nhãn VAT 10%
+    {s:{r:grandRowIdx,c:0},e:{r:grandRowIdx,c:17}},     // Nhãn TỔNG THANH TOÁN
+  ];
+
   XLSX.utils.book_append_sheet(wb,sheet,'Bang tinh gia');
   XLSX.writeFile(wb,`BangTinhGia_${quoteNo}_${(new Date()).toLocaleDateString('vi-VN').replace(/\//g,'-')}.xlsx`);
 }
