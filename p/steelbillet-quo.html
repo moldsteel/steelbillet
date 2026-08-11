@@ -3284,39 +3284,84 @@ function getAllExportRows(){
   });
   return result;
 }
+// ── EXPORT EXCEL (viết đúng cho app ATP_QUO — dùng getAllExportRows() có sẵn) ──
+function exportExcel(){
+  if (typeof XLSX === 'undefined') {
+    let waited = 0;
+    const waitTimer = setInterval(() => {
+      waited += 500;
+      if (typeof XLSX !== 'undefined') {
+        clearInterval(waitTimer);
+        exportExcel();
+      } else if (waited >= 6000) {
+        clearInterval(waitTimer);
+        alert('⚠️ Không tải được thư viện Excel sau nhiều lần thử.\nVui lòng kiểm tra kết nối mạng rồi tải lại trang.');
+      }
+    }, 500);
+    return;
+  }
 
-function exportExcel(){_loadXLSX(function(){if(typeof XLSX==='undefined'){alert('Thư viện XLSX chưa tải.');return;}
-  const rows=getAllExportRows();if(!rows.length){alert('Chưa có dữ liệu!');return;}
-  const vatRate=parseFloat($('vat-rate').value)||0;
-  const totalVL=rows.reduce((s,r)=>s+r.vlCost,0),totalGC=rows.reduce((s,r)=>s+r.gcCost,0),totalAmt=rows.reduce((s,r)=>s+r.total,0);
-  const vatAmt=Math.round(totalAmt*vatRate/100);
-  const now=new Date().toLocaleDateString('vi-VN');
-  const wsData=[
-    ['CÔNG TY TNHH MTV AN THÁI PHÚ','','','','','','','','','','',''],
-    ['732 Quốc lộ 1A, Bình Tân, TP HCM  ·  ĐT: 0947 136 897 - 0949 532 168','','','','','','','','','','',''],
-    ['STK: 0281001909286 - NH Vietcombank - CN Bình Dương - CKT: CT TNHH MTV AN THAI PHU','','','','','','','','','','',''],
-    ['BÁO GIÁ / QUOTATION','','','','','','','','','','',''],
-    [`Ngày: ${now}`,'','','','','','','','','','',''],
-    ['','','','','','','','','','','',''],
-    ['STT','MÃ HÀNG','QUY CÁCH TINH (mm)','','','S.L\n(cái)','ĐƠN GIÁ\n(đ/kg)','KL PHÔI\n(kg)','TIỀN VẬT TƯ\n(đ)','TIỀN PHAY/MÀI\n(đ)','THÀNH TIỀN\n(đ)','GHI CHÚ'],
-    ['','','Dày T','Rộng W','Dài L','','','','','','',''],
-    ...rows.map(r=>[r.stt,r.grade,r.T,r.W,r.L,r.qty,r.price,parseFloat((r.weight*(r.qty||1)).toFixed(1)),r.vlCost||'',r.gcCost||'',r.total||'',r.note]),
-    ['','','','','','','','','','','',''],
-    ['','CỘNG','','','','','',totalBilledWt,totalVL,totalGC,totalAmt,''],
-    ['',`VAT ${vatRate}%`,'','','','','','','','',vatAmt,''],
-    ['','TỔNG THANH TOÁN (gồm VAT)','','','','','','','','',totalAmt+vatAmt,''],
-  ];
-  const wb=XLSX.utils.book_new();const ws=XLSX.utils.aoa_to_sheet(wsData);
-  const dataEnd=8+rows.length;
-  ws['!merges']=[
-    {s:{r:0,c:0},e:{r:0,c:11}},{s:{r:1,c:0},e:{r:1,c:11}},{s:{r:2,c:0},e:{r:2,c:11}},{s:{r:3,c:0},e:{r:3,c:11}},{s:{r:4,c:0},e:{r:4,c:11}},
-    {s:{r:6,c:2},e:{r:6,c:4}},{s:{r:6,c:0},e:{r:7,c:0}},{s:{r:6,c:1},e:{r:7,c:1}},{s:{r:6,c:5},e:{r:7,c:5}},{s:{r:6,c:6},e:{r:7,c:6}},{s:{r:6,c:7},e:{r:7,c:7}},{s:{r:6,c:8},e:{r:7,c:8}},{s:{r:6,c:9},e:{r:7,c:9}},{s:{r:6,c:10},e:{r:7,c:10}},{s:{r:6,c:11},e:{r:7,c:11}},
-    {s:{r:dataEnd+1,c:1},e:{r:dataEnd+1,c:6}},{s:{r:dataEnd+2,c:1},e:{r:dataEnd+2,c:9}},{s:{r:dataEnd+3,c:1},e:{r:dataEnd+3,c:9}},
-  ];
-  ws['!cols']=[{wch:5},{wch:14},{wch:9},{wch:9},{wch:9},{wch:6},{wch:13},{wch:13},{wch:17},{wch:17},{wch:17},{wch:22}];
-  XLSX.utils.book_append_sheet(wb,ws,'Báo giá');
-  XLSX.writeFile(wb,`bao_gia_${new Date().toISOString().slice(0,10)}.xlsx`);
-});}
+  try {
+    const exportRows = getAllExportRows();
+    if (!exportRows.length) { alert('Chưa có dữ liệu vật tư! Vui lòng nhập ít nhất 1 dòng.'); return; }
+
+    const ciName     = ($('ci-name')     ?.value || '').trim();
+    const ciAddr     = ($('ci-addr')     ?.value || '').trim();
+    const ciContact  = ($('ci-contact')  ?.value || '').trim();
+    const ciOfferNo  = ($('ci-offerno')  ?.value || '').trim();
+    const ciTolerance= ($('ci-tolerance')?.value || '').trim();
+    const vatRate = parseFloat($('vat-rate')?.value) || 0;
+    const dateStr = new Date().toLocaleDateString('vi-VN');
+
+    const wb = XLSX.utils.book_new();
+    const ws = [];
+    ws.push(['BÁO GIÁ — CÔNG TY TNHH MTV AN THÁI PHÚ']);
+    ws.push([`Khách hàng: ${ciName||''}`,,'','Địa chỉ: '+(ciAddr||''),,'Người liên hệ: '+(ciContact||'')]);
+    ws.push([`Offer No: ${ciOfferNo||''}`,,'','Tolerance: '+(ciTolerance||''),,'Ngày: '+dateStr]);
+    ws.push([]);
+    ws.push(['STT','MÃ HÀNG','HÌNH DẠNG','T (mm)','W (mm)','L (mm)','SL','Đơn giá (đ/kg)',
+      'KL phôi/cái (kg)','Tiền vật tư (đ)','Phí GC (đ)','Phí XL nhiệt (đ)','Thành tiền (đ)','Ghi chú']);
+
+    let sVL=0, sGC=0, sHT=0, sTotal=0;
+    exportRows.forEach(r=>{
+      sVL+=r.vlCost; sGC+=r.gcCost; sHT+=r.htCost; sTotal+=r.total;
+      ws.push([r.stt, r.grade, r.shape, r.T, r.W, r.L, r.qty, r.price,
+        r.weight, Math.round(r.vlCost), Math.round(r.gcCost), Math.round(r.htCost), Math.round(r.total), r.note]);
+    });
+
+    const vatAmt = Math.round(sTotal * vatRate / 100);
+    const grand = sTotal + vatAmt;
+
+    ws.push([]);
+    ws.push(['TỔNG CỘNG',,,,,,,,,,Math.round(sVL),Math.round(sGC),Math.round(sHT),Math.round(sTotal),'']);
+    ws.push([`VAT ${vatRate}%`,,,,,,,,,,,,,vatAmt,'']);
+    ws.push(['TỔNG THANH TOÁN',,,,,,,,,,,,,grand,'']);
+
+    const sheet = XLSX.utils.aoa_to_sheet(ws);
+    sheet['!cols'] = [{wch:5},{wch:14},{wch:10},{wch:9},{wch:9},{wch:9},{wch:6},{wch:12},{wch:12},{wch:13},{wch:11},{wch:12},{wch:13},{wch:18}];
+
+    const headerRowIdx = 4;
+    const dataStart = headerRowIdx + 1;
+    const dataEnd = dataStart + exportRows.length - 1;
+    const totalRowIdx = dataEnd + 2;
+    const vatRowIdx = totalRowIdx + 1;
+    const grandRowIdx = totalRowIdx + 2;
+
+    sheet['!merges'] = [
+      {s:{r:0,c:0}, e:{r:0,c:13}},
+      {s:{r:totalRowIdx,c:0}, e:{r:totalRowIdx,c:9}},
+      {s:{r:vatRowIdx,c:0}, e:{r:vatRowIdx,c:12}},
+      {s:{r:grandRowIdx,c:0}, e:{r:grandRowIdx,c:12}},
+    ];
+
+    XLSX.utils.book_append_sheet(wb, sheet, 'Bao gia ATP');
+    XLSX.writeFile(wb, `BaoGia_ATP_${ciOfferNo||'draft'}_${dateStr.replace(/\//g,'-')}.xlsx`);
+
+  } catch (err) {
+    alert('❌ Xuất Excel thất bại: ' + err.message);
+    console.error(err);
+  }
+}
 
 
 // ── ✅ Export PDF — Letterhead An Thái Phú đầy đủ ────────────────────
