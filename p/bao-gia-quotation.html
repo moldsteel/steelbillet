@@ -1523,83 +1523,56 @@ function addTkho(){
 function removeTkho(v){ tKho[activeKhoShape]=tKho[activeKhoShape].filter(x=>x.d1!==v); renderTkhoList(); }
 document.getElementById('tkho-input').addEventListener('keydown',e=>{if(e.key==='Enter')addTkho();});
 
-// ── EXPORT EXCEL (viết đúng cho app ATP_QUO — dùng getAllExportRows() có sẵn) ──
+// ── EXPORT EXCEL ──
 function exportExcel(){
-  if (typeof XLSX === 'undefined') {
-    let waited = 0;
-    const waitTimer = setInterval(() => {
-      waited += 500;
-      if (typeof XLSX !== 'undefined') {
-        clearInterval(waitTimer);
-        exportExcel();
-      } else if (waited >= 6000) {
-        clearInterval(waitTimer);
-        alert('⚠️ Không tải được thư viện Excel sau nhiều lần thử.\nVui lòng kiểm tra kết nối mạng rồi tải lại trang.');
-      }
-    }, 500);
-    return;
-  }
-
-  try {
-    const exportRows = getAllExportRows();
-    if (!exportRows.length) { alert('Chưa có dữ liệu vật tư! Vui lòng nhập ít nhất 1 dòng.'); return; }
-
-    const ciName     = ($('ci-name')     ?.value || '').trim();
-    const ciAddr     = ($('ci-addr')     ?.value || '').trim();
-    const ciContact  = ($('ci-contact')  ?.value || '').trim();
-    const ciOfferNo  = ($('ci-offerno')  ?.value || '').trim();
-    const ciTolerance= ($('ci-tolerance')?.value || '').trim();
-    const vatRate = parseFloat($('vat-rate')?.value) || 0;
-    const dateStr = new Date().toLocaleDateString('vi-VN');
-
-    const wb = XLSX.utils.book_new();
-    const ws = [];
-    ws.push(['BÁO GIÁ — CÔNG TY TNHH MTV AN THÁI PHÚ']);
-    ws.push([`Khách hàng: ${ciName||''}`,,'','Địa chỉ: '+(ciAddr||''),,'Người liên hệ: '+(ciContact||'')]);
-    ws.push([`Offer No: ${ciOfferNo||''}`,,'','Tolerance: '+(ciTolerance||''),,'Ngày: '+dateStr]);
-    ws.push([]);
-    ws.push(['STT','MÃ HÀNG','HÌNH DẠNG','T (mm)','W (mm)','L (mm)','SL','Đơn giá (đ/kg)',
-      'KL phôi/cái (kg)','Tiền vật tư (đ)','Phí GC (đ)','Phí XL nhiệt (đ)','Thành tiền (đ)','Ghi chú']);
-
-    let sVL=0, sGC=0, sHT=0, sTotal=0;
-    exportRows.forEach(r=>{
-      sVL+=r.vlCost; sGC+=r.gcCost; sHT+=r.htCost; sTotal+=r.total;
-      ws.push([r.stt, r.grade, r.shape, r.T, r.W, r.L, r.qty, r.price,
-        r.weight, Math.round(r.vlCost), Math.round(r.gcCost), Math.round(r.htCost), Math.round(r.total), r.note]);
-    });
-
-    const vatAmt = Math.round(sTotal * vatRate / 100);
-    const grand = sTotal + vatAmt;
-
-    ws.push([]);
-    ws.push(['TỔNG CỘNG',,,,,,,,,,Math.round(sVL),Math.round(sGC),Math.round(sHT),Math.round(sTotal),'']);
-    ws.push([`VAT ${vatRate}%`,,,,,,,,,,,,,vatAmt,'']);
-    ws.push(['TỔNG THANH TOÁN',,,,,,,,,,,,,grand,'']);
-
-    const sheet = XLSX.utils.aoa_to_sheet(ws);
-    sheet['!cols'] = [{wch:5},{wch:14},{wch:10},{wch:9},{wch:9},{wch:9},{wch:6},{wch:12},{wch:12},{wch:13},{wch:11},{wch:12},{wch:13},{wch:18}];
-
-    const headerRowIdx = 4;
-    const dataStart = headerRowIdx + 1;
-    const dataEnd = dataStart + exportRows.length - 1;
-    const totalRowIdx = dataEnd + 2;
-    const vatRowIdx = totalRowIdx + 1;
-    const grandRowIdx = totalRowIdx + 2;
-
-    sheet['!merges'] = [
-      {s:{r:0,c:0}, e:{r:0,c:13}},
-      {s:{r:totalRowIdx,c:0}, e:{r:totalRowIdx,c:9}},
-      {s:{r:vatRowIdx,c:0}, e:{r:vatRowIdx,c:12}},
-      {s:{r:grandRowIdx,c:0}, e:{r:grandRowIdx,c:12}},
-    ];
-
-    XLSX.utils.book_append_sheet(wb, sheet, 'Bao gia ATP');
-    XLSX.writeFile(wb, `BaoGia_ATP_${ciOfferNo||'draft'}_${dateStr.replace(/\//g,'-')}.xlsx`);
-
-  } catch (err) {
-    alert('❌ Xuất Excel thất bại: ' + err.message);
-    console.error(err);
-  }
+  const customer=document.getElementById('mc').value||'Khách hàng';
+  const quoteNo=document.getElementById('mq').value||'BG-2026';
+  const dateVal=document.getElementById('md').value||'';
+  const wb=XLSX.utils.book_new();
+  const ws=[];
+  ws.push(['BẢNG TÍNH GIÁ THÉP KHUÔN MẪU — MOLDSTEEL VN']);
+  ws.push([`Khách hàng: ${customer}`,,'Số BG: '+quoteNo,,'Ngày: '+dateVal]);
+  ws.push([]);
+  ws.push(['STT','MÃ HÀNG','VẬT LIỆU',
+    'Dày T (mm)','Rộng W (mm)','Dài L (mm)',
+    'T thô (mm)','W thô (mm)','L thô (mm)','Hao hụt T (mm)',
+    'SL','Đơn vị','Đơn giá (đ/kg)',
+    'TL tinh/cái (kg)','TL thô/cái (kg)','TL thô tổng (kg)',
+    'Tiền vật tư (đ)','Tiền phay/mài (đ)','Thành tiền (đ)','Ghi chú']);
+  let swf=0,swr=0,smat=0,smill=0,stot=0;
+  rows.forEach((row,idx)=>{
+    const id=row.id;
+    const grade=document.getElementById(`r${id}-g`)?.value||'';
+    const matKey=row.matKey||'steel';
+    const matLabel=MAT_LABELS[matKey]||'Thép';
+    const shape=row.shape||'plate';
+    const meta=SHAPE_META[shape];
+    const t=parseFloat(document.getElementById(`r${id}-t`)?.value)||0;
+    const w=parseFloat(document.getElementById(`r${id}-w`)?.value)||0;
+    const l=parseFloat(document.getElementById(`r${id}-l`)?.value)||0;
+    const qty=parseInt(document.getElementById(`r${id}-qty`)?.value)||0;
+    const unit=document.getElementById(`r${id}-unit`)?.value||'Tờ';
+    const price=parseFloat(document.getElementById(`r${id}-p`)?.value)||0;
+    const note=document.getElementById(`r${id}-note`)?.value||'';
+    const {rT,rW,rL}=calcRoughAuto(t,w,l,row.overrideRoughT,row.overrideRoughW,row.overrideRoughL);
+    const aRT=parseFloat(document.getElementById(`r${id}-rt`)?.value)||rT;
+    const aRW=parseFloat(document.getElementById(`r${id}-rw`)?.value)||rW;
+    const aRL=parseFloat(document.getElementById(`r${id}-rl`)?.value)||rL;
+    const wf=roundW1(calcWeightFine(t,w,l,matKey));
+    const wr=roundW1(meta.showD2 ? calcWeightRough(shape,aRT,aRW,aRL,matKey) : calcWeightRough(shape,aRT,null,aRL,matKey));
+    const mat=Math.round(wr*qty*price);
+    const mill=(row.millingCost||0)*qty;
+    const tot=mat+mill;
+    swf+=wf*qty; swr+=wr*qty; smat+=mat; smill+=mill; stot+=tot;
+    ws.push([idx+1,grade,matLabel,t,w,l,aRT,aRW,aRL,Math.round((aRT-t)*10)/10,qty,unit,price,wf,wr,Math.round(wr*qty*100)/100,mat,mill,tot,note]);
+  });
+  ws.push([]);
+  ws.push(['','','','','','','','','','','','','TỔNG CỘNG','',Math.round(swf*100)/100,Math.round(swr*100)/100,smat,smill,stot,'']);
+  const sheet=XLSX.utils.aoa_to_sheet(ws);
+  sheet['!cols']=[{wch:5},{wch:12},{wch:10},{wch:9},{wch:9},{wch:9},{wch:9},{wch:9},{wch:9},{wch:9},{wch:6},{wch:6},{wch:12},{wch:12},{wch:12},{wch:12},{wch:14},{wch:14},{wch:14},{wch:18}];
+  sheet['!merges']=[{s:{r:0,c:0},e:{r:0,c:19}}];
+  XLSX.utils.book_append_sheet(wb,sheet,'Bang tinh gia');
+  XLSX.writeFile(wb,`BangTinhGia_${quoteNo}_${(new Date()).toLocaleDateString('vi-VN').replace(/\//g,'-')}.xlsx`);
 }
 
 // ── PRINT ──
