@@ -3333,9 +3333,9 @@ function exportExcel(){
     const grand = sTotal + vatAmt;
 
     ws.push([]);
-    ws.push(['TỔNG CỘNG',,,,,,,,,,Math.round(sVL),Math.round(sGC),Math.round(sHT),Math.round(sTotal),'']);
-    ws.push([`VAT ${vatRate}%`,,,,,,,,,,,,,vatAmt,'']);
-    ws.push(['TỔNG THANH TOÁN',,,,,,,,,,,,,grand,'']);
+    ws.push(['TỔNG CỘNG',,,,,,,,,Math.round(sVL),Math.round(sGC),Math.round(sHT),Math.round(sTotal),,'']);
+    ws.push([`VAT ${vatRate}%`,,,,,,,,,,,,vatAmt,,'']);
+    ws.push(['TỔNG THANH TOÁN',,,,,,,,,,,,grand,,'']);
 
     const sheet = XLSX.utils.aoa_to_sheet(ws);
     sheet['!cols'] = [{wch:5},{wch:14},{wch:10},{wch:9},{wch:9},{wch:9},{wch:6},{wch:12},{wch:12},{wch:13},{wch:11},{wch:12},{wch:13},{wch:18}];
@@ -3349,9 +3349,9 @@ function exportExcel(){
 
     sheet['!merges'] = [
       {s:{r:0,c:0}, e:{r:0,c:13}},
-      {s:{r:totalRowIdx,c:0}, e:{r:totalRowIdx,c:9}},
-      {s:{r:vatRowIdx,c:0}, e:{r:vatRowIdx,c:12}},
-      {s:{r:grandRowIdx,c:0}, e:{r:grandRowIdx,c:12}},
+      {s:{r:totalRowIdx,c:0}, e:{r:totalRowIdx,c:8}},
+      {s:{r:vatRowIdx,c:0}, e:{r:vatRowIdx,c:11}},
+      {s:{r:grandRowIdx,c:0}, e:{r:grandRowIdx,c:11}},
     ];
 
     XLSX.utils.book_append_sheet(wb, sheet, 'Bao gia ATP');
