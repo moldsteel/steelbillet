@@ -4618,7 +4618,7 @@ function plmBuildFront(d, uid){
     <div class="plm-card-head">
       <span class="plm-grade">${d.n}</span>
       ${htBadge}
-      <span class="fc-flip-hint">lật ▶</span>
+      <span class="fc-flip-hint">Spec ▶</span>
     </div>
     ${bodyHTML}
   </div>`;
@@ -4633,7 +4633,7 @@ function plmBuildBack(d, uid){
   return`<div class="fc-face fc-back-face">
     <div class="fc-bh">
       <span class="fc-bh-name">${d.n}</span>
-      <button class="fc-bh-back" onclick="plmFlip('${uid}',event)">↩ giá</button>
+      <button class="fc-bh-back" onclick="plmFlip('${uid}',event)">↩ Price</button>
     </div>
     <div class="fc-bs">
       <div class="fc-bsl">% Carbon &amp; Độ cứng</div>
