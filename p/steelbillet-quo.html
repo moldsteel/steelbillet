@@ -25,8 +25,35 @@
 <meta property="og:site_name" content="An Thái Phú Steel">
 <title>Quotation — Thép Khuôn mẫu An Thái Phú</title>
 
-<script>var _xlsxLoaded=false;function _loadXLSX(cb){if(_xlsxLoaded){cb();return;}var s=document.createElement("script");s.src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js";s.onload=function(){_xlsxLoaded=true;cb();};document.head.appendChild(s);}</script>
-
+<script>
+(function loadXLSX(){
+  const sources = [
+    'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js',
+    'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js',
+    'https://unpkg.com/xlsx@0.18.5/dist/xlsx.full.min.js'
+  ];
+  let i = 0;
+  function tryLoad(){
+    if (i >= sources.length) {
+      console.error('Không tải được thư viện Excel từ bất kỳ nguồn nào.');
+      return;
+    }
+    const s = document.createElement('script');
+    s.src = sources[i];
+    s.onload = () => console.log('✅ Đã tải XLSX từ:', sources[i]);
+    s.onerror = () => { i++; tryLoad(); };
+    document.head.appendChild(s);
+  }
+  tryLoad();
+})();
+</script>
+<script>
+  window.addEventListener('load', function(){
+    if (typeof XLSX === 'undefined') {
+      alert('⚠️ Thư viện Excel (XLSX) không tải được — có thể do mạng chặn cdnjs.cloudflare.com. Vui lòng kiểm tra kết nối mạng hoặc đổi mạng khác rồi tải lại trang.');
+    }
+  });
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600;700;900&family=Roboto:wght@400;500;700&family=Montserrat:wght@600;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -572,6 +599,9 @@ select:focus{border-color:var(--n400);box-shadow:0 0 0 3px rgba(30,77,140,.1)}
 }
 .ri-input:focus{border-color:var(--n400)!important;outline:none!important;box-shadow:0 0 0 3px rgba(30,77,140,.1)!important}
 .ri-input.is-override{border-color:var(--b700)!important;background:var(--b100)!important;color:var(--b700)!important;font-weight:900!important}
+.dim-std-match{color:#14532d!important;font-weight:900!important;background:#f0fdf4!important;border-color:#16a34a!important}
+.dim-std-near{color:#92400e!important;font-weight:900!important;background:#fffbeb!important;border-color:#f59e0b!important}
+.dim-std-err{color:#b91c1c!important;font-weight:900!important;background:#fee2e2!important;border-color:#b91c1c!important}
 .ri-calc{font-size:8px;color:var(--s400);line-height:1.3;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 /* KL values inside ri-kl */
 .ri-kl-main{font-size:12px;font-weight:900;color:var(--a700);line-height:1.2;white-space:nowrap}
@@ -1981,6 +2011,7 @@ input:focus-visible,select:focus-visible,button:focus-visible,textarea:focus-vis
           <button class="clear-btn" onclick="clearAll()">🗑 Reset</button>
           <button class="btn-hc" onclick="openHCPicker()">🔬 Độ cứng</button>
           <button class="btn-xl" onclick="exportExcel()">📥 Excel</button>
+		  <button class="btn-gc" onclick="openTkhoModal()">📦 Kho</button>
     </div>
   </div>
 
@@ -2995,7 +3026,7 @@ function openGCPopup(id,k){
   const subEl=document.getElementById(`rgcp-sub-${id}`);
   if(subEl)subEl.textContent=sub;
   document.getElementById(`rgcp-body-${id}`).innerHTML=buildGCPanel(r,k);
-
+  markStdRough(r,k);   // ← thêm dòng này
   panel.classList.add('open');
   const btn=_getBtn(id); if(btn)btn.classList.add('active');
   r.gcOpen=true;
@@ -3101,7 +3132,46 @@ function calcVL(r,k){if(isQuoteCut(r))return 0;if(!r.price)return 0;const ppp=ca
 function isMinApplied(r,k){if(!r.price)return false;const ppp=calcBilled(r,k)*(r.price||0);const cr=getCutRule(r),minPce=Math.max((cr&&cr.minPce)||0,MIN_PCE);return ppp<minPce;}
 const GRADES={C:['S45C','S50C','S55C','Q235','SS400'],N:['Cr12MoV','SKD11','D2','DC53','A8MOD'],H:['SKD61','1.2344','DK1S','FDAC'],P:['SCM440','P20','P20 (1.2311)','S136H','S136','1.2083','2083','718H','1.2738','1.2316H','NAK80']};
 const CAT_LABEL={C:'Carbon',N:'Khuôn nguội',H:'Khuôn nóng',P:'Khuôn nhựa'};
-const STOCK={C:{tam:{w:2200,l:6000},tru:{l:6000}},N:{tam:{w:610,l:5800},tru:{l:6000}},H:{tam:{w:610,l:5800},tru:{l:6000}},P:{tam:{w:1100,l:2200},tru:{l:5800}}};
+const STOCK={C:{tam:{w:2200,l:6000},tru:{l:6000}},N:{tam:{w:610,l:5800},tru:{l:6000}},H:{tam:{w:610,l:5800},tru:{l:6000}},P:{tam:{w:1100,l:2200},tru:{l:5800}}}
+// ── Kho vật liệu (T/Ø/S thô) — có thể chỉnh sửa qua modal ──
+let tKho={
+  C:{tam:[6,8,10,12,14,16,18,20,22,25,28,30,32,35,38,40,45,50,55,60,65,70,75,80,90,100,110,120,130,140,150,160,180,200,220,250,280,300],
+     tru:[10,12,16,20,25,30,35,40,45,50,55,60,65,70,75,80,90,100,110,120,130,140,150,160,180,200,220,250]},
+  N:{tam:[6,8,10,12,14,16,18,20,22,25,30,32,35,40,45,50,55,60,65,70,75,80,90,100,110,120,130,140,150,160,180,200],
+     tru:[10,12,16,20,25,30,35,40,45,50,55,60,65,70,75,80,90,100,110,120,130,140,150,160,180,200]},
+  H:{tam:[6,8,10,12,14,16,18,20,22,25,30,35,40,45,50,55,60,65,70,75,80,90,100,110,120,130,140,150],
+     tru:[10,12,16,20,25,30,35,40,45,50,55,60,65,70,75,80,90,100,110,120,130,140,150]},
+  P:{tam:[20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,110,120,130,140,150,160,170,180,190,200,220,250,300],
+     tru:[20,25,30,35,40,45,50,55,60,65,70,75,80,90,100,110,120,130,140,150,160,170,180,190,200]},
+};
+const TKHO_NEAR=5; // mm
+
+function checkTkho(cat,shapeKey,val){
+  const arr=(tKho[cat]&&tKho[cat][shapeKey])||[];
+  if(!val||!arr.length)return{status:'na'};
+  if(arr.some(x=>Math.abs(x-val)<0.3))return{status:'ok'};
+  let nearest=null,minDiff=Infinity;
+  arr.forEach(x=>{const d=Math.abs(x-val);if(d<minDiff){minDiff=d;nearest=x;}});
+  if(minDiff<=TKHO_NEAR)return{status:'warn',near:nearest};
+  return{status:'err'};
+}
+
+function markStdRough(r,k){
+  const cat=getCat(r.note);
+  const e=getEffRough(r,k);
+  const isTam=r.type==='tam';
+  const shapeKey=isTam?'tam':'tru'; // trụ/lục/bát dùng chung bảng 'tru'
+  const dimKey=isTam?'t':(r.type==='tru'?'d':'s');
+  const val=isTam?e.t:(r.type==='tru'?e.d:e.s);
+  const inp=document.getElementById(`r${r.id}-riinp-${dimKey}`);
+  if(!inp)return;
+  const ck=cat?checkTkho(cat,shapeKey,val):{status:'na'};
+  inp.classList.remove('dim-std-match','dim-std-near','dim-std-err');
+  if(ck.status==='ok')inp.classList.add('dim-std-match');
+  else if(ck.status==='warn')inp.classList.add('dim-std-near');
+  else if(ck.status==='err')inp.classList.add('dim-std-err');
+  inp.title=ck.status==='ok'?'✓ Có sẵn trong kho':ck.status==='warn'?`Gần nhất: ${ck.near}mm`:ck.status==='err'?'Không có trong kho':'';
+};
 const _GRADE_MAP=new Map();Object.entries(GRADES).forEach(([k,a])=>a.forEach(g=>{_GRADE_MAP.set(g.toUpperCase().replace(/\s/g,''),k);}));
 function getCat(n){const v=(n||'').toUpperCase().replace(/\s/g,'');if(_GRADE_MAP.has(v))return _GRADE_MAP.get(v);for(const[k,a]of Object.entries(GRADES)){if(a.some(g=>{const gu=g.toUpperCase().replace(/\s/g,'');return v.includes(gu)||gu.startsWith(v.slice(0,4));}))return k;}return null;}
 function fmt(n){return Math.round(n).toLocaleString('vi-VN')}
@@ -3284,6 +3354,7 @@ function getAllExportRows(){
   });
   return result;
 }
+
 // ── EXPORT EXCEL (viết đúng cho app ATP_QUO — dùng getAllExportRows() có sẵn) ──
 function exportExcel(){
   if (typeof XLSX === 'undefined') {
@@ -3599,10 +3670,11 @@ function updateRoughDOM(r,k){
   if(klMain)klMain.innerHTML=wB?`${fmtF(wB,1)} kg${diff?` <span class="kl-diff">${diff}</span>`:''}`:' —';
   const klSub=$(`r${r.id}-kl-sub`);
   if(klSub)klSub.textContent=`× ${r.qty||1} = ${wB?fmtF(wB*(r.qty||0),1)+' kg':'—'}`;
+  markStdRough(r,k);   // ← thêm dòng này ở cuối
 }
 function _rebuildPanelBody(r,k){
   const p=document.getElementById(`rgcp-body-${r.id}`);
-  if(p)p.innerHTML=buildGCPanel(r,k);
+  if(p){p.innerHTML=buildGCPanel(r,k);markStdRough(r,k);}
 }
 function onRough(id,k,dim,val){const r=getRows(k).find(r=>r.id===id);if(!r)return;if(!r.rough)r.rough={};r.rough[dim]=parseFloat(val)||0;updateRoughDOM(r,k);refreshCells(r,k);updateSummary();}
 function onGCCheck(id,k,key,el){// el = checkbox element (onclick passes this)
@@ -5346,139 +5418,35 @@ ${panel.innerHTML}
   if(w){w.document.write(html);w.document.close();}
   else{const blob=new Blob([html],{type:'text/html'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.target='_blank';a.click();setTimeout(()=>URL.revokeObjectURL(url),3000);}
 }
-</script>
-<script>
-// ============================================
-// CODE CHỐNG COPY VÀ VÔ HIỆU HÓA CHUỘT PHẢI
-// ============================================
 
-// 1️⃣ Vô hiệu hóa chuột phải (contextmenu)
-document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-    return false;
-});
-
-// 2️⃣ Vô hiệu hóa phím tắt copy (Ctrl+C)
-document.addEventListener('copy', function(e) {
-    e.preventDefault();
-    alert('⚠️ Chức năng copy đã bị vô hiệu hóa trên trang này!');
-    return false;
-});
-
-// 3️⃣ Vô hiệu hóa phím tắt cắt (Ctrl+X)
-document.addEventListener('cut', function(e) {
-    e.preventDefault();
-    alert('⚠️ Chức năng cắt đã bị vô hiệu hóa!');
-    return false;
-});
-
-// 4️⃣ Vô hiệu hóa phím tắt paste (Ctrl+V)
-document.addEventListener('paste', function(e) {
-    e.preventDefault();
-    alert('⚠️ Chức năng paste đã bị vô hiệu hóa!');
-    return false;
-});
-
-// 5️⃣ Vô hiệu hóa kéo thả nội dung (drag & drop)
-document.addEventListener('dragstart', function(e) {
-    e.preventDefault();
-    return false;
-});
-
-// 6️⃣ Vô hiệu hóa phím tắt (F12, Ctrl+Shift+I, Ctrl+U, Ctrl+S, Ctrl+P)
-document.addEventListener('keydown', function(e) {
-    // Danh sách phím tắt cần chặn
-    const forbiddenKeys = {
-        123: true,    // F12
-        73: true,     // I (Ctrl+Shift+I)
-        85: true,     // U (Ctrl+U)
-        83: true,     // S (Ctrl+S)
-        80: true,     // P (Ctrl+P)
-        67: true,     // C (Ctrl+C)
-        86: true,     // V (Ctrl+V)
-        88: true      // X (Ctrl+X)
-    };
-    
-    // Kiểm tra Ctrl, Shift, Alt
-    const isCtrl = e.ctrlKey;
-    const isShift = e.shiftKey;
-    const isAlt = e.altKey;
-    
-    // Chặn F12
-    if (e.keyCode === 123) {
-        e.preventDefault();
-        return false;
-    }
-    
-    // Chặn Ctrl+Shift+I (DevTools)
-    if (isCtrl && isShift && e.keyCode === 73) {
-        e.preventDefault();
-        return false;
-    }
-    
-    // Chặn Ctrl+U (Xem nguồn trang)
-    if (isCtrl && e.keyCode === 85) {
-        e.preventDefault();
-        return false;
-    }
-    
-    // Chặn Ctrl+S (Lưu trang)
-    if (isCtrl && e.keyCode === 83) {
-        e.preventDefault();
-        alert('⚠️ Chức năng lưu trang đã bị vô hiệu hóa!');
-        return false;
-    }
-    
-    // Chặn Ctrl+P (In trang)
-    if (isCtrl && e.keyCode === 80) {
-        e.preventDefault();
-        alert('⚠️ Chức năng in trang đã bị vô hiệu hóa!');
-        return false;
-    }
-});
-
-// 7️⃣ Vô hiệu hóa chọn văn bản bằng CSS + JS
-document.querySelector('body').style.userSelect = 'none';
-document.querySelector('body').style.webkitUserSelect = 'none';
-document.querySelector('body').style.msUserSelect = 'none';
-
-// 8️⃣ Thêm CSS ẩn menu chuột phải ảo (cho mobile)
-const style = document.createElement('style');
-style.innerHTML = `
-    img {
-        pointer-events: none;
-        -webkit-touch-callout: none;
-    }
-`;
-document.head.appendChild(style);
-
-console.log('✅ Đã kích hoạt chế độ chống copy và chuột phải!');
+function openTkhoModal(){renderTkhoList();document.getElementById('tkho-overlay').classList.add('open');}
+function closeTkhoModal(){
+  document.getElementById('tkho-overlay').classList.remove('open');
+  [...rows3,...rows5,...rows0].forEach(r=>markStdRough(r,r.kerf));
+}
+function renderTkhoList(){
+  const cat=document.getElementById('tkho-cat').value,shape=document.getElementById('tkho-shape').value;
+  const arr=(tKho[cat]&&tKho[cat][shape])||[];
+  document.getElementById('tkho-list').innerHTML=arr.sort((a,b)=>a-b).map(v=>
+    `<span style="display:inline-flex;align-items:center;gap:4px;background:var(--s100);border-radius:99px;padding:4px 8px;font-size:11px">${v}<button onclick="removeTkho(${v})" style="border:none;background:none;cursor:pointer;color:var(--r700)">✕</button></span>`
+  ).join('')||'<span style="font-size:11px;color:var(--s400)">Chưa có dữ liệu</span>';
+}
+function addTkho(){
+  const cat=document.getElementById('tkho-cat').value,shape=document.getElementById('tkho-shape').value;
+  const v=parseFloat(document.getElementById('tkho-input').value);
+  if(!v)return;
+  if(!tKho[cat])tKho[cat]={tam:[],tru:[]};
+  if(!tKho[cat][shape].includes(v))tKho[cat][shape].push(v);
+  document.getElementById('tkho-input').value='';
+  renderTkhoList();
+}
+function removeTkho(v){
+  const cat=document.getElementById('tkho-cat').value,shape=document.getElementById('tkho-shape').value;
+  tKho[cat][shape]=tKho[cat][shape].filter(x=>x!==v);
+  renderTkhoList();
+}
 </script>
 
-<style>
-/* CSS hỗ trợ chống copy */
-body {
-    user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-}
-
-/* Ngăn chọn ảnh trên mobile */
-img {
-    -webkit-touch-callout: none;
-    pointer-events: none;
-}
-
-/* Ẩn highlight khi chọn văn bản */
-::selection {
-    background: transparent;
-}
-
-::-moz-selection {
-    background: transparent;
-}
-</style>
 <!-- ══════════════════════════════════════════════════════
      MODAL — Phiếu Yêu Cầu Gia Công
      ══════════════════════════════════════════════════════ -->
@@ -5498,6 +5466,34 @@ img {
         <button class="gc-btn gc-btn-close" onclick="closeGCModal()">✕ Đóng</button>
       </div>
       <div id="gc-print-panel"></div>
+    </div>
+  </div>
+</div>
+
+<div class="atp-overlay" id="tkho-overlay" onclick="if(event.target===this)closeTkhoModal()">
+  <div class="atp-sheet">
+    <div class="atp-drag"></div>
+    <div class="atp-head">
+      <div class="atp-head-title">📦 Kho vật liệu (T/Ø thô)
+        <span class="atp-head-sub">Chỉnh size tồn kho để đối chiếu cảnh báo màu</span>
+      </div>
+      <button class="atp-close" onclick="closeTkhoModal()">✕</button>
+    </div>
+    <div class="atp-body">
+      <div style="display:flex;gap:8px;margin-bottom:10px">
+        <select id="tkho-cat" onchange="renderTkhoList()" style="flex:1">
+          <option value="C">Carbon</option><option value="N">Khuôn nguội</option>
+          <option value="H">Khuôn nóng</option><option value="P">Khuôn nhựa</option>
+        </select>
+        <select id="tkho-shape" onchange="renderTkhoList()" style="flex:1">
+          <option value="tam">🟦 Tấm (T)</option><option value="tru">🔵 Trụ/Lục/Bát (Ø)</option>
+        </select>
+      </div>
+      <div id="tkho-list" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px"></div>
+      <div style="display:flex;gap:8px">
+        <input type="number" id="tkho-input" placeholder="VD: 20" style="flex:1">
+        <button class="btn-gc" onclick="addTkho()">＋ Thêm</button>
+      </div>
     </div>
   </div>
 </div>
