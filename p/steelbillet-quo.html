@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -1861,9 +1862,10 @@ input:focus-visible,select:focus-visible,button:focus-visible,textarea:focus-vis
   <div class="tab-panel active" id="panel-3">
     <div class="cut-rule-inline">
       <b>📏 Phí cắt Trụ/Lục/Bát:</b>
-      🟢 Ø&lt;200 &amp; L≤25mm→+3mm·min50k &nbsp;
+      🟢 Ø&lt;200 &amp; L≤25mm→+3mm &nbsp;
       🟢 200≤Ø&lt;300 &amp; L≤35mm→+4mm &nbsp;
       🔴 Ø≥300mm→📞 Báo giá
+	  🔵 Phôi nhỏ min 45k (không GC) hoặc 50k (có GC)
     </div>
     <div class="section" id="sec3">
       <div class="sec-header"><span class="sec-badge badge-3">Đường cắt 3 mm</span><span class="sec-desc">Tấm: +3mm vào R &amp; D · Trụ/Lục/Bát: +3mm vào L</span></div>
@@ -3118,18 +3120,79 @@ function gcArea(key,r){
   return{p6:full,p2m:2*W*L,p1m:W*L,pcd:2*H*L,pcd1:H*L,pcn:2*H*W,pcn1:H*W,
          m6:full,m2:2*W*L,m1:W*L,mcd2:2*H*L,mcd1:H*L,mcn2:2*H*W,mcn1:H*W}[key]||0;
 }
-function calcGC(r){if(r.type!=='tam')return 0;const gc=r.gc||{};let s=0;for(let i=0;i<GC_OPS.length;i++){const op=GC_OPS[i];if(gc[op.key])s+=gcArea(op.key,r)*getGCRate(op.key);}return s;}
+function calcGC(r){
+  if(r.type==='tam'){
+    const gc=r.gc||{};let s=0;
+    for(let i=0;i<GC_OPS.length;i++){const op=GC_OPS[i];if(gc[op.key])s+=gcArea(op.key,r)*getGCRate(op.key);}
+    return s;
+  }
+  return calcCutFee(r);
+}
 function calcHT(r){const g=r.gc||{};if(!g.ht_vac&&!g.ht_oil&&!g.ht_cao&&!g.ht_nit)return 0;const wR=calcReal(r),tot=wR*(r.qty||0);let c=0;if(g.ht_vac)c+=Math.max(tot,getHTMinKg('ht_vac'))*getHTRate('ht_vac');if(g.ht_oil)c+=Math.max(tot,getHTMinKg('ht_oil'))*getHTRate('ht_oil');if(g.ht_cao)c+=parseFloat(g.ht_cao_cost)||0;if(g.ht_nit)c+=Math.max(tot,getHTMinKg('ht_nit'))*getHTRate('ht_nit');return c;}
 function getCutRule(r){if(r.type==='tam')return null;const D=Number(r.type==='tru'?r.d:r.s)||0,L=Number(r.l)||0;if(!D)return null;if(D>=300)return{rule:3,text:`Ø${D}≥300→📞`,cls:'rule-quote',sur:0};if(D<200){if(L>0&&L<=25)return{rule:1,text:`Ø${D}<200·L≤25→+3mm·min50k`,cls:'rule-ok',sur:3,minPce:50000};return{rule:0,text:`Ø${D}<200mm`,cls:'rule-ok',sur:0};}if(L>0&&L<=35)return{rule:2,text:`Ø${D}·200-299·L≤35→+4mm`,cls:'rule-ok',sur:4};return{rule:0,text:`Ø${D}(200-299mm)`,cls:'rule-ok',sur:0};}
+function calcCutFee(r){
+  const cr=getCutRule(r);
+  if(!cr)return 0;
+  if(cr.rule===3)return parseFloat(r.cutQuote)||0; // Ø≥300mm: phí nhập tay
+  const sur=cr.sur||0;
+  if(!sur)return 0;
+  let fee=0;
+  if(r.price){
+    if(r.type==='tru')fee=K_TRU*(+r.d||0)*(+r.d||0)*sur*r.price;
+    else if(r.type==='luc')fee=K_LUC*(+r.s||0)*(+r.s||0)*sur*r.price;
+    else if(r.type==='bat')fee=K_BAT*(+r.s||0)*(+r.s||0)*sur*r.price;
+  }
+  
+  return fee;
+}
 function isQuoteCut(r){if(r.type==='tam')return false;return(Number(r.type==='tru'?r.d:r.s)||0)>=300;}
-function getAutoRough(r,k){const cr=getCutRule(r),sur=(cr&&cr.sur)||0;if(r.kerf===0){const nD=r.nNgang||0,nR=r.nDoc||0,kk=kerf0;if(r.type==='tam')return{t:+r.t||0,w:(+r.w||0)+nR*kk,l:(+r.l||0)+nD*kk};if(r.type==='tru')return{d:+r.d||0,l:(+r.l||0)+nD*kk+sur};return{s:+r.s||0,l:(+r.l||0)+nD*kk+sur};}if(r.type==='tam')return{t:+r.t||0,w:(+r.w||0)+k,l:(+r.l||0)+k};if(r.type==='tru')return{d:+r.d||0,l:(+r.l||0)+k+sur};return{s:+r.s||0,l:(+r.l||0)+k+sur};}
+function getAutoRough(r,k){
+  if(r.kerf===0){
+    const nD=r.nNgang||0,nR=r.nDoc||0,kk=kerf0;
+    if(r.type==='tam')return{t:+r.t||0,w:(+r.w||0)+nR*kk,l:(+r.l||0)+nD*kk};
+    if(r.type==='tru')return{d:+r.d||0,l:(+r.l||0)+nD*kk};
+    return{s:+r.s||0,l:(+r.l||0)+nD*kk};
+  }
+  if(r.type==='tam')return{t:+r.t||0,w:(+r.w||0)+k,l:(+r.l||0)+k};
+  if(r.type==='tru')return{d:+r.d||0,l:(+r.l||0)+k};
+  return{s:+r.s||0,l:(+r.l||0)+k};
+}
 function getEffRough(r,k){const a=getAutoRough(r,k),ro=r.rough||{};if(r.type==='tam')return{t:ro.t>0?ro.t:a.t,w:ro.w>0?ro.w:a.w,l:ro.l>0?ro.l:a.l,ot:ro.t>0,ow:ro.w>0,ol:ro.l>0};if(r.type==='tru')return{d:ro.d>0?ro.d:a.d,l:ro.l>0?ro.l:a.l,od:ro.d>0,ol:ro.l>0};return{s:ro.s>0?ro.s:a.s,l:ro.l>0?ro.l:a.l,os:ro.s>0,ol:ro.l>0};}
 function hasAnyOverride(r){return Object.values(r.rough||{}).some(v=>v>0);}
 function calcReal(r){if(r.type==='tam')return(r.t&&r.w&&r.l)?+r.t*+r.w*+r.l*RHO:0;if(r.type==='tru')return(r.d&&r.l)?Math.PI/4*(+r.d)*(+r.d)*(+r.l)*RHO:0;if(r.type==='luc')return(r.s&&r.l)?+r.s*+r.s*+r.l*K_LUC:0;if(r.type==='bat')return(r.s&&r.l)?+r.s*+r.s*+r.l*K_BAT:0;return 0;}
-function calcBilled(r,k){if(isQuoteCut(r))return 0;const e=getEffRough(r,k);if(r.type==='tam')return(r.t&&r.w&&r.l)?e.t*e.w*e.l*RHO:0;if(r.type==='tru')return(r.d&&r.l)?e.d*e.d*e.l*K_TRU:0;if(r.type==='luc')return(r.s&&r.l)?e.s*e.s*e.l*K_LUC:0;if(r.type==='bat')return(r.s&&r.l)?e.s*e.s*e.l*K_BAT:0;return 0;}
-const MIN_PCE=45000;
-function calcVL(r,k){if(isQuoteCut(r))return 0;if(!r.price)return 0;const ppp=calcBilled(r,k)*r.price;const cr=getCutRule(r),minPce=Math.max((cr&&cr.minPce)||0,MIN_PCE);return Math.max(ppp,minPce)*(r.qty||0);}
-function isMinApplied(r,k){if(!r.price)return false;const ppp=calcBilled(r,k)*(r.price||0);const cr=getCutRule(r),minPce=Math.max((cr&&cr.minPce)||0,MIN_PCE);return ppp<minPce;}
+function calcBilled(r,k){
+  const e=getEffRough(r,k);
+  if(r.type==='tam')return(r.t&&r.w&&r.l)?e.t*e.w*e.l*RHO:0;
+  if(r.type==='tru')return(r.d&&r.l)?e.d*e.d*e.l*K_TRU:0;
+  if(r.type==='luc')return(r.s&&r.l)?e.s*e.s*e.l*K_LUC:0;
+  if(r.type==='bat')return(r.s&&r.l)?e.s*e.s*e.l*K_BAT:0;
+  return 0;
+}
+const MIN_PCE=45000;          // sàn khi KHÔNG có phí GC
+const MIN_PCE_WITH_GC=50000;  // sàn tổng (VL+GC) khi CÓ phí GC nhưng vẫn quá nhỏ
+function calcVL(r,k){
+  if(isQuoteCut(r))return 0;
+  if(!r.price)return 0;
+  const rawVL=calcBilled(r,k)*r.price;
+  const gcPerPc=r.type==='tam'?calcGC(r):calcCutFee(r);
+  let vlPerPc;
+  if(gcPerPc>0 && (rawVL+gcPerPc)<MIN_PCE){
+    vlPerPc=Math.max(MIN_PCE_WITH_GC-gcPerPc,0);
+  }else if(rawVL<MIN_PCE){
+    vlPerPc=MIN_PCE;
+  }else{
+    vlPerPc=rawVL;
+  }
+  return vlPerPc*(r.qty||0);
+}
+function getVLFloorLabel(r,k){
+  if(!r.price)return null;
+  const rawVL=calcBilled(r,k)*(r.price||0);
+  const gcPerPc=r.type==='tam'?calcGC(r):calcCutFee(r);
+  if(gcPerPc>0 && (rawVL+gcPerPc)<MIN_PCE)return'min50k';
+  if(rawVL<MIN_PCE)return'min45k';
+  return null;
+}
 const GRADES={C:['S45C','S50C','S55C','Q235','SS400'],N:['Cr12MoV','SKD11','D2','DC53','A8MOD'],H:['SKD61','1.2344','DK1S','FDAC'],P:['SCM440','P20','P20 (1.2311)','S136H','S136','1.2083','2083','718H','1.2738','1.2316H','NAK80']};
 const CAT_LABEL={C:'Carbon',N:'Khuôn nguội',H:'Khuôn nóng',P:'Khuôn nhựa'};
 const STOCK={C:{tam:{w:2200,l:6000},tru:{l:6000}},N:{tam:{w:610,l:5800},tru:{l:6000}},H:{tam:{w:610,l:5800},tru:{l:6000}},P:{tam:{w:1100,l:2200},tru:{l:5800}}}
@@ -3762,12 +3825,12 @@ function buildGCPanel(r,k){
 function refreshCells(r,k){
   if(isMobileView())refreshCellsCard(r,k);
   const wR=calcReal(r),wB=calcBilled(r,k),vlT=calcVL(r,k),gcT=calcGC(r)*(r.qty||0),htT=calcHT(r);
-  const tot=vlT+gcT+htT,qc=isQuoteCut(r),minA=isMinApplied(r,k);
+  const tot=vlT+gcT+htT,qc=isQuoteCut(r),floorLbl=getVLFloorLabel(r,k);
   const e=getEffRough(r,k),anyOvr=hasAnyOverride(r);
   const set=(id,v)=>{const el=$(id);if(el)el.textContent=v;};
-  set(`r${r.id}-wt-real`,wR?fmtF(wR,1):'—');set(`r${r.id}-wt-billed`,qc?'📞 Báo giá':(wB?fmtF(wB,1):'—'));
+  set(`r${r.id}-wt-real`,wR?fmtF(wR,1):'—');set(`r${r.id}-wt-billed`,wB?fmtF(wB,1):'—');
   set(`r${r.id}-gc`,gcT?fmt(gcT):'—');set(`r${r.id}-ht`,htT?fmt(htT):'—');set(`r${r.id}-total`,tot?fmt(tot):'—');
-  const vlEl=$(`r${r.id}-vl`);if(vlEl){vlEl.innerHTML=vlT?`${fmt(vlT)}${minA?'<span class="rule-min">min50k</span>':''}`:''+'—';vlEl.className='vl-cell'+(minA?' rule-ok':'');}
+  const vlEl=$(`r${r.id}-vl`);if(vlEl){vlEl.innerHTML=vlT?`${fmt(vlT)}${floorLbl?`<span class="rule-min">${floorLbl}</span>`:''}`:'—';vlEl.className='vl-cell'+(floorLbl?' rule-ok':'');}
   const rbox=$(`r${r.id}-rough`);
   if(rbox&&(r.t||r.d||r.s)){
     rbox.classList.add('show');rbox.className=`rough-box show ${anyOvr?'custom-mode':'auto-mode'}`;
@@ -3799,6 +3862,8 @@ function getOrCreateCardList(k){
 
 function dimCardHTML(r){
   const isC=(r.kerf===0);
+  const cr=getCutRule(r);
+  const quoteInput=(cr&&cr.rule===3)?`<div class="rc-cut-row" style="border-color:#b91c1c88;background:#fee2e233"><span class="cut-label" style="color:#b91c1c">📞 Phí cắt:</span><input type="number" class="cut-inp" style="border-color:#b91c1c88;color:#b91c1c;width:80px!important" value="${r.cutQuote||''}" placeholder="đ" min="0" step="1000" oninput="onInput(${r.id},${r.kerf},'cutQuote',this.value)"></div>`:'';
   if(r.type==='tam'){
     const dimRow=`<div class="rc-dim-full">
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">
@@ -3826,6 +3891,7 @@ function dimCardHTML(r){
       </div>
       <span class="cut-rule" id="rc${r.id}-cutrule" style="display:none;margin-top:5px"></span>
       <div class="rough-box" id="rc${r.id}-rough" onclick="openGCPanel(${r.id},${r.kerf})" style="margin-top:5px"></div>
+      ${quoteInput}
     </div>`;
     if(!isC)return dimRow;
     return dimRow+`<div class="rc-cut-row"><span class="cut-label">✂ Ngang÷L:</span><input type="number" class="cut-inp" value="${r.nNgang||0}" min="0" max="20" inputmode="numeric" oninput="onInput(${r.id},0,'nNgang',this.value)"></div>`;
@@ -3837,6 +3903,7 @@ function dimCardHTML(r){
     </div>
     <span class="cut-rule" id="rc${r.id}-cutrule" style="display:none;margin-top:5px"></span>
     <div class="rough-box" id="rc${r.id}-rough" onclick="openGCPanel(${r.id},${r.kerf})" style="margin-top:5px"></div>
+    ${quoteInput}
   </div>`;
   if(!isC)return dimRow;
   return dimRow+`<div class="rc-cut-row"><span class="cut-label">✂ Ngang÷L:</span><input type="number" class="cut-inp" value="${r.nNgang||0}" min="0" max="20" inputmode="numeric" oninput="onInput(${r.id},0,'nNgang',this.value)"></div>`;
@@ -3844,12 +3911,12 @@ function dimCardHTML(r){
 
 function buildCard(r,k){
   const wR=calcReal(r),wB=calcBilled(r,k),vlT=calcVL(r,k),gcT=calcGC(r)*(r.qty||0),htT=calcHT(r),tot=vlT+gcT+htT;
-  const qc=isQuoteCut(r),minA=isMinApplied(r,k);
+  const qc=isQuoteCut(r),floorLbl=getVLFloorLabel(r,k);
   const cat=getCat(r.note);const cl=cat?CAT_LABEL[cat]:'';const st=cat?STOCK[cat]:null;
   let sh='';if(st)sh=r.type==='tam'?`Tấm:${st.tam.w}×${st.tam.l}mm`:`Thanh:${st.tru.l}mm`;
   const opts=[{v:'tam',e:'🟦 Tấm'},{v:'tru',e:'🔵 Trụ tròn'},{v:'luc',e:'🔷 Lục giác'},{v:'bat',e:'🔸 Bát giác'}].map(o=>`<option value="${o.v}"${r.type===o.v?' selected':''}>${o.e}</option>`).join('');
-  const vlHTML=vlT?`${fmt(vlT)}${minA?'<span class="rule-min">min50k</span>':''}`:' —';
-  const billedHTML=qc?'📞 Báo giá':(wB?fmtF(wB,1)+' kg':'—');
+  const vlHTML=vlT?`${fmt(vlT)}${floorLbl?`<span class="rule-min">${floorLbl}</span>`:''}`:' —';
+  const billedHTML=wB?fmtF(wB,1)+' kg':'—';
 
   const div=document.createElement('div');
   div.className='row-card';div.setAttribute('data-id',r.id);
@@ -3906,15 +3973,15 @@ function renderCardList(k){
 function refreshCellsCard(r,k){
   // Sync các giá trị tính toán vào card DOM
   const wR=calcReal(r),wB=calcBilled(r,k),vlT=calcVL(r,k),gcT=calcGC(r)*(r.qty||0),htT=calcHT(r),tot=vlT+gcT+htT;
-  const qc=isQuoteCut(r),minA=isMinApplied(r,k),e=getEffRough(r,k),anyOvr=hasAnyOverride(r);
+  const qc=isQuoteCut(r),floorLbl=getVLFloorLabel(r,k),e=getEffRough(r,k),anyOvr=hasAnyOverride(r);
   const set=(id,v)=>{const el=document.getElementById(id);if(el)el.innerHTML=v;};
 
   // KL phôi
-  const billedHTML=qc?'📞 Báo giá':(wB?fmtF(wB,1)+' kg':'—');
+  const billedHTML=wB?fmtF(wB,1)+' kg':'—';
   set(`rcc${r.id}-wt-billed`,billedHTML);
 
   // Tiền VL
-  const vlHTML=vlT?`${fmt(vlT)}${minA?'<span class="rule-min">min50k</span>':''}`:' —';
+  const vlHTML=vlT?`${fmt(vlT)}${floorLbl?`<span class="rule-min">${floorLbl}</span>`:''}`:' —';
   set(`rcc${r.id}-vl`,vlHTML);
 
   // GC / HT / Total
@@ -3944,7 +4011,7 @@ function refreshCellsCard(r,k){
   else if(hint){hint.textContent='';}
 }
 
-function addRow(kerf,d={}){const id=++uid;getRows(kerf).push({id,kerf,type:d.type||'tam',note:d.note||'',t:d.t||'',w:d.w||'',l:d.l||'',d:d.d||'',s:d.s||'',qty:d.qty||1,price:d.price||'',gc:{},gcOpen:false,nDoc:0,nNgang:0,rough:{},userNote:d.userNote||'',hEdge:d.hEdge||'t'});renderSection(kerf);}
+function addRow(kerf,d={}){const id=++uid;getRows(kerf).push({id,kerf,type:d.type||'tam',note:d.note||'',t:d.t||'',w:d.w||'',l:d.l||'',d:d.d||'',s:d.s||'',qty:d.qty||1,price:d.price||'',gc:{},gcOpen:false,nDoc:0,nNgang:0,rough:{},userNote:d.userNote||'',hEdge:d.hEdge||'t',cutQuote:d.cutQuote||''});renderSection(kerf);}
 function delRow(id,k){const a=getRows(k);const i=a.findIndex(r=>r.id===id);if(i>-1)a.splice(i,1);renderSection(k);updateSummary();}
 function onType(id,k,val){const r=getRows(k).find(r=>r.id===id);if(!r)return;r.type=val;renderSection(k);}
 function onInput(id,k,field,val){const r=getRows(k).find(r=>r.id===id);if(!r)return;if(field==='note'||field==='userNote')r[field]=val;else if(field==='nDoc'||field==='nNgang')r[field]=Math.max(0,parseInt(val)||0);else r[field]=parseFloat(val)||0;refreshCells(r,k);updateSummary();// Rebuild GC panel nếu đang mở cho row này (cập nhật disabled state)
@@ -3985,9 +4052,10 @@ function dimCell(r){
   const isC=(r.kerf===0),cr=getCutRule(r);
   const rb=cr?`<div><span class="cut-rule ${cr.cls}" id="r${r.id}-cutrule">${cr.text}</span></div>`:`<span class="cut-rule" id="r${r.id}-cutrule" style="display:none"></span>`;
   const roughBox=`<div class="rough-box" id="r${r.id}-rough" onclick="openGCPanel(${r.id},${r.kerf})"></div>`;
+  const quoteInput=(cr&&cr.rule===3)?`<div class="cut-inputs" style="border-color:#b91c1c88;background:#fee2e233"><span class="cut-label" style="color:#b91c1c">📞 Phí cắt:</span><input type="number" class="cut-inp" style="border-color:#b91c1c88;color:#b91c1c;width:70px!important" value="${r.cutQuote||''}" placeholder="đ" min="0" step="1000" oninput="onInput(${r.id},${r.kerf},'cutQuote',this.value)"></div>`:'';
   if(r.type==='tam'){const b=`<div class="dim-group"><span class="dim-label">Dày</span><input type="number" value="${r.t||''}" placeholder="mm" min="0" step="0.1" oninput="onInput(${r.id},${r.kerf},'t',this.value)"><span class="dim-label">×R</span><input type="number" value="${r.w||''}" placeholder="mm" min="0" step="1" oninput="onInput(${r.id},${r.kerf},'w',this.value)"><span class="dim-label">×D</span><input type="number" value="${r.l||''}" placeholder="mm" min="0" step="1" oninput="onInput(${r.id},${r.kerf},'l',this.value)"></div><span class="cut-rule" id="r${r.id}-cutrule" style="display:none"></span>${roughBox}`;if(!isC)return b;return b+`<div class="cut-inputs"><span class="cut-label">✂</span><span class="cut-label">Dọc÷R:</span><input type="number" class="cut-inp" value="${r.nDoc||0}" min="0" max="20" step="1" oninput="onInput(${r.id},0,'nDoc',this.value)"><span class="cut-label" style="margin-left:3px">Ngang÷D:</span><input type="number" class="cut-inp" value="${r.nNgang||0}" min="0" max="20" step="1" oninput="onInput(${r.id},0,'nNgang',this.value)"></div>`;}
-  if(r.type==='tru'){const b=`<div class="dim-group"><span class="dim-label">Ø</span><input type="number" value="${r.d||''}" placeholder="mm" min="0" step="0.1" oninput="onInput(${r.id},${r.kerf},'d',this.value)"><span class="dim-label">×Dài</span><input type="number" value="${r.l||''}" placeholder="mm" min="0" step="1" oninput="onInput(${r.id},${r.kerf},'l',this.value)"></div>${rb}${roughBox}`;if(!isC)return b;return b+`<div class="cut-inputs"><span class="cut-label">✂ Ngang÷L:</span><input type="number" class="cut-inp" value="${r.nNgang||0}" min="0" max="20" step="1" oninput="onInput(${r.id},0,'nNgang',this.value)"></div>`;}
-  const b=`<div class="dim-group"><span class="dim-label">S⊿</span><input type="number" value="${r.s||''}" placeholder="mm" min="0" step="0.1" oninput="onInput(${r.id},${r.kerf},'s',this.value)"><span class="dim-label">×Dài</span><input type="number" value="${r.l||''}" placeholder="mm" min="0" step="1" oninput="onInput(${r.id},${r.kerf},'l',this.value)"></div>${rb}${roughBox}`;if(!isC)return b;return b+`<div class="cut-inputs"><span class="cut-label">✂ Ngang÷L:</span><input type="number" class="cut-inp" value="${r.nNgang||0}" min="0" max="20" step="1" oninput="onInput(${r.id},0,'nNgang',this.value)"></div>`;
+  if(r.type==='tru'){const b=`<div class="dim-group"><span class="dim-label">Ø</span><input type="number" value="${r.d||''}" placeholder="mm" min="0" step="0.1" oninput="onInput(${r.id},${r.kerf},'d',this.value)"><span class="dim-label">×Dài</span><input type="number" value="${r.l||''}" placeholder="mm" min="0" step="1" oninput="onInput(${r.id},${r.kerf},'l',this.value)"></div>${rb}${roughBox}${quoteInput}`;if(!isC)return b;return b+`<div class="cut-inputs"><span class="cut-label">✂ Ngang÷L:</span><input type="number" class="cut-inp" value="${r.nNgang||0}" min="0" max="20" step="1" oninput="onInput(${r.id},0,'nNgang',this.value)"></div>`;}
+  const b=`<div class="dim-group"><span class="dim-label">S⊿</span><input type="number" value="${r.s||''}" placeholder="mm" min="0" step="0.1" oninput="onInput(${r.id},${r.kerf},'s',this.value)"><span class="dim-label">×Dài</span><input type="number" value="${r.l||''}" placeholder="mm" min="0" step="1" oninput="onInput(${r.id},${r.kerf},'l',this.value)"></div>${rb}${roughBox}${quoteInput}`;if(!isC)return b;return b+`<div class="cut-inputs"><span class="cut-label">✂ Ngang÷L:</span><input type="number" class="cut-inp" value="${r.nNgang||0}" min="0" max="20" step="1" oninput="onInput(${r.id},0,'nNgang',this.value)"></div>`;
 }
 function vbc(k){return k===3?'val-b3':k===5?'val-b5':'val-bc';}
 
@@ -4061,11 +4129,11 @@ function renderSection(k){
   const tbody=getTbody(k);tbody.innerHTML='';
   getRows(k).forEach(r=>{
     const wR=calcReal(r),wB=calcBilled(r,k),vlT=calcVL(r,k),gcT=calcGC(r)*(r.qty||0),htT=calcHT(r),tot=vlT+gcT+htT;
-    const qc=isQuoteCut(r),minA=isMinApplied(r,k);
+    const qc=isQuoteCut(r),floorLbl=getVLFloorLabel(r,k);
     const cat=getCat(r.note);const cl=cat?CAT_LABEL[cat]:'';const st=cat?STOCK[cat]:null;
     let sh='';if(st)sh=r.type==='tam'?`Tấm:${st.tam.w}×${st.tam.l}mm`:`Thanh:${st.tru.l}mm`;
     const opts=[{v:'tam',e:'🟦 Tấm'},{v:'tru',e:'🔵 Trụ tròn'},{v:'luc',e:'🔷 Lục giác'},{v:'bat',e:'🔸 Bát giác'}].map(o=>`<option value="${o.v}"${r.type===o.v?' selected':''}>${o.e}</option>`).join('');
-    const vlHTML=vlT?`${fmt(vlT)}${minA?'<span class="rule-min">min50k</span>':''}`:''+'—';
+    const vlHTML=vlT?`${fmt(vlT)}${floorLbl?`<span class="rule-min">${floorLbl}</span>`:''}`:'—';
     const tr=document.createElement('tr');tr.setAttribute('data-id',r.id);
     tr.innerHTML=`<td><div class="action-cell"><button class="del-btn" onclick="delRow(${r.id},${k})">✕</button><button class="gc-btn" data-id="${r.id}" onclick="toggleGC(${r.id},${k})">⚙</button></div></td>
       <td><select onchange="onType(${r.id},${k},this.value)">${opts}</select></td>
@@ -4073,9 +4141,9 @@ function renderSection(k){
       <td>${dimCell(r)}</td>
       <td class="td-sl"><input type="number" value="${r.qty||1}" min="1" step="1" oninput="onInput(${r.id},${k},'qty',this.value)"></td>
       <td class="val col-real" id="r${r.id}-wt-real">${wR?fmtF(wR,1):'—'}</td>
-      <td class="${qc?'val-quote':vbc(k)}" id="r${r.id}-wt-billed">${qc?'📞 Báo giá':(wB?fmtF(wB,1):'—')}</td>
+      <td class="${vbc(k)}" id="r${r.id}-wt-billed">${wB?fmtF(wB,1):'—'}</td>
       <td><input type="number" value="${r.price||''}" placeholder="0" min="0" step="1000" oninput="onInput(${r.id},${k},'price',this.value)"></td>
-      <td class="vl-cell${minA?' rule-ok':''}" id="r${r.id}-vl">${vlHTML}</td>
+      <td class="vl-cell${floorLbl?' rule-ok':''}" id="r${r.id}-vl">${vlHTML}</td>
       <td class="val-gc" id="r${r.id}-gc">${gcT?fmt(gcT):'—'}</td>
       <td class="val-ht" id="r${r.id}-ht">${htT?fmt(htT):'—'}</td>
       <td class="val-total" id="r${r.id}-total">${tot?fmt(tot):'—'}</td>
