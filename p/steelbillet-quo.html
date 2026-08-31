@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -3507,8 +3508,8 @@ function exportPDF(){
   const ciContact  =($('ci-contact')  .value||'').trim();
   const ciOfferNo  =($('ci-offerno')  .value||'').trim();
   const ciTolerance=($('ci-tolerance').value||'').trim();
-  const totalVL=rows.reduce((s,r)=>s+r.vlCost,0);
-  const totalGC=rows.reduce((s,r)=>s+r.gcCost,0);
+    const totalVL=rows.reduce((s,r)=>s+r.vlCost,0);
+  const totalGC=rows.reduce((s,r)=>s+(r.gcCost||0)+(r.htCost||0),0);
   const totalAmt=rows.reduce((s,r)=>s+r.total,0);
   const totalBilledWt=rows.reduce((s,r)=>s+(r.weight||0)*(r.qty||1),0);
   const vatAmt=Math.round(totalAmt*vatRate/100);
@@ -3519,9 +3520,10 @@ function exportPDF(){
   const dateStr=`${String(now.getDate()).padStart(2,'0')}-${months[now.getMonth()]}`;
   const yearStr=now.getFullYear();
 
-  const rowsHTML=rows.map(r=>{
+    const rowsHTML=rows.map(r=>{
     const icon={'Tấm':'','Trụ Ø':'Ø','Lục ⊿':'⊿','Bát ⊿':'⊿'}[r.shape]||'';
     const T_display=r.shape!=='Tấm'&&r.T?`${icon}${r.T}`:r.T||'';
+    const gcHtTotal=(r.gcCost||0)+(r.htCost||0);
     return `<tr>
       <td class="ctr">${r.stt}</td>
       <td><b>${r.grade}</b>${r.shape!=='Tấm'?` <span style="font-size:8px;color:#666">(${r.shape})</span>`:''}  </td>
@@ -3532,7 +3534,7 @@ function exportPDF(){
       <td class="num">${r.price?fmt(r.price):''}</td>
       <td class="num">${r.weight?(r.weight*r.qty).toFixed(1):''}</td>
       <td class="num">${r.vlCost?fmt(r.vlCost):''}</td>
-      <td class="num">${r.gcCost?fmt(r.gcCost):''}</td>
+      <td class="num">${gcHtTotal?fmt(gcHtTotal):''}</td>
       <td class="num bold">${r.total?fmt(r.total):''}</td>
       <td>${r.note||''}</td>
     </tr>`;
