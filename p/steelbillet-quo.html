@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -3170,20 +3169,14 @@ function calcBilled(r,k){
 }
 const MIN_PCE=45000;          // sàn khi KHÔNG có phí GC
 const MIN_PCE_WITH_GC=50000;  // sàn tổng (VL+GC) khi CÓ phí GC nhưng vẫn quá nhỏ
-function calcVL(r,k){
-  if(isQuoteCut(r))return 0;
-  if(!r.price)return 0;
-  const rawVL=calcBilled(r,k)*r.price;
+function getVLFloorLabel(r,k){
+  if(!r.price)return null;
+  const rawVL=calcBilled(r,k)*(r.price||0);
   const gcPerPc=r.type==='tam'?calcGC(r):calcCutFee(r);
-  let vlPerPc;
-  if(gcPerPc>0 && (rawVL+gcPerPc)<MIN_PCE){
-    vlPerPc=Math.max(MIN_PCE_WITH_GC-gcPerPc,0);
-  }else if(rawVL<MIN_PCE){
-    vlPerPc=MIN_PCE;
-  }else{
-    vlPerPc=rawVL;
+  if(gcPerPc>0){
+    return (rawVL+gcPerPc)<MIN_PCE ? 'min50k' : null;
   }
-  return vlPerPc*(r.qty||0);
+  return rawVL<MIN_PCE ? 'min45k' : null;
 }
 function getVLFloorLabel(r,k){
   if(!r.price)return null;
