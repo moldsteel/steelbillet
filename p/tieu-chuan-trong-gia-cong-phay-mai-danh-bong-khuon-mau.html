@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tiêu chuẩn ngành thép trong gia công phay – mài – đánh bóng khuôn mẫu | MoldSteel VN</title>
+<meta name="description" content="Hệ thống hoá dung sai ISO 2768, độ nhám Ra/Rz theo từng công đoạn, và cấp đánh bóng SPI/VDI 3400 dành cho gia công khuôn mẫu — kèm lưu ý riêng cho SKD11, SKD61/H13, NAK80, S136.">
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-PHT9D4SC');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '964972156428094');
+fbq('track', 'PageView');
+</script>
+<!-- End Meta Pixel -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;700&family=Nunito:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --graphite-900:#1B1F24;
+    --graphite-700:#2C333A;
+    --steel-500:#4C6B82;
+    --steel-300:#7C97A9;
+    --amber-500:#D98C3D;
+    --paper-50:#F2F4F5;
+    --paper-0:#FFFFFF;
+    --ink-800:#20242A;
+    --ink-600:#4A525A;
+    --line-200:#D7DDE1;
+    --line-100:#E7EBED;
+    --radius:3px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper-50);
+    color:var(--ink-800);
+    font-family:'Nunito',sans-serif;
+    line-height:1.65;
+    font-size:17px;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Comfortaa',sans-serif;
+    font-weight:700;
+    color:var(--graphite-900);
+    line-height:1.3;
+    margin:0 0 .5em;
+  }
+  .mono{font-family:'JetBrains Mono',monospace;}
+  a{color:var(--steel-500);}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    background:
+      linear-gradient(180deg, rgba(27,31,36,.94), rgba(27,31,36,.86)),
+      repeating-linear-gradient(0deg, rgba(255,255,255,.035) 0 1px, transparent 1px 32px),
+      repeating-linear-gradient(90deg, rgba(255,255,255,.035) 0 1px, transparent 1px 32px);
+    color:#EDEFF0;
+    padding:72px 24px 56px;
+  }
+  .hero-inner{max-width:760px;margin:0 auto;}
+  .kicker{
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px;
+    letter-spacing:.04em;
+    color:var(--amber-500);
+    margin-bottom:14px;
+  }
+  .hero h1{
+    color:#fff;
+    font-size:clamp(28px,4vw,42px);
+    max-width:14ch;
+  }
+  .hero p.lede{
+    color:#C4CBD1;
+    font-size:18px;
+    max-width:56ch;
+    margin-top:18px;
+  }
+  .hero-meta{
+    margin-top:32px;
+    display:flex;
+    gap:24px;
+    flex-wrap:wrap;
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px;
+    color:var(--steel-300);
+  }
+
+  /* ---------- Layout ---------- */
+  main{max-width:760px;margin:0 auto;padding:56px 24px 96px;}
+  .wide{max-width:920px;margin-left:auto;margin-right:auto;padding-left:24px;padding-right:24px;}
+  section{margin-bottom:56px;}
+  h2{font-size:24px;border-top:1px solid var(--line-200);padding-top:28px;}
+  h2 .num{
+    font-family:'JetBrains Mono',monospace;
+    font-weight:500;
+    color:var(--steel-500);
+    font-size:15px;
+    display:block;
+    margin-bottom:6px;
+  }
+  h3{font-size:18px;margin-top:28px;}
+  p{margin:0 0 16px;color:var(--ink-800);}
+  ul,ol{margin:0 0 16px;padding-left:22px;}
+  li{margin-bottom:8px;}
+  strong{color:var(--graphite-900);}
+
+  /* ---------- Tables ---------- */
+  .table-wrap{overflow-x:auto;margin:20px 0 28px;border:1px solid var(--line-200);border-radius:var(--radius);}
+  table{width:100%;border-collapse:collapse;background:var(--paper-0);font-size:14.5px;}
+  caption{
+    text-align:left;
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    color:var(--ink-600);
+    padding:10px 14px;
+    background:var(--line-100);
+    border-bottom:1px solid var(--line-200);
+  }
+  th,td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--line-100);}
+  th{
+    font-family:'Nunito',sans-serif;
+    font-weight:700;
+    color:var(--graphite-900);
+    background:#F8F9FA;
+    font-size:13.5px;
+  }
+  td.num, th.num{font-family:'JetBrains Mono',monospace;}
+  tr:last-child td{border-bottom:none;}
+  tr:hover td{background:#FAFBFB;}
+
+  /* ---------- Callouts ---------- */
+  .note{
+    border-left:3px solid var(--amber-500);
+    background:#FBF3E8;
+    padding:14px 18px;
+    border-radius:0 var(--radius) var(--radius) 0;
+    font-size:15.5px;
+    margin:20px 0;
+  }
+  .note strong{color:#8A5A1E;}
+
+  /* ---------- Diagram panels ---------- */
+  .panel{
+    background:var(--graphite-900);
+    border-radius:6px;
+    padding:32px 28px;
+    margin:32px 0;
+    color:#DEE2E4;
+  }
+  .panel-label{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    letter-spacing:.03em;
+    color:var(--steel-300);
+    margin-bottom:18px;
+  }
+  .panel svg{width:100%;height:auto;display:block;}
+
+  /* ---------- Flow diagram (SVG) ---------- */
+  .flow-step text{font-family:'Nunito',sans-serif;}
+  .flow-step .lbl{font-size:12.5px;font-weight:700;fill:#EDEFF0;}
+  .flow-step .sub{font-family:'JetBrains Mono',monospace;font-size:10.5px;fill:#8FA3B0;}
+
+  /* summary box */
+  .summary{
+    background:var(--graphite-900);
+    color:#fff;
+    border-radius:6px;
+    padding:32px;
+    margin-top:8px;
+  }
+  .summary h2{border:none;color:#fff;padding-top:0;}
+  .summary ol{counter-reset:step;list-style:none;padding:0;}
+  .summary li{
+    counter-increment:step;
+    position:relative;
+    padding-left:38px;
+    margin-bottom:16px;
+    color:#D2D7DA;
+  }
+  .summary li::before{
+    content:counter(step);
+    position:absolute;left:0;top:0;
+    font-family:'JetBrains Mono',monospace;
+    color:var(--amber-500);
+    border:1px solid var(--steel-500);
+    width:24px;height:24px;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:12px;
+  }
+
+  footer{
+    max-width:760px;margin:0 auto;padding:0 24px 64px;
+    font-size:13.5px;color:var(--ink-600);
+    border-top:1px solid var(--line-200);
+    padding-top:24px;
+  }
+
+  @media (max-width:600px){
+    .hero{padding:52px 20px 40px;}
+    main{padding:40px 20px 64px;}
+    h2{font-size:21px;}
+  }
+</style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PHT9D4SC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="kicker">MOLDSTEEL VN · KIẾN THỨC GIA CÔNG</div>
+    <h1>Tiêu chuẩn ngành thép trong gia công phay – mài – đánh bóng khuôn mẫu</h1>
+    <p class="lede">Hệ thống hoá dung sai ISO 2768, độ nhám Ra/Rz theo từng công đoạn, và cấp đánh bóng SPI / VDI 3400 — để đọc đúng bản vẽ và báo giá đúng công đoạn cần thiết.</p>
+    <div class="hero-meta">
+      <span>ISO 2768</span>
+      <span>ISO 21920 / Ra·Rz</span>
+      <span>SPI A–D</span>
+      <span>VDI 3400</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section id="intro">
+  <p>Khi báo giá hoặc bàn giao phôi thép khuôn mẫu (SKD11, SKD61/H13, NAK80, P20/718H, S136...), bản vẽ khách hàng thường chỉ ghi vài ký hiệu ngắn gọn — <span class="mono">Ra 0.8</span>, <span class="mono">ISO 2768-mK</span>, hay "đánh bóng B2". Đọc đúng các ký hiệu này giúp:</p>
+  <ul>
+    <li>Báo giá đúng công đoạn cần thiết — phay tinh là đủ, hay bắt buộc phải mài và đánh bóng tay.</li>
+    <li>Tránh tranh chấp nghiệm thu khi hai bên hiểu khác nhau về cùng một con số trên bản vẽ.</li>
+    <li>Tư vấn đúng mác thép — không phải mác nào cũng đạt mọi cấp độ nhám/dung sai với chi phí hợp lý.</li>
+  </ul>
+  <p>Bài viết hệ thống hoá ba nhóm tiêu chuẩn thường gặp trong chuỗi gia công khuôn: <strong>dung sai kích thước – hình học</strong> (ISO 2768), <strong>độ nhám bề mặt</strong> (Ra/Rz theo ISO 21920, trước đây là ISO 4287/1302), và <strong>cấp đánh bóng khuôn</strong> (SPI, VDI 3400).</p>
+</section>
+
+<section id="chain">
+  <h2><span class="num">02</span>Chuỗi công đoạn và khả năng đạt được</h2>
+  <p>Mỗi bước trong chuỗi gia công chỉ cải thiện được nhám và dung sai trong một khoảng nhất định — hiểu rõ khoảng này giúp không "đặt hàng thừa công đoạn".</p>
+
+  <div class="panel">
+    <div class="panel-label">SƠ ĐỒ CHUỖI GIA CÔNG — TỪ PHÔI ĐẾN LÒNG KHUÔN HOÀN THIỆN</div>
+    <svg viewBox="0 0 920 200" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="#5C6B76"/>
+        </marker>
+      </defs>
+      <!-- baseline -->
+      <line x1="40" y1="100" x2="880" y2="100" stroke="#3A424A" stroke-width="1.5" marker-end="url(#arrow)"/>
+      <!-- steps -->
+      <g class="flow-step">
+        <!-- 1 -->
+        <circle cx="70" cy="100" r="8" fill="#4C6B82"/>
+        <text x="70" y="76" text-anchor="middle" class="lbl">Phôi thép</text>
+        <text x="70" y="130" text-anchor="middle" class="sub">tiện/xẻ theo kích</text>
+
+        <!-- 2 -->
+        <circle cx="230" cy="100" r="8" fill="#4C6B82"/>
+        <text x="230" y="76" text-anchor="middle" class="lbl">Phay thô</text>
+        <text x="230" y="130" text-anchor="middle" class="sub">Ra 6.3–12.5 µm</text>
+
+        <!-- 3 -->
+        <circle cx="390" cy="100" r="8" fill="#4C6B82"/>
+        <text x="390" y="76" text-anchor="middle" class="lbl">Phay tinh</text>
+        <text x="390" y="130" text-anchor="middle" class="sub">Ra 1.6–3.2 µm</text>
+
+        <!-- 4 heat treat (amber) -->
+        <circle cx="550" cy="100" r="8" fill="#D98C3D"/>
+        <text x="550" y="76" text-anchor="middle" class="lbl">Nhiệt luyện</text>
+        <text x="550" y="130" text-anchor="middle" class="sub">tôi + ram (nếu cần)</text>
+
+        <!-- 5 -->
+        <circle cx="710" cy="100" r="8" fill="#4C6B82"/>
+        <text x="710" y="76" text-anchor="middle" class="lbl">Mài tinh</text>
+        <text x="710" y="130" text-anchor="middle" class="sub">Ra 0.2–1.6 µm</text>
+
+        <!-- 6 -->
+        <circle cx="860" cy="100" r="8" fill="#4C6B82"/>
+        <text x="860" y="76" text-anchor="middle" class="lbl">Đánh bóng</text>
+        <text x="860" y="130" text-anchor="middle" class="sub">SPI A–D</text>
+      </g>
+      <text x="550" y="168" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10.5" fill="#D98C3D">với thép tôi sau gia công: mài tinh &amp; đánh bóng luôn thực hiện SAU nhiệt luyện</text>
+    </svg>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <caption>Bảng 1 — Ra và dung sai điển hình theo công đoạn</caption>
+      <thead>
+        <tr><th>Công đoạn</th><th>Mục tiêu</th><th class="num">Ra (µm)</th><th>Dung sai kích thước</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Phay thô</td><td>Bóc tách nhanh lượng dư</td><td class="num">6.3 – 12.5</td><td>ISO 2768-c/v</td></tr>
+        <tr><td>Phay bán tinh</td><td>Giảm lượng dư trước mài</td><td class="num">3.2 – 6.3</td><td>ISO 2768-m</td></tr>
+        <tr><td>Phay tinh</td><td>Gần hình dạng cuối</td><td class="num">1.6 – 3.2</td><td>ISO 2768-m/f</td></tr>
+        <tr><td>Mài phẳng / mài tròn</td><td>Đạt dung sai chặt</td><td class="num">0.2 – 1.6</td><td>ISO 2768-f, IT6–IT8</td></tr>
+        <tr><td>EDM (xung tia lửa điện)</td><td>Gia công hốc/hình phức tạp</td><td class="num">0.3 – 3.2</td><td>tuỳ máy (xem VDI 3400)</td></tr>
+        <tr><td>Đánh bóng</td><td>Đạt độ bóng lòng khuôn</td><td class="num">0.012 – 0.5</td><td>không cải thiện dung sai kích thước</td></tr>
+        <tr><td>Doa / lapping</td><td>Bề mặt siêu tinh, làm kín</td><td class="num">0.01 – 0.2</td><td>IT4–IT6</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:14px;color:var(--ink-600);">Đây là khoảng tham khảo phổ biến trong ngành, không phải giới hạn tuyệt đối — kết quả thực tế còn phụ thuộc độ cứng vật liệu, tình trạng dao/đá mài, độ cứng vững máy và thông số cắt.</p>
+</section>
+
+<section id="tolerance">
+  <h2><span class="num">03</span>Dung sai kích thước và hình học — ISO 2768</h2>
+  <p>ISO 2768 là tiêu chuẩn dung sai chung, áp dụng khi bản vẽ không ghi dung sai riêng cho từng kích thước. Gồm hai phần:</p>
+  <ul>
+    <li><strong>ISO 2768-1</strong>: dung sai kích thước dài/góc, 4 cấp <span class="mono">f</span> (mịn) – <span class="mono">m</span> (trung bình) – <span class="mono">c</span> (thô) – <span class="mono">v</span> (rất thô).</li>
+    <li><strong>ISO 2768-2</strong>: dung sai hình học (độ thẳng, độ phẳng, độ vuông góc, độ đối xứng, độ đảo), 3 cấp <span class="mono">H</span> – <span class="mono">K</span> – <span class="mono">L</span>.</li>
+  </ul>
+
+  <div class="table-wrap">
+    <table>
+      <caption>Bảng 2 — Dung sai kích thước dài, ISO 2768-1 (mm)</caption>
+      <thead>
+        <tr><th>Khoảng kích thước</th><th class="num">f (mịn)</th><th class="num">m (trung bình)</th><th class="num">c (thô)</th><th class="num">v (rất thô)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>0.5 – 3</td><td class="num">±0.05</td><td class="num">±0.1</td><td class="num">±0.2</td><td class="num">–</td></tr>
+        <tr><td>&gt;3 – 6</td><td class="num">±0.05</td><td class="num">±0.1</td><td class="num">±0.3</td><td class="num">±0.5</td></tr>
+        <tr><td>&gt;6 – 30</td><td class="num">±0.1</td><td class="num">±0.2</td><td class="num">±0.5</td><td class="num">±1.0</td></tr>
+        <tr><td>&gt;30 – 120</td><td class="num">±0.15</td><td class="num">±0.3</td><td class="num">±0.8</td><td class="num">±1.5</td></tr>
+        <tr><td>&gt;120 – 400</td><td class="num">±0.2</td><td class="num">±0.5</td><td class="num">±1.2</td><td class="num">±2.5</td></tr>
+        <tr><td>&gt;400 – 1000</td><td class="num">±0.3</td><td class="num">±0.8</td><td class="num">±2.0</td><td class="num">±4.0</td></tr>
+        <tr><td>&gt;1000 – 2000</td><td class="num">±0.5</td><td class="num">±1.2</td><td class="num">±3.0</td><td class="num">±6.0</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <caption>Bảng 3 — Dung sai độ phẳng / độ thẳng, ISO 2768-2 (mm)</caption>
+      <thead>
+        <tr><th>Khoảng kích thước</th><th class="num">H</th><th class="num">K</th><th class="num">L</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>≤10</td><td class="num">0.02</td><td class="num">0.05</td><td class="num">0.1</td></tr>
+        <tr><td>&gt;10 – 30</td><td class="num">0.05</td><td class="num">0.1</td><td class="num">0.2</td></tr>
+        <tr><td>&gt;30 – 100</td><td class="num">0.1</td><td class="num">0.2</td><td class="num">0.4</td></tr>
+        <tr><td>&gt;100 – 300</td><td class="num">0.2</td><td class="num">0.4</td><td class="num">0.8</td></tr>
+        <tr><td>&gt;300 – 1000</td><td class="num">0.3</td><td class="num">0.6</td><td class="num">1.2</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note"><strong>Ký hiệu thường gặp nhất trên bản vẽ khuôn:</strong> <span class="mono">ISO 2768-mK</span> — dung sai kích thước trung bình + dung sai hình học trung bình. Mức này phù hợp cho bề mặt lòng khuôn không cần lắp ghép chính xác; vị trí định vị, mặt phân khuôn, lỗ dẫn hướng nên có dung sai riêng chặt hơn (IT6–IT7), không dựa vào dung sai chung.</div>
+
+  <p style="font-size:14.5px;color:var(--ink-600);">ISO 2768 <strong>không</strong> bao trùm dung sai ren (theo ISO 965), độ nhám bề mặt, hay dung sai lắp ghép có độ hở/độ dôi (theo hệ ISO 286/IT-grade) — các mục này phải ghi riêng trên bản vẽ.</p>
+</section>
+
+<section id="roughness">
+  <h2><span class="num">04</span>Độ nhám bề mặt — Ra, Rz và ký hiệu N</h2>
+  <p><strong>Ra</strong> (Roughness Average) là giá trị trung bình số học độ lệch profile so với đường tâm — thông số phổ biến nhất, dễ đo, dễ so sánh. <strong>Rz</strong> là chênh lệch trung bình giữa đỉnh cao nhất và đáy sâu nhất trong các đoạn lấy mẫu — nhạy hơn với khuyết tật cục bộ, thường dùng cho bề mặt làm kín. Ký hiệu hiện hành trên bản vẽ theo <strong>ISO 21920</strong> (thay ISO 4287/1302 cũ); cấp N (N1–N12) là ký hiệu cũ vẫn còn gặp trên bản vẽ Nhật/cũ.</p>
+
+  <div class="panel">
+    <div class="panel-label">SO SÁNH TRỰC QUAN PROFILE BỀ MẶT THEO Ra</div>
+    <svg viewBox="0 0 920 190" xmlns="http://www.w3.org/2000/svg">
+      <!-- 4 profile waves, decreasing roughness -->
+      <g stroke="#7C97A9" stroke-width="1.5" fill="none">
+        <path d="M20,60 q10,-28 20,0 t20,0 t20,0 t20,0 t20,0 t20,0 t20,0 t20,0 t20,0"/>
+        <path d="M240,60 q10,-16 20,0 t20,0 t20,0 t20,0 t20,0 t20,0 t20,0 t20,0 t20,0"/>
+        <path d="M460,60 q10,-8 20,0 t20,0 t20,0 t20,0 t20,0 t20,0 t20,0 t20,0 t20,0"/>
+        <path d="M680,60 q10,-3 20,0 t20,0 t20,0 t20,0 t20,0 t20,0 t20,0 t20,0 t20,0"/>
+      </g>
+      <g font-family="JetBrains Mono, monospace" font-size="12" fill="#DEE2E4">
+        <text x="110" y="110">Ra 6.3–12.5</text>
+        <text x="330" y="110">Ra 1.6–3.2</text>
+        <text x="550" y="110">Ra 0.4–0.8</text>
+        <text x="770" y="110">Ra ≤ 0.1</text>
+      </g>
+      <g font-family="Nunito, sans-serif" font-size="12.5" fill="#8FA3B0">
+        <text x="110" y="130">phay thô</text>
+        <text x="330" y="130">phay tinh</text>
+        <text x="550" y="130">mài tinh</text>
+        <text x="770" y="130">đánh bóng / lapping</text>
+      </g>
+    </svg>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <caption>Bảng 4 — Quy đổi cấp N ↔ Ra</caption>
+      <thead><tr><th>Cấp N</th><th class="num">Ra (µm)</th><th class="num">Ra (µin)</th></tr></thead>
+      <tbody>
+        <tr><td>N12</td><td class="num">50</td><td class="num">2000</td></tr>
+        <tr><td>N10</td><td class="num">12.5</td><td class="num">500</td></tr>
+        <tr><td>N8</td><td class="num">3.2</td><td class="num">125</td></tr>
+        <tr><td>N7</td><td class="num">1.6</td><td class="num">63</td></tr>
+        <tr><td>N6</td><td class="num">0.8</td><td class="num">32</td></tr>
+        <tr><td>N5</td><td class="num">0.4</td><td class="num">16</td></tr>
+        <tr><td>N4</td><td class="num">0.2</td><td class="num">8</td></tr>
+        <tr><td>N3</td><td class="num">0.1</td><td class="num">4</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <caption>Bảng 5 — Chọn Ra theo chức năng bề mặt</caption>
+      <thead><tr><th>Loại bề mặt</th><th class="num">Ra khuyến nghị (µm)</th></tr></thead>
+      <tbody>
+        <tr><td>Kết cấu, không tiếp xúc</td><td class="num">3.2 – 12.5</td></tr>
+        <tr><td>Bề mặt trượt / xoay (bạc dẫn, ắc trượt)</td><td class="num">0.8 – 1.6</td></tr>
+        <tr><td>Bề mặt thẩm mỹ, nhìn thấy</td><td class="num">0.8 – 3.2</td></tr>
+        <tr><td>Bề mặt làm kín, chống rò</td><td class="num">0.4 – 0.8</td></tr>
+        <tr><td>Lòng khuôn thoát khuôn tốt, sản phẩm trong suốt</td><td>theo cấp SPI — xem mục 5</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="spi">
+  <h2><span class="num">05</span>Cấp đánh bóng khuôn — SPI và VDI 3400</h2>
+  <p>Với khuôn ép nhựa, sau mài thường cần đánh bóng để đạt độ bóng lòng khuôn. Hai hệ tiêu chuẩn phổ biến: <strong>SPI</strong> (Society of the Plastics Industry — Mỹ) và <strong>VDI 3400</strong> (Đức, phổ biến ở châu Âu/châu Á, thường mô tả bề mặt sau EDM).</p>
+
+  <div class="panel">
+    <div class="panel-label">DẢI CẤP ĐÁNH BÓNG SPI — TỪ BÓNG GƯƠNG ĐẾN TẠO NHÁM</div>
+    <svg viewBox="0 0 920 130" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="spiGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#EDEFF0"/>
+          <stop offset="30%" stop-color="#AEBAC2"/>
+          <stop offset="62%" stop-color="#7C8890"/>
+          <stop offset="100%" stop-color="#4A525A"/>
+        </linearGradient>
+      </defs>
+      <rect x="20" y="30" width="880" height="26" fill="url(#spiGrad)" rx="2"/>
+      <g font-family="JetBrains Mono, monospace" font-size="12" fill="#DEE2E4">
+        <text x="60" y="82">A · bóng gương</text>
+        <text x="300" y="82">B · bán bóng</text>
+        <text x="520" y="82">C · mờ (matte)</text>
+        <text x="750" y="82">D · tạo nhám</text>
+      </g>
+      <g font-family="JetBrains Mono, monospace" font-size="11" fill="#8FA3B0">
+        <text x="60" y="100">Ra 0.012–0.10</text>
+        <text x="300" y="100">Ra 0.05–0.32</text>
+        <text x="520" y="100">Ra 0.35–0.70</text>
+        <text x="750" y="100">Ra 0.80–18.0</text>
+      </g>
+    </svg>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <caption>Bảng 6 — SPI, 12 cấp / 4 nhóm</caption>
+      <thead><tr><th>Nhóm</th><th>Cấp</th><th>Phương pháp</th><th class="num">Ra (µm)</th></tr></thead>
+      <tbody>
+        <tr><td rowspan="3">A — Bóng gương</td><td>A-1</td><td>Kim cương #3 (grit 6000)</td><td class="num">0.012 – 0.025</td></tr>
+        <tr><td>A-2</td><td>Kim cương #6 (grit 3000)</td><td class="num">0.025 – 0.05</td></tr>
+        <tr><td>A-3</td><td>Kim cương #15 (grit 1200)</td><td class="num">0.05 – 0.10</td></tr>
+        <tr><td rowspan="3">B — Bán bóng</td><td>B-1</td><td>Giấy nhám 600</td><td class="num">0.05 – 0.10</td></tr>
+        <tr><td>B-2</td><td>Giấy nhám 400</td><td class="num">0.10 – 0.15</td></tr>
+        <tr><td>B-3</td><td>Giấy nhám 320</td><td class="num">0.28 – 0.32</td></tr>
+        <tr><td rowspan="3">C — Mờ (matte)</td><td>C-1</td><td>Đá mài 600</td><td class="num">0.35 – 0.40</td></tr>
+        <tr><td>C-2</td><td>Đá mài 400</td><td class="num">0.45 – 0.55</td></tr>
+        <tr><td>C-3</td><td>Đá mài 320</td><td class="num">0.63 – 0.70</td></tr>
+        <tr><td rowspan="3">D — Tạo nhám</td><td>D-1</td><td>Phun bi thuỷ tinh</td><td class="num">0.80 – 1.00</td></tr>
+        <tr><td>D-2</td><td>Phun cát oxit #240</td><td class="num">1.00 – 2.80</td></tr>
+        <tr><td>D-3</td><td>Phun cát oxit #24</td><td class="num">3.20 – 18.0</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:14.5px;color:var(--ink-600);">Ứng dụng: A cho khuôn quang học/sản phẩm trong suốt; B cho hàng gia dụng bóng vừa; C cho bề mặt mờ chức năng; D cho bề mặt chống trượt/vân trang trí.</p>
+
+  <div class="table-wrap">
+    <table>
+      <caption>Bảng 7 — VDI 3400 (cho bề mặt EDM)</caption>
+      <thead><tr><th>Cấp VDI</th><th class="num">Ra (µm)</th><th>Tương đương SPI gần đúng</th></tr></thead>
+      <tbody>
+        <tr><td>VDI 12</td><td class="num">0.40</td><td>C-1</td></tr>
+        <tr><td>VDI 15</td><td class="num">0.56</td><td>C-2</td></tr>
+        <tr><td>VDI 18</td><td class="num">0.80</td><td>D-1</td></tr>
+        <tr><td>VDI 21</td><td class="num">1.12</td><td>D-2</td></tr>
+        <tr><td>VDI 24</td><td class="num">1.60</td><td>D-2</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note"><strong>Lưu ý khi tư vấn:</strong> cấp SPI/VDI mô tả phương pháp và kết quả thị giác, còn Ra là con số đo được. Nên ghi cả hai trên bản vẽ nếu có thể (ví dụ "SPI A-3, Ra ≤ 0.10 µm") để tránh hiểu nhầm giữa xưởng gia công và khách hàng.</div>
+</section>
+
+<section id="steel-note">
+  <h2><span class="num">06</span>Lưu ý riêng cho thép khuôn mẫu</h2>
+  <ul>
+    <li><strong>Độ cứng sau nhiệt luyện quyết định lượng dư mài an toàn.</strong> Thép đã tôi (SKD11, SKD61/H13, hoặc NAK80/S136 ở trạng thái pre-hardened) cần chừa đủ lượng dư mài để loại bỏ lớp biến cứng/oxy hoá do phay, nhưng không quá lớn — mài quá nhanh, đá mài không phù hợp hoặc thiếu dung dịch làm mát dễ gây nứt do nhiệt mài (grinding crack).</li>
+    <li><strong>NAK80, S136 (pre-hardened ~37–42 HRC) đánh bóng dễ hơn thép cần tôi sau gia công</strong> vì không phải qua bước nhiệt luyện làm biến dạng/oxy hoá bề mặt sau khi đã đánh bóng gần xong — đây là lý do các mác này thường được chọn cho khuôn cần độ bóng cao (SPI A).</li>
+    <li><strong>SKD11, SKD61/H13 nếu tôi sau gia công tinh</strong> cần lưu ý biến dạng nhiệt luyện có thể phá vỡ dung sai/độ nhám đã đạt trước đó — nên mài tinh và đánh bóng <strong>sau</strong> nhiệt luyện, chỉ để lại phay tinh/mài thô trước khi tôi.</li>
+    <li><strong>Với yêu cầu Ra rất thấp (SPI A-1/A-2) trên thép có carbide lớn</strong> (ví dụ SKD11 hàm lượng Cr cao) dễ bị "đào carbide" (pitting) khi đánh bóng — nên ưu tiên thép có độ đồng đều carbide cao hoặc luyện ESR nếu khách hàng cần bóng gương.</li>
+  </ul>
+</section>
+
+<section id="summary" class="wide" style="max-width:760px;">
+  <div class="summary">
+    <h2><span class="num" style="color:var(--amber-500);">07</span>Tóm tắt nhanh để báo giá</h2>
+    <ol>
+      <li>Xác định dung sai kích thước khách yêu cầu (ISO 2768 cấp nào, hay dung sai riêng/IT-grade) → quyết định có cần mài tinh hay phay tinh là đủ.</li>
+      <li>Xác định Ra yêu cầu trên từng bề mặt → nếu Ra ≤ 0.8 µm thường phải qua mài; Ra ≤ 0.1 µm gần như bắt buộc đánh bóng tay hoặc lapping.</li>
+      <li>Nếu là khuôn ép nhựa, hỏi khách cấp SPI hoặc VDI cụ thể thay vì chỉ nói "đánh bóng" — tránh chênh lệch kỳ vọng và chi phí.</li>
+      <li>Với thép cần nhiệt luyện, xác nhận trình tự: phay thô/bán tinh → nhiệt luyện → mài tinh → đánh bóng, để tránh phải làm lại do biến dạng nhiệt luyện.</li>
+    </ol>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>Tài liệu tổng hợp từ các tiêu chuẩn công nghiệp phổ biến (ISO 2768, ISO 21920/ISO 4287, SPI, VDI 3400) và tài liệu kỹ thuật ngành gia công khuôn mẫu. Các giá trị Ra/dung sai là khoảng tham khảo phổ biến — khi báo giá cụ thể nên đối chiếu thêm với khả năng thực tế của máy/đá mài đang sử dụng và, nếu cần độ chính xác cao, tra cứu bản gốc tiêu chuẩn hoặc datasheet mác thép liên quan.</p>
+</footer>
+
+</body>
+</html>
