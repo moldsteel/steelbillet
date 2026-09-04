@@ -3169,6 +3169,20 @@ function calcBilled(r,k){
 }
 const MIN_PCE=45000;          // sàn khi KHÔNG có phí GC
 const MIN_PCE_WITH_GC=50000;  // sàn tổng (VL+GC) khi CÓ phí GC nhưng vẫn quá nhỏ
+
+function calcVL(r,k){
+  if(!r.price)return 0;
+  const rawVL=calcBilled(r,k)*r.price;
+  const gcPerPc=r.type==='tam'?calcGC(r):calcCutFee(r);
+  let vlPerPc;
+  if(gcPerPc>0){
+    vlPerPc=(rawVL+gcPerPc)<MIN_PCE ? Math.max(MIN_PCE_WITH_GC-gcPerPc,0) : rawVL;
+  }else{
+    vlPerPc=rawVL<MIN_PCE ? MIN_PCE : rawVL;
+  }
+  return vlPerPc*(r.qty||0);
+}
+
 function getVLFloorLabel(r,k){
   if(!r.price)return null;
   const rawVL=calcBilled(r,k)*(r.price||0);
@@ -3177,14 +3191,6 @@ function getVLFloorLabel(r,k){
     return (rawVL+gcPerPc)<MIN_PCE ? 'min50k' : null;
   }
   return rawVL<MIN_PCE ? 'min45k' : null;
-}
-function getVLFloorLabel(r,k){
-  if(!r.price)return null;
-  const rawVL=calcBilled(r,k)*(r.price||0);
-  const gcPerPc=r.type==='tam'?calcGC(r):calcCutFee(r);
-  if(gcPerPc>0 && (rawVL+gcPerPc)<MIN_PCE)return'min50k';
-  if(rawVL<MIN_PCE)return'min45k';
-  return null;
 }
 const GRADES={C:['S45C','S50C','S55C','Q235','SS400'],N:['Cr12MoV','SKD11','D2','DC53','A8MOD'],H:['SKD61','1.2344','DK1S','FDAC'],P:['SCM440','P20','P20 (1.2311)','S136H','S136','1.2083','2083','718H','1.2738','1.2316H','NAK80']};
 const CAT_LABEL={C:'Carbon',N:'Khuôn nguội',H:'Khuôn nóng',P:'Khuôn nhựa'};
