@@ -17,6 +17,8 @@
     --amber: #d99a3d;
     --amber-dim: #8a6a3a;
     --steel: #4a7c96;
+    --danger: #c1553f;
+    --ok: #5a9c6e;
     --radius: 3px;
   }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -184,7 +186,7 @@
     margin-top: 3px;
   }
 
-  /* ---------- Equivalent sheet ---------- */
+  /* ---------- Spec sheet (Tra thông số) ---------- */
   .sheet-overlay {
     position: fixed; inset: 0;
     background: rgba(0,0,0,0.55);
@@ -200,51 +202,198 @@
     background: var(--panel);
     border-top: 1px solid var(--line);
     border-radius: 14px 14px 0 0;
-    padding: 8px 20px 26px;
     transform: translateY(100%);
     transition: transform .25s ease;
     z-index: 201;
+    display: flex;
+    flex-direction: column;
   }
   .sheet.show { transform: translateY(0); }
   .sheet-handle {
     width: 36px; height: 4px;
     background: var(--line);
     border-radius: 2px;
-    margin: 10px auto 16px;
+    margin: 10px auto 12px;
+    flex-shrink: 0;
   }
   .sheet-title {
     font-family: 'Oswald', sans-serif;
     font-size: 15px;
-    margin-bottom: 4px;
+    margin: 0 20px 4px;
   }
   .sheet-sub {
     font-size: 12px;
     color: var(--ink-dim);
-    margin-bottom: 16px;
+    margin: 0 20px 14px;
   }
-  .equiv-table {
+
+  /* Spec sheet — tall, scrollable, own search/filter */
+  #specSheet { max-height: 88vh; }
+  .spec-toolbar {
+    padding: 0 20px 12px;
+    flex-shrink: 0;
+  }
+  .spec-search {
     width: 100%;
-    border-collapse: collapse;
-    font-size: 12.5px;
-  }
-  .equiv-table th {
-    text-align: left;
-    color: var(--ink-dim);
-    font-weight: 500;
-    font-size: 11px;
-    padding: 6px 8px;
-    border-bottom: 1px solid var(--line);
-  }
-  .equiv-table td {
-    padding: 9px 8px;
-    border-bottom: 1px solid var(--line-soft);
+    background: var(--panel-raised);
+    border: 1px solid var(--line);
     color: var(--ink);
+    padding: 10px 12px;
+    border-radius: var(--radius);
+    font-size: 14px;
+    margin-bottom: 10px;
   }
-  .equiv-table td.jis { color: var(--amber); font-family: 'Oswald', sans-serif; }
-  .equiv-table tr:last-child td { border-bottom: none; }
+  .spec-filters {
+    display: flex; gap: 7px;
+    overflow-x: auto;
+  }
+  .spec-filters::-webkit-scrollbar { display: none; }
+  .spec-filter-chip {
+    flex-shrink: 0;
+    border: 1px solid var(--line);
+    background: var(--panel-raised);
+    color: var(--ink-dim);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 11.5px;
+    cursor: pointer;
+  }
+  .spec-filter-chip.active {
+    border-color: var(--amber);
+    color: var(--amber);
+    background: rgba(217,154,61,0.08);
+  }
+  .spec-list {
+    overflow-y: auto;
+    padding: 4px 20px 24px;
+    flex: 1;
+  }
+  .spec-empty {
+    text-align: center;
+    color: var(--ink-dim);
+    font-size: 13px;
+    padding: 30px 0;
+  }
+  .spec-card {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--panel-raised);
+    padding: 12px 13px;
+    margin-bottom: 10px;
+    scroll-margin-top: 90px;
+    transition: border-color .5s, background .5s;
+  }
+  .spec-card.flash {
+    border-color: var(--amber);
+    background: rgba(217,154,61,0.10);
+  }
+  .spec-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .spec-name {
+    font-family: 'Oswald', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--amber);
+  }
+  .spec-std {
+    font-size: 10.5px;
+    color: var(--ink-dim);
+    text-align: right;
+    line-height: 1.3;
+  }
+  .spec-row {
+    margin-top: 7px;
+    font-size: 12px;
+  }
+  .spec-label {
+    display: block;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: var(--ink-dim);
+    margin-bottom: 3px;
+  }
+  .spec-hardness { color: var(--ink); }
+  .comp-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  .comp-item {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 3px 7px;
+    font-size: 11px;
+  }
+  .comp-item .el { color: var(--steel); font-family: 'Oswald', sans-serif; }
+  .comp-item .val { color: var(--ink); }
+  .spec-app { color: var(--ink); line-height: 1.5; }
+  .equiv-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .equiv-chip {
+    border: 1px solid var(--amber-dim);
+    color: var(--amber);
+    background: rgba(217,154,61,0.06);
+    border-radius: 20px;
+    padding: 4px 10px;
+    font-size: 11px;
+    cursor: pointer;
+  }
+  .equiv-none { color: var(--ink-dim); font-size: 11.5px; }
+  .spec-note {
+    font-size: 11px;
+    color: var(--ink-dim);
+    font-style: italic;
+    margin-top: 6px;
+  }
+
+  /* ---------- Quick quote by photo/document ---------- */
+  .qq-field { margin: 0 20px 14px; }
+  .qq-field label {
+    display: block;
+    font-size: 12px;
+    color: var(--ink-dim);
+    margin-bottom: 6px;
+  }
+  .qq-field input {
+    width: 100%;
+    background: var(--panel-raised);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    padding: 11px 12px;
+    border-radius: var(--radius);
+    font-size: 15px;
+  }
+  .qq-options { display: flex; flex-direction: column; gap: 10px; margin: 0 20px 8px; }
+  .qq-option {
+    display: flex; align-items: center; gap: 12px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 13px 14px;
+    background: var(--panel-raised);
+    cursor: pointer;
+  }
+  .qq-option .ic { font-size: 18px; width: 22px; text-align: center; }
+  .qq-option .tx { font-size: 13.5px; }
+  .qq-option .tx small { display: block; color: var(--ink-dim); font-size: 11px; margin-top: 2px; }
+  .qq-status {
+    margin: 4px 20px 20px;
+    font-size: 12.5px;
+    min-height: 16px;
+  }
+  .qq-status.err { color: var(--danger); }
+  .qq-status.ok { color: var(--ok); }
 
   /* ---------- Contact sheet ---------- */
-  .contact-links { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+  .contact-links { display: flex; flex-direction: column; gap: 10px; margin: 4px 20px 26px; }
   .contact-link {
     display: flex; align-items: center; gap: 12px;
     border: 1px solid var(--line);
@@ -330,9 +479,9 @@
       <div class="qa-icon">💬</div>
       <div class="qa-label">Zalo</div>
     </a>
-    <button class="qa-btn" id="openEquivSheet">
+    <button class="qa-btn" id="openSpecSheet">
       <div class="qa-icon">🔍</div>
-      <div class="qa-label">Tra mác<br>tương đương</div>
+      <div class="qa-label">Tra thông số</div>
     </button>
   </div>
 
@@ -472,28 +621,63 @@
     <div class="nav-icon">📂</div>
     <span>Danh mục</span>
   </div>
-  <a href="quote.html" class="nav-item cta">Hỏi giá</a>
+  <button class="nav-item cta" id="openQuickQuote">Hỏi giá</button>
   <button class="nav-item" id="openContactSheet">
     <div class="nav-icon">📇</div>
     <span>Liên hệ</span>
   </button>
 </div>
 
-<!-- Bottom sheet: Tra mác thép tương đương -->
-<div class="sheet-overlay" id="equivOverlay"></div>
-<div class="sheet" id="equivSheet">
+<!-- Hidden file inputs cho hỏi giá nhanh bằng ảnh/tài liệu -->
+<input type="file" id="qqCamera" accept="image/*" capture="environment" style="display:none">
+<input type="file" id="qqGallery" accept="image/*" style="display:none">
+<input type="file" id="qqDoc" accept=".pdf,.doc,.docx,.xls,.xlsx,image/*" style="display:none">
+
+<!-- Bottom sheet: Tra thông số mác thép -->
+<div class="sheet-overlay" id="specOverlay"></div>
+<div class="sheet" id="specSheet">
   <div class="sheet-handle"></div>
-  <div class="sheet-title">Bảng mác thép tương đương</div>
-  <div class="sheet-sub">Đối chiếu nhanh JIS ↔ AISI/DIN thường gặp</div>
-  <table class="equiv-table">
-    <tr><th>JIS (ATP)</th><th>AISI/DIN</th><th>Nhóm</th></tr>
-    <tr><td class="jis">SKD11</td><td>D2 / 1.2379</td><td>Khuôn dập nguội</td></tr>
-    <tr><td class="jis">SKD61</td><td>H13 / 1.2344</td><td>Khuôn dập nóng</td></tr>
-    <tr><td class="jis">NAK80</td><td>1.2312 mod</td><td>Khuôn nhựa (đã tôi sẵn)</td></tr>
-    <tr><td class="jis">P20</td><td>718H / 1.2311</td><td>Khuôn nhựa</td></tr>
-    <tr><td class="jis">S136</td><td>420 mod / 1.2083</td><td>Khuôn nhựa chống ăn mòn</td></tr>
-    <tr><td class="jis">SCM440</td><td>42CrMo4 / 4140</td><td>Thép kết cấu</td></tr>
-  </table>
+  <div class="sheet-title">Tra thông số mác thép</div>
+  <div class="sheet-sub">Tiêu chuẩn · độ cứng · thành phần · ứng dụng · mác tương đương</div>
+  <div class="spec-toolbar">
+    <input type="text" class="spec-search" id="specSearch" placeholder="Tìm mác thép (VD: SKD11, D2, S136...)">
+    <div class="spec-filters" id="specFilters">
+      <div class="spec-filter-chip active" data-group="all">Tất cả</div>
+      <div class="spec-filter-chip" data-group="cold">Dập nguội</div>
+      <div class="spec-filter-chip" data-group="hot">Dập nóng</div>
+      <div class="spec-filter-chip" data-group="plastic">Khuôn nhựa</div>
+      <div class="spec-filter-chip" data-group="structural">Kết cấu/Carbon</div>
+      <div class="spec-filter-chip" data-group="nonferrous">Kim loại màu</div>
+    </div>
+  </div>
+  <div class="spec-list" id="specList"></div>
+</div>
+
+<!-- Bottom sheet: Hỏi giá nhanh bằng ảnh/tài liệu -->
+<div class="sheet-overlay" id="quickQuoteOverlay"></div>
+<div class="sheet" id="quickQuoteSheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-title">Hỏi giá nhanh</div>
+  <div class="sheet-sub">Chụp/gửi ảnh phôi thép hoặc file bản vẽ — ATP báo giá trực tiếp qua ảnh</div>
+  <div class="qq-field">
+    <label>Số điện thoại liên hệ <span style="color:var(--danger)">*</span></label>
+    <input type="tel" id="qqPhone" placeholder="09xx xxx xxx">
+  </div>
+  <div class="qq-options">
+    <div class="qq-option" id="qqOptCamera">
+      <div class="ic">📷</div>
+      <div class="tx">Chụp ảnh<small>Chụp trực tiếp phôi thép / bản vẽ</small></div>
+    </div>
+    <div class="qq-option" id="qqOptGallery">
+      <div class="ic">🖼</div>
+      <div class="tx">Chọn ảnh có sẵn<small>Từ thư viện ảnh trên máy</small></div>
+    </div>
+    <div class="qq-option" id="qqOptDoc">
+      <div class="ic">📄</div>
+      <div class="tx">Gửi tài liệu<small>PDF, Word, Excel, bản vẽ kỹ thuật</small></div>
+    </div>
+  </div>
+  <div class="qq-status" id="qqStatus"></div>
 </div>
 
 <!-- Bottom sheet: Liên hệ -->
@@ -534,11 +718,345 @@
       sheet.classList.remove('show');
     });
   }
-  bindSheet('openEquivSheet', 'equivOverlay', 'equivSheet');
+  bindSheet('openSpecSheet', 'specOverlay', 'specSheet');
   bindSheet('openContactSheet', 'contactOverlay', 'contactSheet');
 
   if (tg?.themeParams?.bg_color) {
     document.documentElement.style.setProperty('--bg', tg.themeParams.bg_color);
+  }
+
+  // ===================== TRA THÔNG SỐ MÁC THÉP =====================
+  const STEEL_DATA = [
+    // --- Khuôn dập nguội (Cr12MoV family) ---
+    { id:'skd11', name:'SKD11', group:'cold', standard:'JIS G4404',
+      hardness:'Ủ: ≤255 HB · Sau tôi: 58–62 HRC',
+      comp:[['C','1.50'],['Si','0.30'],['Mn','0.40'],['Cr','12.0'],['Mo','1.00'],['V','0.30']],
+      application:'Khuôn dập nguội, dao cắt định hình, khuôn đột dập chi tiết chính xác.',
+      equiv:['d2','12379','cr12mov','sld'] },
+    { id:'d2', name:'D2', group:'cold', standard:'AISI / SAE',
+      hardness:'Ủ: ≤255 HB · Sau tôi: 58–62 HRC',
+      comp:[['C','1.50'],['Si','0.30'],['Mn','0.40'],['Cr','12.0'],['Mo','1.00'],['V','0.30']],
+      application:'Khuôn dập nguội, dao cắt định hình, khuôn đột dập chi tiết chính xác.',
+      equiv:['skd11','12379','cr12mov','sld'] },
+    { id:'12379', name:'1.2379', group:'cold', standard:'DIN / W-Nr. (X153CrMoV12)',
+      hardness:'Ủ: ≤255 HB · Sau tôi: 58–62 HRC',
+      comp:[['C','1.55'],['Si','0.30'],['Mn','0.30'],['Cr','12.0'],['Mo','0.80'],['V','0.90']],
+      application:'Khuôn dập nguội, dao cắt định hình, khuôn đột dập chi tiết chính xác.',
+      equiv:['skd11','d2','cr12mov','sld'] },
+    { id:'cr12mov', name:'Cr12MoV', group:'cold', standard:'GB/T 1299',
+      hardness:'Ủ: ≤255 HB · Sau tôi: 58–61 HRC',
+      comp:[['C','1.55'],['Si','0.30'],['Mn','0.35'],['Cr','11.5'],['Mo','0.50'],['V','0.20']],
+      application:'Khuôn dập nguội tải trung bình, khuôn dập tôn, chi tiết chịu mài mòn.',
+      equiv:['skd11','d2','12379','sld'],
+      note:'Gần tương đương SKD11/D2 — Mo, V thấp hơn nên độ dai và độ bền mài mòn nhỉnh hơn/kém hơn tùy lô, không phải thay thế 1:1 tuyệt đối.' },
+    { id:'sld', name:'SLD', group:'cold', standard:'Hitachi Metals (thương hiệu, ≈ SKD11)',
+      hardness:'Sau tôi: 58–62 HRC',
+      comp:[['C','1.50'],['Si','0.30'],['Mn','0.40'],['Cr','12.0'],['Mo','1.00'],['V','0.30']],
+      application:'Khuôn dập nguội, dao cắt định hình — dùng thay thế SKD11 theo yêu cầu khách Nhật.',
+      equiv:['skd11','d2','12379','cr12mov'] },
+    { id:'dc53', name:'DC53', group:'cold', standard:'Daido (thương hiệu, biến thể cải tiến SKD11)',
+      hardness:'Sau tôi: 60–62 HRC, chịu ram ở nhiệt cao tốt hơn SKD11',
+      comp:[['C','1.00'],['Si','0.90'],['Mn','0.40'],['Cr','8.00'],['Mo','2.00'],['V','0.30']],
+      application:'Khuôn dập nguội cần độ dai + độ cứng cao hơn SKD11, khuôn đột chày cối chính xác.',
+      equiv:['skd11'],
+      note:'Là biến thể cải tiến, không phải tương đương hoàn toàn 1:1 — thành phần khác đáng kể so với nhóm SKD11/D2.' },
+    { id:'a8mod', name:'A8 Mod', group:'cold', standard:'AISI / SAE (nhóm A8, tôi khí)',
+      hardness:'Ủ: ≤235 HB · Sau tôi: 55–60 HRC',
+      comp:[['C','0.55'],['Si','1.00'],['Mn','0.30'],['Cr','5.25'],['Mo','1.25'],['W','1.25']],
+      application:'Khuôn dập nguội chịu va đập, dao chặt, khuôn dập tôn dày.',
+      equiv:[] },
+
+    // --- Khuôn dập nóng (H13 family) ---
+    { id:'skd61', name:'SKD61', group:'hot', standard:'JIS G4404',
+      hardness:'Ủ: ≤229 HB · Sau tôi: 48–52 HRC',
+      comp:[['C','0.40'],['Si','1.00'],['Mn','0.40'],['Cr','5.10'],['Mo','1.30'],['V','1.00']],
+      application:'Khuôn ép nhôm, khuôn dập nóng, khuôn đúc áp lực, chi tiết chịu nhiệt chu kỳ.',
+      equiv:['h13','12344','8418','kda1'] },
+    { id:'h13', name:'H13', group:'hot', standard:'AISI / SAE',
+      hardness:'Ủ: ≤229 HB · Sau tôi: 48–52 HRC',
+      comp:[['C','0.40'],['Si','1.00'],['Mn','0.40'],['Cr','5.10'],['Mo','1.30'],['V','1.00']],
+      application:'Khuôn ép nhôm, khuôn dập nóng, khuôn đúc áp lực, chi tiết chịu nhiệt chu kỳ.',
+      equiv:['skd61','12344','8418','kda1'] },
+    { id:'12344', name:'1.2344', group:'hot', standard:'DIN / W-Nr. (X40CrMoV5-1)',
+      hardness:'Ủ: ≤229 HB · Sau tôi: 48–52 HRC',
+      comp:[['C','0.40'],['Si','1.00'],['Mn','0.40'],['Cr','5.20'],['Mo','1.40'],['V','0.95']],
+      application:'Khuôn ép nhôm, khuôn dập nóng, khuôn đúc áp lực, chi tiết chịu nhiệt chu kỳ.',
+      equiv:['skd61','h13','8418','kda1'] },
+    { id:'8418', name:'8418', group:'hot', standard:'Nhóm ESR cải tiến H13 (theo tiêu chuẩn nội bộ nhà máy)',
+      hardness:'Sau tôi: 48–52 HRC, độ tinh khiết cao hơn nhờ luyện ESR',
+      comp:[['C','0.38'],['Si','1.00'],['Mn','0.40'],['Cr','5.20'],['Mo','1.35'],['V','1.00']],
+      application:'Khuôn ép nhôm cao cấp, khuôn đúc áp lực yêu cầu tuổi thọ cao.',
+      equiv:['skd61','h13','12344','kda1'] },
+
+    // --- Khuôn nhựa — đã tôi sẵn, độ bóng cao (NAK80 family) ---
+    { id:'nak80', name:'NAK80', group:'plastic', standard:'Daido (thương hiệu)',
+      hardness:'Xuất xưởng: 37–43 HRC (đã tôi sẵn)',
+      comp:[['C','0.15'],['Mn','1.50'],['Ni','3.00'],['Cu','1.00'],['Mo','0.30']],
+      application:'Khuôn nhựa yêu cầu độ bóng gương cao, khuôn quang học, khuôn mỹ phẩm.',
+      equiv:['nak55','fdac'] },
+    { id:'nak55', name:'NAK55', group:'plastic', standard:'Daido (thương hiệu, cùng dòng NAK80)',
+      hardness:'Xuất xưởng: 37–41 HRC (đã tôi sẵn)',
+      comp:[['C','0.15'],['Mn','1.40'],['Ni','1.00'],['Cu','1.00'],['Mo','0.30']],
+      application:'Khuôn nhựa độ bóng cao, phương án chi phí thấp hơn NAK80.',
+      equiv:['nak80','fdac'] },
+    { id:'fdac', name:'FDAC', group:'plastic', standard:'Daido (thương hiệu)',
+      hardness:'Xuất xưởng: 34–39 HRC (đã tôi sẵn)',
+      comp:[['C','0.30'],['Cr','1.00'],['Ni','1.00'],['Mo','0.30']],
+      application:'Khuôn nhựa độ bóng cao, phương án thay thế NAK80 ở phân khúc chi phí thấp hơn.',
+      equiv:['nak80','nak55'] },
+
+    // --- Khuôn nhựa — nhóm P20 ---
+    { id:'p20', name:'P20', group:'plastic', standard:'AISI / SAE',
+      hardness:'Xuất xưởng: 28–32 HRC (đã tôi sẵn)',
+      comp:[['C','0.35'],['Mn','0.80'],['Cr','1.90'],['Mo','0.40']],
+      application:'Khuôn nhựa thông dụng, khuôn mẫu sản lượng vừa và lớn.',
+      equiv:['718h','12311','12738'] },
+    { id:'718h', name:'718H', group:'plastic', standard:'Assab (thương hiệu, P20 bổ sung Ni)',
+      hardness:'Xuất xưởng: 30–34 HRC (đã tôi sẵn)',
+      comp:[['C','0.37'],['Mn','1.40'],['Cr','1.90'],['Ni','1.00'],['Mo','0.20']],
+      application:'Khuôn nhựa yêu cầu độ đồng đều độ cứng cao hơn P20 tiêu chuẩn.',
+      equiv:['p20','12311','12738'] },
+    { id:'12311', name:'1.2311', group:'plastic', standard:'DIN / W-Nr. (40CrMnMo7)',
+      hardness:'Xuất xưởng: 28–32 HRC (đã tôi sẵn)',
+      comp:[['C','0.40'],['Mn','1.50'],['Cr','1.90'],['Mo','0.20']],
+      application:'Khuôn nhựa thông dụng, khuôn mẫu sản lượng vừa và lớn.',
+      equiv:['p20','718h','12738'] },
+    { id:'12738', name:'1.2738', group:'plastic', standard:'DIN / W-Nr. (40CrMnNiMo8-6-4)',
+      hardness:'Xuất xưởng: 30–34 HRC (đã tôi sẵn)',
+      comp:[['C','0.40'],['Mn','1.50'],['Cr','1.90'],['Ni','1.00'],['Mo','0.20']],
+      application:'Khuôn nhựa yêu cầu độ đồng đều độ cứng cao, khuôn khổ lớn.',
+      equiv:['p20','718h','12311'] },
+
+    // --- Khuôn nhựa chống ăn mòn (S136 family) ---
+    { id:'s136', name:'S136', group:'plastic', standard:'Assab (thương hiệu, ESR — cải tiến nhóm 420)',
+      hardness:'Ủ: ≤230 HB · Sau tôi: 50–53 HRC',
+      comp:[['C','0.38'],['Cr','13.6'],['Mo','0.30']],
+      application:'Khuôn nhựa trong suốt, khuôn tiếp xúc thực phẩm/y tế, môi trường ăn mòn.',
+      equiv:['12083','12316'] },
+    { id:'12083', name:'1.2083', group:'plastic', standard:'DIN / W-Nr. (X40Cr14)',
+      hardness:'Ủ: ≤229 HB · Sau tôi: 50–52 HRC',
+      comp:[['C','0.40'],['Cr','13.5']],
+      application:'Khuôn nhựa chống ăn mòn, khuôn y tế/thực phẩm phổ thông.',
+      equiv:['s136','12316'] },
+    { id:'12316', name:'1.2316', group:'plastic', standard:'DIN / W-Nr. (X38CrMo16)',
+      hardness:'Ủ: ≤235 HB · Sau tôi: 50–54 HRC',
+      comp:[['C','0.38'],['Cr','16.0'],['Mo','1.20']],
+      application:'Khuôn nhựa chống ăn mòn cao hơn 1.2083/S136 — môi trường ẩm, hóa chất.',
+      equiv:['s136','12083'],
+      note:'Hàm lượng Cr cao hơn → chống ăn mòn tốt hơn 1.2083/S136, không phải tương đương thành phần 1:1.' },
+
+    // --- Kết cấu / Carbon ---
+    { id:'scm440', name:'SCM440', group:'structural', standard:'JIS G4053',
+      hardness:'Ủ: 197–241 HB (tùy chế độ nhiệt luyện)',
+      comp:[['C','0.40'],['Mn','0.80'],['Cr','1.05'],['Mo','0.20']],
+      application:'Trục, bánh răng, chốt, chi tiết chịu tải trọng động, cần bền mỏi cao.',
+      equiv:[] },
+    { id:'s45c', name:'S45C', group:'structural', standard:'JIS G4051',
+      hardness:'Ủ: 170–210 HB',
+      comp:[['C','0.45'],['Mn','0.70']],
+      application:'Trục, bu lông, chi tiết cơ khí thông dụng, không yêu cầu độ bền cao.',
+      equiv:['s50c','s55c'] },
+    { id:'s50c', name:'S50C', group:'structural', standard:'JIS G4051',
+      hardness:'Ủ: 180–220 HB',
+      comp:[['C','0.50'],['Mn','0.75']],
+      application:'Đế khuôn, trục, chi tiết chịu mài mòn nhẹ.',
+      equiv:['s45c','s55c'] },
+    { id:'s55c', name:'S55C', group:'structural', standard:'JIS G4051',
+      hardness:'Ủ: 190–230 HB',
+      comp:[['C','0.55'],['Mn','0.75']],
+      application:'Chi tiết chịu lực cao hơn S45C/S50C, dao gia công thô.',
+      equiv:['s45c','s50c'] },
+    { id:'ss400', name:'SS400', group:'structural', standard:'JIS G3101',
+      hardness:'~120–160 HB (thép cán, không tôi)',
+      comp:[['C','≤0.23'],['Mn','≤1.40']],
+      application:'Kết cấu hàn, khung máy, chi tiết không chịu mài mòn.',
+      equiv:['q235b'] },
+    { id:'q235b', name:'Q235B', group:'structural', standard:'GB/T 700',
+      hardness:'~120–160 HB (thép cán, không tôi)',
+      comp:[['C','≤0.20'],['Mn','≤1.40']],
+      application:'Kết cấu hàn, khung máy, chi tiết không chịu mài mòn.',
+      equiv:['ss400'] },
+
+    // --- Kim loại màu ---
+    { id:'cuc1100', name:'Đồng C1100', group:'nonferrous', standard:'JIS H3100 / ASTM C11000',
+      hardness:'Ủ mềm: ~40 HV · 1/2 cứng: ~80 HV',
+      comp:[['Cu','≥99.90'],['O','0.04']],
+      application:'Điện cực EDM, chi tiết dẫn điện/dẫn nhiệt, tiếp điểm.',
+      equiv:[] },
+    { id:'altron', name:'Nhôm tròn', group:'nonferrous', standard:'Chưa xác định mác cụ thể',
+      hardness:'Tùy hợp kim & tình trạng nhiệt luyện',
+      comp:[],
+      application:'Chi tiết cơ khí nhẹ, gá lắp — cần khách cung cấp mác cụ thể để báo đúng thông số.',
+      equiv:[],
+      note:'Ảnh sản phẩm chưa ghi rõ mác — liên hệ để xác nhận trước khi báo kỹ thuật cho khách.' },
+    { id:'al5052', name:'Nhôm 5052', group:'nonferrous', standard:'ASTM B209 / AA 5052',
+      hardness:'Ủ mềm (O): ~47 HB · H32: ~60 HB',
+      comp:[['Mg','2.50'],['Cr','0.25'],['Al','còn lại']],
+      application:'Vỏ máy, chi tiết uốn dập, khung gá chống ăn mòn nhẹ.',
+      equiv:[] },
+    { id:'kda1', name:'KDA1', group:'hot', standard:'Nippon Koshuha (thương hiệu Nhật) — nhóm thép khuôn dập nóng H13',
+      hardness:'Ủ: ≤229 HB · Sau tôi: 48–52 HRC',
+      comp:[['C','0.40'],['Si','1.00'],['Mn','0.40'],['Cr','5.10'],['Mo','1.30'],['V','1.00']],
+      application:'Khuôn ép nhôm, khuôn dập nóng, khuôn đúc áp lực — cùng nhóm ứng dụng với SKD61/H13.',
+      equiv:['h13','skd61','12344','8418'],
+      note:'Cùng họ 4Cr5MoSiV1 (Trung Quốc) / DAC (Hitachi) / KDA, KDA1S (cùng hãng Nippon Koshuha) — các tên thương mại khác nhau của cùng nhóm hợp kim H13.' },
+  ];
+
+  const specById = Object.fromEntries(STEEL_DATA.map(s => [s.id, s]));
+
+  function compHtml(comp) {
+    if (!comp || !comp.length) return '<span class="equiv-none">Chưa có dữ liệu</span>';
+    return '<div class="comp-grid">' + comp.map(([el,val]) => {
+      const showPct = /^[\d.]+$/.test(val) || /^[≤≥][\d.]+$/.test(val);
+      return `<div class="comp-item"><span class="el">${el}</span><span class="val">${val}${showPct ? '%' : ''}</span></div>`;
+    }).join('') + '</div>';
+  }
+
+  function equivHtml(equivIds) {
+    if (!equivIds || !equivIds.length) return '<span class="equiv-none">Không có mác tương đương trong danh mục ATP</span>';
+    return '<div class="equiv-chips">' + equivIds.map(id => {
+      const s = specById[id];
+      return s ? `<span class="equiv-chip" data-jump="${id}">${s.name}</span>` : '';
+    }).join('') + '</div>';
+  }
+
+  function specCardHtml(s) {
+    return `
+      <div class="spec-card" id="spec-${s.id}" data-name="${s.name.toLowerCase()}" data-group="${s.group}">
+        <div class="spec-head">
+          <div class="spec-name">${s.name}</div>
+          <div class="spec-std">${s.standard}</div>
+        </div>
+        <div class="spec-row"><span class="spec-label">Độ cứng xuất xưởng</span><span class="spec-hardness">${s.hardness}</span></div>
+        <div class="spec-row"><span class="spec-label">Thành phần hóa học (%, điển hình)</span>${compHtml(s.comp)}</div>
+        <div class="spec-row"><span class="spec-label">Ứng dụng thực tế</span><span class="spec-app">${s.application}</span></div>
+        <div class="spec-row"><span class="spec-label">Mác tương đương</span>${equivHtml(s.equiv)}</div>
+        ${s.note ? `<div class="spec-note">${s.note}</div>` : ''}
+      </div>`;
+  }
+
+  const specListEl = document.getElementById('specList');
+  function renderSpecList(filterGroup, query) {
+    const q = (query || '').trim().toLowerCase();
+    const items = STEEL_DATA.filter(s =>
+      (filterGroup === 'all' || s.group === filterGroup) &&
+      (!q || s.name.toLowerCase().includes(q))
+    );
+    specListEl.innerHTML = items.length
+      ? items.map(specCardHtml).join('')
+      : '<div class="spec-empty">Không tìm thấy mác thép phù hợp.</div>';
+  }
+
+  let currentGroup = 'all';
+  renderSpecList(currentGroup, '');
+
+  document.getElementById('specSearch').addEventListener('input', (e) => {
+    renderSpecList(currentGroup, e.target.value);
+  });
+  document.getElementById('specFilters').addEventListener('click', (e) => {
+    const chip = e.target.closest('.spec-filter-chip');
+    if (!chip) return;
+    document.querySelectorAll('.spec-filter-chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    currentGroup = chip.dataset.group;
+    renderSpecList(currentGroup, document.getElementById('specSearch').value);
+  });
+
+  // Bấm chip "mác tương đương" -> nhảy tới card đó (hiển thị đủ nhóm/tất cả rồi cuộn tới + nhấp nháy)
+  specListEl.addEventListener('click', (e) => {
+    const chip = e.target.closest('.equiv-chip');
+    if (!chip) return;
+    const targetId = chip.dataset.jump;
+    document.querySelectorAll('.spec-filter-chip').forEach(c => c.classList.remove('active'));
+    document.querySelector('.spec-filter-chip[data-group="all"]').classList.add('active');
+    currentGroup = 'all';
+    document.getElementById('specSearch').value = '';
+    renderSpecList('all', '');
+    requestAnimationFrame(() => {
+      const el = document.getElementById('spec-' + targetId);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        el.classList.add('flash');
+        setTimeout(() => el.classList.remove('flash'), 1400);
+      }
+    });
+  });
+
+  // ===================== HỎI GIÁ NHANH BẰNG ẢNH / TÀI LIỆU =====================
+  function setQqStatus(msg, cls) {
+    const el = document.getElementById('qqStatus');
+    el.textContent = msg || '';
+    el.className = 'qq-status' + (cls ? ' ' + cls : '');
+  }
+
+  document.getElementById('qqOptCamera').addEventListener('click', () => triggerQqFile('qqCamera'));
+  document.getElementById('qqOptGallery').addEventListener('click', () => triggerQqFile('qqGallery'));
+  document.getElementById('qqOptDoc').addEventListener('click', () => triggerQqFile('qqDoc'));
+
+  function triggerQqFile(inputId) {
+    const phone = document.getElementById('qqPhone').value.trim();
+    if (!phone) {
+      setQqStatus('Vui lòng nhập số điện thoại trước khi gửi ảnh/tài liệu.', 'err');
+      document.getElementById('qqPhone').focus();
+      return;
+    }
+    setQqStatus('');
+    document.getElementById(inputId).click();
+  }
+
+  ['qqCamera', 'qqGallery', 'qqDoc'].forEach(id => {
+    document.getElementById(id).addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      e.target.value = '';
+      if (!file) return;
+      await uploadQuickQuote(file);
+    });
+  });
+
+  function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result.split(',')[1]);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  async function uploadQuickQuote(file) {
+    const phone = document.getElementById('qqPhone').value.trim();
+    const MAX_MB = 4;
+    if (file.size > MAX_MB * 1024 * 1024) {
+      setQqStatus(`File quá lớn (tối đa ${MAX_MB}MB).`, 'err');
+      return;
+    }
+    setQqStatus('Đang gửi...', '');
+    try {
+      const fileBase64 = await fileToBase64(file);
+      const payload = {
+        ticket: 'HGN-' + Date.now().toString().slice(-6),
+        phone,
+        fileBase64,
+        fileName: file.name || 'anh-hoi-gia',
+        mimeType: file.type || 'application/octet-stream',
+        initData: tg?.initData || '',
+        user: tg?.initDataUnsafe?.user || null,
+      };
+      const res = await fetch('/api/submit-media', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error('upload failed');
+      setQqStatus('Đã gửi! ATP sẽ liên hệ lại qua số ' + phone + '.', 'ok');
+      setTimeout(() => {
+        document.getElementById('quickQuoteOverlay').classList.remove('show');
+        document.getElementById('quickQuoteSheet').classList.remove('show');
+        setQqStatus('');
+        document.getElementById('qqPhone').value = '';
+      }, 1800);
+    } catch (err) {
+      setQqStatus('Gửi thất bại, vui lòng thử lại hoặc gọi hotline 091 7168 289.', 'err');
+    }
   }
 </script>
 
