@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>ATP Steel — Yêu Cầu Báo Giá</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+  :root{
+    --bg: #14171a;
+    --panel: #1b1f23;
+    --line: #2b3238;
+    --line-soft: #23282d;
+    --ink: #e9ebe8;
+    --ink-dim: #8b959c;
+    --amber: #d99a3d;
+    --amber-dim: #8a6a3a;
+    --steel: #4a7c96;
+    --danger: #c1553f;
+    --ok: #5a9c6e;
+    --radius: 3px;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  @font-face {
+    font-family: 'Oswald';
+    src: local('Oswald');
+  }
+  .head-font { font-family: 'Oswald', 'Inter', sans-serif; }
+
+  .ticket {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 100px 0;
+  }
+
+  .ticket-header {
+    padding: 22px 20px 16px;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+  .ticket-header::after{
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -1px;
+    height: 3px;
+    background: repeating-linear-gradient(90deg, var(--amber) 0 10px, transparent 10px 18px);
+    opacity: .55;
+  }
+  .brand-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .brand {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    letter-spacing: 0.5px;
+    color: var(--ink);
+  }
+  .brand span { color: var(--amber); }
+  .ticket-no {
+    font-size: 12px;
+    color: var(--ink-dim);
+  }
+  .subtitle {
+    margin-top: 6px;
+    font-size: 13.5px;
+    color: var(--ink-dim);
+    line-height: 1.5;
+  }
+
+  .section {
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .section-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--amber);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-label .num {
+    width: 20px; height: 20px;
+    border: 1px solid var(--amber-dim);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+    color: var(--amber);
+    flex-shrink: 0;
+  }
+
+  .field { margin-bottom: 14px; }
+  .field:last-child { margin-bottom: 0; }
+  label {
+    display: block;
+    font-size: 12.5px;
+    color: var(--ink-dim);
+    margin-bottom: 6px;
+  }
+  label .req { color: var(--danger); }
+
+  input, select, textarea {
+    width: 100%;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    padding: 11px 12px;
+    border-radius: var(--radius);
+    font-size: 15px;
+    font-family: inherit;
+    transition: border-color .15s;
+  }
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--steel);
+  }
+  textarea { resize: vertical; min-height: 64px; }
+
+  .dims {
+    display: grid;
+    grid-template-columns: 1fr 14px 1fr 14px 1fr;
+    align-items: center;
+    gap: 4px;
+  }
+  .dims .x {
+    text-align: center;
+    color: var(--ink-dim);
+    font-size: 13px;
+  }
+  .dims input { text-align: center; padding: 11px 4px; }
+
+  .row2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .chips {
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  .chip {
+    border: 1px solid var(--line);
+    background: var(--panel);
+    color: var(--ink-dim);
+    padding: 8px 13px;
+    border-radius: 20px;
+    font-size: 13px;
+    cursor: pointer;
+    user-select: none;
+    transition: all .15s;
+  }
+  .chip.active {
+    border-color: var(--amber);
+    color: var(--amber);
+    background: rgba(217,154,61,0.08);
+  }
+
+  .grade-select {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .grade-btn {
+    border: 1px solid var(--line);
+    background: var(--panel);
+    color: var(--ink);
+    padding: 10px 6px;
+    border-radius: var(--radius);
+    font-size: 13px;
+    text-align: center;
+    cursor: pointer;
+    font-family: 'Oswald', sans-serif;
+  }
+  .grade-btn.active {
+    border-color: var(--steel);
+    background: rgba(74,124,150,0.12);
+    color: #a9c9d8;
+  }
+
+  .footer-note {
+    padding: 16px 20px 0;
+    font-size: 12px;
+    color: var(--ink-dim);
+    line-height: 1.6;
+  }
+
+  .bottom-bar {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 14px 20px;
+    background: linear-gradient(180deg, transparent, var(--bg) 20%);
+  }
+  .submit-btn {
+    width: 100%;
+    background: var(--amber);
+    color: #1a1305;
+    border: none;
+    padding: 14px;
+    border-radius: var(--radius);
+    font-family: 'Oswald', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+  }
+  .submit-btn:disabled { opacity: .5; }
+  .error-text {
+    color: var(--danger);
+    font-size: 12px;
+    margin-top: 6px;
+    display: none;
+  }
+
+  .success-screen {
+    display: none;
+    padding: 60px 24px;
+    text-align: center;
+  }
+  .success-screen.show { display: block; }
+  .success-icon {
+    width: 52px; height: 52px;
+    border: 2px solid var(--ok);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+    color: var(--ok);
+    font-size: 24px;
+  }
+  .success-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 19px;
+    margin-bottom: 10px;
+  }
+  .success-text {
+    color: var(--ink-dim);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .ticket-ref {
+    margin-top: 18px;
+    display: inline-block;
+    border: 1px dashed var(--line);
+    padding: 8px 16px;
+    border-radius: var(--radius);
+    font-size: 13px;
+    color: var(--amber);
+    font-family: 'Oswald', sans-serif;
+  }
+
+  #formWrap.hide { display: none; }
+</style>
+</head>
+<body>
+
+<div class="ticket">
+  <div id="formWrap">
+    <div class="ticket-header">
+      <div class="brand-row">
+        <div class="brand">ATP <span>STEEL</span></div>
+        <div class="ticket-no" id="ticketNo">PYC-000000</div>
+      </div>
+      <div class="subtitle">Phiếu yêu cầu báo giá phôi thép khuôn mẫu & thép dụng cụ. Đội ngũ kinh doanh sẽ phản hồi trong giờ làm việc.</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label"><span class="num">1</span>Thông tin liên hệ</div>
+      <div class="field">
+        <label>Họ và tên <span class="req">*</span></label>
+        <input type="text" id="fName" placeholder="Nguyễn Văn A">
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>Số điện thoại <span class="req">*</span></label>
+          <input type="tel" id="fPhone" placeholder="09xx xxx xxx">
+        </div>
+        <div class="field">
+          <label>Công ty</label>
+          <input type="text" id="fCompany" placeholder="Tên công ty">
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label"><span class="num">2</span>Mác thép</div>
+      <div class="field">
+        <div class="grade-select" id="gradeSelect">
+          <div class="grade-btn" data-grade="SKD11">SKD11</div>
+          <div class="grade-btn" data-grade="SKD61/H13">SKD61/H13</div>
+          <div class="grade-btn" data-grade="NAK80">NAK80</div>
+          <div class="grade-btn" data-grade="P20/718H">P20/718H</div>
+          <div class="grade-btn" data-grade="S136">S136</div>
+          <div class="grade-btn" data-grade="SCM440">SCM440</div>
+          <div class="grade-btn" data-grade="Khác" style="grid-column: span 3;">Mác khác / chưa rõ</div>
+        </div>
+      </div>
+      <div class="field" id="gradeOtherWrap" style="display:none;">
+        <label>Ghi rõ mác thép</label>
+        <input type="text" id="fGradeOther" placeholder="Ví dụ: SUS420J2, SKH9...">
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label"><span class="num">3</span>Kích thước & khối lượng</div>
+      <div class="field">
+        <label>Kích thước phôi H × W × L (mm)</label>
+        <div class="dims">
+          <input type="text" id="fH" placeholder="H" inputmode="decimal">
+          <div class="x">×</div>
+          <input type="text" id="fW" placeholder="W" inputmode="decimal">
+          <div class="x">×</div>
+          <input type="text" id="fL" placeholder="L" inputmode="decimal">
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>Số lượng</label>
+          <input type="text" id="fQty" placeholder="Ví dụ: 20 cây">
+        </div>
+        <div class="field">
+          <label>Đơn vị tính</label>
+          <select id="fUnit">
+            <option value="cây/tấm">cây / tấm</option>
+            <option value="kg">kg</option>
+            <option value="tấn">tấn</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label"><span class="num">4</span>Gia công thêm</div>
+      <div class="field">
+        <div class="chips" id="serviceChips">
+          <div class="chip" data-svc="CNC">Gia công CNC</div>
+          <div class="chip" data-svc="Nhiệt luyện chân không">Nhiệt luyện chân không</div>
+          <div class="chip" data-svc="MTC/CO">Cần MTC/CO</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" style="border-bottom:none;">
+      <div class="section-label"><span class="num">5</span>Ghi chú</div>
+      <div class="field">
+        <textarea id="fNote" placeholder="Ứng dụng, yêu cầu độ cứng, thời gian cần hàng..."></textarea>
+      </div>
+      <div class="error-text" id="errText"></div>
+    </div>
+
+    <div class="footer-note">Thông tin sẽ được gửi trực tiếp đến bộ phận kinh doanh ATP Steel qua Telegram.</div>
+  </div>
+
+  <div class="success-screen" id="successScreen">
+    <div class="success-icon">✓</div>
+    <div class="success-title">Đã gửi yêu cầu báo giá</div>
+    <div class="success-text">Cảm ơn anh/chị đã liên hệ ATP Steel. Nhân viên kinh doanh sẽ phản hồi trong thời gian sớm nhất.</div>
+    <div class="ticket-ref" id="refShown">PYC-000000</div>
+  </div>
+</div>
+
+<div class="bottom-bar" id="bottomBar">
+  <button class="submit-btn" id="submitBtn">Gửi yêu cầu báo giá</button>
+</div>
+
+<script>
+  const tg = window.Telegram?.WebApp;
+  if (tg) { tg.ready(); tg.expand(); }
+
+  // Ticket number
+  const ticketNo = 'PYC-' + Date.now().toString().slice(-6);
+  document.getElementById('ticketNo').textContent = ticketNo;
+
+  // Grade selection
+  let selectedGrade = null;
+  document.querySelectorAll('.grade-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.grade-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      selectedGrade = btn.dataset.grade;
+      document.getElementById('gradeOtherWrap').style.display = selectedGrade === 'Khác' ? 'block' : 'none';
+    });
+  });
+
+  // Prefill mác thép nếu đến từ trang chủ (?grade=SKD11 hoặc ?grade=Khác&note=D2)
+  const urlParams = new URLSearchParams(location.search);
+  const prefillGrade = urlParams.get('grade');
+  const prefillNote = urlParams.get('note');
+  if (prefillGrade) {
+    const match = document.querySelector(`.grade-btn[data-grade="${prefillGrade}"]`);
+    if (match) match.click();
+    if (prefillGrade === 'Khác' && prefillNote) {
+      document.getElementById('fGradeOther').value = prefillNote;
+    }
+  }
+
+  // Service chips (multi-select)
+  const selectedServices = new Set();
+  document.querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      chip.classList.toggle('active');
+      const svc = chip.dataset.svc;
+      chip.classList.contains('active') ? selectedServices.add(svc) : selectedServices.delete(svc);
+    });
+  });
+
+  function showError(msg) {
+    const el = document.getElementById('errText');
+    el.textContent = msg;
+    el.style.display = 'block';
+  }
+  function clearError() {
+    document.getElementById('errText').style.display = 'none';
+  }
+
+  async function submitForm() {
+    clearError();
+    const name = document.getElementById('fName').value.trim();
+    const phone = document.getElementById('fPhone').value.trim();
+    const company = document.getElementById('fCompany').value.trim();
+    const gradeOther = document.getElementById('fGradeOther').value.trim();
+
+    if (!name) { showError('Vui lòng nhập họ tên.'); return; }
+    if (!phone) { showError('Vui lòng nhập số điện thoại.'); return; }
+    if (!selectedGrade) { showError('Vui lòng chọn mác thép.'); return; }
+    if (selectedGrade === 'Khác' && !gradeOther) { showError('Vui lòng ghi rõ mác thép.'); return; }
+
+    const payload = {
+      ticket: ticketNo,
+      name, phone, company,
+      grade: selectedGrade === 'Khác' ? gradeOther : selectedGrade,
+      dims: {
+        h: document.getElementById('fH').value.trim(),
+        w: document.getElementById('fW').value.trim(),
+        l: document.getElementById('fL').value.trim(),
+      },
+      qty: document.getElementById('fQty').value.trim(),
+      unit: document.getElementById('fUnit').value,
+      services: Array.from(selectedServices),
+      note: document.getElementById('fNote').value.trim(),
+      initData: tg?.initData || '',
+      user: tg?.initDataUnsafe?.user || null,
+    };
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Đang gửi...';
+
+    try {
+      const res = await fetch('/api/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error('submit failed');
+
+      document.getElementById('formWrap').classList.add('hide');
+      document.getElementById('bottomBar').style.display = 'none';
+      document.getElementById('successScreen').classList.add('show');
+      document.getElementById('refShown').textContent = ticketNo;
+
+      // Also notify via WebApp data channel as a fallback, then close after a delay
+      if (tg) {
+        setTimeout(() => tg.close(), 2200);
+      }
+    } catch (err) {
+      showError('Gửi thất bại, vui lòng thử lại hoặc gọi trực tiếp hotline ATP.');
+      btn.disabled = false;
+      btn.textContent = 'Gửi yêu cầu báo giá';
+    }
+  }
+
+  document.getElementById('submitBtn').addEventListener('click', submitForm);
+
+  // Theme sync with Telegram client
+  if (tg?.themeParams?.bg_color) {
+    document.documentElement.style.setProperty('--bg', tg.themeParams.bg_color);
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+{
+  "functions": {
+    "api/submit.js": { "memory": 128 },
+    "api/webhook.js": { "memory": 128 }
+  }
+}

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Danh mục sản phẩm — ATP Steel</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+  :root{
+    --bg: #14171a;
+    --panel: #1b1f23;
+    --panel-raised: #21262b;
+    --line: #2b3238;
+    --line-soft: #23282d;
+    --ink: #e9ebe8;
+    --ink-dim: #8b959c;
+    --amber: #d99a3d;
+    --amber-dim: #8a6a3a;
+    --steel: #4a7c96;
+    --radius: 3px;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { text-decoration: none; color: inherit; }
+
+  .page { max-width: 480px; margin: 0 auto; padding-bottom: 40px; }
+
+  /* Header */
+  .topbar {
+    display: flex; align-items: center; gap: 12px;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--line);
+    position: sticky; top: 0;
+    background: var(--bg);
+    z-index: 50;
+  }
+  .back-btn {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .topbar-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  .topbar-sub { font-size: 11.5px; color: var(--ink-dim); margin-top: 2px; }
+
+  /* Category jump chips */
+  .jump-row {
+    display: flex; gap: 8px;
+    overflow-x: auto;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .jump-row::-webkit-scrollbar { display: none; }
+  .jump-chip {
+    flex-shrink: 0;
+    border: 1px solid var(--line);
+    background: var(--panel);
+    color: var(--ink-dim);
+    padding: 7px 13px;
+    border-radius: 20px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .section { padding: 22px 20px 4px; scroll-margin-top: 60px; }
+  .section-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 14.5px;
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+  .grade-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .grade-card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+  }
+  .grade-photo {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    display: block;
+    background: var(--panel-raised);
+    border-bottom: 1px solid var(--line);
+  }
+  .grade-info { padding: 8px 6px 10px; }
+  .grade-name {
+    font-family: 'Oswald', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .grade-cta { font-size: 10px; color: var(--steel); margin-top: 3px; }
+
+  .footer-block {
+    padding: 26px 20px 0;
+    font-size: 11.5px;
+    color: var(--ink-dim);
+    line-height: 1.7;
+    border-top: 1px solid var(--line-soft);
+    margin-top: 26px;
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <div class="topbar">
+    <a href="index.html" class="back-btn">←</a>
+    <div>
+      <div class="topbar-title">Danh mục sản phẩm</div>
+      <div class="topbar-sub">Toàn bộ mác thép & kim loại ATP đang phân phối</div>
+    </div>
+  </div>
+
+  <div class="jump-row">
+    <a href="#cold" class="jump-chip">Dập nguội</a>
+    <a href="#hot" class="jump-chip">Dập nóng</a>
+    <a href="#plastic" class="jump-chip">Khuôn nhựa</a>
+    <a href="#structural" class="jump-chip">Kết cấu/Carbon</a>
+    <a href="#nonferrous" class="jump-chip">Kim loại màu</a>
+  </div>
+
+  <!-- Dập nguội -->
+  <div class="section" id="cold">
+    <div class="section-title">Thép khuôn dập nguội</div>
+    <div class="grade-grid">
+      <a href="quote.html?grade=SKD11" class="grade-card"><img src="images/skd11.png" class="grade-photo" alt="SKD11"><div class="grade-info"><div class="grade-name">SKD11</div><div class="grade-cta">Hỏi giá →</div></div></a>
+      <a href="quote.html?grade=Khác&note=D2" class="grade-card"><img src="images/d2.png" class="grade-photo" alt="D2"><div class="grade-info"><div class="grade-name">D2</div><div class="grade-cta">Hỏi giá →</div></div></a>
+      <a href="quote.html?grade=Khác&note=1.2379" class="grade-card"><img src="images/1-2379.png" class="grade-photo" alt="1.2379"><div class="grade-info"><div class="grade-name">1.2379</div><div class="grade-cta">Hỏi giá →</div></div></a>
+      <a href="quote.html?grade=Khác&note=SLD" class="grade-card"><img src="images/sld.png" class="grade-photo" alt="SLD"><div class="grade-info"><div class="grade-name">SLD</div><div class="grade-cta">Hỏi giá →</div></div></a>
+      <a href="quote.html?grade=Khác&note=DC53" class="grade-card"><img src="images/dc53.png" class="grade-photo" alt="DC53"><div class="grade-info"><div class="grade-name">DC53</div><div class="grade-cta">Hỏi giá →</div></div></a>
+      <a href="quote.html?grade=Khác&note=Cr12MoV" class="grade-card"><img src="images/cr12mov.png" class="grade-photo" alt="Cr12MoV"><div class="grade-info"><div class="grade-name">Cr12MoV</div><div class="grade-cta">Hỏi giá →</div></div></a>
+      <a href="quote.html?grade=Khác&note=A8 Mod" class="grade-card"><img src="images/a8-mod.png" class="grade-photo" alt="A8 Mod"><div class="grade-info"><div class="grade-name">A8 Mod</div><div class="grade-cta">Hỏi giá →</div></div></a>
+    </div>
+  </div>
+
+  <!-- Dập nóng -->
+  <div class="section" id="hot">
+    <div class="section-title">Thép khuôn dập nóng</div>
+    <div class="grade-grid">
+      <a href="quote.html?grade=SKD61/H13" class="grade-card"><img src="images/skd61-h13.png" class="grade-photo" alt="SKD61/H13"><div class="grade-info"><div class="grade-name">SKD61/H13</div><div class="grade-cta">Hỏi giá →</div></div></a>
+      <a href="quote.html?grade=Khác&note=FDAC" class="grade-card"><img src="images/fdac.png" class="grade-photo" alt="FDAC"><div class="grade-info"><div class="grade-name">FDAC</div><div class="grade-cta">Hỏi giá →</div></div></a>
+      <a href="quote.html?grade=Khác&note=8418" class="grade-card"><img src="images/8418.png" class="grade-photo" alt="8418"><div class="grade-info"><div class="grade-name">8418</div><div class="grade-cta">Hỏi giá →</div></div></a>
+    </div>
+  </div>
+
+  <!-- Khuôn nhựa -->
+  <div class="section" id="plastic">
+    <div class="section-title">Thép khuôn nhựa</div>
+    <div class="grade-grid">
+      <a href="quote.html?grade=NAK80" class="grade-card"><img src="images/nak80.png" class="grade-photo" alt="NAK80"><div class="grade-info"><div class="grade-name">NAK80</div><div class="grade-cta">Hỏi giá →</div></div></a>
+      <a href="quote.html?grade=Khác&note=NAK55" class="grade-card"><img src="images/nak55.png" class="grade-photo" alt="NAK55"><div class="grade-info"><div class="grade-name">NAK55</div><div class="grade-cta">Hỏi giá →</div></div></a>
+      <a href="quote.html?grade=P20/718H" class="grade-card"><img src="images/p20-718h.png" class="grade-photo" alt="P20/718H"><div class="grade-info"><div class="grade-name">P20/718H</div><div class="grade-cta">Hỏi giá →</div></div></a>
+      <a href="quote.html?grade=S136" class="grade-card"><img src="images/s136.png" class="grade-photo" alt="S136"><div class="grade-info"><div class="grade-name">S136</div><div class="grade-cta">Hỏi giá →</div></div></a>
+      <a href="quote.html?grade=Khác&note=1.2083" class="grade-card"><img src="images/1-2083.png" class="grade-photo" alt="1.2083"><div class="grade-info"><div class="grade-name">1.2083</div><div class="grade-cta">Hỏi giá →</div></div></a>
+      <a href="quote.html?grade=Khác&note=1.2316" class="grade-card"><img src="images/1-2316.png" class="grade-photo" alt="1.2316"><div class="grade-info"><div class="grade-name">1.2316</div><div class="grade-cta">Hỏi giá →</div></div></a>
+      <a href="quote.html?grade=Khác&note=1.2738" class="grade-card"><img src="images/1-2738.png" class="grade-photo" alt="1.2738"><div class="grade-info"><div class="grade-name">1.2738</div><div class="grade-cta">Hỏi giá →</div></div></a>
+    </div>
+  </div>
+
+  <!-- Kết cấu / Carbon -->
+  <div class="section" id="structural">
+    <div class="section-title">Thép kết cấu & carbon</div>
+    <div class="grade-grid">
+      <a href="quote.html?grade=SCM440" class="grade-card"><img src="images/scm440.png" class="grade-photo" alt="SCM440"><div class="grade-info"><div class="grade-name">SCM440</div><div class="grade-cta">Hỏi giá →</div></div></a>
+      <a href="quote.html?grade=Khác&note=S45C" class="grade-card"><img src="images/s45c.png" class="grade-photo" alt="S45C"><div class="grade-info"><div class="grade-name">S45C</div><div class="grade-cta">Hỏi giá →</div></div></a>
+      <a href="quote.html?grade=Khác&note=S50C" class="grade-card"><img src="images/s50c.png" class="grade-photo" alt="S50C"><div class="grade-info"><div class="grade-name">S50C</div><div class="grade-cta">Hỏi giá →</div></div></a>
+      <a href="quote.html?grade=Khác&note=S55C" class="grade-card"><img src="images/s55c.png" class="grade-photo" alt="S55C"><div class="grade-info"><div class="grade-name">S55C</div><div class="grade-cta">Hỏi giá →</div></div></a>
+      <a href="quote.html?grade=Khác&note=SS400" class="grade-card"><img src="images/ss400.png" class="grade-photo" alt="SS400"><div class="grade-info"><div class="grade-name">SS400</div><div class="grade-cta">Hỏi giá →</div></div></a>
+      <a href="quote.html?grade=Khác&note=Q235B" class="grade-card"><img src="images/q235b.png" class="grade-photo" alt="Q235B"><div class="grade-info"><div class="grade-name">Q235B</div><div class="grade-cta">Hỏi giá →</div></div></a>
+    </div>
+  </div>
+
+  <!-- Kim loại màu -->
+  <div class="section" id="nonferrous">
+    <div class="section-title">Kim loại màu</div>
+    <div class="grade-grid">
+      <a href="quote.html?grade=Khác&note=Đồng C1100" class="grade-card"><img src="images/cu-c1100.png" class="grade-photo" alt="Đồng C1100"><div class="grade-info"><div class="grade-name">Đồng C1100</div><div class="grade-cta">Hỏi giá →</div></div></a>
+      <a href="quote.html?grade=Khác&note=Nhôm tròn" class="grade-card"><img src="images/al-tron.png" class="grade-photo" alt="Nhôm tròn"><div class="grade-info"><div class="grade-name">Nhôm tròn</div><div class="grade-cta">Hỏi giá →</div></div></a>
+      <a href="quote.html?grade=Khác&note=Nhôm 5052" class="grade-card"><img src="images/al-5052.png" class="grade-photo" alt="Nhôm 5052"><div class="grade-info"><div class="grade-name">Nhôm 5052</div><div class="grade-cta">Hỏi giá →</div></div></a>
+      <a href="quote.html?grade=Khác&note=Đồng thau KDA1" class="grade-card"><img src="images/kda1.png" class="grade-photo" alt="KDA1"><div class="grade-info"><div class="grade-name">Đồng thau KDA1</div><div class="grade-cta">Hỏi giá →</div></div></a>
+    </div>
+  </div>
+
+  <div class="footer-block">
+    Không thấy mác cần tìm? Bấm <b>Hỏi giá</b> ở trang chủ và ghi rõ trong phần ghi chú — ATP vẫn có thể nhập theo yêu cầu.
+  </div>
+</div>
+
+<script>
+  const tg = window.Telegram?.WebApp;
+  if (tg) { tg.ready(); tg.expand(); }
+  if (tg?.themeParams?.bg_color) {
+    document.documentElement.style.setProperty('--bg', tg.themeParams.bg_color);
+  }
+</script>
+
+</body>
+</html>
