@@ -1,6 +1,7 @@
 {
   "functions": {
-    "api/submit.js": { "memory": 128 },
-    "api/webhook.js": { "memory": 128 }
+    "api/submit.js": { "memory": 128, "runtime": "nodejs20.x" },
+    "api/submit-media.js": { "memory": 256, "runtime": "nodejs20.x" },
+    "api/webhook.js": { "memory": 128, "runtime": "nodejs20.x" }
   }
 }
