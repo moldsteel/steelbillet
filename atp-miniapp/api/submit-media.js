@@ -56,7 +56,11 @@ async function sendTelegramMedia(chatId, buffer, fileName, mimeType, caption) {
     method: 'POST',
     body: form,
   });
-  return res.json();
+  const json = await res.json();
+  if (!json.ok) {
+    throw new Error('Telegram API: ' + (json.description || res.status));
+  }
+  return json;
 }
 
 module.exports = async (req, res) => {
@@ -100,6 +104,6 @@ module.exports = async (req, res) => {
     return res.status(200).json({ ok: true, ticket });
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ error: 'internal error' });
+    return res.status(500).json({ error: err.message || 'internal error' });
   }
 };
