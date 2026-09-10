@@ -1024,37 +1024,77 @@
   ['qqCamera', 'qqGallery', 'qqDoc'].forEach(id => {
     document.getElementById(id).addEventListener('change', async (e) => {
       const file = e.target.files[0];
+      const isDoc = id === 'qqDoc';
       e.target.value = '';
       if (!file) return;
-      await uploadQuickQuote(file);
+      await uploadQuickQuote(file, isDoc);
     });
   });
 
-  function fileToBase64(file) {
+  function fileToBase64(fileOrBlob) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = () => resolve(reader.result.split(',')[1]);
       reader.onerror = reject;
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(fileOrBlob);
     });
   }
 
-  async function uploadQuickQuote(file) {
+  // Nén ảnh trước khi gửi: ảnh chụp từ điện thoại thường 3-8MB, sau base64 sẽ
+  // vượt giới hạn 4.5MB của Vercel. Resize chiều dài nhất về tối đa 1600px và
+  // nén JPEG chất lượng 0.72 — vẫn đủ rõ để báo giá, nhẹ hơn nhiều lần.
+  function compressImage(file, maxDim, quality) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      const url = URL.createObjectURL(file);
+      img.onload = () => {
+        URL.revokeObjectURL(url);
+        let { width, height } = img;
+        if (width > maxDim || height > maxDim) {
+          if (width > height) { height = Math.round(height * maxDim / width); width = maxDim; }
+          else { width = Math.round(width * maxDim / height); height = maxDim; }
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = width; canvas.height = height;
+        canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+        canvas.toBlob((blob) => {
+          if (!blob) return reject(new Error('compress failed'));
+          resolve(blob);
+        }, 'image/jpeg', quality);
+      };
+      img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('image load failed')); };
+      img.src = url;
+    });
+  }
+
+  async function uploadQuickQuote(file, isDoc) {
     const phone = document.getElementById('qqPhone').value.trim();
-    const MAX_MB = 4;
-    if (file.size > MAX_MB * 1024 * 1024) {
-      setQqStatus(`File quá lớn (tối đa ${MAX_MB}MB).`, 'err');
-      return;
-    }
-    setQqStatus('Đang gửi...', '');
+    setQqStatus('Đang xử lý...', '');
     try {
-      const fileBase64 = await fileToBase64(file);
+      let uploadBlob = file;
+      let fileName = file.name || 'anh-hoi-gia';
+      let mimeType = file.type || 'application/octet-stream';
+
+      if (!isDoc && file.type.startsWith('image/')) {
+        uploadBlob = await compressImage(file, 1600, 0.72);
+        fileName = (fileName.replace(/\.[^.]+$/, '') || 'anh-hoi-gia') + '.jpg';
+        mimeType = 'image/jpeg';
+      }
+
+      const MAX_MB = 3.2; // để lại biên an toàn cho phần base64 (+33%) + JSON
+      if (uploadBlob.size > MAX_MB * 1024 * 1024) {
+        setQqStatus(`File vẫn quá lớn (tối đa ~${MAX_MB}MB sau khi nén). Vui lòng dùng "Gửi phiếu yêu cầu báo giá" ở trang chủ hoặc gọi hotline.`, 'err');
+        return;
+      }
+
+      setQqStatus('Đang gửi...', '');
+      const fileBase64 = await fileToBase64(uploadBlob);
       const payload = {
         ticket: 'HGN-' + Date.now().toString().slice(-6),
         phone,
         fileBase64,
-        fileName: file.name || 'anh-hoi-gia',
-        mimeType: file.type || 'application/octet-stream',
+        fileName,
+        mimeType,
         initData: tg?.initData || '',
         user: tg?.initDataUnsafe?.user || null,
       };
@@ -1063,7 +1103,12 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
-      if (!res.ok) throw new Error('upload failed');
+      let resBody = null;
+      try { resBody = await res.json(); } catch (_) {}
+      if (!res.ok) {
+        console.error('submit-media error', res.status, resBody);
+        throw new Error((resBody && resBody.error) || ('HTTP ' + res.status));
+      }
       setQqStatus('Đã gửi! ATP sẽ liên hệ lại qua số ' + phone + '.', 'ok');
       setTimeout(() => {
         document.getElementById('quickQuoteOverlay').classList.remove('show');
@@ -1072,7 +1117,8 @@
         document.getElementById('qqPhone').value = '';
       }, 1800);
     } catch (err) {
-      setQqStatus('Gửi thất bại, vui lòng thử lại hoặc gọi hotline 09 1716 8289.', 'err');
+      console.error('uploadQuickQuote error', err);
+      setQqStatus('Gửi thất bại (' + err.message + '). Vui lòng thử lại hoặc gọi hotline 091 7168 289.', 'err');
     }
   }
 </script>
