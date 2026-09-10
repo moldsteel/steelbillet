@@ -5,6 +5,7 @@
 - `quote.html` — phiếu yêu cầu báo giá (nhận `?grade=` để tự chọn sẵn mác thép khi bấm từ trang chủ)
 - `logo.png` — **anh tự thêm file logo thật vào đây**, cùng cấp với `index.html`. Sau khi thêm, mở `index.html`, tìm dòng `<span class="logo-fallback">ATP</span>` trong `.logo-box` và thay bằng `<img src="logo.png" alt="ATP Steel">`
 - `api/submit.js` — nhận dữ liệu form, forward vào nhóm sale, xác nhận cho khách
+- `api/submit-media.js` — nhận ảnh/tài liệu từ nút "Hỏi giá nhanh" (trang chủ), forward vào nhóm sale dạng photo/document
 - `api/webhook.js` — xử lý `/start`, gửi nút mở Mini App
 - `vercel.json` — cấu hình deploy
 
@@ -55,6 +56,8 @@ Sau bước này, khách nhắn `/start` với bot sẽ nhận được nút m�
 4. Mini App hiển thị màn hình "Đã gửi yêu cầu" và tự đóng sau ~2 giây.
 
 ## Ghi chú bảo mật
+- Yêu cầu Node.js 18+ runtime trên Vercel (dùng `fetch`, `FormData`, `Blob` toàn cục trong `api/submit-media.js`) — mặc định Vercel đã dùng Node 18+, không cần cấu hình thêm.
+- Nút "Hỏi giá nhanh" (ảnh/tài liệu) giới hạn **4MB/file** do giới hạn kích thước body mặc định của Vercel Serverless Functions (~4.5MB). Nếu khách cần gửi file lớn hơn, hướng dẫn dùng nút "Gửi phiếu yêu cầu báo giá" (form) hoặc gọi hotline.
 - `submit.js` xác thực `initData` bằng HMAC-SHA256 theo đúng chuẩn Telegram — dữ liệu giả mạo từ bên ngoài Mini App sẽ bị gắn cờ "chưa xác thực" trong tin nhắn gửi vào nhóm sale (không bị chặn cứng, để tiện debug khi mới triển khai; có thể đổi thành chặn hẳn bằng cách trả `403` khi `!valid`).
 - Không commit `BOT_TOKEN` vào Git — luôn dùng biến môi trường.
 - Nếu muốn mở rộng: lưu yêu cầu vào Google Sheet / Airtable trước khi gửi Telegram để có lịch sử tra cứu.
