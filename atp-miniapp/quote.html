@@ -3,12 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>ATP Steel — Yêu Cầu Báo Giá</title>
+<title>An Thái Phú Steel — Yêu Cầu Báo Giá</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
   :root{
     --bg: #14171a;
     --panel: #1b1f23;
+    --panel-raised: #21262b;
     --line: #2b3238;
     --line-soft: #23282d;
     --ink: #e9ebe8;
@@ -20,7 +21,7 @@
     --ok: #5a9c6e;
     --radius: 3px;
   }
-  * { box-sizing: border-box; }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html, body {
     margin: 0; padding: 0;
     background: var(--bg);
@@ -28,20 +29,30 @@
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     -webkit-font-smoothing: antialiased;
   }
-  @font-face {
-    font-family: 'Oswald';
-    src: local('Oswald');
-  }
-  .head-font { font-family: 'Oswald', 'Inter', sans-serif; }
+  @font-face { font-family: 'Oswald'; src: local('Oswald'); }
 
-  .ticket {
-    max-width: 480px;
-    margin: 0 auto;
-    padding: 0 0 100px 0;
+  .ticket { max-width: 480px; margin: 0 auto; padding: 0 0 100px 0; }
+
+  /* Top bar: nút về trang chủ */
+  .topbar {
+    display: flex; align-items: center; gap: 10px;
+    padding: 14px 20px 0;
   }
+  .back-btn {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: var(--panel);
+    color: var(--ink);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+    text-decoration: none;
+  }
+  .topbar-label { font-size: 12.5px; color: var(--ink-dim); }
 
   .ticket-header {
-    padding: 22px 20px 16px;
+    padding: 14px 20px 16px;
     border-bottom: 1px solid var(--line);
     position: relative;
   }
@@ -53,60 +64,38 @@
     background: repeating-linear-gradient(90deg, var(--amber) 0 10px, transparent 10px 18px);
     opacity: .55;
   }
-  .brand-row {
-    display: flex; justify-content: space-between; align-items: baseline;
-  }
+  .brand-row { display: flex; justify-content: space-between; align-items: baseline; }
   .brand {
     font-family: 'Oswald', sans-serif;
     font-weight: 600;
-    font-size: 20px;
-    letter-spacing: 0.5px;
+    font-size: 18px;
+    letter-spacing: 0.3px;
     color: var(--ink);
   }
   .brand span { color: var(--amber); }
-  .ticket-no {
-    font-size: 12px;
-    color: var(--ink-dim);
-  }
-  .subtitle {
-    margin-top: 6px;
-    font-size: 13.5px;
-    color: var(--ink-dim);
-    line-height: 1.5;
-  }
+  .ticket-no { font-size: 12px; color: var(--ink-dim); font-family: 'Oswald', sans-serif; }
+  .subtitle { margin-top: 6px; font-size: 13.5px; color: var(--ink-dim); line-height: 1.5; }
 
-  .section {
-    padding: 18px 20px;
-    border-bottom: 1px solid var(--line-soft);
-  }
+  .section { padding: 18px 20px; border-bottom: 1px solid var(--line-soft); }
   .section-label {
     font-family: 'Oswald', sans-serif;
     font-size: 13px;
     font-weight: 500;
     color: var(--amber);
     margin-bottom: 14px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    display: flex; align-items: center; gap: 8px;
   }
   .section-label .num {
     width: 20px; height: 20px;
     border: 1px solid var(--amber-dim);
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-size: 11px;
-    color: var(--amber);
-    flex-shrink: 0;
+    font-size: 11px; color: var(--amber); flex-shrink: 0;
   }
 
   .field { margin-bottom: 14px; }
   .field:last-child { margin-bottom: 0; }
-  label {
-    display: block;
-    font-size: 12.5px;
-    color: var(--ink-dim);
-    margin-bottom: 6px;
-  }
+  label { display: block; font-size: 12.5px; color: var(--ink-dim); margin-bottom: 6px; }
   label .req { color: var(--danger); }
 
   input, select, textarea {
@@ -120,34 +109,12 @@
     font-family: inherit;
     transition: border-color .15s;
   }
-  input:focus, select:focus, textarea:focus {
-    outline: none;
-    border-color: var(--steel);
-  }
-  textarea { resize: vertical; min-height: 64px; }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--steel); }
+  textarea { resize: vertical; min-height: 56px; }
 
-  .dims {
-    display: grid;
-    grid-template-columns: 1fr 14px 1fr 14px 1fr;
-    align-items: center;
-    gap: 4px;
-  }
-  .dims .x {
-    text-align: center;
-    color: var(--ink-dim);
-    font-size: 13px;
-  }
-  .dims input { text-align: center; padding: 11px 4px; }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
-  .row2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-  }
-
-  .chips {
-    display: flex; flex-wrap: wrap; gap: 8px;
-  }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
   .chip {
     border: 1px solid var(--line);
     background: var(--panel);
@@ -159,46 +126,13 @@
     user-select: none;
     transition: all .15s;
   }
-  .chip.active {
-    border-color: var(--amber);
-    color: var(--amber);
-    background: rgba(217,154,61,0.08);
-  }
+  .chip.active { border-color: var(--amber); color: var(--amber); background: rgba(217,154,61,0.08); }
 
-  .grade-select {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-  }
-  .grade-btn {
-    border: 1px solid var(--line);
-    background: var(--panel);
-    color: var(--ink);
-    padding: 10px 6px;
-    border-radius: var(--radius);
-    font-size: 13px;
-    text-align: center;
-    cursor: pointer;
-    font-family: 'Oswald', sans-serif;
-  }
-  .grade-btn.active {
-    border-color: var(--steel);
-    background: rgba(74,124,150,0.12);
-    color: #a9c9d8;
-  }
-
-  .footer-note {
-    padding: 16px 20px 0;
-    font-size: 12px;
-    color: var(--ink-dim);
-    line-height: 1.6;
-  }
+  .footer-note { padding: 16px 20px 0; font-size: 12px; color: var(--ink-dim); line-height: 1.6; }
 
   .bottom-bar {
-    position: fixed;
-    left: 0; right: 0; bottom: 0;
-    max-width: 480px;
-    margin: 0 auto;
+    position: fixed; left: 0; right: 0; bottom: 0;
+    max-width: 480px; margin: 0 auto;
     padding: 14px 20px;
     background: linear-gradient(180deg, transparent, var(--bg) 20%);
   }
@@ -216,18 +150,9 @@
     cursor: pointer;
   }
   .submit-btn:disabled { opacity: .5; }
-  .error-text {
-    color: var(--danger);
-    font-size: 12px;
-    margin-top: 6px;
-    display: none;
-  }
+  .error-text { color: var(--danger); font-size: 12px; margin-top: 6px; display: none; }
 
-  .success-screen {
-    display: none;
-    padding: 60px 24px;
-    text-align: center;
-  }
+  .success-screen { display: none; padding: 60px 24px; text-align: center; }
   .success-screen.show { display: block; }
   .success-icon {
     width: 52px; height: 52px;
@@ -235,112 +160,149 @@
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
     margin: 0 auto 20px;
-    color: var(--ok);
-    font-size: 24px;
+    color: var(--ok); font-size: 24px;
   }
-  .success-title {
-    font-family: 'Oswald', sans-serif;
-    font-size: 19px;
-    margin-bottom: 10px;
-  }
-  .success-text {
-    color: var(--ink-dim);
-    font-size: 14px;
-    line-height: 1.6;
-  }
+  .success-title { font-family: 'Oswald', sans-serif; font-size: 19px; margin-bottom: 10px; }
+  .success-text { color: var(--ink-dim); font-size: 14px; line-height: 1.6; }
   .ticket-ref {
-    margin-top: 18px;
-    display: inline-block;
+    margin-top: 18px; display: inline-block;
     border: 1px dashed var(--line);
-    padding: 8px 16px;
-    border-radius: var(--radius);
-    font-size: 13px;
-    color: var(--amber);
-    font-family: 'Oswald', sans-serif;
+    padding: 8px 16px; border-radius: var(--radius);
+    font-size: 13px; color: var(--amber); font-family: 'Oswald', sans-serif;
+  }
+  .success-home {
+    display: inline-block; margin-top: 22px;
+    color: var(--steel); font-size: 13px; text-decoration: none;
   }
 
   #formWrap.hide { display: none; }
+
+  /* ---------- Đa mác thép / đa kích thước ---------- */
+  .grade-block {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--panel-raised);
+    padding: 13px;
+    margin-bottom: 12px;
+  }
+  .gb-head {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 12px;
+  }
+  .gb-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 12.5px;
+    color: var(--amber);
+    letter-spacing: 0.3px;
+  }
+  .gb-remove, .item-remove {
+    background: none; border: 1px solid var(--line);
+    color: var(--ink-dim);
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    font-size: 12px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .gb-other-wrap { margin-top: -4px; }
+
+  .item-row {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--panel);
+    padding: 11px;
+    margin-bottom: 10px;
+  }
+  .item-row:last-child { margin-bottom: 0; }
+  .item-row-head {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 10px;
+  }
+  .shape-toggle { display: flex; gap: 6px; }
+  .shape-btn {
+    border: 1px solid var(--line);
+    background: var(--panel-raised);
+    color: var(--ink-dim);
+    padding: 5px 12px;
+    border-radius: 16px;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  .shape-btn.active { border-color: var(--steel); color: #a9c9d8; background: rgba(74,124,150,0.12); }
+
+  .dims {
+    display: grid;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 10px;
+  }
+  .dims-tam { grid-template-columns: 1fr 14px 1fr 14px 1fr; }
+  .dims-tron { grid-template-columns: 1fr 14px 1fr; }
+  .dims .x { text-align: center; color: var(--ink-dim); font-size: 13px; }
+  .dims input { text-align: center; padding: 10px 4px; font-size: 14px; }
+
+  .add-item-btn, .add-block-btn {
+    width: 100%;
+    background: none;
+    border: 1px dashed var(--line);
+    color: var(--steel);
+    padding: 10px;
+    border-radius: var(--radius);
+    font-size: 13px;
+    cursor: pointer;
+    margin-top: 2px;
+  }
+  .add-block-btn { border-color: var(--amber-dim); color: var(--amber); margin-top: 4px; }
 </style>
 </head>
 <body>
 
 <div class="ticket">
   <div id="formWrap">
+
+    <div class="topbar">
+      <a href="index.html" class="back-btn">←</a>
+      <span class="topbar-label">Về trang chủ</span>
+    </div>
+
     <div class="ticket-header">
       <div class="brand-row">
-        <div class="brand">ATP <span>STEEL</span></div>
-        <div class="ticket-no" id="ticketNo">PYC-000000</div>
+        <div class="brand">An Thái Phú <span>Steel</span></div>
+        <div class="ticket-no" id="ticketNo">RFQ-000000.00</div>
       </div>
       <div class="subtitle">Phiếu yêu cầu báo giá phôi thép khuôn mẫu & thép dụng cụ. Đội ngũ kinh doanh sẽ phản hồi trong giờ làm việc.</div>
     </div>
 
     <div class="section">
       <div class="section-label"><span class="num">1</span>Thông tin liên hệ</div>
-      <div class="field">
-        <label>Họ và tên <span class="req">*</span></label>
-        <input type="text" id="fName" placeholder="Nguyễn Văn A">
-      </div>
-      <div class="row2">
-        <div class="field">
+      <div class="field row2">
+        <div>
+          <label>Họ và tên <span class="req">*</span></label>
+          <input type="text" id="fName" placeholder="Nguyễn Văn A">
+        </div>
+        <div>
           <label>Số điện thoại <span class="req">*</span></label>
           <input type="tel" id="fPhone" placeholder="09xx xxx xxx">
         </div>
-        <div class="field">
-          <label>Công ty</label>
-          <input type="text" id="fCompany" placeholder="Tên công ty">
-        </div>
       </div>
-    </div>
-
-    <div class="section">
-      <div class="section-label"><span class="num">2</span>Mác thép</div>
       <div class="field">
-        <div class="grade-select" id="gradeSelect">
-          <div class="grade-btn" data-grade="SKD11">SKD11</div>
-          <div class="grade-btn" data-grade="SKD61/H13">SKD61/H13</div>
-          <div class="grade-btn" data-grade="NAK80">NAK80</div>
-          <div class="grade-btn" data-grade="P20/718H">P20/718H</div>
-          <div class="grade-btn" data-grade="S136">S136</div>
-          <div class="grade-btn" data-grade="SCM440">SCM440</div>
-          <div class="grade-btn" data-grade="Khác" style="grid-column: span 3;">Mác khác / chưa rõ</div>
-        </div>
+        <label>Công ty</label>
+        <input type="text" id="fCompany" placeholder="Tên công ty">
       </div>
-      <div class="field" id="gradeOtherWrap" style="display:none;">
-        <label>Ghi rõ mác thép</label>
-        <input type="text" id="fGradeOther" placeholder="Ví dụ: SUS420J2, SKH9...">
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="section-label"><span class="num">3</span>Kích thước & khối lượng</div>
       <div class="field">
-        <label>Kích thước phôi H × W × L (mm)</label>
-        <div class="dims">
-          <input type="text" id="fH" placeholder="H" inputmode="decimal">
-          <div class="x">×</div>
-          <input type="text" id="fW" placeholder="W" inputmode="decimal">
-          <div class="x">×</div>
-          <input type="text" id="fL" placeholder="L" inputmode="decimal">
-        </div>
-      </div>
-      <div class="row2">
-        <div class="field">
-          <label>Số lượng</label>
-          <input type="text" id="fQty" placeholder="Ví dụ: 20 cây">
-        </div>
-        <div class="field">
-          <label>Đơn vị tính</label>
-          <select id="fUnit">
-            <option value="cây/tấm">cây / tấm</option>
-            <option value="kg">kg</option>
-            <option value="tấn">tấn</option>
-          </select>
-        </div>
+        <label>Địa chỉ nhận hàng</label>
+        <textarea id="fAddress" placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành..."></textarea>
       </div>
     </div>
 
     <div class="section">
-      <div class="section-label"><span class="num">4</span>Gia công thêm</div>
+      <div class="section-label"><span class="num">2</span>Mác thép & kích thước</div>
+      <div id="gradeBlocks"></div>
+      <button class="add-block-btn" id="addBlockBtn" type="button">+ Thêm mác thép khác</button>
+    </div>
+
+    <div class="section">
+      <div class="section-label"><span class="num">3</span>Gia công thêm</div>
       <div class="field">
         <div class="chips" id="serviceChips">
           <div class="chip" data-svc="CNC">Gia công CNC</div>
@@ -351,21 +313,23 @@
     </div>
 
     <div class="section" style="border-bottom:none;">
-      <div class="section-label"><span class="num">5</span>Ghi chú</div>
+      <div class="section-label"><span class="num">4</span>Ghi chú</div>
       <div class="field">
         <textarea id="fNote" placeholder="Ứng dụng, yêu cầu độ cứng, thời gian cần hàng..."></textarea>
       </div>
       <div class="error-text" id="errText"></div>
     </div>
 
-    <div class="footer-note">Thông tin sẽ được gửi trực tiếp đến bộ phận kinh doanh ATP Steel qua Telegram.</div>
+    <div class="footer-note">Thông tin sẽ được gửi trực tiếp đến bộ phận kinh doanh An Thái Phú Steel qua Telegram.</div>
   </div>
 
   <div class="success-screen" id="successScreen">
     <div class="success-icon">✓</div>
     <div class="success-title">Đã gửi yêu cầu báo giá</div>
-    <div class="success-text">Cảm ơn anh/chị đã liên hệ ATP Steel. Nhân viên kinh doanh sẽ phản hồi trong thời gian sớm nhất.</div>
-    <div class="ticket-ref" id="refShown">PYC-000000</div>
+    <div class="success-text">Cảm ơn anh/chị đã liên hệ An Thái Phú Steel. Nhân viên kinh doanh sẽ phản hồi trong thời gian sớm nhất.</div>
+    <div class="ticket-ref" id="refShown">RFQ-000000.00</div>
+    <br>
+    <a href="index.html" class="success-home">← Về trang chủ</a>
   </div>
 </div>
 
@@ -377,32 +341,183 @@
   const tg = window.Telegram?.WebApp;
   if (tg) { tg.ready(); tg.expand(); }
 
-  // Ticket number
-  const ticketNo = 'PYC-' + Date.now().toString().slice(-6);
+  // Mã phiếu: RFQ-<6 số cuối timestamp>.<2 số cuối năm hiện tại>
+  const year2 = new Date().getFullYear().toString().slice(-2);
+  const ticketNo = 'RFQ-' + Date.now().toString().slice(-6) + '.' + year2;
   document.getElementById('ticketNo').textContent = ticketNo;
 
-  // Grade selection
-  let selectedGrade = null;
-  document.querySelectorAll('.grade-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.grade-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      selectedGrade = btn.dataset.grade;
-      document.getElementById('gradeOtherWrap').style.display = selectedGrade === 'Khác' ? 'block' : 'none';
+  // ===================== DANH MỤC MÁC THÉP (đồng bộ theo danh-muc.html) =====================
+  const GRADE_OPTIONS = [
+    { group: 'Khuôn dập nguội', grades: ['SKD11','D2','1.2379','SLD','DC53','Cr12MoV','A8 Mod'] },
+    { group: 'Khuôn dập nóng', grades: ['SKD61','H13','FDAC','1.8418','KDA1'] },
+    { group: 'Khuôn nhựa', grades: ['NAK80','NAK55','718H','P20','S136','1.2083','1.2316','1.2738'] },
+    { group: 'Kết cấu & Carbon', grades: ['SCM440','S45C','S50C','S55C','SS400','Q235B'] },
+    { group: 'Kim loại màu', grades: ['Đồng C1100','Nhôm tròn','Nhôm 5052','Nhôm 6061','Nhôm 7075'] },
+  ];
+  const ALL_GRADE_VALUES = GRADE_OPTIONS.flatMap(g => g.grades);
+
+  function gradeSelectHtml(selectedValue) {
+    let html = `<option value="">— Chọn mác thép —</option>`;
+    GRADE_OPTIONS.forEach(g => {
+      html += `<optgroup label="${g.group}">`;
+      g.grades.forEach(name => {
+        html += `<option value="${name}" ${selectedValue === name ? 'selected' : ''}>${name}</option>`;
+      });
+      html += `</optgroup>`;
     });
+    html += `<option value="__other" ${selectedValue === '__other' ? 'selected' : ''}>Mác khác (ghi rõ)</option>`;
+    return html;
+  }
+
+  // ===================== STATE: nhiều mác thép, mỗi mác nhiều kích thước =====================
+  let blockSeq = 0;
+  let itemSeq = 0;
+
+  function newItem() {
+    itemSeq++;
+    return { id: 'it' + itemSeq, shape: 'tam', h: '', w: '', l: '', dia: '', length: '', qty: '', unit: 'cây/tấm' };
+  }
+  function newBlock(grade) {
+    blockSeq++;
+    return { id: 'bk' + blockSeq, grade: grade || '', gradeOther: '', items: [newItem()] };
+  }
+
+  let gradeBlocks = [newBlock()];
+
+  function itemHtml(blockId, item, itemIndex) {
+    const dimsHtml = item.shape === 'tam'
+      ? `<div class="dims dims-tam">
+           <input type="text" placeholder="H" inputmode="decimal" data-block="${blockId}" data-item="${item.id}" data-field="h" value="${item.h}">
+           <div class="x">×</div>
+           <input type="text" placeholder="W" inputmode="decimal" data-block="${blockId}" data-item="${item.id}" data-field="w" value="${item.w}">
+           <div class="x">×</div>
+           <input type="text" placeholder="L" inputmode="decimal" data-block="${blockId}" data-item="${item.id}" data-field="l" value="${item.l}">
+         </div>`
+      : `<div class="dims dims-tron">
+           <input type="text" placeholder="Ø" inputmode="decimal" data-block="${blockId}" data-item="${item.id}" data-field="dia" value="${item.dia}">
+           <div class="x">×</div>
+           <input type="text" placeholder="L" inputmode="decimal" data-block="${blockId}" data-item="${item.id}" data-field="length" value="${item.length}">
+         </div>`;
+
+    return `
+      <div class="item-row" data-item-id="${item.id}">
+        <div class="item-row-head">
+          <div class="shape-toggle">
+            <button type="button" class="shape-btn ${item.shape === 'tam' ? 'active' : ''}" data-action="set-shape" data-shape="tam" data-block="${blockId}" data-item="${item.id}">Tấm</button>
+            <button type="button" class="shape-btn ${item.shape === 'tron' ? 'active' : ''}" data-action="set-shape" data-shape="tron" data-block="${blockId}" data-item="${item.id}">Tròn</button>
+          </div>
+          ${itemIndex > 0 ? `<button type="button" class="item-remove" data-action="remove-item" data-block="${blockId}" data-item="${item.id}">✕</button>` : '<span></span>'}
+        </div>
+        ${dimsHtml}
+        <div class="row2">
+          <input type="text" placeholder="Số lượng" data-block="${blockId}" data-item="${item.id}" data-field="qty" value="${item.qty}">
+          <select data-block="${blockId}" data-item="${item.id}" data-field="unit">
+            <option value="cây/tấm" ${item.unit === 'cây/tấm' ? 'selected' : ''}>cây / tấm</option>
+            <option value="kg" ${item.unit === 'kg' ? 'selected' : ''}>kg</option>
+            <option value="tấn" ${item.unit === 'tấn' ? 'selected' : ''}>tấn</option>
+          </select>
+        </div>
+      </div>`;
+  }
+
+  function blockHtml(block, blockIndex) {
+    return `
+      <div class="grade-block" data-block-id="${block.id}">
+        <div class="gb-head">
+          <div class="gb-title">MÁC THÉP #${blockIndex + 1}</div>
+          ${blockIndex > 0 ? `<button type="button" class="gb-remove" data-action="remove-block" data-block="${block.id}">✕</button>` : '<span></span>'}
+        </div>
+        <div class="field">
+          <select data-block="${block.id}" data-field="grade">
+            ${gradeSelectHtml(block.grade)}
+          </select>
+        </div>
+        <div class="field gb-other-wrap" style="${block.grade === '__other' ? '' : 'display:none;'}">
+          <input type="text" placeholder="Ghi rõ mác thép" data-block="${block.id}" data-field="gradeOther" value="${block.gradeOther}">
+        </div>
+        <div class="items-list">
+          ${block.items.map((it, i) => itemHtml(block.id, it, i)).join('')}
+        </div>
+        <button type="button" class="add-item-btn" data-action="add-item" data-block="${block.id}">+ Thêm kích thước</button>
+      </div>`;
+  }
+
+  const gradeBlocksEl = document.getElementById('gradeBlocks');
+  function renderBlocks() {
+    gradeBlocksEl.innerHTML = gradeBlocks.map((b, i) => blockHtml(b, i)).join('');
+  }
+  renderBlocks();
+
+  document.getElementById('addBlockBtn').addEventListener('click', () => {
+    gradeBlocks.push(newBlock());
+    renderBlocks();
   });
 
-  // Prefill mác thép nếu đến từ trang chủ (?grade=SKD11 hoặc ?grade=Khác&note=D2)
-  const urlParams = new URLSearchParams(location.search);
-  const prefillGrade = urlParams.get('grade');
-  const prefillNote = urlParams.get('note');
-  if (prefillGrade) {
-    const match = document.querySelector(`.grade-btn[data-grade="${prefillGrade}"]`);
-    if (match) match.click();
-    if (prefillGrade === 'Khác' && prefillNote) {
-      document.getElementById('fGradeOther').value = prefillNote;
+  // Delegated click: thêm/xóa item, xóa block, đổi hình dạng tấm/tròn
+  gradeBlocksEl.addEventListener('click', (e) => {
+    const btn = e.target.closest('button[data-action]');
+    if (!btn) return;
+    const action = btn.dataset.action;
+    const blockId = btn.dataset.block;
+    const block = gradeBlocks.find(b => b.id === blockId);
+
+    if (action === 'add-item' && block) {
+      block.items.push(newItem());
+      renderBlocks();
+    } else if (action === 'remove-item' && block) {
+      block.items = block.items.filter(it => it.id !== btn.dataset.item);
+      renderBlocks();
+    } else if (action === 'remove-block') {
+      gradeBlocks = gradeBlocks.filter(b => b.id !== blockId);
+      renderBlocks();
+    } else if (action === 'set-shape' && block) {
+      const item = block.items.find(it => it.id === btn.dataset.item);
+      if (item) item.shape = btn.dataset.shape;
+      renderBlocks();
     }
+  });
+
+  // Delegated input/change: cập nhật state trực tiếp, không render lại (giữ focus khi gõ)
+  gradeBlocksEl.addEventListener('input', (e) => handleFieldChange(e.target));
+  gradeBlocksEl.addEventListener('change', (e) => handleFieldChange(e.target, true));
+
+  function handleFieldChange(el, isStructural) {
+    const blockId = el.dataset.block;
+    const field = el.dataset.field;
+    if (!blockId || !field) return;
+    const block = gradeBlocks.find(b => b.id === blockId);
+    if (!block) return;
+
+    if (field === 'grade') {
+      block.grade = el.value;
+      const wrap = el.closest('.grade-block').querySelector('.gb-other-wrap');
+      wrap.style.display = el.value === '__other' ? '' : 'none';
+      return;
+    }
+    if (field === 'gradeOther') { block.gradeOther = el.value; return; }
+
+    const itemId = el.dataset.item;
+    const item = block.items.find(it => it.id === itemId);
+    if (!item) return;
+    item[field] = el.value;
   }
+
+  // Prefill mác thép từ trang chủ/danh mục (?grade=SKD11 hoặc ?grade=Khác&note=D2)
+  (function prefillFromUrl() {
+    const params = new URLSearchParams(location.search);
+    const grade = params.get('grade');
+    const note = params.get('note');
+    if (!grade) return;
+    const target = (grade === 'Khác' && note) ? note : grade;
+    const matched = ALL_GRADE_VALUES.find(g => g.toLowerCase() === target.toLowerCase());
+    if (matched) {
+      gradeBlocks[0].grade = matched;
+    } else {
+      gradeBlocks[0].grade = '__other';
+      gradeBlocks[0].gradeOther = target;
+    }
+    renderBlocks();
+  })();
 
   // Service chips (multi-select)
   const selectedServices = new Set();
@@ -419,8 +534,22 @@
     el.textContent = msg;
     el.style.display = 'block';
   }
-  function clearError() {
-    document.getElementById('errText').style.display = 'none';
+  function clearError() { document.getElementById('errText').style.display = 'none'; }
+
+  function validateBlocks() {
+    for (const block of gradeBlocks) {
+      if (!block.grade) return 'Vui lòng chọn mác thép cho tất cả các mục.';
+      if (block.grade === '__other' && !block.gradeOther.trim()) return 'Vui lòng ghi rõ tên mác thép.';
+      for (const item of block.items) {
+        if (item.shape === 'tam' && !(item.h || item.w || item.l)) {
+          return 'Vui lòng nhập kích thước (H×W×L) cho mỗi dòng dạng Tấm.';
+        }
+        if (item.shape === 'tron' && !(item.dia || item.length)) {
+          return 'Vui lòng nhập kích thước (Ø×L) cho mỗi dòng dạng Tròn.';
+        }
+      }
+    }
+    return null;
   }
 
   async function submitForm() {
@@ -428,24 +557,24 @@
     const name = document.getElementById('fName').value.trim();
     const phone = document.getElementById('fPhone').value.trim();
     const company = document.getElementById('fCompany').value.trim();
-    const gradeOther = document.getElementById('fGradeOther').value.trim();
+    const address = document.getElementById('fAddress').value.trim();
 
     if (!name) { showError('Vui lòng nhập họ tên.'); return; }
     if (!phone) { showError('Vui lòng nhập số điện thoại.'); return; }
-    if (!selectedGrade) { showError('Vui lòng chọn mác thép.'); return; }
-    if (selectedGrade === 'Khác' && !gradeOther) { showError('Vui lòng ghi rõ mác thép.'); return; }
+
+    const blockErr = validateBlocks();
+    if (blockErr) { showError(blockErr); return; }
 
     const payload = {
       ticket: ticketNo,
-      name, phone, company,
-      grade: selectedGrade === 'Khác' ? gradeOther : selectedGrade,
-      dims: {
-        h: document.getElementById('fH').value.trim(),
-        w: document.getElementById('fW').value.trim(),
-        l: document.getElementById('fL').value.trim(),
-      },
-      qty: document.getElementById('fQty').value.trim(),
-      unit: document.getElementById('fUnit').value,
+      name, phone, company, address,
+      grades: gradeBlocks.map(b => ({
+        grade: b.grade === '__other' ? b.gradeOther.trim() : b.grade,
+        items: b.items.map(it => it.shape === 'tam'
+          ? { shape: 'tam', h: it.h, w: it.w, l: it.l, qty: it.qty, unit: it.unit }
+          : { shape: 'tron', dia: it.dia, length: it.length, qty: it.qty, unit: it.unit }
+        ),
+      })),
       services: Array.from(selectedServices),
       note: document.getElementById('fNote').value.trim(),
       initData: tg?.initData || '',
@@ -469,10 +598,7 @@
       document.getElementById('successScreen').classList.add('show');
       document.getElementById('refShown').textContent = ticketNo;
 
-      // Also notify via WebApp data channel as a fallback, then close after a delay
-      if (tg) {
-        setTimeout(() => tg.close(), 2200);
-      }
+      if (tg) { setTimeout(() => tg.close(), 2600); }
     } catch (err) {
       showError('Gửi thất bại, vui lòng thử lại hoặc gọi trực tiếp hotline ATP.');
       btn.disabled = false;
@@ -482,7 +608,6 @@
 
   document.getElementById('submitBtn').addEventListener('click', submitForm);
 
-  // Theme sync with Telegram client
   if (tg?.themeParams?.bg_color) {
     document.documentElement.style.setProperty('--bg', tg.themeParams.bg_color);
   }
