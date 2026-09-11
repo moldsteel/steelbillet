@@ -253,6 +253,17 @@
     margin-top: 2px;
   }
   .add-block-btn { border-color: var(--amber-dim); color: var(--amber); margin-top: 4px; }
+  .weight-summary {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 10px 14px;
+    background: var(--panel-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    margin-bottom: 10px;
+  }
+  .weight-summary-label { font-size: 12px; color: var(--ink-dim); }
+  .weight-summary-value { font-family: 'Oswald', sans-serif; font-size: 17px; color: var(--amber); }
+  .weight-summary-value small { font-size: 12px; color: var(--ink-dim); font-family: inherit; }
 </style>
 </head>
 <body>
@@ -290,7 +301,7 @@
         <input type="text" id="fCompany" placeholder="Tên công ty">
       </div>
       <div class="field">
-        <label>Địa chỉ nhận hàng</label>
+        <label>Địa chỉ nhận hàng <span class="req">*</span></label>
         <textarea id="fAddress" placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành..."></textarea>
       </div>
     </div>
@@ -334,6 +345,10 @@
 </div>
 
 <div class="bottom-bar" id="bottomBar">
+  <div class="weight-summary">
+    <span class="weight-summary-label">Tổng khối lượng ước tính</span>
+    <span class="weight-summary-value" id="totalWeight">0 <small>kg</small></span>
+  </div>
   <button class="submit-btn" id="submitBtn">Gửi yêu cầu báo giá</button>
 </div>
 
@@ -355,6 +370,57 @@
     { group: 'Kim loại màu', grades: ['Đồng C1100','Nhôm tròn','Nhôm 5052','Nhôm 6061','Nhôm 7075'] },
   ];
   const ALL_GRADE_VALUES = GRADE_OPTIONS.flatMap(g => g.grades);
+
+  // ===================== TỶ TRỌNG TÍNH KHỐI LƯỢNG (kg/mm³, theo bảng thống nhất) =====================
+  // Tấm: H×W×L(mm) × hệ số ; Tròn: Ø²×L(mm) × hệ số (hệ số tròn đã gồm sẵn hệ số tiết diện tròn)
+  const DENSITY = {
+    thep:   { tam: 0.00000785, tron: 0.00000625 },
+    inox:   { tam: 0.00000793, tron: 0.00000680 },
+    nhom:   { tam: 0.00000275, tron: 0.00000270 },
+    dongdo: { tam: 0.00000890, tron: 0.00000700 },
+  };
+  // Mác thuộc nhóm inox (Cr13-16, chống ăn mòn) dùng hệ số inox; còn lại mặc định thép thường.
+  const INOX_GRADES = new Set(['S136', '1.2083', '1.2316']);
+  const NHOM_GRADES = new Set(['Nhôm tròn', 'Nhôm 5052', 'Nhôm 6061', 'Nhôm 7075']);
+  const DONGDO_GRADES = new Set(['Đồng C1100']);
+
+  function materialOf(grade) {
+    if (INOX_GRADES.has(grade)) return 'inox';
+    if (NHOM_GRADES.has(grade)) return 'nhom';
+    if (DONGDO_GRADES.has(grade)) return 'dongdo';
+    return 'thep'; // mặc định cho thép hợp kim/carbon và mác "Khác" chưa xác định
+  }
+
+  function itemWeightKg(grade, item) {
+    const material = materialOf(grade);
+    const density = DENSITY[material];
+    const qty = parseFloat(item.qty) || 0;
+
+    if (item.unit === 'kg') return qty;
+    if (item.unit === 'tấn') return qty * 1000;
+
+    // đơn vị "cây/tấm" -> tính khối lượng 1 đơn vị theo kích thước, rồi nhân số lượng
+    let perPiece = 0;
+    if (item.shape === 'tam') {
+      const h = parseFloat(item.h) || 0, w = parseFloat(item.w) || 0, l = parseFloat(item.l) || 0;
+      perPiece = h * w * l * density.tam;
+    } else {
+      const d = parseFloat(item.dia) || 0, l = parseFloat(item.length) || 0;
+      perPiece = d * d * l * density.tron;
+    }
+    return perPiece * qty;
+  }
+
+  function updateTotalWeight() {
+    let total = 0;
+    gradeBlocks.forEach(block => {
+      const grade = block.grade === '__other' ? (block.gradeOther || '') : block.grade;
+      block.items.forEach(item => { total += itemWeightKg(grade, item); });
+    });
+    const rounded = Math.round(total * 100) / 100;
+    document.getElementById('totalWeight').innerHTML =
+      rounded.toLocaleString('vi-VN', { maximumFractionDigits: 2 }) + ' <small>kg</small>';
+  }
 
   function gradeSelectHtml(selectedValue) {
     let html = `<option value="">— Chọn mác thép —</option>`;
@@ -445,6 +511,7 @@
   const gradeBlocksEl = document.getElementById('gradeBlocks');
   function renderBlocks() {
     gradeBlocksEl.innerHTML = gradeBlocks.map((b, i) => blockHtml(b, i)).join('');
+    updateTotalWeight();
   }
   renderBlocks();
 
@@ -492,14 +559,16 @@
       block.grade = el.value;
       const wrap = el.closest('.grade-block').querySelector('.gb-other-wrap');
       wrap.style.display = el.value === '__other' ? '' : 'none';
+      updateTotalWeight();
       return;
     }
-    if (field === 'gradeOther') { block.gradeOther = el.value; return; }
+    if (field === 'gradeOther') { block.gradeOther = el.value; updateTotalWeight(); return; }
 
     const itemId = el.dataset.item;
     const item = block.items.find(it => it.id === itemId);
     if (!item) return;
     item[field] = el.value;
+    updateTotalWeight();
   }
 
   // Prefill mác thép từ trang chủ/danh mục (?grade=SKD11 hoặc ?grade=Khác&note=D2)
@@ -561,9 +630,17 @@
 
     if (!name) { showError('Vui lòng nhập họ tên.'); return; }
     if (!phone) { showError('Vui lòng nhập số điện thoại.'); return; }
+    if (!address) { showError('Vui lòng nhập địa chỉ nhận hàng.'); return; }
 
     const blockErr = validateBlocks();
     if (blockErr) { showError(blockErr); return; }
+
+    let totalWeightKg = 0;
+    gradeBlocks.forEach(b => {
+      const g = b.grade === '__other' ? (b.gradeOther || '') : b.grade;
+      b.items.forEach(it => { totalWeightKg += itemWeightKg(g, it); });
+    });
+    totalWeightKg = Math.round(totalWeightKg * 100) / 100;
 
     const payload = {
       ticket: ticketNo,
@@ -575,6 +652,7 @@
           : { shape: 'tron', dia: it.dia, length: it.length, qty: it.qty, unit: it.unit }
         ),
       })),
+      totalWeightKg,
       services: Array.from(selectedServices),
       note: document.getElementById('fNote').value.trim(),
       initData: tg?.initData || '',
