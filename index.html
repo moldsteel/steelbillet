@@ -366,35 +366,34 @@ footer{padding:32px 0;border-top:1px solid var(--border)}
   .topbar-phone{display:block}
 }
 <!-- Link FontAwesome để lấy icon Telegram -->
-/* Style cho nút Telegram nổi ở góc dưới màn hình */
-.telegram-btn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: #0088cc;
-  color: #ffffff;
-  border-radius: 50px;
-  padding: 12px 20px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-  font-family: Arial, sans-serif;
-  font-size: 14px;
-  font-weight: bold;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  z-index: 9999;
-  transition: all 0.3s ease;
+/* CSS bắt buộc nút nằm cố định ở góc dưới */
+.telegram-sticky-btn {
+  position: fixed !important;
+  bottom: 20px !important;       /* Cách mép dưới 20px */
+  right: 20px !important;        /* Cách mép phải 20px */
+  background-color: #0088cc !important;
+  color: #ffffff !important;
+  border-radius: 50px !important;
+  padding: 12px 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  text-decoration: none !important;
+  font-family: Arial, sans-serif !important;
+  font-size: 14px !important;
+  font-weight: bold !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25) !important;
+  z-index: 999999 !important;     /* Giúp nút luôn hiển thị đè lên trên các nội dung khác */
+  transition: all 0.3s ease !important;
 }
 
-.telegram-btn:hover {
-  background-color: #006699;
-  transform: translateY(-3px);
-  color: #ffffff;
+.telegram-sticky-btn:hover {
+  background-color: #006699 !important;
+  transform: scale(1.05) !important;
 }
 
-.telegram-btn i {
-  font-size: 20px;
+.telegram-sticky-btn i {
+  font-size: 22px !important;
 }
 
 </style>
