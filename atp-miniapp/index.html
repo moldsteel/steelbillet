@@ -354,7 +354,102 @@
     font-style: italic;
     margin-top: 6px;
   }
-
+  
+  /* ---------- So sánh nhiều mác ---------- */  
+  .spec-card.selectable { cursor: pointer; }
+  .spec-card.selected {
+    border-color: var(--amber);
+    background: rgba(217,154,61,0.08);
+  }
+  .spec-card .select-badge {
+    display: none;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--amber);
+    color: #1a1305;
+    font-family: 'Oswald', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .spec-card.selected .select-badge { display: flex; }
+  .compare-bar {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 8px 20px;
+    background: var(--panel-raised);
+    border-bottom: 1px solid var(--line);
+    flex-shrink: 0;
+  }
+  .compare-bar.show { display: flex; }
+  .compare-bar-chips { display: flex; flex-wrap: wrap; gap: 6px; flex: 1; }
+  .compare-bar-chip {
+    background: var(--panel);
+    border: 1px solid var(--amber-dim);
+    color: var(--amber);
+    border-radius: 20px;
+    padding: 3px 10px;
+    font-size: 11px;
+  }
+  .compare-bar-actions { display: flex; gap: 6px; flex-shrink: 0; }
+  .compare-bar-btn {
+    border: 1px solid var(--line);
+    background: var(--panel);
+    color: var(--ink-dim);
+    border-radius: var(--radius);
+    padding: 6px 12px;
+    font-size: 12px;
+    font-family: 'Oswald', sans-serif;
+  }
+  .compare-bar-btn:not(:disabled) {
+    background: var(--amber);
+    color: #1a1305;
+    border-color: var(--amber);
+  }
+  .compare-bar-btn.ghost { background: none; color: var(--ink-dim); }
+  .compare-view { display: none; padding: 4px 20px 24px; overflow-y: auto; flex: 1; }
+  .compare-view.show { display: block; }
+  .spec-list.hidden-by-compare { display: none; }
+  .compare-back {
+    display: flex; align-items: center; gap: 8px;
+    color: var(--steel);
+    font-size: 13px;
+    margin-bottom: 12px;
+    cursor: pointer;
+  }
+  .compare-table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); }
+  .compare-table { border-collapse: collapse; width: 100%; }
+  .compare-table th, .compare-table td {
+    border: 1px solid var(--line);
+    padding: 9px 10px;
+    font-size: 11.5px;
+    text-align: left;
+    vertical-align: top;
+    min-width: 140px;
+  }
+  .compare-table th:first-child, .compare-table td:first-child {
+    min-width: 90px;
+    position: sticky;
+    left: 0;
+    background: var(--panel);
+    color: var(--ink-dim);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  .compare-table thead th {
+    background: var(--panel-raised);
+    font-family: 'Oswald', sans-serif;
+    color: var(--amber);
+    font-size: 13px;
+  }
+  .compare-table thead th:first-child { background: var(--panel); }
+  .compare-table .ct-comp-grid { display: flex; flex-wrap: wrap; gap: 4px; }
+  
   /* ---------- Quick quote by photo/document ---------- */
   .qq-field { margin: 0 20px 14px; }
   .qq-field label {
@@ -655,7 +750,7 @@
   <div class="sheet-handle"></div>
   <div class="sheet-title">Tra thông số mác thép</div>
   <div class="sheet-sub">Tiêu chuẩn · độ cứng · thành phần · ứng dụng · mác tương đương</div>
-  <div class="spec-toolbar">
+   <div class="spec-toolbar">
     <input type="text" class="spec-search" id="specSearch" placeholder="Tìm mác thép (VD: SKD11, D2, S136...)">
     <div class="spec-filters" id="specFilters">
       <div class="spec-filter-chip active" data-group="all">Tất cả</div>
@@ -664,9 +759,18 @@
       <div class="spec-filter-chip" data-group="plastic">Khuôn nhựa</div>
       <div class="spec-filter-chip" data-group="structural">Kết cấu/Carbon</div>
       <div class="spec-filter-chip" data-group="nonferrous">Kim loại màu</div>
+      <div class="spec-filter-chip" id="toggleCompareMode" data-group="__compare">⇄ So sánh</div>
+    </div>
+  </div>
+  <div class="compare-bar" id="compareBar">
+    <div class="compare-bar-chips" id="compareBarChips"></div>
+    <div class="compare-bar-actions">
+      <button class="compare-bar-btn ghost" id="compareClearBtn">Xóa</button>
+      <button class="compare-bar-btn" id="compareGoBtn" disabled>So sánh</button>
     </div>
   </div>
   <div class="spec-list" id="specList"></div>
+  <div class="compare-view" id="compareView"></div>
 </div>
 
 <!-- Bottom sheet: Hỏi giá nhanh bằng ảnh/tài liệu -->
@@ -743,7 +847,7 @@
   }
 
   // ===================== TRA THÔNG SỐ MÁC THÉP =====================
-  const STEEL_DATA = [
+    const STEEL_DATA = [
     // --- Khuôn dập nguội (Cr12MoV family) ---
     { id:'skd11', name:'SKD11', group:'cold', standard:'JIS G4404',
       hardness:'Ủ: ≤255 HB · Sau tôi: 58–62 HRC',
@@ -788,18 +892,18 @@
       hardness:'Ủ: ≤229 HB · Sau tôi: 48–52 HRC',
       comp:[['C','0.40'],['Si','1.00'],['Mn','0.40'],['Cr','5.10'],['Mo','1.30'],['V','1.00']],
       application:'Khuôn ép nhôm, khuôn dập nóng, khuôn đúc áp lực, chi tiết chịu nhiệt chu kỳ.',
-      equiv:['h13','12344','8418','kda1'] },
+      equiv:['h13','12344','18418','kda1'] },
     { id:'h13', name:'H13', group:'hot', standard:'AISI / SAE',
       hardness:'Ủ: ≤229 HB · Sau tôi: 48–52 HRC',
       comp:[['C','0.40'],['Si','1.00'],['Mn','0.40'],['Cr','5.10'],['Mo','1.30'],['V','1.00']],
       application:'Khuôn ép nhôm, khuôn dập nóng, khuôn đúc áp lực, chi tiết chịu nhiệt chu kỳ.',
-      equiv:['skd61','12344','8418','kda1'] },
+      equiv:['skd61','12344','18418','kda1'] },
     { id:'12344', name:'1.2344', group:'hot', standard:'DIN / W-Nr. (X40CrMoV5-1)',
       hardness:'Ủ: ≤229 HB · Sau tôi: 48–52 HRC',
       comp:[['C','0.40'],['Si','1.00'],['Mn','0.40'],['Cr','5.20'],['Mo','1.40'],['V','0.95']],
       application:'Khuôn ép nhôm, khuôn dập nóng, khuôn đúc áp lực, chi tiết chịu nhiệt chu kỳ.',
-      equiv:['skd61','h13','8418','kda1'] },
-    { id:'8418', name:'8418', group:'hot', standard:'Nhóm ESR cải tiến H13 (theo tiêu chuẩn nội bộ nhà máy)',
+      equiv:['skd61','h13','18418','kda1'] },
+    { id:'18418', name:'1.8418', group:'hot', standard:'Nhóm ESR cải tiến H13 (theo tiêu chuẩn nội bộ nhà máy)',
       hardness:'Sau tôi: 48–52 HRC, độ tinh khiết cao hơn nhờ luyện ESR',
       comp:[['C','0.38'],['Si','1.00'],['Mn','0.40'],['Cr','5.20'],['Mo','1.35'],['V','1.00']],
       application:'Khuôn ép nhôm cao cấp, khuôn đúc áp lực yêu cầu tuổi thọ cao.',
@@ -911,11 +1015,21 @@
       comp:[['Mg','2.50'],['Cr','0.25'],['Al','còn lại']],
       application:'Vỏ máy, chi tiết uốn dập, khung gá chống ăn mòn nhẹ.',
       equiv:[] },
+    { id:'al6061', name:'Nhôm 6061', group:'nonferrous', standard:'ASTM B209 / AA 6061',
+      hardness:'T6: ~95 HB',
+      comp:[['Mg','1.00'],['Si','0.60'],['Cu','0.28'],['Cr','0.20'],['Al','còn lại']],
+      application:'Kết cấu cơ khí, khung gá CNC, chi tiết hàn được, chống ăn mòn tốt.',
+      equiv:[] },
+    { id:'al7075', name:'Nhôm 7075', group:'nonferrous', standard:'ASTM B209 / AA 7075',
+      hardness:'T6: ~150 HB',
+      comp:[['Zn','5.60'],['Mg','2.50'],['Cu','1.60'],['Cr','0.23'],['Al','còn lại']],
+      application:'Chi tiết chịu lực cao, hàng không, khuôn gá yêu cầu độ bền cao — không hàn tốt như 6061.',
+      equiv:[] },
     { id:'kda1', name:'KDA1', group:'hot', standard:'Nippon Koshuha (thương hiệu Nhật) — nhóm thép khuôn dập nóng H13',
       hardness:'Ủ: ≤229 HB · Sau tôi: 48–52 HRC',
       comp:[['C','0.40'],['Si','1.00'],['Mn','0.40'],['Cr','5.10'],['Mo','1.30'],['V','1.00']],
       application:'Khuôn ép nhôm, khuôn dập nóng, khuôn đúc áp lực — cùng nhóm ứng dụng với SKD61/H13.',
-      equiv:['h13','skd61','12344','8418'],
+      equiv:['h13','skd61','12344','18418'],
       note:'Cùng họ 4Cr5MoSiV1 (Trung Quốc) / DAC (Hitachi) / KDA, KDA1S (cùng hãng Nippon Koshuha) — các tên thương mại khác nhau của cùng nhóm hợp kim H13.' },
   ];
 
@@ -937,11 +1051,17 @@
     }).join('') + '</div>';
   }
 
-  function specCardHtml(s) {
+    function specCardHtml(s) {
+    const selIndex = compareSelection.indexOf(s.id);
+    const isSelected = selIndex !== -1;
+    const cardClasses = ['spec-card'];
+    if (compareMode) cardClasses.push('selectable');
+    if (isSelected) cardClasses.push('selected');
     return `
-      <div class="spec-card" id="spec-${s.id}" data-name="${s.name.toLowerCase()}" data-group="${s.group}">
+      <div class="${cardClasses.join(' ')}" id="spec-${s.id}" data-name="${s.name.toLowerCase()}" data-group="${s.group}" data-id="${s.id}">
         <div class="spec-head">
           <div class="spec-name">${s.name}</div>
+          <div class="select-badge">${isSelected ? selIndex + 1 : ''}</div>
           <div class="spec-std">${s.standard}</div>
         </div>
         <div class="spec-row"><span class="spec-label">Độ cứng xuất xưởng</span><span class="spec-hardness">${s.hardness}</span></div>
@@ -964,27 +1084,129 @@
       : '<div class="spec-empty">Không tìm thấy mác thép phù hợp.</div>';
   }
 
-  let currentGroup = 'all';
+    let currentGroup = 'all';
+  let compareMode = false;
+  let compareSelection = [];
   renderSpecList(currentGroup, '');
 
   document.getElementById('specSearch').addEventListener('input', (e) => {
     renderSpecList(currentGroup, e.target.value);
   });
+
   document.getElementById('specFilters').addEventListener('click', (e) => {
     const chip = e.target.closest('.spec-filter-chip');
     if (!chip) return;
-    document.querySelectorAll('.spec-filter-chip').forEach(c => c.classList.remove('active'));
+
+    if (chip.id === 'toggleCompareMode') {
+      compareMode = !compareMode;
+      chip.classList.toggle('active', compareMode);
+      document.getElementById('compareBar').classList.toggle('show', compareMode);
+      if (!compareMode) {
+        compareSelection = [];
+        exitCompareView();
+      }
+      renderCompareBar();
+      renderSpecList(currentGroup, document.getElementById('specSearch').value);
+      return;
+    }
+
+    document.querySelectorAll('.spec-filter-chip').forEach(c => { if (c.id !== 'toggleCompareMode') c.classList.remove('active'); });
     chip.classList.add('active');
     currentGroup = chip.dataset.group;
     renderSpecList(currentGroup, document.getElementById('specSearch').value);
   });
 
-  // Bấm chip "mác tương đương" -> nhảy tới card đó (hiển thị đủ nhóm/tất cả rồi cuộn tới + nhấp nháy)
+  // Bấm vào card khi đang ở chế độ so sánh -> chọn/bỏ chọn (tối đa 3 mác)
+  specListEl.addEventListener('click', (e) => {
+    if (!compareMode) return;
+    if (e.target.closest('.equiv-chip')) return;
+    const card = e.target.closest('.spec-card');
+    if (!card) return;
+    const id = card.dataset.id;
+    const idx = compareSelection.indexOf(id);
+    if (idx !== -1) {
+      compareSelection.splice(idx, 1);
+    } else {
+      if (compareSelection.length >= 3) {
+        setSpecFeedback('Chỉ so sánh tối đa 3 mác cùng lúc.');
+        return;
+      }
+      compareSelection.push(id);
+    }
+    renderCompareBar();
+    renderSpecList(currentGroup, document.getElementById('specSearch').value);
+  });
+
+  function setSpecFeedback(msg) {
+    const sub = document.querySelector('#specSheet .sheet-sub');
+    const original = sub.textContent;
+    sub.textContent = msg;
+    sub.style.color = 'var(--danger)';
+    setTimeout(() => { sub.textContent = original; sub.style.color = ''; }, 2000);
+  }
+
+  function renderCompareBar() {
+    const chipsEl = document.getElementById('compareBarChips');
+    const goBtn = document.getElementById('compareGoBtn');
+    if (!compareSelection.length) {
+      chipsEl.innerHTML = '<span style="color:var(--ink-dim);font-size:12px;">Chạm vào mác để chọn so sánh (2-3 mác)</span>';
+    } else {
+      chipsEl.innerHTML = compareSelection.map(id => `<span class="compare-bar-chip">${specById[id].name}</span>`).join('');
+    }
+    goBtn.disabled = compareSelection.length < 2;
+  }
+  renderCompareBar();
+
+  document.getElementById('compareClearBtn').addEventListener('click', () => {
+    compareSelection = [];
+    renderCompareBar();
+    renderSpecList(currentGroup, document.getElementById('specSearch').value);
+    exitCompareView();
+  });
+
+  document.getElementById('compareGoBtn').addEventListener('click', () => {
+    if (compareSelection.length < 2) return;
+    renderCompareView();
+  });
+
+  const compareViewEl = document.getElementById('compareView');
+  function exitCompareView() {
+    compareViewEl.classList.remove('show');
+    specListEl.classList.remove('hidden-by-compare');
+  }
+
+  const COMPARE_ROWS = [
+    { label: 'Tiêu chuẩn', render: s => s.standard },
+    { label: 'Độ cứng', render: s => s.hardness },
+    { label: 'Thành phần', render: s => `<div class="ct-comp-grid">${compHtml(s.comp)}</div>` },
+    { label: 'Ứng dụng', render: s => s.application },
+    { label: 'Tương đương', render: s => equivHtml(s.equiv) },
+  ];
+
+  function renderCompareView() {
+    const items = compareSelection.map(id => specById[id]);
+    let html = `<div class="compare-back" id="compareBackBtn">← Quay lại danh sách</div>`;
+    html += `<div class="compare-table-wrap"><table class="compare-table"><thead><tr><th>Mác</th>`;
+    html += items.map(s => `<th>${s.name}</th>`).join('');
+    html += `</tr></thead><tbody>`;
+    COMPARE_ROWS.forEach(row => {
+      html += `<tr><td>${row.label}</td>`;
+      html += items.map(s => `<td>${row.render(s)}</td>`).join('');
+      html += `</tr>`;
+    });
+    html += `</tbody></table></div>`;
+    compareViewEl.innerHTML = html;
+    compareViewEl.classList.add('show');
+    specListEl.classList.add('hidden-by-compare');
+    document.getElementById('compareBackBtn').addEventListener('click', exitCompareView);
+  }
+
+  // Bấm chip "mác tương đương" -> nhảy tới card đó
   specListEl.addEventListener('click', (e) => {
     const chip = e.target.closest('.equiv-chip');
     if (!chip) return;
     const targetId = chip.dataset.jump;
-    document.querySelectorAll('.spec-filter-chip').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('.spec-filter-chip').forEach(c => { if (c.id !== 'toggleCompareMode') c.classList.remove('active'); });
     document.querySelector('.spec-filter-chip[data-group="all"]').classList.add('active');
     currentGroup = 'all';
     document.getElementById('specSearch').value = '';
