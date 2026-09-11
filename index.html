@@ -363,6 +363,47 @@ footer{padding:32px 0;border-top:1px solid var(--border)}
 @media (min-width:640px){
   .topbar-phone{display:block}
 }
+<!-- Link FontAwesome để lấy icon Telegram -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+/* Style cho nút Telegram nổi ở góc dưới màn hình */
+.telegram-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #0088cc;
+  color: #ffffff;
+  border-radius: 50px;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+  transition: all 0.3s ease;
+}
+
+.telegram-btn:hover {
+  background-color: #006699;
+  transform: translateY(-3px);
+  color: #ffffff;
+}
+
+.telegram-btn i {
+  font-size: 20px;
+}
+</style>
+
+<!-- Nút chát Telegram -->
+<a href="https://t.me/anthaiphu_bot?start=tkm_web" target="_blank" class="telegram-btn">
+  <i class="fa-brands fa-telegram"></i>
+  Chat với hỗ trợ
+</a>
 </style>
 </head>
 <body>
