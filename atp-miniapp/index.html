@@ -354,8 +354,8 @@
     font-style: italic;
     margin-top: 6px;
   }
-  
-  /* ---------- So sánh nhiều mác ---------- */  
+
+  /* ---------- So sánh nhiều mác ---------- */
   .spec-card.selectable { cursor: pointer; }
   .spec-card.selected {
     border-color: var(--amber);
@@ -449,7 +449,7 @@
   }
   .compare-table thead th:first-child { background: var(--panel); }
   .compare-table .ct-comp-grid { display: flex; flex-wrap: wrap; gap: 4px; }
-  
+
   /* ---------- Quick quote by photo/document ---------- */
   .qq-field { margin: 0 20px 14px; }
   .qq-field label {
@@ -578,6 +578,10 @@
       <div class="qa-icon">🔍</div>
       <div class="qa-label">Tra thông số</div>
     </button>
+    <a href="vong-quay.html" class="qa-btn" id="wheelQuickAction" style="display:none;">
+      <div class="qa-icon">🎡</div>
+      <div class="qa-label">Quay số</div>
+    </a>
   </div>
 
   <!-- Thép khuôn dập nguội -->
@@ -750,17 +754,16 @@
   <div class="sheet-handle"></div>
   <div class="sheet-title">Tra thông số mác thép</div>
   <div class="sheet-sub">Tiêu chuẩn · độ cứng · thành phần · ứng dụng · mác tương đương</div>
-   <div class="spec-toolbar">
+  <div class="spec-toolbar">
     <input type="text" class="spec-search" id="specSearch" placeholder="Tìm mác thép (VD: SKD11, D2, S136...)">
     <div class="spec-filters" id="specFilters">
       <div class="spec-filter-chip active" data-group="all">Tất cả</div>
-      <div class="spec-filter-chip" id="toggleCompareMode" data-group="__compare">⇄ So sánh</div>
-      <div class="spec-filter-chip" data-group="cold">Dập nguội</div><br>
+      <div class="spec-filter-chip" data-group="cold">Dập nguội</div>
       <div class="spec-filter-chip" data-group="hot">Dập nóng</div>
       <div class="spec-filter-chip" data-group="plastic">Khuôn nhựa</div>
       <div class="spec-filter-chip" data-group="structural">Kết cấu/Carbon</div>
       <div class="spec-filter-chip" data-group="nonferrous">Kim loại màu</div>
-      
+      <div class="spec-filter-chip" id="toggleCompareMode" data-group="__compare">⇄ So sánh</div>
     </div>
   </div>
   <div class="compare-bar" id="compareBar">
@@ -848,7 +851,7 @@
   }
 
   // ===================== TRA THÔNG SỐ MÁC THÉP =====================
-    const STEEL_DATA = [
+  const STEEL_DATA = [
     // --- Khuôn dập nguội (Cr12MoV family) ---
     { id:'skd11', name:'SKD11', group:'cold', standard:'JIS G4404',
       hardness:'Ủ: ≤255 HB · Sau tôi: 58–62 HRC',
@@ -1052,7 +1055,7 @@
     }).join('') + '</div>';
   }
 
-    function specCardHtml(s) {
+  function specCardHtml(s) {
     const selIndex = compareSelection.indexOf(s.id);
     const isSelected = selIndex !== -1;
     const cardClasses = ['spec-card'];
@@ -1085,7 +1088,7 @@
       : '<div class="spec-empty">Không tìm thấy mác thép phù hợp.</div>';
   }
 
-    let currentGroup = 'all';
+  let currentGroup = 'all';
   let compareMode = false;
   let compareSelection = [];
   renderSpecList(currentGroup, '');
@@ -1120,7 +1123,7 @@
   // Bấm vào card khi đang ở chế độ so sánh -> chọn/bỏ chọn (tối đa 3 mác)
   specListEl.addEventListener('click', (e) => {
     if (!compareMode) return;
-    if (e.target.closest('.equiv-chip')) return;
+    if (e.target.closest('.equiv-chip')) return; // để chip tương đương xử lý riêng bên dưới
     const card = e.target.closest('.spec-card');
     if (!card) return;
     const id = card.dataset.id;
@@ -1139,6 +1142,7 @@
   });
 
   function setSpecFeedback(msg) {
+    // dùng tạm ô sub-title để báo, tự ẩn sau 2s
     const sub = document.querySelector('#specSheet .sheet-sub');
     const original = sub.textContent;
     sub.textContent = msg;
@@ -1202,7 +1206,7 @@
     document.getElementById('compareBackBtn').addEventListener('click', exitCompareView);
   }
 
-  // Bấm chip "mác tương đương" -> nhảy tới card đó
+  // Bấm chip "mác tương đương" -> nhảy tới card đó (hiển thị đủ nhóm/tất cả rồi cuộn tới + nhấp nháy)
   specListEl.addEventListener('click', (e) => {
     const chip = e.target.closest('.equiv-chip');
     if (!chip) return;
@@ -1313,7 +1317,7 @@
       setQqStatus('Đang gửi...', '');
       const fileBase64 = await fileToBase64(uploadBlob);
       const payload = {
-        ticket: 'HGN-' + Date.now().toString().slice(-6) + '.' + new Date().getFullYear().toString().slice(-2),
+        ticket: 'HGN-' + Date.now().toString().slice(-6),
         phone,
         fileBase64,
         fileName,
@@ -1341,9 +1345,19 @@
       }, 1800);
     } catch (err) {
       console.error('uploadQuickQuote error', err);
-      setQqStatus('Gửi thất bại (' + err.message + '). Vui lòng thử lại hoặc gọi hotline 09 1716 8289.', 'err');
+      setQqStatus('Gửi thất bại (' + err.message + '). Vui lòng thử lại hoặc gọi hotline 091 7168 289.', 'err');
     }
   }
+
+  // Hiện icon "Quay số" trên trang chủ chỉ khi chiến dịch đang bật (đọc từ Google Sheet qua /api/wheel)
+  fetch('/api/wheel')
+    .then(r => r.json())
+    .then(data => {
+      if (data && data.enabled) {
+        document.getElementById('wheelQuickAction').style.display = '';
+      }
+    })
+    .catch(() => {}); // im lặng nếu lỗi — không ảnh hưởng phần còn lại của trang chủ
 </script>
 
 </body>
