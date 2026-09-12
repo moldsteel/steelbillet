@@ -108,6 +108,11 @@ module.exports = async (req, res) => {
     const buffer = Buffer.from(fileBase64, 'base64');
     await sendTelegramMedia(SALES_CHAT_ID, buffer, fileName || 'anh-hoi-gia', mimeType || 'application/octet-stream', caption);
 
+    await logToSheet('log_media', {
+      ticket, phone,
+      telegramUser: user ? `@${user.username || ''} (${user.id})` : '',
+    });
+    
     if (user && user.id) {
       await sendTelegramMessage(
         user.id,
