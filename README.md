@@ -1,5 +1,5 @@
 # steelbillet
-Báo giá &amp; phiếu Yêu cầu Gia công Phôi thép 
+Báo giá &amp; phiếu Yêu cầu Gia công Phôi thép<br>
 Rõ ràng rồi — vậy kiến trúc sẽ là: 1 Google Sheet làm "database", dùng chung cho cả lưu lịch sử yêu cầu và kiểm soát vòng quay (bật/tắt chiến dịch, danh sách phần thưởng, chống quay 2 lần). Việc bật/tắt và cấu hình phần thưởng anh chỉnh thẳng trong Sheet, không cần đụng code mỗi lần mở chiến dịch mới.
 
 Em làm theo 6 phần, xong hết sẽ gửi 1 lượt:
