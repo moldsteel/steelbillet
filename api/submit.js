@@ -1,14 +1,12 @@
 // /api/submit.js — Vercel serverless function (Node.js runtime)
-// Nhận dữ liệu từ Mini App, xác thực chữ ký Telegram, forward vào nhóm sale
-// và gửi tin nhắn xác nhận lại cho khách qua chatbot.
+// Nhận dữ liệu từ quote.html (đa mác thép, mỗi mác nhiều kích thước Tấm/Tròn),
+// xác thực chữ ký Telegram, forward vào nhóm sale và xác nhận lại cho khách.
 
 const crypto = require('crypto');
 
 const BOT_TOKEN = process.env.BOT_TOKEN;
-const SALES_CHAT_ID = process.env.SALES_CHAT_ID; // id nhóm/kênh nhận yêu cầu báo giá
+const SALES_CHAT_ID = process.env.SALES_CHAT_ID;
 
-// Xác thực initData theo tài liệu chính thức của Telegram:
-// https://core.telegram.org/bots/webapps#validating-data-received-via-the-mini-app
 function verifyInitData(initData, botToken) {
   if (!initData) return { valid: false };
   const params = new URLSearchParams(initData);
@@ -25,7 +23,7 @@ function verifyInitData(initData, botToken) {
   const secretKey = crypto.createHmac('sha256', 'WebAppData').update(botToken).digest();
   const computedHash = crypto.createHmac('sha256', secretKey).update(dataCheckString).digest('hex');
 
-  return { valid: computedHash === hash, params };
+  return { valid: computedHash === hash };
 }
 
 async function sendTelegramMessage(chatId, text, options = {}) {
@@ -39,13 +37,41 @@ async function sendTelegramMessage(chatId, text, options = {}) {
       ...options,
     }),
   });
-  return res.json();
+  const json = await res.json();
+  if (!json.ok) throw new Error('Telegram API: ' + (json.description || res.status));
+  return json;
 }
 
-function formatDims(dims) {
-  const { h, w, l } = dims || {};
-  if (!h && !w && !l) return '—';
-  return `${h || '?'} × ${w || '?'} × ${l || '?'} mm`;
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+function formatItemLine(item) {
+  const qty = escapeHtml(item.qty || '—');
+  const unit = escapeHtml(item.unit || '');
+  if (item.shape === 'tron') {
+    const dia = item.dia || '?';
+    const length = item.length || '?';
+    return `Ø${escapeHtml(dia)} × ${escapeHtml(length)} mm — SL: ${qty} ${unit}`;
+  }
+  const h = item.h || '?', w = item.w || '?', l = item.l || '?';
+  return `${escapeHtml(h)} × ${escapeHtml(w)} × ${escapeHtml(l)} mm — SL: ${qty} ${unit}`;
+}
+
+function formatGradesBlock(grades) {
+  if (!Array.isArray(grades) || !grades.length) return '(không có dữ liệu mác thép)';
+  return grades.map((g, i) => {
+    const gradeName = escapeHtml(g.grade || '—');
+    const items = Array.isArray(g.items) ? g.items : [];
+    const itemLines = items.length
+      ? items.map(it => `   • ${formatItemLine(it)}`).join('\n')
+      : '   • (chưa nhập kích thước)';
+    return `<b>${i + 1}. ${gradeName}</b>\n${itemLines}`;
+  }).join('\n\n');
 }
 
 module.exports = async (req, res) => {
@@ -56,9 +82,6 @@ module.exports = async (req, res) => {
   try {
     const body = req.body;
     const { valid } = verifyInitData(body.initData, BOT_TOKEN);
-
-    // Trong môi trường test cục bộ (ngoài Telegram) initData sẽ rỗng — cho phép
-    // qua nhưng đánh dấu rõ trong tin nhắn để sale biết nguồn không xác thực.
     const verifiedTag = valid ? '' : ' ⚠️ (chưa xác thực Telegram)';
 
     const userLine = body.user
@@ -69,16 +92,21 @@ module.exports = async (req, res) => {
       ? body.services.join(', ')
       : '—';
 
+    const weightLine = (typeof body.totalWeightKg === 'number' && body.totalWeightKg > 0)
+      ? `<b>${body.totalWeightKg.toLocaleString('vi-VN', { maximumFractionDigits: 2 })} kg</b>`
+      : '(chưa xác định)';
+
     const message =
       `<b>📋 YÊU CẦU BÁO GIÁ MỚI${verifiedTag}</b>\n` +
-      `Mã phiếu: <b>${body.ticket}</b>\n\n` +
+      `Mã phiếu: <b>${escapeHtml(body.ticket)}</b>\n\n` +
       `👤 <b>${escapeHtml(body.name)}</b>\n` +
       `📞 ${escapeHtml(body.phone)}\n` +
       (body.company ? `🏢 ${escapeHtml(body.company)}\n` : '') +
+      (body.address ? `📍 ${escapeHtml(body.address)}\n` : '') +
       `${userLine}\n\n` +
-      `🔩 Mác thép: <b>${escapeHtml(body.grade)}</b>\n` +
-      `📐 Kích thước: ${formatDims(body.dims)}\n` +
-      `📦 Số lượng: ${escapeHtml(body.qty || '—')} ${escapeHtml(body.unit || '')}\n` +
+      `🔩 <b>Mác thép & kích thước:</b>\n` +
+      `${formatGradesBlock(body.grades)}\n\n` +
+      `⚖️ Tổng khối lượng ước tính: ${weightLine}\n` +
       `🛠 Gia công thêm: ${escapeHtml(svcLine)}\n` +
       (body.note ? `📝 Ghi chú: ${escapeHtml(body.note)}\n` : '');
 
@@ -93,22 +121,14 @@ module.exports = async (req, res) => {
     if (body.user && body.user.id) {
       await sendTelegramMessage(
         body.user.id,
-        `Cảm ơn ${escapeHtml(body.name)}! ATP Steel đã nhận yêu cầu báo giá <b>${body.ticket}</b> ` +
-        `(${escapeHtml(body.grade)}). Nhân viên kinh doanh sẽ liên hệ anh/chị sớm nhất qua số ${escapeHtml(body.phone)}.`
+        `Cảm ơn ${escapeHtml(body.name)}! An Thái Phú Steel đã nhận yêu cầu báo giá <b>${escapeHtml(body.ticket)}</b>. ` +
+        `Nhân viên kinh doanh sẽ liên hệ anh/chị sớm nhất qua số ${escapeHtml(body.phone)}.`
       );
     }
 
     return res.status(200).json({ ok: true, ticket: body.ticket });
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ error: 'internal error' });
+    return res.status(500).json({ error: err.message || 'internal error' });
   }
 };
-
-function escapeHtml(str) {
-  if (!str) return '';
-  return String(str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
-}
