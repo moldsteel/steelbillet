@@ -132,6 +132,13 @@ module.exports = async (req, res) => {
 
     await sendTelegramMessage(SALES_CHAT_ID, message);
 
+    await logToSheet('log_request', {
+      ticket: body.ticket, name: body.name, phone: body.phone, company: body.company,
+      address: body.address, grades: body.grades, totalWeightKg: body.totalWeightKg,
+      services: body.services, note: body.note,
+      telegramUser: body.user ? `@${body.user.username || ''} (${body.user.id})` : '',
+    });
+    
     // Gửi xác nhận lại cho khách nếu có user id (chỉ hoạt động nếu khách đã /start bot)
     if (body.user && body.user.id) {
       await sendTelegramMessage(
