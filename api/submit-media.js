@@ -7,6 +7,21 @@ const crypto = require('crypto');
 
 const BOT_TOKEN = process.env.BOT_TOKEN;
 const SALES_CHAT_ID = process.env.SALES_CHAT_ID;
+const SHEET_WEBAPP_URL = process.env.SHEET_WEBAPP_URL;
+const SHEET_SECRET = process.env.SHEET_SECRET;
+
+async function logToSheet(action, payload) {
+  if (!SHEET_WEBAPP_URL || !SHEET_SECRET) return; // chưa cấu hình -> bỏ qua, không làm hỏng luồng chính
+  try {
+    await fetch(SHEET_WEBAPP_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ secret: SHEET_SECRET, action, ...payload }),
+    });
+  } catch (err) {
+    console.error('logToSheet error (bỏ qua, không chặn luồng chính):', err.message);
+  }
+}
 
 function verifyInitData(initData, botToken) {
   if (!initData) return { valid: false };
