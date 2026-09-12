@@ -1313,7 +1313,7 @@
       setQqStatus('Đang gửi...', '');
       const fileBase64 = await fileToBase64(uploadBlob);
       const payload = {
-        ticket: 'HGN-' + Date.now().toString().slice(-6),
+        ticket: 'HGN-' + Date.now().toString().slice(-6) + '.' + new Date().getFullYear().toString().slice(-2),
         phone,
         fileBase64,
         fileName,
