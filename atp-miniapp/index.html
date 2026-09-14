@@ -585,6 +585,14 @@
       <div class="qa-icon">🎡</div>
       <div class="qa-label">Quay thưởng</div>
     </a>
+	<button class="qa-btn" id="openProfileLink">
+      <div class="qa-icon">📇</div>
+      <div class="qa-label">Hồ sơ<br>năng lực</div>
+    </button>
+    <button class="qa-btn" id="openArticlesSheet">
+      <div class="qa-icon">📚</div>
+      <div class="qa-label">Chuyên mục<br>thép</div>
+    </button>  
   </div>
 
   <!-- Thép khuôn dập nguội -->
@@ -829,7 +837,14 @@
     </a>
   </div>
 </div>
-
+<!-- Bottom sheet: Chuyên mục thép -->
+<div class="sheet-overlay" id="articlesOverlay"></div>
+<div class="sheet" id="articlesSheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-title">Chuyên mục thép</div>
+  <div class="sheet-sub">Bài viết kỹ thuật & kiến thức mác thép từ ATP</div>
+  <div class="contact-links" id="articlesList"></div>
+</div>
 <script>
   const tg = window.Telegram?.WebApp;
   if (tg) { tg.ready(); tg.expand(); }
@@ -849,7 +864,43 @@
   bindSheet('openSpecSheet', 'specOverlay', 'specSheet');
   bindSheet('openContactSheet', 'contactOverlay', 'contactSheet');
   bindSheet('openQuickQuote', 'quickQuoteOverlay', 'quickQuoteSheet');
+// ===================== HỒ SƠ NĂNG LỰC + CHUYÊN MỤC THÉP =====================
+  // Dán link thật vào đây — chỉ cần sửa 2 chỗ này, không cần đụng gì khác.
+  const PROFILE_URL = 'DÁN_LINK_HỒ_SƠ_NĂNG_LỰC_VÀO_ĐÂY';
 
+  const ARTICLES = [
+    { title: 'Tên bài viết 1', url: 'DÁN_LINK_BÀI_VIẾT_1' },
+    { title: 'Tên bài viết 2', url: 'DÁN_LINK_BÀI_VIẾT_2' },
+    // Thêm bài mới: copy 1 dòng trên, đổi title/url, nhớ giữ dấu phẩy cuối dòng trước.
+  ];
+
+  function openExternal(url) {
+    if (!url || url.indexOf('DÁN_') === 0) {
+      alert('Chưa gắn link — anh dán link thật vào biến tương ứng trong index.html nhé.');
+      return;
+    }
+    if (tg?.openLink) tg.openLink(url);
+    else window.open(url, '_blank');
+  }
+
+  document.getElementById('openProfileLink').addEventListener('click', () => openExternal(PROFILE_URL));
+
+  function renderArticles() {
+    const el = document.getElementById('articlesList');
+    el.innerHTML = ARTICLES.map((a, i) => `
+      <div class="contact-link" data-idx="${i}" style="cursor:pointer;">
+        <div class="ic">📄</div>
+        <div class="tx">${a.title}</div>
+      </div>`).join('');
+  }
+  renderArticles();
+
+  document.getElementById('articlesList').addEventListener('click', (e) => {
+    const item = e.target.closest('[data-idx]');
+    if (item) openExternal(ARTICLES[item.dataset.idx].url);
+  });
+  bindSheet('openQuickQuote', 'quickQuoteOverlay', 'quickQuoteSheet');
+	
   if (tg?.themeParams?.bg_color) {
     document.documentElement.style.setProperty('--bg', tg.themeParams.bg_color);
   }
