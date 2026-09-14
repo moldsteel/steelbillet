@@ -1351,6 +1351,15 @@
       setQqStatus('Gửi thất bại (' + err.message + '). Vui lòng thử lại hoặc gọi hotline 09 1716 8289.', 'err');
     }
   }
+	// Hiện icon "Quay số" trên trang chủ chỉ khi chiến dịch đang bật (đọc từ Google Sheet qua /api/wheel)
+  fetch('/api/wheel')
+    .then(r => r.json())
+    .then(data => {
+      if (data && data.enabled) {
+        document.getElementById('wheelQuickAction').style.display = '';
+      }
+    })
+    .catch(() => {}); // im lặng nếu lỗi — không ảnh hưởng phần còn lại của trang chủ
 </script>
 
 </body>
