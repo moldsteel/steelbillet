@@ -1351,15 +1351,24 @@
       setQqStatus('Gửi thất bại (' + err.message + '). Vui lòng thử lại hoặc gọi hotline 09 1716 8289.', 'err');
     }
   }
-	// Hiện icon "Quay số" trên trang chủ chỉ khi chiến dịch đang bật (đọc từ Google Sheet qua /api/wheel)
-  fetch('/api/wheel')
-    .then(r => r.json())
-    .then(data => {
-      if (data && data.enabled) {
-        document.getElementById('wheelQuickAction').style.display = '';
-      }
-    })
-    .catch(() => {}); // im lặng nếu lỗi — không ảnh hưởng phần còn lại của trang chủ
+// Hiện icon "Quay thưởng" trên trang chủ
+fetch('/api/wheel')
+  .then(r => {
+    if (!r.ok) throw new Error('HTTP error ' + r.status);
+    return r.json();
+  })
+  .then(data => {
+    // Kiểm tra đúng cờ enabled từ backend
+    if (data && (data.enabled === true || data.enabled === 'true')) {
+      const wheelBtn = document.getElementById('wheelQuickAction');
+      if (wheelBtn) wheelBtn.style.display = 'flex';
+    }
+  })
+  .catch(err => {
+    console.warn('Không thể tải trạng thái Vòng quay:', err);
+    // Nếu muốn hiển thị nút để test giao diện kể cả khi API lỗi, bỏ comment dòng dưới:
+    // document.getElementById('wheelQuickAction').style.display = 'flex';
+  });
 </script>
 
 </body>
