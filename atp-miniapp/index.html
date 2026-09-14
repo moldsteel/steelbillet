@@ -863,7 +863,8 @@
   }
   bindSheet('openSpecSheet', 'specOverlay', 'specSheet');
   bindSheet('openContactSheet', 'contactOverlay', 'contactSheet');
-  bindSheet('openQuickQuote', 'quickQuoteOverlay', 'quickQuoteSheet');
+  bindSheet('openArticlesSheet', 'articlesOverlay', 'articlesSheet');
+	
 // ===================== HỒ SƠ NĂNG LỰC + CHUYÊN MỤC THÉP =====================
   // Dán link thật vào đây — chỉ cần sửa 2 chỗ này, không cần đụng gì khác.
  const PROFILE_URL = 'https://thepkhuonmau.com/p/ho-so-nang-luc.html';
@@ -904,7 +905,7 @@
     if (item) openExternal(ARTICLES[item.dataset.idx].url);
   });
   bindSheet('openQuickQuote', 'quickQuoteOverlay', 'quickQuoteSheet');
-	
+
   if (tg?.themeParams?.bg_color) {
     document.documentElement.style.setProperty('--bg', tg.themeParams.bg_color);
   }
