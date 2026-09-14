@@ -310,7 +310,7 @@
       const data = await res.json();
 
       if (data.enabled === false) { showOnly('disabledMsg'); return; }
-      if (data.error) { showError('Có lỗi xảy ra, vui lòng thử lại.'); btn.disabled = false; btn.textContent = 'Quay ngay'; return; }
+      if (data.error) { showError('Lỗi: ' + data.error); btn.disabled = false; btn.textContent = 'Quay ngay'; return; }
 
       if (data.alreadySpun) {
         showResult(data, true);
