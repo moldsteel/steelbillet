@@ -93,21 +93,24 @@
   }
 
   /* ---------- Quick actions ---------- */
-  .quick-actions {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    padding: 18px 20px 6px;
-  }
-  .qa-btn {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    background: none;
-    border: none;
-    cursor: pointer;
-  }
+.quick-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 10px;
+  padding: 18px 20px 6px;
+}
+.qa-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  flex: 1 1 18%; /* Giúp phân bổ đều trên hàng */
+  min-width: 60px;
+}
   .qa-icon {
     width: 48px; height: 48px;
     border-radius: 50%;
