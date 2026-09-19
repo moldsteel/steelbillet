@@ -395,7 +395,30 @@ footer{padding:32px 0;border-top:1px solid var(--border)}
 .telegram-sticky-btn i {
   font-size: 22px !important;
 }
+<!-- Sticky QR pic -->
+.qr-fixed {
+    position: fixed;
+    left: 16px;
+    bottom: 16px;
+    z-index: 9999;
+    width: 100px;      /* kích thước mặc định trên desktop */
+    height: auto;
+    background: #fff;
+    padding: 6px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  }
 
+  /* Thu nhỏ lại trên màn hình nhỏ (điện thoại) */
+  @media (max-width: 480px) {
+    .qr-fixed {
+      width: 70px;
+      left: 10px;
+      bottom: 10px;
+      padding: 4px;
+    }
+  }
+<!-- End QR pic -->  
 </style>
 </head>
 <body>
@@ -737,6 +760,6 @@ quoteForm.addEventListener('submit', function(e){
   });
 });
 </script>
-
+<img src="duong-dan-toi-anh-qr.png" alt="QR Code" class="qr-fixed">
 </body>
 </html>
