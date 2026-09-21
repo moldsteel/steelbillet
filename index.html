@@ -7,7 +7,7 @@
 <meta name="description" content="Kho thép khuôn mẫu tại Bình Tân, TP.HCM — SKD11, DC53, D2, P20, NAK80, S136, 718H, H13, SKD61, S45C, SCM440... 20+ mác thép tồn kho sẵn, cắt theo yêu cầu. CO/CQ Nhật, Hàn, Đài Loan. Gọi 0938 184 590, nhận báo giá trong 48h.">
 <link rel="canonical" href="https://thepkhuonmau.com/bao-gia.html">
 <link rel="shortcut icon" href="favicon.ico">  
-<!-- Link FontAwesome để lấy icon Telegram -->
+/* Link FontAwesome để lấy icon Telegram */
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
 <meta name="theme-color" content="#f7f5f1">
@@ -349,9 +349,6 @@ footer{padding:32px 0;border-top:1px solid var(--border)}
 .mobile-cta .btn{flex:1;justify-content:center}
 
 @media (max-width:860px){
-  .qr-fixed {
-    bottom: 84px; /* tránh đè lên thanh CTA "Gọi ngay / Nhận báo giá" */
-    width: clamp(46px, 7vw, 90px);}
   .hero-grid{grid-template-columns:1fr}
   .hero-photo{order:-1}
   .why-grid{grid-template-columns:1fr 1fr}
@@ -390,12 +387,12 @@ footer{padding:32px 0;border-top:1px solid var(--border)}
   transition: all 0.3s ease !important;
 }
 
-.telegram-sticky-btn:hover {
+.telegram-btn:hover {
   background-color: #006699 !important;
   transform: scale(1.05) !important;
 }
 
-.telegram-sticky-btn i {
+.telegram-btn i {
   font-size: 22px !important;
 }
 /* Sticky QR pic */
@@ -412,6 +409,12 @@ footer{padding:32px 0;border-top:1px solid var(--border)}
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.2);
   box-sizing: border-box;
+}
+@media (max-width: 860px) {
+  .qr-fixed {
+    bottom: 84px;
+    width: clamp(46px, 7vw, 90px);
+  }
 }
 /* End QR pic */
   
