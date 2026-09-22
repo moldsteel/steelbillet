@@ -221,32 +221,122 @@ nav.main-nav a:hover{color:var(--white);}
 }
 
 /* ============================================================
-   4. FAQ — CHUYÊN MỤC THÉP
+   4. FAQ — CHUYÊN MỤC THÉP (card + icon + số thứ tự tự động)
    ============================================================ */
 .blog-section{background:var(--steel-100);}
-
-/* FIX #4, #8, #9: CSS accordion sạch, dùng đúng token, không trùng lặp */
-.faq-item{border-bottom:1px solid var(--line);}
-.faq-item:first-child{border-top:1px solid var(--line);}
-.faq-q{
-  display:flex;justify-content:space-between;align-items:center;gap:16px;
-  width:100%;background:none;border:0;padding:18px 0;
-  cursor:pointer;font-family:var(--font-body);font-weight:600;font-size:1rem;
-  color:var(--ink);text-align:left;line-height:1.5;
-}
-.faq-q:focus-visible{outline:3px solid var(--steel-600);outline-offset:-3px;border-radius:4px;}
-.faq-q .plus{
-  font-family:var(--font-cta);font-weight:700;color:var(--accent-dark);
-  flex:none;font-size:1.25rem;line-height:1;transition:transform .2s ease;
-}
-.faq-item.open .plus{transform:rotate(45deg);}
-.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease;}
-.faq-a p{color:var(--ink-soft);font-size:.95rem;margin:0;padding:0 0 18px;max-width:70ch;}
-.faq-a a{color:var(--accent-dark);font-weight:600;text-decoration:underline;}
-/* 640px thay cho 260px — hết bị cắt chữ với câu dài */
-.faq-item.open .faq-a{max-height:640px;}
-
 .blog-more{margin-top:36px;text-align:center;}
+
+.faq-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+  counter-reset:faq;               /* khởi tạo bộ đếm */
+}
+.faq-card{
+  counter-increment:faq;           /* +1 cho mỗi thẻ */
+  position:relative;
+  background:var(--white);
+  border:1px solid var(--line);
+  border-radius:var(--radius-md);
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.faq-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);}
+.faq-card.open{border-color:rgba(255,106,53,.55);}
+
+/* Số thứ tự góc phải — tự sinh: 01, 02, 03… không cần viết trong HTML */
+.faq-card::before{
+  content:counter(faq, decimal-leading-zero);
+  position:absolute;top:12px;right:16px;
+  font-family:var(--font-head);
+  font-weight:800;
+  font-size:2rem;
+  line-height:1;
+  letter-spacing:-.02em;
+  color:#e7ebf1;
+  pointer-events:none;
+  transition:color .25s ease;
+}
+.faq-card:hover::before{color:#d5dde6;}
+.faq-card.open::before{color:rgba(255,106,53,.28);}
+
+/* Icon chủ đề (thay cho tag chữ) */
+.faq-icon{
+  width:42px;height:42px;
+  margin:18px 20px 0;
+  border-radius:12px;
+  background:var(--steel-100);
+  border:1px solid var(--line);
+  display:grid;place-items:center;
+  color:var(--steel-600);
+  transition:color .25s ease, background .25s ease, border-color .25s ease;
+}
+.faq-card.open .faq-icon{
+  color:var(--accent);
+  background:rgba(255,106,53,.1);
+  border-color:rgba(255,106,53,.35);
+}
+
+.faq-q{
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+  flex:1;
+  width:100%;
+  background:none;
+  border:0;
+  padding:14px 20px 16px;
+  cursor:pointer;
+  text-align:left;
+  font-family:var(--font-body);
+  font-weight:600;
+  font-size:.98rem;
+  line-height:1.45;
+  color:var(--steel-900);
+}
+.faq-q:focus-visible{outline:3px solid var(--steel-600);outline-offset:-3px;border-radius:8px;}
+.faq-q .plus{
+  margin-left:auto;
+  flex:none;
+  width:26px;height:26px;
+  border-radius:50%;
+  border:1.5px solid var(--line);
+  display:grid;place-items:center;
+  font-family:var(--font-cta);
+  font-weight:700;
+  font-size:1rem;
+  line-height:1;
+  color:var(--accent-dark);
+  transition:transform .25s ease, background .25s ease, border-color .25s ease, color .25s ease;
+}
+.faq-card.open .plus{
+  transform:rotate(45deg);
+  background:var(--accent);
+  border-color:var(--accent);
+  color:var(--white);
+}
+
+/* Mở/đóng bằng grid-rows — mượt, không cắt chữ */
+.faq-a{
+  display:grid;
+  grid-template-rows:0fr;
+  transition:grid-template-rows .3s ease;
+}
+.faq-card.open .faq-a{grid-template-rows:1fr;}
+.faq-a-inner{overflow:hidden;min-height:0;}
+.faq-a p{
+  margin:0;
+  padding:0 20px 20px;
+  color:var(--ink-soft);
+  font-size:.9rem;
+  line-height:1.6;
+}
+.faq-a a{color:var(--accent-dark);font-weight:600;text-decoration:underline;}
+
+@media (max-width:940px){.faq-grid{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:640px){.faq-grid{grid-template-columns:1fr;}}
 
 /* ============================================================
    5. FOOTER
