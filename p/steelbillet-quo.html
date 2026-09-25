@@ -302,6 +302,26 @@ html,body{width:100%;background:var(--s50);min-height:100vh}
 .btn-xl:hover{filter:brightness(1.12);transform:translateY(-1px)}
 .btn-pdf{background:linear-gradient(135deg,#f87171,var(--r700));color:#fff;border:none;border-radius:20px;padding:6px 12px;font-size:9px;font-family:var(--font-main);font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.25);letter-spacing:.2px}
 .btn-pdf:hover{filter:brightness(1.12);transform:translateY(-1px)}
+.btn-import{background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;border:none;border-radius:20px;padding:6px 12px;font-size:9px;font-family:var(--font-main);font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.25);letter-spacing:.2px}
+.btn-import:hover{filter:brightness(1.12);transform:translateY(-1px)}
+.imp-body{padding:14px 16px 20px}
+.imp-note{background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:10px 12px;font-size:10.5px;line-height:1.6;color:#1e3a8a;margin-bottom:12px}
+.imp-note b{color:#1e40af}
+.imp-tbl-wrap{max-height:38vh;overflow:auto;border:1px solid #e2e8f0;border-radius:8px;margin-top:10px}
+.imp-tbl{width:100%;border-collapse:collapse;font-size:9.5px}
+.imp-tbl th{position:sticky;top:0;background:#f1f5f9;padding:5px 6px;text-align:left;border-bottom:1px solid #e2e8f0}
+.imp-tbl td{padding:4px 6px;border-bottom:1px solid #f1f5f9}
+.imp-tbl tr.err td{background:#fef2f2;color:#b91c1c}
+.imp-tbl tr.ok td{color:#166534}
+.imp-summary{display:flex;gap:10px;margin:10px 0;flex-wrap:wrap}
+.imp-chip{padding:5px 12px;border-radius:14px;font-size:10.5px;font-weight:700}
+.imp-chip.ok{background:#dcfce7;color:#166534}
+.imp-chip.err{background:#fee2e2;color:#b91c1c}
+.imp-actions{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.imp-actions button{flex:1;min-width:120px;padding:9px 10px;border-radius:10px;border:none;font-weight:700;font-size:11px;cursor:pointer}
+.imp-btn-tpl{background:#f1f5f9;color:#334155}
+.imp-btn-confirm{background:linear-gradient(135deg,#16a34a,#15803d);color:#fff}
+.imp-btn-cancel{background:#fee2e2;color:#b91c1c}
 .clear-btn{background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.22);border-radius:20px;padding:5px 10px;font-size:9px;font-family:var(--font-main);cursor:pointer;transition:all .2s;white-space:nowrap}
 .clear-btn:hover{background:rgba(255,255,255,.2);color:#fff}
 .btn-gc{background:linear-gradient(135deg,#0d7d6b,#065f46);color:#fff;border:none;border-radius:20px;padding:6px 11px;font-size:9px;font-family:var(--font-main);font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.25);letter-spacing:.2px}
@@ -353,14 +373,14 @@ html,body{width:100%;background:var(--s50);min-height:100vh}
 /* ── DICE diagram nhỏ trong print ── */
 .gcp-dice-wrap{display:flex;gap:12px;align-items:flex-start;margin-bottom:10px;padding:8px 10px;background:#eef5fd;border-radius:8px;border:1px solid #a8c8ee}
 .gcp-dice-tbl{font-size:8px;border-collapse:collapse;flex:1}
-.gcp-dice-tbl th{background:#1a3a6b;color:#fff;padding:3px 7px;font-weight:700;font-size:7.5px;text-align:left}
+.gcp-dice-tbl th{background:#FFF8F0;color:#121111;padding:3px 7px;font-weight:700;font-size:7.5px;text-align:left}
 .gcp-dice-tbl td{padding:2.5px 7px;border-bottom:1px solid #d6e8f9;color:#0d1f3c}
 .gcp-dice-tbl tr:last-child td{border:none}
 .gcp-orient{font-size:7.5px;color:#5a6a7e;margin-top:5px;line-height:1.6;font-style:italic}
 
 /* ── MAIN TABLE ── */
 .gcp-table{width:100%;border-collapse:collapse;margin-bottom:8px;font-size:8.5px}
-.gcp-table th{background:#1a3a6b;color:#fff;padding:4px 5px;font-size:8px;font-weight:700;text-align:center;border:1px solid #2d65b5}
+.gcp-table th{background:#FFF8F0;color:#121111;padding:4px 5px;font-size:8px;font-weight:700;text-align:center;border:1px solid #2d65b5}
 .gcp-table th.tl{text-align:left}
 .gcp-table td{padding:4px 5px;border:1px solid #d8e0ea;vertical-align:top}
 .gcp-table tr:nth-child(even) td{background:#f5f7fa}
@@ -1484,7 +1504,7 @@ select:focus{border-color:var(--n400);box-shadow:0 0 0 3px rgba(30,77,140,.1)}
 /* Table wrap */
 .gc8-wrap{width:100%;overflow-x:auto;margin-bottom:4px}
 .gc8-table{width:100%;border-collapse:collapse;font-size:7.5px;font-family:'Roboto',sans-serif}
-.gc8-table th{background:#1a3a6b;color:#fff;padding:3px 4px;font-size:7px;font-weight:700;border:1px solid #2d65b5;white-space:nowrap}
+.gc8-table th{background:#FFF8F0;color:#121111;padding:3px 4px;font-size:7px;font-weight:700;border:1px solid #2d65b5;white-space:nowrap}
 .gc8-table td{padding:3px 4px;border:1px solid #d8e0ea;vertical-align:top;line-height:1.5}
 .gc8-table tr:nth-child(even) td{background:#f8fafc}
 /* Column widths */
@@ -2013,8 +2033,36 @@ input:focus-visible,select:focus-visible,button:focus-visible,textarea:focus-vis
           <button class="btn-hc" onclick="openHCPicker()">🔬 Độ cứng</button>
           <button class="btn-xl" onclick="exportExcel()">📥 Excel</button>
 		  <button class="btn-gc" onclick="openTkhoModal()">📦 Kho</button>
+          <button class="btn-import" onclick="openImportModal()">📤 Nhập Excel</button>
+          <input type="file" id="import-file-input" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleImportFile(event)">
     </div>
   </div>
+
+<!-- ═══════════════════════════════════════════════════════
+     MODAL — Nhập liệu từ Excel (Import)
+     ═══════════════════════════════════════════════════════ -->
+<div class="atp-overlay" id="import-overlay" onclick="if(event.target===this)closeImportModal()">
+  <div class="atp-sheet">
+    <div class="atp-drag"></div>
+    <div class="atp-head">
+      <div class="atp-head-title">📤 Nhập Dữ Liệu Từ Excel
+        <span class="atp-head-sub">Đổ nhanh nhiều dòng vật tư từ file Excel/CSV</span>
+      </div>
+      <button class="atp-close" onclick="closeImportModal()">✕</button>
+    </div>
+    <div class="atp-body imp-body" id="import-body">
+      <div class="imp-note">
+        <b>📋 Cách dùng:</b> Bấm <b>"Tải file mẫu"</b> để lấy đúng định dạng cột, điền dữ liệu vào Excel rồi bấm <b>"Chọn file &amp; Nhập"</b>.<br>
+        Cột bắt buộc: <b>Tab</b> (3 / 5 / 0 / m) · <b>Loại</b> · <b>Mác thép</b> · <b>SL</b>. Kích thước tuỳ theo Loại: Tấm dùng T,W,L · Trụ/Phi dùng D,L · Lục/Bát dùng S,L.
+      </div>
+      <div class="imp-actions">
+        <button class="imp-btn-tpl" onclick="downloadImportTemplate()">📋 Tải file mẫu</button>
+        <button class="imp-btn-confirm" onclick="document.getElementById('import-file-input').click()">📁 Chọn file &amp; Nhập</button>
+      </div>
+      <div id="import-result"></div>
+    </div>
+  </div>
+</div>
 
 <!-- ═══════════════════════════════════════════════════════
      MODAL — Quy Đổi Độ Cứng (Hardness Converter)
@@ -3497,6 +3545,225 @@ function exportExcel(){
 }
 
 
+// ══════════════════════════════════════════════════════════
+//  IMPORT EXCEL — Nhập liệu hàng loạt từ file Excel/CSV
+// ══════════════════════════════════════════════════════════
+function openImportModal(){
+  document.getElementById('import-result').innerHTML='';
+  document.getElementById('import-overlay').classList.add('open');
+}
+function closeImportModal(){
+  document.getElementById('import-overlay').classList.remove('open');
+  document.getElementById('import-file-input').value='';
+}
+
+function downloadImportTemplate(){
+  if (typeof XLSX === 'undefined'){ alert('⚠️ Thư viện Excel chưa tải xong, vui lòng thử lại sau vài giây.'); return; }
+  const headers=['Tab','Loại','Mác thép / Vật liệu','T (mm)','W (mm)','L (mm)','D/Ø (mm)','S (mm)','SL','Đơn giá (đ/kg)','Ghi chú'];
+  const sample=[
+    [3,'tam','SKD11',20,150,300,'','',2,95000,'VD: Tấm — dùng T,W,L'],
+    [3,'tru','S45C','','',150,60,'',5,27000,'VD: Trụ tròn — dùng D,L'],
+    [5,'luc','SKD61','','',80,'',40,3,95000,'VD: Lục giác — dùng S,L'],
+    [0,'bat','SCM440','','',60,'',35,1,38000,'VD: Bát giác — dùng S,L'],
+    ['m','nhom_tam','Nhôm tấm',10,200,300,'','',1,0,'VD: Kim loại màu — Tab=m'],
+    ['m','dong_phi','Đồng đỏ phi','','',120,30,'',1,0,'VD: dạng phi — dùng D,L'],
+  ];
+  const ws=[headers,...sample];
+  const wb=XLSX.utils.book_new();
+  const sheet=XLSX.utils.aoa_to_sheet(ws);
+  sheet['!cols']=[{wch:6},{wch:10},{wch:20},{wch:8},{wch:8},{wch:8},{wch:9},{wch:8},{wch:6},{wch:13},{wch:26}];
+  XLSX.utils.book_append_sheet(wb,sheet,'Mau nhap lieu');
+
+  const guide=[
+    ['HƯỚNG DẪN NHẬP LIỆU — ATP_QUO'],
+    [],
+    ['Cột','Giá trị hợp lệ','Ghi chú'],
+    ['Tab','3 / 5 / 0 / m','3=Phôi cắt(3mm) · 5=Phôi Phay/mài(5mm) · 0=Nguyên khổ(tuỳ chọn) · m=Kim loại màu (Ss-Al-Cu)'],
+    ['Loại (Tab 3/5/0)','tam / tru / luc / bat','tam=Tấm · tru=Trụ tròn · luc=Lục giác · bat=Bát giác'],
+    ['Loại (Tab m)','nhom_tam / nhom_phi / dong_tam / dong_phi / inox_tam / inox_tron','_tam=dạng tấm(T,W,L) · _phi/_tron=dạng Ø(D,L)'],
+    ['T, W','số (mm)','Chỉ nhập khi Loại là dạng Tấm'],
+    ['L','số (mm)','Luôn nhập — chiều dài'],
+    ['D/Ø','số (mm)','Chỉ nhập khi Loại là Trụ / dạng phi-tròn'],
+    ['S','số (mm)','Chỉ nhập khi Loại là Lục/Bát giác'],
+    ['SL','số nguyên','Số lượng — mặc định 1 nếu bỏ trống'],
+    ['Đơn giá','số (đ/kg)','Có thể để trống, nhập tay sau trong app'],
+    ['Ghi chú','text','Tuỳ chọn'],
+  ];
+  const gsheet=XLSX.utils.aoa_to_sheet(guide);
+  gsheet['!cols']=[{wch:16},{wch:38},{wch:55}];
+  XLSX.utils.book_append_sheet(wb,gsheet,'Huong dan');
+
+  XLSX.writeFile(wb,'Mau_Nhap_Lieu_ATP_QUO.xlsx');
+}
+
+function _impNorm(s){
+  return (s===undefined||s===null?'':String(s))
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/[đĐ]/g,'d')
+    .toLowerCase().replace(/[^a-z0-9]/g,'');
+}
+function _impNum(v){
+  if(v===undefined||v===null||v==='') return 0;
+  if(typeof v==='number') return v;
+  let s=String(v).trim().replace(/[^\d.,-]/g,'');
+  if(!s) return 0;
+  if(s.includes(',')&&s.includes('.')){ s=s.replace(/,/g,''); }
+  else if(s.includes(',')){
+    const parts=s.split(',');
+    s=(parts.length===2&&parts[1].length<=2)?parts[0]+'.'+parts[1]:s.replace(/,/g,'');
+  }
+  const n=parseFloat(s);
+  return isNaN(n)?0:n;
+}
+const IMP_HEADER_ALIASES={
+  tab:['tab','duongcat','nhom'],
+  loai:['loai','type','hinhdang'],
+  mac:['macthepvatlieu','macthep','vatlieu','mac','grade','machang'],
+  t:['tmm','t','day'],
+  w:['wmm','w','rong'],
+  l:['lmm','l','dai'],
+  d:['dmm','d','duongkinh','dkinh'],
+  s:['smm','s','canh'],
+  qty:['sl','soluong','qty','quantity'],
+  price:['dongiadkg','dongia','gia','price'],
+  note:['ghichu','note','notes']
+};
+function _impBuildHeaderIndex(headerRow){
+  const idx={};
+  headerRow.forEach((h,i)=>{
+    const n=_impNorm(h);
+    if(!n) return;
+    for(const field in IMP_HEADER_ALIASES){
+      if(idx[field]!==undefined) continue;
+      if(IMP_HEADER_ALIASES[field].includes(n)){ idx[field]=i; break; }
+    }
+  });
+  return idx;
+}
+function _impDetectTab(raw){
+  const n=_impNorm(raw);
+  if(!n) return 3;
+  if(n==='m'||n==='metal'||n.includes('kimloai')||n.includes('mau')) return 'm';
+  if(n==='3'||n.includes('phoicat')) return 3;
+  if(n==='5'||n.includes('phaymai')) return 5;
+  if(n==='0'||n.includes('nguyenkho')||n.includes('tuychon')) return 0;
+  const m=n.match(/\d+/);
+  if(m){const v=parseInt(m[0],10); if(v===3||v===5||v===0) return v;}
+  return 3;
+}
+const IMP_STEEL_TYPE={tam:'tam',tru:'tru',tron:'tru',luc:'luc',lucgiac:'luc',hex:'luc',bat:'bat',batgiac:'bat'};
+const IMP_METAL_TYPE={
+  nhomtam:'nhom_tam', nhomphi:'nhom_phi', nhomtron:'nhom_phi',
+  dongtam:'dong_tam', dongdotam:'dong_tam',
+  dongphi:'dong_phi', dongtron:'dong_phi', dongdophi:'dong_phi', dongdotron:'dong_phi',
+  inoxtam:'inox_tam', inoxtron:'inox_tron', inoxphi:'inox_tron'
+};
+function _impMatchSteel(raw){ return IMP_STEEL_TYPE[_impNorm(raw)]||null; }
+function _impMatchMetal(raw){ return IMP_METAL_TYPE[_impNorm(raw)]||null; }
+
+let _pendingImport=[];
+
+function processImportSheet(aoa){
+  const ok=[],err=[];
+  if(!aoa.length) return {ok,err:[{row:1,reason:'File trống'}]};
+  const header=aoa[0];
+  const idx=_impBuildHeaderIndex(header);
+  if(idx.mac===undefined && idx.loai===undefined){
+    return {ok,err:[{row:1,reason:'Không nhận diện được cột dữ liệu. Vui lòng dùng đúng file mẫu (nút "Tải file mẫu").'}]};
+  }
+  for(let i=1;i<aoa.length;i++){
+    const row=aoa[i]; const rowNum=i+1;
+    if(!row || row.every(c=>c===undefined||c===null||String(c).trim()==='')) continue;
+    const get=(f)=>idx[f]!==undefined?row[idx[f]]:'';
+    const tab=_impDetectTab(get('tab'));
+    const macRaw=(get('mac')||'').toString().trim();
+    const loaiRaw=(get('loai')||'').toString().trim();
+    const qty=_impNum(get('qty'))||1;
+    const price=_impNum(get('price'));
+    const note=(get('note')||'').toString().trim();
+    const T=_impNum(get('t')),W=_impNum(get('w')),L=_impNum(get('l')),D=_impNum(get('d')),S=_impNum(get('s'));
+    if(!macRaw && !loaiRaw){ err.push({row:rowNum,reason:'Thiếu Mác thép/Vật liệu và Loại'}); continue; }
+    if(tab==='m'){
+      const mt=_impMatchMetal(loaiRaw);
+      if(!mt){ err.push({row:rowNum,reason:`Loại "${loaiRaw||'(trống)'}" không hợp lệ cho Tab=m (kim loại màu)`}); continue; }
+      const isTam=(mt==='nhom_tam'||mt==='dong_tam'||mt==='inox_tam');
+      if(isTam && !(T&&W&&L)){ err.push({row:rowNum,reason:'Thiếu T/W/L cho dạng tấm'}); continue; }
+      if(!isTam && !(D&&L)){ err.push({row:rowNum,reason:'Thiếu D/L cho dạng phi/tròn'}); continue; }
+      ok.push({rowNum,tab:'m',label:`[Kim loại] ${macRaw||mt}`,dims:isTam?`${T}×${W}×${L}`:`Ø${D}×${L}`,qty,
+        data:{metalType:mt,note:macRaw,t:T,w:W,l:L,d:D,qty,price,userNote:note}});
+    } else {
+      const ty=_impMatchSteel(loaiRaw);
+      if(!ty){ err.push({row:rowNum,reason:`Loại "${loaiRaw||'(trống)'}" không hợp lệ (tam/tru/luc/bat)`}); continue; }
+      if(ty==='tam' && !(T&&W&&L)){ err.push({row:rowNum,reason:'Thiếu T/W/L cho Tấm'}); continue; }
+      if(ty==='tru' && !(D&&L)){ err.push({row:rowNum,reason:'Thiếu D/L cho Trụ'}); continue; }
+      if((ty==='luc'||ty==='bat') && !(S&&L)){ err.push({row:rowNum,reason:'Thiếu S/L cho Lục/Bát'}); continue; }
+      ok.push({rowNum,tab,label:`[Tab ${tab}] ${macRaw}`,dims:ty==='tam'?`${T}×${W}×${L}`:(ty==='tru'?`Ø${D}×${L}`:`${S}×${L}`),qty,
+        data:{type:ty,note:macRaw,t:T,w:W,l:L,d:ty==='tru'?D:'',s:(ty==='luc'||ty==='bat')?S:'',qty,price,userNote:note}});
+    }
+  }
+  return {ok,err};
+}
+
+function handleImportFile(event){
+  const file=event.target.files&&event.target.files[0];
+  if(!file) return;
+  if (typeof XLSX === 'undefined'){ alert('⚠️ Thư viện Excel chưa tải xong, vui lòng thử lại sau vài giây.'); return; }
+  const reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      const data=new Uint8Array(e.target.result);
+      const wb=XLSX.read(data,{type:'array'});
+      const sheet=wb.Sheets[wb.SheetNames[0]];
+      const aoa=XLSX.utils.sheet_to_json(sheet,{header:1,raw:true,defval:''});
+      const res=processImportSheet(aoa);
+      _pendingImport=res.ok;
+      renderImportPreview(res);
+    }catch(err){
+      document.getElementById('import-result').innerHTML=`<div class="imp-note" style="background:#fef2f2;border-color:#fecaca;color:#b91c1c"><b>❌ Lỗi đọc file:</b> ${err.message}</div>`;
+      console.error(err);
+    }
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+function renderImportPreview(res){
+  const box=document.getElementById('import-result');
+  let html=`<div class="imp-summary">
+    <span class="imp-chip ok">✅ Hợp lệ: ${res.ok.length} dòng</span>
+    ${res.err.length?`<span class="imp-chip err">⚠️ Lỗi: ${res.err.length} dòng</span>`:''}
+  </div>`;
+  if(res.ok.length){
+    html+=`<div class="imp-tbl-wrap"><table class="imp-tbl"><thead><tr><th>Dòng</th><th>Nội dung</th><th>Kích thước</th><th>SL</th></tr></thead><tbody>`;
+    res.ok.slice(0,50).forEach(r=>{ html+=`<tr class="ok"><td>${r.rowNum}</td><td>${r.label}</td><td>${r.dims}</td><td>${r.qty}</td></tr>`; });
+    html+=`</tbody></table></div>`;
+  }
+  if(res.err.length){
+    html+=`<div class="imp-tbl-wrap"><table class="imp-tbl"><thead><tr><th>Dòng</th><th>Lý do lỗi</th></tr></thead><tbody>`;
+    res.err.slice(0,50).forEach(r=>{ html+=`<tr class="err"><td>${r.row}</td><td>${r.reason}</td></tr>`; });
+    html+=`</tbody></table></div>`;
+  }
+  html+=`<div class="imp-actions">
+    ${res.ok.length?`<button class="imp-btn-confirm" onclick="confirmImport()">✅ Xác nhận nhập ${res.ok.length} dòng</button>`:''}
+    <button class="imp-btn-cancel" onclick="closeImportModal()">Huỷ</button>
+  </div>`;
+  box.innerHTML=html;
+}
+
+function confirmImport(){
+  if(!_pendingImport.length) return;
+  let firstTab=null;
+  _pendingImport.forEach(item=>{
+    if(firstTab===null) firstTab=item.tab;
+    if(item.tab==='m'){ addRowMetal(item.data); }
+    else { addRow(item.tab, item.data); }
+  });
+  _pendingImport=[];
+  updateSummary();
+  closeImportModal();
+  if(firstTab!==null && typeof switchTab==='function') switchTab(firstTab);
+  alert('✅ Đã nhập dữ liệu vào bảng báo giá. Vui lòng kiểm tra lại đơn giá & ghi chú trước khi xuất báo giá.');
+}
+
 // ── ✅ Export PDF — Letterhead An Thái Phú đầy đủ ────────────────────
 function exportPDF(){
   const rows=getAllExportRows();if(!rows.length){alert('Chưa có dữ liệu!');return;}
@@ -3607,7 +3874,7 @@ function exportPDF(){
     <div class="company-name">Công ty TNHH MTV An Thái Phú</div>
     <div class="company-sub">732 Quốc lộ 1A, Bình Tân, TP Hồ Chí Minh</div>
     <div class="company-sub">ĐT: 0947 136 897 &nbsp;–&nbsp; 0949 532 168</div>
-    <div class="company-stk">STK: 0281001909286 &nbsp;–&nbsp; NH Vietcombank &nbsp;–&nbsp; Chi nhánh Bình Dương &nbsp;–&nbsp; CKT: CT TNHH MTV AN THAI PHU</div>
+    <div class="company-stk">STK: 0281001909286 &nbsp;–&nbsp; NH Vietcombank &nbsp;–&nbsp; Chi nhánh Bình Dương &nbsp;–&nbsp; Chủ TK: CT TNHH MTV AN THAI PHU</div>
   </div>
 </div>
 
@@ -3647,7 +3914,7 @@ function exportPDF(){
       <th rowspan="2">ĐƠN GIÁ<br>(đ/kg)</th>
       <th rowspan="2">KL PHÔI<br>(kg)</th>
       <th rowspan="2">TIỀN VẬT TƯ<br>(đ)</th>
-      <th rowspan="2">TIỀN PHAY/MÀI<br>/NHIỆT (đ)</th>
+      <th rowspan="2">TIỀN PHAY/MÀI<br>/NHIỆT(đ)</th>
       <th rowspan="2">THÀNH TIỀN<br>(đ)</th>
       <th rowspan="2">GHI CHÚ</th>
     </tr>
@@ -5242,10 +5509,10 @@ function buildGCPanel_print() {
 
   const diceTbl = `<table style="border-collapse:collapse;font-size:7.5px;flex:1;min-width:150px">
     <thead><tr>
-      <th style="background:#1a3a6b;color:#fff;padding:2px 5px">Code</th>
-      <th style="background:#1a3a6b;color:#fff;padding:2px 5px">Mặt</th>
-      <th style="background:#1a3a6b;color:#fff;padding:2px 5px;text-align:center">Kích thước</th>
-      <th style="background:#1a3a6b;color:#fff;padding:2px 5px;text-align:center">Đối</th>
+      <th style="background:#FFF8F0;color:#121111;padding:2px 5px">Code</th>
+      <th style="background:#FFF8F0;color:#121111;padding:2px 5px">Mặt</th>
+      <th style="background:#FFF8F0;color:#121111;padding:2px 5px;text-align:center">Kích thước</th>
+      <th style="background:#FFF8F0;color:#121111;padding:2px 5px;text-align:center">Đối</th>
     </tr></thead>
     <tbody>
       <tr><td style="padding:2px 5px;border-bottom:1px solid #d6e8f9"><b style="color:#0369a1;font-family:monospace">1T</b></td><td style="padding:2px 5px;border-bottom:1px solid #d6e8f9">Trên (Top)</td><td style="padding:2px 5px;border-bottom:1px solid #d6e8f9;text-align:center;font-family:monospace;color:#3D6B9E">W×L</td><td style="padding:2px 5px;border-bottom:1px solid #d6e8f9;text-align:center"><b style="color:#15803d;font-family:monospace">6B</b></td></tr>
@@ -5257,10 +5524,10 @@ function buildGCPanel_print() {
     </tbody>
 	
 	      <thead><tr>
-		<th style="background:#1a3a6b;color:#fff;padding:2px 5px">Nhám bề mặt Ra (µm)</th>
-		<th style="background:#1a3a6b;color:#fff;padding:2px 5px">Cấp độ</th>
-		<th style="background:#1a3a6b;color:#fff;padding:2px 5px;text-align:center">Công đoạn đạt được</th>
-		<th style="background:#1a3a6b;color:#fff;padding:2px 5px;text-align:center">Ứng dụng</th>
+		<th style="background:#FFF8F0;color:#121111;padding:2px 5px">Nhám bề mặt Ra (µm)</th>
+		<th style="background:#FFF8F0;color:#121111;padding:2px 5px">Cấp độ</th>
+		<th style="background:#FFF8F0;color:#121111;padding:2px 5px;text-align:center">Công đoạn đạt được</th>
+		<th style="background:#FFF8F0;color:#121111;padding:2px 5px;text-align:center">Ứng dụng</th>
 		</tr></thead>
       <tbody>
         <tr>
@@ -5280,10 +5547,10 @@ function buildGCPanel_print() {
 	  
 	  <thead>
         <tr>
-          <th style="background:#1a3a6b;color:#fff;padding:2px 5px">ISO 2768-1</th>
-          <th style="background:#1a3a6b;color:#fff;padding:2px 5px">Phay /CNC tiêu chuẩn</th>
-          <th style="background:#1a3a6b;color:#fff;padding:2px 5px;text-align:center">Dung sai ở range 30–120mm</th>
-          <th style="background:#1a3a6b;color:#fff;padding:2px 5px;text-align:center">Dung sai ở range 120–400mm</th>
+          <th style="background:#FFF8F0;color:#121111;padding:2px 5px">ISO 2768-1</th>
+          <th style="background:#FFF8F0;color:#121111;padding:2px 5px">Phay /CNC tiêu chuẩn</th>
+          <th style="background:#FFF8F0;color:#121111;padding:2px 5px;text-align:center">Dung sai ở range 30–120mm</th>
+          <th style="background:#FFF8F0;color:#121111;padding:2px 5px;text-align:center">Dung sai ở range 120–400mm</th>
 
         </tr>
       </thead>
@@ -5412,7 +5679,7 @@ body{font-family:'Roboto',Arial,sans-serif;font-size:7.5px;padding:16px 18px;col
 /* ── Table ── */
 .gc8-wrap{width:100%;margin-bottom:4px}
 .gc8-table{width:100%;border-collapse:collapse;font-size:7px;font-family:'Roboto',Arial,sans-serif;table-layout:auto}
-.gc8-table th{background:#1a3a6b;color:#fff;padding:2.5px 3.5px;font-size:6.5px;font-weight:700;border:1px solid #2d65b5;white-space:nowrap;vertical-align:middle;text-align:center}
+.gc8-table th{background:#FFF8F0;color:#121111;padding:2.5px 3.5px;font-size:6.5px;font-weight:700;border:1px solid #2d65b5;white-space:nowrap;vertical-align:middle;text-align:center}
 .gc8-table th.gc8-th-grade{text-align:left}
 .gc8-table th.gc8-th-group{text-align:center}
 .gc8-table td{padding:2.5px 3.5px;border:1px solid #d8e0ea;vertical-align:top;line-height:1.55}
@@ -5449,9 +5716,9 @@ body{font-family:'Roboto',Arial,sans-serif;font-size:7.5px;padding:16px 18px;col
 .gc8-shape{font-size:6.5px;color:#5a6a7e;margin-left:2px}
 
 /* ── H⊥ badge ── */
-.gc8-hbadge{display:inline-block;padding:0 4px;border-radius:99px;font-size:6.5px;font-weight:900;background:#0d1f3c;color:#fff;line-height:1.6}
+.gc8-hbadge{display:inline-block;padding:0 4px;border-radius:99px;font-size:6.5px;font-weight:900;background:#E4FCEC;color:#121111;line-height:1.6}
 .gc8-hbadge.gc8-hw{background:#0d7d6b}
-.gc8-hbadge.gc8-hl{background:#5b21b6}
+.gc8-hbadge.gc8-hl{background:#606AB0}
 
 /* ── Tol note ── */
 .gc8-tol-note{font-size:6.2px;color:#5a6a7e;line-height:1.6;padding:2.5px 7px;background:#fffbf0;border-radius:3px;border:1px solid #fde68a;margin-bottom:4px}
