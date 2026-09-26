@@ -546,6 +546,35 @@
     margin: 0 4px;
   }
   .nav-item.cta .nav-icon { display: none; }
+
+/* ===== HARDNESS SHEET — prefix "hd-" để không đụng CSS sẵn có ===== */
+.hd-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;display:none;align-items:flex-end;justify-content:center;}
+.hd-overlay.open{display:flex;}
+.hd-panel{background:#fff;color:#1a1a1a;width:100%;max-width:520px;max-height:88vh;border-radius:16px 16px 0 0;display:flex;flex-direction:column;overflow:hidden;animation:hdUp .22s ease-out;}
+@keyframes hdUp{from{transform:translateY(24px);opacity:.4}to{transform:translateY(0);opacity:1}}
+.hd-handle{width:40px;height:4px;background:#e5e7eb;border-radius:2px;margin:8px auto 0;flex:none;}
+.hd-header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid #e5e7eb;flex:none;}
+.hd-header h3{margin:0;font-size:16px;}
+.hd-close{background:none;border:none;font-size:20px;color:#6b7280;cursor:pointer;padding:4px 8px;line-height:1;}
+.hd-tabs{display:flex;gap:6px;padding:10px 16px 0;flex:none;}
+.hd-tab{flex:1;text-align:center;padding:8px 6px;font-size:13px;border-radius:10px;background:#f1f5f9;color:#6b7280;cursor:pointer;user-select:none;}
+.hd-tab.active{background:#0d6efd;color:#fff;}
+.hd-body{padding:12px 16px 20px;overflow-y:auto;}
+.hd-view{display:none;}
+.hd-view.active{display:block;}
+.hd-conv{display:flex;gap:8px;margin-bottom:10px;}
+.hd-conv select,.hd-conv input{flex:1;padding:9px 10px;border:1px solid #e5e7eb;border-radius:8px;font-size:14px;min-width:0;}
+.hd-result{background:#f1f5f9;border-radius:10px;padding:10px 12px;font-size:13px;line-height:1.7;margin-bottom:14px;}
+.hd-result b{color:#0d6efd;}
+.hd-table-wrap{overflow-x:auto;border:1px solid #e5e7eb;border-radius:10px;max-height:340px;}
+table.hd-table{border-collapse:collapse;width:100%;font-size:12.5px;white-space:nowrap;}
+table.hd-table th,table.hd-table td{padding:6px 8px;text-align:center;border-bottom:1px solid #eef0f2;}
+table.hd-table th{background:#f8fafc;position:sticky;top:0;z-index:1;}
+.hd-note{font-size:11.5px;color:#6b7280;margin-top:8px;line-height:1.6;}
+.hd-card{border:1px solid #e5e7eb;border-radius:12px;padding:12px 14px;margin-bottom:10px;}
+.hd-card h4{margin:0 0 6px;font-size:14px;}
+.hd-card .hd-spec{font-size:12.5px;color:#475569;line-height:1.75;}
+.hd-card .hd-spec b{color:#111;font-weight:600;}	
 </style>
 </head>
 <body>
@@ -585,6 +614,10 @@
       <div class="qa-icon">🔍</div>
       <div class="qa-label">Tra thông số</div>
     </button>
+	<button class="qa-btn" onclick="hdOpen()">
+		<div class="qa-icon">💷</div>
+		<div class="qa-label">Quy đổi độ cứng</div>
+	</button>  
 	<button class="qa-btn" id="openProfileLink">
       <div class="qa-icon">📇</div>
       <div class="qa-label">Hồ sơ<br>năng lực</div>
@@ -789,6 +822,113 @@
   <div class="compare-view" id="compareView"></div>
 </div>
 
+<!-- ===== SHEET: Bảng quy đổi độ cứng ===== -->
+<div id="hdOverlay" class="hd-overlay" onclick="hdClose(event)">
+  <div class="hd-panel" onclick="event.stopPropagation()">
+    <div class="hd-handle"></div>
+    <div class="hd-header">
+      <h3>🔩 Quy đổi độ cứng</h3>
+      <button class="hd-close" onclick="hdClose()">✕</button>
+    </div>
+
+    <div class="hd-tabs">
+      <div class="hd-tab active" data-tab="conv" onclick="hdTab('conv')">Chuyển đổi nhanh</div>
+      <div class="hd-tab" data-tab="table" onclick="hdTab('table')">Bảng tra</div>
+      <div class="hd-tab" data-tab="method" onclick="hdTab('method')">Phương pháp đo</div>
+    </div>
+
+    <div class="hd-body">
+
+      <!-- TAB 1: Converter -->
+      <div class="hd-view active" id="hdView-conv">
+        <div class="hd-conv">
+          <select id="hdScale" onchange="hdConvert()">
+            <option value="hrc">HRC (Rockwell C)</option>
+            <option value="hb">HB / HBW (Brinell)</option>
+            <option value="hv">HV (Vickers)</option>
+          </select>
+          <input id="hdValue" type="number" inputmode="decimal" placeholder="Nhập giá trị" oninput="hdConvert()">
+        </div>
+        <div class="hd-result" id="hdResult">Nhập một giá trị để xem quy đổi sang các thang còn lại.</div>
+        <div class="hd-note">
+          Quy đổi nội suy tuyến tính giữa các mốc chuẩn theo ASTM E140 / ISO 6508-1, 6506-1, 6507-1 (thép hợp kim/thép công cụ đã tôi ram, không dùng cho thép austenit hoặc vật liệu phi kim). Chỉ dùng tham khảo — khi có yêu cầu nghiệm thu/hợp đồng, lấy giá trị đo trực tiếp theo phương pháp khách hàng chỉ định.
+        </div>
+      </div>
+
+      <!-- TAB 2: Bảng tra -->
+      <div class="hd-view" id="hdView-table">
+        <div class="hd-table-wrap">
+          <table class="hd-table">
+            <thead>
+              <tr><th>HRC</th><th>HRA</th><th>HB (HBW)</th><th>HV</th><th>σb ước tính (MPa)</th></tr>
+            </thead>
+            <tbody id="hdTableBody"></tbody>
+          </table>
+        </div>
+        <div class="hd-note">
+          HB không khuyến nghị dùng trên ~62 HRC (bi đo biến dạng, theo ASTM E10) — ký hiệu "—". Cột σb (giới hạn bền kéo) chỉ mang tính tham khảo, độ chính xác giảm dần khi HRC &gt; 55 và không áp dụng cho thép công cụ đã tôi thứ cấp nhiều lần.
+        </div>
+      </div>
+
+      <!-- TAB 3: Phương pháp đo -->
+      <div class="hd-view" id="hdView-method">
+
+        <div class="hd-card">
+          <h4>⚙️ Rockwell (HRC / HRB / HRA)</h4>
+          <div class="hd-spec">
+            <b>Tiêu chuẩn:</b> ISO 6508-1, ASTM E18<br>
+            <b>Mũi đâm:</b> HRC/HRA — côn kim cương góc 120°; HRB — bi thép/carbide Ø1.588mm (1/16")<br>
+            <b>Tải trọng:</b> HRC 150 kgf · HRB 100 kgf · HRA 60 kgf (tải sơ bộ chung 10 kgf)<br>
+            <b>Phạm vi:</b> HRC 20–70 (thép tôi) · HRB 0–100 (thép mềm/ủ) · HRA cho carbide, lớp mỏng<br>
+            <b>Đặc điểm:</b> đọc trực tiếp, nhanh, phổ biến nhất trong khuôn mẫu; cần bề mặt phẳng, chiều dày mẫu ≥10× chiều sâu vết lõm
+          </div>
+        </div>
+
+        <div class="hd-card">
+          <h4>🔵 Brinell (HB / HBW)</h4>
+          <div class="hd-spec">
+            <b>Tiêu chuẩn:</b> ISO 6506-1, ASTM E10<br>
+            <b>Mũi đâm:</b> bi carbide (HBW) Ø10 / 5 / 2.5 mm<br>
+            <b>Tải trọng:</b> 3000 kgf (thép, Ø10mm) — hoặc 1500/500 kgf tuỳ vật liệu mềm hơn<br>
+            <b>Nguyên lý:</b> HBW = 2P / [πD(D − √(D²−d²))] — đo đường kính vết lõm bằng kính hiển vi<br>
+            <b>Ứng dụng:</b> vật liệu không đồng nhất, phôi đúc, phôi rèn thô, độ cứng thấp–trung bình; không phù hợp bề mặt mỏng hoặc đã thấm/nitrit hoá
+          </div>
+        </div>
+
+        <div class="hd-card">
+          <h4>🔺 Vickers (HV)</h4>
+          <div class="hd-spec">
+            <b>Tiêu chuẩn:</b> ISO 6507-1, ASTM E92 (tải lớn) / ASTM E384 (vi cứng)<br>
+            <b>Mũi đâm:</b> chóp kim cương vuông góc 136°<br>
+            <b>Tải trọng:</b> rất linh hoạt, 1 gf – 120 kgf (Microvickers &lt;1kgf)<br>
+            <b>Ứng dụng:</b> đo lớp thấm carbon/nitrit hoá, mẫu mỏng, dải đo rộng nhất (mềm → rất cứng), soi mặt cắt kim tương
+          </div>
+        </div>
+
+        <div class="hd-card">
+          <h4>🔨 Shore Scleroscope (HSD) — <i>chỉ dùng cho kim loại</i></h4>
+          <div class="hd-spec">
+            <b>Tiêu chuẩn:</b> ASTM E448<br>
+            <b>Nguyên lý:</b> đo độ nảy của búa nhỏ đầu kim cương rơi tự do từ độ cao cố định<br>
+            <b>Ứng dụng:</b> đo nhanh chi tiết lớn/cố định (trục lớn, lô cán) không tháo lắp được<br>
+            <b>Lưu ý:</b> KHÔNG nhầm với Shore Durometer (HSA/HSD theo ASTM D2240, ISO 868) — thang này đo cao su/nhựa/PU, không áp dụng cho thép
+          </div>
+        </div>
+
+        <div class="hd-card">
+          <h4>📟 Leeb / máy đo cầm tay (HL)</h4>
+          <div class="hd-spec">
+            <b>Tiêu chuẩn:</b> ASTM A956, ISO 16859<br>
+            <b>Nguyên lý:</b> đo tỷ lệ vận tốc nảy/va của bi carbide wolfram — máy cầm tay (Equotip...)<br>
+            <b>Ứng dụng:</b> kiểm tra nhanh tại xưởng/công trường, khuôn lắp máy, chi tiết cồng kềnh; máy tự quy đổi ra HRC/HB theo nhóm vật liệu đã cài sẵn — độ chính xác phụ thuộc hiệu chuẩn & độ nhám bề mặt
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+	
 <!-- Bottom sheet: Hỏi giá nhanh bằng ảnh/tài liệu -->
 <div class="sheet-overlay" id="quickQuoteOverlay"></div>
 <div class="sheet" id="quickQuoteSheet">
@@ -1426,6 +1566,81 @@ fetch('/api/wheel')
     // Nếu muốn hiển thị nút để test giao diện kể cả khi API lỗi, bỏ comment dòng dưới:
     // document.getElementById('wheelQuickAction').style.display = 'flex';
   });
+// ===== HARDNESS CONVERSION DATA (tham khảo ASTM E140 / ISO 6508-1,6506-1,6507-1) =====
+const HD_DATA = [
+  {hrc:20,hra:62.8,hb:226,hv:238,ts:720},
+  {hrc:22,hra:63.8,hb:237,hv:250,ts:746},
+  {hrc:24,hra:64.6,hb:247,hv:262,ts:775},
+  {hrc:26,hra:65.3,hb:258,hv:274,ts:808},
+  {hrc:28,hra:66.2,hb:271,hv:288,ts:843},
+  {hrc:30,hra:67.0,hb:286,hv:302,ts:885},
+  {hrc:32,hra:68.0,hb:306,hv:323,ts:932},
+  {hrc:34,hra:68.9,hb:321,hv:339,ts:985},
+  {hrc:36,hra:69.8,hb:336,hv:356,ts:1042},
+  {hrc:38,hra:70.6,hb:353,hv:373,ts:1103},
+  {hrc:40,hra:71.6,hb:371,hv:392,ts:1172},
+  {hrc:42,hra:72.4,hb:390,hv:413,ts:1245},
+  {hrc:44,hra:73.3,hb:409,hv:434,ts:1324},
+  {hrc:46,hra:74.2,hb:432,hv:458,ts:1408},
+  {hrc:48,hra:75.1,hb:455,hv:484,ts:1499},
+  {hrc:50,hra:76.1,hb:481,hv:513,ts:1600},
+  {hrc:52,hra:77.0,hb:512,hv:545,ts:null},
+  {hrc:54,hra:78.0,hb:543,hv:577,ts:null},
+  {hrc:56,hra:79.0,hb:577,hv:615,ts:null},
+  {hrc:58,hra:80.1,hb:615,hv:654,ts:null},
+  {hrc:60,hra:81.2,hb:654,hv:697,ts:null},
+  {hrc:62,hra:82.3,hb:null,hv:746,ts:null},
+  {hrc:64,hra:83.4,hb:null,hv:800,ts:null},
+  {hrc:66,hra:84.5,hb:null,hv:865,ts:null},
+];
+
+function hdOpen(){ document.getElementById('hdOverlay').classList.add('open'); }
+function hdClose(e){ if(e && e.target && e.target.id!=='hdOverlay' && e.type==='click' && e.currentTarget.id!=='hdOverlay') return; document.getElementById('hdOverlay').classList.remove('open'); }
+function hdTab(name){
+  document.querySelectorAll('.hd-tab').forEach(t=>t.classList.toggle('active', t.dataset.tab===name));
+  document.querySelectorAll('.hd-view').forEach(v=>v.classList.remove('active'));
+  document.getElementById('hdView-'+name).classList.add('active');
+  if(name==='table' && !document.getElementById('hdTableBody').children.length) hdRenderTable();
+}
+function hdRenderTable(){
+  const body = document.getElementById('hdTableBody');
+  body.innerHTML = HD_DATA.map(r=>`
+    <tr>
+      <td><b>${r.hrc}</b></td>
+      <td>${r.hra.toFixed(1)}</td>
+      <td>${r.hb ?? '—'}</td>
+      <td>${r.hv}</td>
+      <td>${r.ts ?? '—'}</td>
+    </tr>`).join('');
+}
+// Nội suy tuyến tính giữa 2 mốc gần nhất theo thang đầu vào (hrc/hb/hv)
+function hdConvert(){
+  const scale = document.getElementById('hdScale').value;
+  const raw = document.getElementById('hdValue').value;
+  const out = document.getElementById('hdResult');
+  if(raw === ''){ out.innerHTML = 'Nhập một giá trị để xem quy đổi sang các thang còn lại.'; return; }
+  const val = parseFloat(raw);
+  const rows = HD_DATA.filter(r=>r[scale]!==null && r[scale]!==undefined);
+  if(val < rows[0][scale] || val > rows[rows.length-1][scale]){
+    out.innerHTML = `Giá trị ngoài dải tham khảo (${rows[0][scale]}–${rows[rows.length-1][scale]} ${scale.toUpperCase()}).`;
+    return;
+  }
+  let lo = rows[0], hi = rows[rows.length-1];
+  for(let i=0;i<rows.length-1;i++){
+    if(val>=rows[i][scale] && val<=rows[i+1][scale]){ lo=rows[i]; hi=rows[i+1]; break; }
+  }
+  const t = hi[scale]===lo[scale] ? 0 : (val-lo[scale])/(hi[scale]-lo[scale]);
+  const lerp = (a,b)=> (a==null||b==null) ? null : (a+(b-a)*t);
+  const res = {
+    hrc: lerp(lo.hrc,hi.hrc), hra: lerp(lo.hra,hi.hra),
+    hb: lerp(lo.hb,hi.hb), hv: lerp(lo.hv,hi.hv), ts: lerp(lo.ts,hi.ts)
+  };
+  const fmt = (n,d=0)=> n==null ? '—' : n.toFixed(d);
+  out.innerHTML = `
+    <b>HRC:</b> ${fmt(res.hrc,1)} &nbsp; <b>HRA:</b> ${fmt(res.hra,1)} &nbsp;
+    <b>HB:</b> ${fmt(res.hb)} &nbsp; <b>HV:</b> ${fmt(res.hv)}<br>
+    <b>σb ước tính:</b> ${fmt(res.ts)} MPa`;
+}	
 </script>
 
 </body>
