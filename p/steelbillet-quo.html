@@ -3353,8 +3353,8 @@ function calcVLMetal(r){
 function refreshCellsMetal(r){
   const wR=calcRealMetal(r),wB=calcBilledMetal(r),vlT=calcVLMetal(r);
   const set=(id,v)=>{const el=$(id);if(el)el.textContent=v;};
-  set(`rm${r.id}-wt-real`,wR?fmtF(wR,1):'—');
-  set(`rm${r.id}-wt`,wB?fmtF(wB,1):'—');
+  set(`rm${r.id}-wt-real`,wR?fmtF(wR,2):'—');
+  set(`rm${r.id}-wt`,wB?fmtF(wB,2):'—');
   set(`rm${r.id}-vl`,vlT?fmt(vlT):'—');
   set(`rm${r.id}-total`,vlT?fmt(vlT):'—');
   // cập nhật rough-box hiển thị KL
@@ -3363,7 +3363,7 @@ function refreshCellsMetal(r){
     if((r.t||r.d)&&r.l){
       const diff=wR>0&&wB>wR?` <span style="font-size:8px;color:#e65100">(+${((wB/wR-1)*100).toFixed(1)}%)</span>`:'';
       rbox.style.display='block';
-      rbox.innerHTML=`📐 KL tinh: <b>${fmtF(wR,1)}</b> → KL phôi: <b>${fmtF(wB,1)}</b> kg${diff}`;
+      rbox.innerHTML=`📐 KL tinh: <b>${fmtF(wR,2)}</b> → KL phôi: <b>${fmtF(wB,2)}</b> kg${diff}`;
     } else {
       rbox.style.display='none';
     }
@@ -3418,8 +3418,8 @@ function renderSectionMetal(){
       <td><input type="text" value="${r.note}" placeholder="Mác / KH..." oninput="onInputMetal(${r.id},'note',this.value)"></td>
       <td>${dimHTML}${roughInfo}</td>
       <td class="td-sl"><input type="number" value="${r.qty||1}" min="1" step="1" oninput="onInputMetal(${r.id},'qty',this.value)"></td>
-      <td class="val col-real" id="rm${r.id}-wt-real">${wR?fmtF(wR,1):'—'}</td>
-      <td class="val-bc" id="rm${r.id}-wt">${wB?fmtF(wB,1):'—'}</td>
+      <td class="val col-real" id="rm${r.id}-wt-real">${wR?fmtF(wR,2):'—'}</td>
+      <td class="val-bc" id="rm${r.id}-wt">${wB?fmtF(wB,2):'—'}</td>
       <td><input type="number" value="${r.price||''}" placeholder="0" min="0" step="1000" oninput="onInputMetal(${r.id},'price',this.value)"></td>
       <td class="vl-cell" id="rm${r.id}-vl">${vlT?fmt(vlT):'—'}</td>
       <td class="val-total" id="rm${r.id}-total">${vlT?fmt(vlT):'—'}</td>
@@ -3440,7 +3440,7 @@ function getAllExportRows(){
     else if(r.type==='tru'){T_val=r.d?r.d:'';W_val='';L_val=r.l||'';shape='Trụ Ø';}
     else if(r.type==='luc'){T_val=r.s?r.s:'';W_val='';L_val=r.l||'';shape='Lục ⊿';}
     else{T_val=r.s?r.s:'';W_val='';L_val=r.l||'';shape='Bát ⊿';}
-    result.push({stt:stt++,grade:r.note||'',shape,T:T_val,W:W_val,L:L_val,qty:r.qty||1,price:r.price||0,weight:parseFloat(fmtF(wB,1)),vlCost:vlT,gcCost:gcT,htCost:htT,total:tot,note:r.userNote||''});
+    result.push({stt:stt++,grade:r.note||'',shape,T:T_val,W:W_val,L:L_val,qty:r.qty||1,price:r.price||0,weight:wB,vlCost:vlT,gcCost:gcT,htCost:htT,total:tot,note:r.userNote||''});
   });
   // Thêm hàng kim loại màu
   rowsMetal.forEach(r=>{
@@ -3457,7 +3457,7 @@ function getAllExportRows(){
       L:r.l||'',
       qty:r.qty||1,
       price:r.price||0,
-      weight:parseFloat(fmtF(wB,1)),
+      weight:wB,
       vlCost:vlT,gcCost:0,htCost:0,total:vlT,
       note:r.userNote||''
     });
@@ -3503,37 +3503,46 @@ function exportExcel(){
     ws.push(['STT','MÃ HÀNG','HÌNH DẠNG','T (mm)','W (mm)','L (mm)','SL','Đơn giá (đ/kg)',
       'KL phôi/cái (kg)','Tiền vật tư (đ)','Phí GC (đ)','Phí XL nhiệt (đ)','Thành tiền (đ)','Ghi chú']);
 
-    let sVL=0, sGC=0, sHT=0, sTotal=0;
-    exportRows.forEach(r=>{
-      sVL+=r.vlCost; sGC+=r.gcCost; sHT+=r.htCost; sTotal+=r.total;
-      ws.push([r.stt, r.grade, r.shape, r.T, r.W, r.L, r.qty, r.price,
-        r.weight, Math.round(r.vlCost), Math.round(r.gcCost), Math.round(r.htCost), Math.round(r.total), r.note]);
-    });
+    const r2 = n => Math.round((+n || 0) * 100) / 100;
 
-    const vatAmt = Math.round(sTotal * vatRate / 100);
-    const grand = sTotal + vatAmt;
+ws.length = 4; // giữ 4 dòng đầu (tiêu đề, KH, offer, dòng trống)
+ws.push(['STT','MÃ HÀNG','HÌNH DẠNG','T (mm)','W (mm)','L (mm)','SL','Đơn giá (đ/kg)',
+  'KL phôi/cái (kg)','KL phôi tổng (kg)','Tiền vật tư (đ)','Phí GC (đ)','Phí XL nhiệt (đ)','Thành tiền (đ)','Ghi chú']);
 
-    ws.push([]);
-    ws.push(['TỔNG CỘNG',,,,,,,,,Math.round(sVL),Math.round(sGC),Math.round(sHT),Math.round(sTotal),,'']);
-    ws.push([`VAT ${vatRate}%`,,,,,,,,,,,,vatAmt,,'']);
-    ws.push(['TỔNG THANH TOÁN',,,,,,,,,,,,grand,,'']);
+let sVL=0, sGC=0, sHT=0, sTotal=0, sWt=0;
+exportRows.forEach(r=>{
+  sVL+=r.vlCost; sGC+=r.gcCost; sHT+=r.htCost; sTotal+=r.total;
+  sWt += (r.weight||0) * (r.qty||1);          // cộng từ giá trị thô
+  ws.push([r.stt, r.grade, r.shape, r.T, r.W, r.L, r.qty, r.price,
+    r2(r.weight), r2((r.weight||0)*(r.qty||1)),
+    Math.round(r.vlCost), Math.round(r.gcCost), Math.round(r.htCost), Math.round(r.total), r.note]);
+});
 
-    const sheet = XLSX.utils.aoa_to_sheet(ws);
-    sheet['!cols'] = [{wch:5},{wch:14},{wch:10},{wch:9},{wch:9},{wch:9},{wch:6},{wch:12},{wch:12},{wch:13},{wch:11},{wch:12},{wch:13},{wch:18}];
+const vatAmt = Math.round(sTotal * vatRate / 100);
+const grand = sTotal + vatAmt;
 
-    const headerRowIdx = 4;
-    const dataStart = headerRowIdx + 1;
-    const dataEnd = dataStart + exportRows.length - 1;
-    const totalRowIdx = dataEnd + 2;
-    const vatRowIdx = totalRowIdx + 1;
-    const grandRowIdx = totalRowIdx + 2;
+ws.push([]);
+ws.push(['TỔNG CỘNG',,,,,,,,, r2(sWt), Math.round(sVL), Math.round(sGC), Math.round(sHT), Math.round(sTotal), '']);
+ws.push([`VAT ${vatRate}%`,,,,,,,,,,,,, vatAmt, '']);
+ws.push(['TỔNG THANH TOÁN',,,,,,,,,,,,, grand, '']);
 
-    sheet['!merges'] = [
-      {s:{r:0,c:0}, e:{r:0,c:13}},
-      {s:{r:totalRowIdx,c:0}, e:{r:totalRowIdx,c:8}},
-      {s:{r:vatRowIdx,c:0}, e:{r:vatRowIdx,c:11}},
-      {s:{r:grandRowIdx,c:0}, e:{r:grandRowIdx,c:11}},
-    ];
+const sheet = XLSX.utils.aoa_to_sheet(ws);
+sheet['!cols'] = [{wch:5},{wch:14},{wch:10},{wch:9},{wch:9},{wch:9},{wch:6},{wch:12},
+                  {wch:12},{wch:13},{wch:13},{wch:11},{wch:12},{wch:13},{wch:18}];
+
+const headerRowIdx = 4;
+const dataStart = headerRowIdx + 1;
+const dataEnd = dataStart + exportRows.length - 1;
+const totalRowIdx = dataEnd + 2;
+const vatRowIdx = totalRowIdx + 1;
+const grandRowIdx = totalRowIdx + 2;
+
+sheet['!merges'] = [
+  {s:{r:0,c:0}, e:{r:0,c:14}},
+  {s:{r:totalRowIdx,c:0}, e:{r:totalRowIdx,c:8}},
+  {s:{r:vatRowIdx,c:0}, e:{r:vatRowIdx,c:12}},
+  {s:{r:grandRowIdx,c:0}, e:{r:grandRowIdx,c:12}},
+];
 
     XLSX.utils.book_append_sheet(wb, sheet, 'Bao gia ATP');
     XLSX.writeFile(wb, `BaoGia_ATP_${ciOfferNo||'draft'}_${dateStr.replace(/\//g,'-')}.xlsx`);
@@ -3798,7 +3807,7 @@ function exportPDF(){
       <td class="num">${r.L||''}</td>
       <td class="ctr">${r.qty}</td>
       <td class="num">${r.price?fmt(r.price):''}</td>
-      <td class="num">${r.weight?(r.weight*r.qty).toFixed(1):''}</td>
+      <td class="num">${r.weight?(r.weight*r.qty).toFixed(2):''}</td>
       <td class="num">${r.vlCost?fmt(r.vlCost):''}</td>
       <td class="num">${gcHtTotal?fmt(gcHtTotal):''}</td>
       <td class="num bold">${r.total?fmt(r.total):''}</td>
@@ -3929,7 +3938,7 @@ function exportPDF(){
     <tr><td colspan="12" style="padding:2px;border:none;background:transparent"></td></tr>
     <tr class="sum-row">
       <td colspan="7" class="bold" style="text-align:right;padding-right:8px">TỔNG CỘNG</td>
-      <td class="num bold" style="color:#e65100">${totalBilledWt.toFixed(1)} kg</td>
+      <td class="num bold" style="color:#e65100">${totalBilledWt.toFixed(2)} kg</td>
       <td class="num">${fmt(totalVL)}</td>
       <td class="num">${fmt(totalGC)}</td>
       <td class="num">${fmt(totalAmt)}</td>
@@ -3997,9 +4006,9 @@ function updateRoughDOM(r,k){
   const diff=wR>0&&wB>wR?`<span class="kl-diff">+${((wB/wR-1)*100).toFixed(1)}%</span>`:'';
   // Sync KL phôi chip (ri-kl ô)
   const klMain=$(`r${r.id}-kl-main`);
-  if(klMain)klMain.innerHTML=wB?`${fmtF(wB,1)} kg${diff?` <span class="kl-diff">${diff}</span>`:''}`:' —';
+  if(klMain)klMain.innerHTML=wB?`${fmtF(wB,2)} kg${diff?` <span class="kl-diff">${diff}</span>`:''}`:' —';
   const klSub=$(`r${r.id}-kl-sub`);
-  if(klSub)klSub.textContent=`× ${r.qty||1} = ${wB?fmtF(wB*(r.qty||0),1)+' kg':'—'}`;
+  if(klSub)klSub.textContent=`× ${r.qty||1} = ${wB?fmtF(wB*(r.qty||0),2)+' kg':'—'}`;
   markStdRough(r,k);   // ← thêm dòng này ở cuối
 }
 function _rebuildPanelBody(r,k){
@@ -4035,8 +4044,8 @@ function buildGCPanel(r,k){
   // KL phôi chip — cùng hàng với dim items
   const klChip=`<div class="rough-item ri-kl" id="r${r.id}-rough-kl">
     <div class="ri-label">📐 KL phôi</div>
-    <div class="ri-kl-main" id="r${r.id}-kl-main">${wB?fmtF(wB,1)+' kg':'—'} ${diff?`<span class="kl-diff">${diff}</span>`:''}</div>
-    <div class="ri-kl-sub" id="r${r.id}-kl-sub">× ${r.qty||1} = ${wB?fmtF(wB*(r.qty||0),1)+' kg':'—'}</div>
+    <div class="ri-kl-main" id="r${r.id}-kl-main">${wB?fmtF(wB,2)+' kg':'—'} ${diff?`<span class="kl-diff">${diff}</span>`:''}</div>
+    <div class="ri-kl-sub" id="r${r.id}-kl-sub">× ${r.qty||1} = ${wB?fmtF(wB*(r.qty||0),2)+' kg':'—'}</div>
   </div>`;
   let html=`<div class="rough-panel">
     <div class="rough-panel-title">📐 KT thô ${warnEl}<span class="rp-hint" style="${anyOvr?'display:none':''}">Để trống = auto</span></div>
@@ -4095,7 +4104,7 @@ function refreshCells(r,k){
   const tot=vlT+gcT+htT,qc=isQuoteCut(r),floorLbl=getVLFloorLabel(r,k);
   const e=getEffRough(r,k),anyOvr=hasAnyOverride(r);
   const set=(id,v)=>{const el=$(id);if(el)el.textContent=v;};
-  set(`r${r.id}-wt-real`,wR?fmtF(wR,1):'—');set(`r${r.id}-wt-billed`,wB?fmtF(wB,1):'—');
+  set(`r${r.id}-wt-real`,wR?fmtF(wR,2):'—');set(`r${r.id}-wt-billed`,wB?fmtF(wB,2):'—');
   set(`r${r.id}-gc`,gcT?fmt(gcT):'—');set(`r${r.id}-ht`,htT?fmt(htT):'—');set(`r${r.id}-total`,tot?fmt(tot):'—');
   const vlEl=$(`r${r.id}-vl`);if(vlEl){vlEl.innerHTML=vlT?`${fmt(vlT)}${floorLbl?`<span class="rule-min">${floorLbl}</span>`:''}`:'—';vlEl.className='vl-cell'+(floorLbl?' rule-ok':'');}
   const rbox=$(`r${r.id}-rough`);
@@ -4104,7 +4113,7 @@ function refreshCells(r,k){
     let c='📐 ';
     if(r.type==='tam')c+=`${e.ot?'✏':''}${fmtD(e.t)}×${e.ow?'✏':''}${fmtD(e.w)}×${e.ol?'✏':''}${fmtD(e.l)} mm`;
     else{const sv=e.d||e.s||0;c+=`${r.type==='tru'?'Ø':'S⊿'}${e.od||e.os?'✏':''}${fmtD(sv)}×${e.ol?'✏':''}${fmtD(e.l)} mm`;}
-    c+=` → <b>${fmtF(wB,1)} kg</b>`;rbox.innerHTML=c;rbox.title='Mở ⚙ để chỉnh kích thước thô';
+    c+=` → <b>${fmtF(wB,2)} kg</b>`;rbox.innerHTML=c;rbox.title='Mở ⚙ để chỉnh kích thước thô';
   }else if(rbox)rbox.classList.remove('show');
   const re=$(`r${r.id}-cutrule`);if(re){const cr=getCutRule(r);if(cr){re.textContent=cr.text;re.className='cut-rule '+cr.cls;re.style.display='';}else re.style.display='none';}
   const cat=getCat(r.note);const bg=$(`r${r.id}-badge`);if(bg){bg.textContent=cat?CAT_LABEL[cat]:'';bg.className='cat-badge'+(cat?' cat-'+cat.toLowerCase():'');}
@@ -4183,7 +4192,7 @@ function buildCard(r,k){
   let sh='';if(st)sh=r.type==='tam'?`Tấm:${st.tam.w}×${st.tam.l}mm`:`Thanh:${st.tru.l}mm`;
   const opts=[{v:'tam',e:'🟦 Tấm'},{v:'tru',e:'🔵 Trụ tròn'},{v:'luc',e:'🔷 Lục giác'},{v:'bat',e:'🔸 Bát giác'}].map(o=>`<option value="${o.v}"${r.type===o.v?' selected':''}>${o.e}</option>`).join('');
   const vlHTML=vlT?`${fmt(vlT)}${floorLbl?`<span class="rule-min">${floorLbl}</span>`:''}`:' —';
-  const billedHTML=wB?fmtF(wB,1)+' kg':'—';
+  const billedHTML=wB?fmtF(wB,2)+' kg':'—';
 
   const div=document.createElement('div');
   div.className='row-card';div.setAttribute('data-id',r.id);
@@ -4244,7 +4253,7 @@ function refreshCellsCard(r,k){
   const set=(id,v)=>{const el=document.getElementById(id);if(el)el.innerHTML=v;};
 
   // KL phôi
-  const billedHTML=wB?fmtF(wB,1)+' kg':'—';
+  const billedHTML=wB?fmtF(wB,2)+' kg':'—';
   set(`rcc${r.id}-wt-billed`,billedHTML);
 
   // Tiền VL
@@ -4263,7 +4272,7 @@ function refreshCellsCard(r,k){
     let c='📐 ';
     if(r.type==='tam')c+=`${e.ot?'✏':''}${fmtD(e.t)}×${e.ow?'✏':''}${fmtD(e.w)}×${e.ol?'✏':''}${fmtD(e.l)} mm`;
     else{const sv=e.d||e.s||0;c+=`${r.type==='tru'?'Ø':'S⊿'}${e.od||e.os?'✏':''}${fmtD(sv)}×${e.ol?'✏':''}${fmtD(e.l)} mm`;}
-    c+=` → <b>${fmtF(wB,1)} kg</b>`;rbox.innerHTML=c;
+    c+=` → <b>${fmtF(wB,2)} kg</b>`;rbox.innerHTML=c;
   }else if(rbox)rbox.classList.remove('show');
 
   // Cut rule badge
@@ -4369,7 +4378,7 @@ function renderCardListMetal(){
         <div class="rc-field"><div class="rc-lbl">Số lượng</div><input type="number" value="${r.qty||1}" min="1" step="1" inputmode="numeric" oninput="onInputMetal(${r.id},'qty',this.value)"></div>
         <div class="rc-field"><div class="rc-lbl">Đơn giá (đ/kg)</div><input type="number" value="${r.price||''}" placeholder="0" min="0" step="1000" inputmode="numeric" oninput="onInputMetal(${r.id},'price',this.value)"></div>
         <div class="rc-vals-row">
-          <div class="rc-val-chip"><div class="rc-val-chip-lbl">KL phôi/cái</div><div class="rc-val-chip-val" id="rcm${r.id}-wt">${wB?fmtF(wB,1)+' kg':'—'}</div></div>
+          <div class="rc-val-chip"><div class="rc-val-chip-lbl">KL phôi/cái</div><div class="rc-val-chip-val" id="rcm${r.id}-wt">${wB?fmtF(wB,2)+' kg':'—'}</div></div>
           <div class="rc-val-chip chip-vl"><div class="rc-val-chip-lbl">Tiền VL</div><div class="rc-val-chip-val" id="rcm${r.id}-vl">${vlT?fmt(vlT):'—'}</div></div>
         </div>
         <div class="rc-total-row">
@@ -4384,7 +4393,7 @@ function renderCardListMetal(){
       if(rbox&&(r.t||r.d)&&r.l){
         const diff=wR>0&&wB>wR?` (+${((wB/wR-1)*100).toFixed(1)}%)`:'';
         rbox.style.display='block';
-        rbox.textContent=`📐 KL tinh: ${fmtF(wR,1)} → KL phôi: ${fmtF(wB,1)} kg${diff}`;
+        rbox.textContent=`📐 KL tinh: ${fmtF(wR,2)} → KL phôi: ${fmtF(wB,2)} kg${diff}`;
       }
     },0);
   });
@@ -4407,8 +4416,8 @@ function renderSection(k){
       <td><input list="mac-thep" value="${r.note}" placeholder="Mác thép..." oninput="onInput(${r.id},${k},'note',this.value)"><div><span class="cat-badge${cat?' cat-'+cat.toLowerCase():''}" id="r${r.id}-badge" onclick="toggleStockHint(this)">${cl}</span><div class="stock-hint" id="r${r.id}-hint">${sh}</div></div></td>
       <td>${dimCell(r)}</td>
       <td class="td-sl"><input type="number" value="${r.qty||1}" min="1" step="1" oninput="onInput(${r.id},${k},'qty',this.value)"></td>
-      <td class="val col-real" id="r${r.id}-wt-real">${wR?fmtF(wR,1):'—'}</td>
-      <td class="${vbc(k)}" id="r${r.id}-wt-billed">${wB?fmtF(wB,1):'—'}</td>
+      <td class="val col-real" id="r${r.id}-wt-real">${wR?fmtF(wR,2):'—'}</td>
+      <td class="${vbc(k)}" id="r${r.id}-wt-billed">${wB?fmtF(wB,2):'—'}</td>
       <td><input type="number" value="${r.price||''}" placeholder="0" min="0" step="1000" oninput="onInput(${r.id},${k},'price',this.value)"></td>
       <td class="vl-cell${floorLbl?' rule-ok':''}" id="r${r.id}-vl">${vlHTML}</td>
       <td class="val-gc" id="r${r.id}-gc">${gcT?fmt(gcT):'—'}</td>
