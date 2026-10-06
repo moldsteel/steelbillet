@@ -199,8 +199,13 @@ nav.main-nav a:hover{color:var(--white);}
   padding:22px 20px;transition:border-color .18s ease, transform .18s ease;
 }
 .grade-card:hover{border-color:var(--accent);transform:translateY(-3px);}
-.grade-card .code{font-family:var(--font-head);font-weight:800;font-size:1.3rem;color:var(--steel-900);}
-.grade-card .use{font-size:.86rem;color:var(--ink-soft);margin-top:6px;line-height:1.45;}
+.grade-card .cat{font-family:var(--font-cta);font-weight:700;font-size:.7rem;letter-spacing:.07em;text-transform:uppercase;color:var(--steel-600);margin-bottom:10px;}
+.grade-card .code{font-family:var(--font-head);font-weight:800;font-size:1.2rem;color:var(--steel-900);line-height:1.3;}
+.grade-card .badge{display:inline-block;margin-top:10px;padding:4px 13px;border-radius:999px;background:rgba(47,107,79,.12);color:#2f6b4f;font-family:var(--font-cta);font-weight:700;font-size:.72rem;}
+.grade-card .use{font-size:.86rem;color:var(--ink-soft);margin-top:12px;line-height:1.5;}
+
+.section-head .accent{color:var(--accent-dark);}
+.section-head .rule{display:block;width:46px;height:3px;background:var(--accent);border-radius:2px;margin-top:16px;}
 
 .service-row{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;}
 .service-card{
@@ -215,9 +220,15 @@ nav.main-nav a:hover{color:var(--white);}
 .service-card p{color:#c3cbd6;font-size:.95rem;margin:0;max-width:44ch;}
 .service-card .icon{width:46px;height:46px;border-radius:12px;background:rgba(255,106,53,.18);display:flex;align-items:center;justify-content:center;color:var(--accent);}
 
+@media (max-width:1100px){
+  .grade-grid{grid-template-columns:repeat(3,1fr);}
+}
 @media (max-width:940px){
   .grade-grid{grid-template-columns:repeat(2,1fr);}
   .service-row{grid-template-columns:1fr;}
+}
+@media (max-width:540px){
+  .grade-grid{grid-template-columns:1fr;}
 }
 
 /* ============================================================
@@ -456,20 +467,84 @@ footer.site a:hover{color:var(--white);}
 <section class="section" id="san-pham">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">Mác thép chủ lực</span>
-      <h2>Đủ mác, đủ quy cách, sẵn kho</h2>
-      <p>Các <a href="2026/05/bang-tra-cuu-mac-thep-khuon-mau.html">mác thép khuôn mẫu &amp; thép dụng cụ</a> được nhập khẩu và kiểm định trước khi lên kho, đi kèm chứng chỉ vật liệu.</p>
+      <span class="eyebrow">Danh mục sản phẩm</span>
+      <h2>Thép <span class="accent">khuôn mẫu</span> &amp; thép đặc biệt</h2>
+      <span class="rule"></span>
     </div>
 
     <div class="grade-grid">
-      <div class="grade-card"><div class="code">SKD11</div><div class="use">Thép khuôn dập nguội, độ cứng cao, chống mài mòn</div></div>
-      <div class="grade-card"><div class="code">SKD61 / H13</div><div class="use">Khuôn ép nhựa, khuôn đúc áp lực chịu nhiệt</div></div>
-      <div class="grade-card"><div class="code">NAK80</div><div class="use">Khuôn nhựa yêu cầu độ bóng gương cao</div></div>
-      <div class="grade-card"><div class="code">P20 / 718H</div><div class="use">Thân khuôn nhựa thông dụng, dễ gia công</div></div>
-      <div class="grade-card"><div class="code">S136</div><div class="use">Khuôn nhựa chống ăn mòn, khuôn y tế/thực phẩm</div></div>
-      <div class="grade-card"><div class="code">SCM440</div><div class="use">Trục, bulong cường lực, chi tiết chịu tải</div></div>
-      <div class="grade-card"><div class="code">Q235B</div><div class="use">Thép tấm kết cấu, gia công cơ khí phổ thông</div></div>
-      <div class="grade-card"><div class="code">DC53</div><div class="use">Khuôn dập nguội độ bền cao, dao cắt tôn dày</div></div>
+      <div class="grade-card">
+        <div class="cat">Thép carbon</div>
+        <div class="code">S45C / S50C / S55C</div>
+        <div class="badge">25–55 HRC</div>
+        <div class="use">Vỏ khuôn, trục, bánh răng, bulong chịu lực, chi tiết ô tô. Tấm 4–500mm, tròn 18–200mm.</div>
+      </div>
+      <div class="grade-card">
+        <div class="cat">Khuôn nhựa</div>
+        <div class="code">P20 / 1.2311H</div>
+        <div class="badge">30–33 HRC sẵn</div>
+        <div class="use">Khuôn ép phun nhựa gia dụng, khuôn thổi nhựa, khuôn ép nén Melamine. Tấm 10–300mm.</div>
+      </div>
+      <div class="grade-card">
+        <div class="cat">Khuôn nhựa</div>
+        <div class="code">718H</div>
+        <div class="badge">32–36 HRC sẵn</div>
+        <div class="use">Khuôn nhựa kích thước lớn (PA, POM, ABS, PP). Bóng gương tốt. Tấm 50–400mm.</div>
+      </div>
+      <div class="grade-card">
+        <div class="cat">Khuôn nhựa</div>
+        <div class="code">1.2083H / S136H</div>
+        <div class="badge">28–50 HRC</div>
+        <div class="use">Thép không rỉ, khuôn nhựa ăn mòn (PVC, PMMA), quang học, y tế. Tấm 6–300mm, tròn 18–300mm.</div>
+      </div>
+      <div class="grade-card">
+        <div class="cat">Khuôn nhựa</div>
+        <div class="code">NAK80 / P80</div>
+        <div class="badge">36–43 HRC sẵn</div>
+        <div class="use">Bóng gương cực cao, khuôn đồ gia dụng cao cấp, thấm nitơ tốt. Tấm 20–300mm.</div>
+      </div>
+      <div class="grade-card">
+        <div class="cat">Khuôn nhựa</div>
+        <div class="code">1.2316H / 1.2738</div>
+        <div class="badge">32–36 HRC sẵn</div>
+        <div class="use">Chống ăn mòn tuyệt đối (pH&lt;5), khuôn CA, POM. Hiệu ứng gương quang học. Tấm 20–300mm.</div>
+      </div>
+      <div class="grade-card">
+        <div class="cat">Khuôn dập nguội</div>
+        <div class="code">SKD11 / D2</div>
+        <div class="badge">60–64 HRC</div>
+        <div class="use">Khuôn dập, dao cắt tôn, khuôn đột lỗ, dao xả băng inox. Tròn ø10–400mm, tấm 6–200mm.</div>
+      </div>
+      <div class="grade-card">
+        <div class="cat">Khuôn dập nguội</div>
+        <div class="code">Cr12MoV / DC53</div>
+        <div class="badge">58–64 HRC</div>
+        <div class="use">Khuôn dập liên hoàn, khuôn cắt dây, cán ren. DC53 ít vỡ khi cắt dây EDM. Tấm &amp; tròn.</div>
+      </div>
+      <div class="grade-card">
+        <div class="cat">Khuôn dập nóng</div>
+        <div class="code">SKD61 / 1.2344</div>
+        <div class="badge">45–54 HRC</div>
+        <div class="use">Khuôn đúc nhôm, khuôn đùn nhôm định hình, khuôn ép nhiệt linh kiện xe máy, ô tô. Tấm &amp; tròn.</div>
+      </div>
+      <div class="grade-card">
+        <div class="cat">Khuôn dập nóng</div>
+        <div class="code">1.8418 / DK1S / FDAC</div>
+        <div class="badge">Cao cấp</div>
+        <div class="use">Khuôn đúc nhôm cao cấp cho linh kiện ô tô, xe máy, đèn LED. Độ bền nhiệt vượt trội.</div>
+      </div>
+      <div class="grade-card">
+        <div class="cat">Thép công cụ</div>
+        <div class="code">SCM440</div>
+        <div class="badge">25–55 HRC</div>
+        <div class="use">Bánh răng, trục, khuôn nhựa trung–lớn, chi tiết máy chịu lực. Tấm 20–100mm, tròn 20–200mm.</div>
+      </div>
+      <div class="grade-card">
+        <div class="cat">Thép cao tốc (thép gió HSS)</div>
+        <div class="code">SKH9 / SKH51</div>
+        <div class="badge">60–65 HRC</div>
+        <div class="use">Dao phay, dao tiện, dao cắt thép, dụng cụ gia công CNC chịu nhiệt độ cao.</div>
+      </div>
     </div>
 
     <div id="dich-vu" class="service-row">
